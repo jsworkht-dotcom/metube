@@ -6,8 +6,8 @@ import { FormsModule } from "@angular/forms";
     selector: 'app-select-all-checkbox',
     template: `
   <div class="form-check">
-    <input type="checkbox" class="form-check-input" id="{{id()}}-select-all" #masterCheckbox [(ngModel)]="selected" (change)="clicked()" [attr.aria-label]="'Select all ' + id() + ' items'">
-    <label class="form-check-label visually-hidden" for="{{id()}}-select-all">Select all</label>
+    <input type="checkbox" class="form-check-input" id="{{id()}}-select-all" #masterCheckbox [(ngModel)]="selected" (change)="clicked()" [attr.aria-label]="id() + ' の項目をすべて選択'">
+    <label class="form-check-label visually-hidden" for="{{id()}}-select-all">すべて選択</label>
   </div>
 `,
 imports: [

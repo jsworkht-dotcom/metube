@@ -5,17 +5,17 @@ import { Theme } from "./interfaces/theme";
 export const Themes: Theme[] = [
   {
     id: 'light',
-    displayName: 'Light',
+    displayName: 'ライト',
     icon: faSun,
   },
   {
     id: 'dark',
-    displayName: 'Dark',
+    displayName: 'ダーク',
     icon: faMoon,
   },
   {
     id: 'auto',
-    displayName: 'Auto',
+    displayName: '自動',
     icon: faCircleHalfStroke,
   },
 ];

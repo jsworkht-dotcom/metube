@@ -1,32 +1,32 @@
 <nav class="navbar navbar-expand-md navbar-dark">
   <div class="container-fluid">
     <a class="navbar-brand d-flex align-items-center" href="#">
-      <img src="assets/icons/android-chrome-192x192.png" alt="MeTube Logo" height="32" class="me-2">
+      <img src="assets/icons/android-chrome-192x192.png" alt="MeTube ロゴ" height="32" class="me-2">
       MeTube
     </a>
     <div class="download-metrics">
       @if (activeDownloads > 0) {
         <div class="metric">
           <fa-icon [icon]="faDownload" class="text-primary" />
-          <span>{{activeDownloads}} downloading</span>
+          <span>{{activeDownloads}}件 保存中</span>
         </div>
       }
       @if (queuedDownloads > 0) {
         <div class="metric">
           <fa-icon [icon]="faClock" class="text-warning" />
-          <span>{{queuedDownloads}} queued</span>
+          <span>{{queuedDownloads}}件 待機中</span>
         </div>
       }
       @if (completedDownloads > 0) {
         <div class="metric">
           <fa-icon [icon]="faCheck" class="text-success" />
-          <span>{{completedDownloads}} completed</span>
+          <span>{{completedDownloads}}件 完了</span>
         </div>
       }
       @if (failedDownloads > 0) {
         <div class="metric">
           <fa-icon [icon]="faTimesCircle" class="text-danger" />
-          <span>{{failedDownloads}} failed</span>
+          <span>{{failedDownloads}}件 失敗</span>
         </div>
       }
       @if ((totalSpeed | speed) !== '') {
@@ -93,38 +93,38 @@
             @if (addInProgress && cancelRequested) {
               <button class="btn btn-warning btn-lg px-3" type="button" disabled>
                 <span class="spinner-border spinner-border-sm me-1" role="status"></span>
-                Canceling...
+                キャンセル中...
               </button>
             } @else if (addInProgress) {
               <button class="btn btn-secondary btn-lg px-3 add-progress-btn" type="button" disabled>
                 <span class="spinner-border spinner-border-sm me-2" role="status"></span>
-                Adding...
+                追加中...
               </button>
               <button class="btn btn-outline-danger btn-lg px-3 add-cancel-btn"
                 type="button"
                 (click)="cancelAdding()"
-                aria-label="Cancel adding URL"
-                title="Cancel adding URL">
-                <fa-icon [icon]="faTimesCircle" class="me-1" /> Cancel
+                aria-label="URL追加をキャンセル"
+                title="URL追加をキャンセル">
+                <fa-icon [icon]="faTimesCircle" class="me-1" /> キャンセル
               </button>
             } @else if (subscribeInProgress) {
               <button class="btn btn-primary btn-lg px-4" type="button" disabled>
-                Download
+                保存
               </button>
               <button class="btn btn-outline-secondary btn-lg px-3" type="button" disabled>
                 <span class="spinner-border spinner-border-sm me-2" role="status"></span>
-                Subscribing...
+                登録中...
               </button>
             } @else {
               <button class="btn btn-primary btn-lg px-4" type="submit"
                 (click)="addDownload()"
                 [disabled]="downloads.loading">
-                Download
+                保存
               </button>
               <button class="btn btn-outline-secondary btn-lg px-3" type="button"
                 (click)="addSubscription()"
                 [disabled]="downloads.loading">
-                Subscribe
+                自動取得登録
               </button>
             }
           </ng-template>
@@ -135,11 +135,11 @@
               autocomplete="off"
               spellcheck="false"
               class="form-control form-control-lg"
-              placeholder="Enter video, channel, or playlist URL"
+              placeholder="動画・チャンネル・プレイリストのURLを入力"
               [(ngModel)]="addUrl"
               [ngModelOptions]="{standalone: true}"
               [disabled]="addInProgress || subscribeInProgress || downloads.loading">
-            <div class="btn-group w-100" role="group" aria-label="Download or subscribe">
+            <div class="btn-group w-100" role="group" aria-label="保存または自動取得登録">
               <ng-container [ngTemplateOutlet]="urlBarActions" />
             </div>
           </div>
@@ -150,7 +150,7 @@
               autocomplete="off"
               spellcheck="false"
               class="form-control form-control-lg"
-              placeholder="Enter video, channel, or playlist URL"
+              placeholder="動画・チャンネル・プレイリストのURLを入力"
               [(ngModel)]="addUrl"
               [ngModelOptions]="{standalone: true}"
               [disabled]="addInProgress || subscribeInProgress || downloads.loading">
@@ -164,7 +164,7 @@
         @if (downloadType === 'video') {
           <div class="col-md-3">
             <div class="input-group">
-              <span class="input-group-text">Type</span>
+              <span class="input-group-text">種類</span>
               <select class="form-select"
                 name="downloadType"
                 [(ngModel)]="downloadType"
@@ -178,7 +178,7 @@
           </div>
           <div class="col-md-3">
             <div class="input-group">
-              <span class="input-group-text">Codec</span>
+              <span class="input-group-text">コーデック</span>
               <select class="form-select"
                 name="codec"
                 [(ngModel)]="codec"
@@ -192,7 +192,7 @@
           </div>
           <div class="col-md-3">
             <div class="input-group">
-              <span class="input-group-text">Format</span>
+              <span class="input-group-text">形式</span>
               <select class="form-select"
                 name="format"
                 [(ngModel)]="format"
@@ -206,7 +206,7 @@
           </div>
           <div class="col-md-3">
             <div class="input-group">
-              <span class="input-group-text">Quality</span>
+              <span class="input-group-text">画質</span>
               <select class="form-select"
                 name="quality"
                 [(ngModel)]="quality"
@@ -221,7 +221,7 @@
         } @else if (downloadType === 'audio') {
           <div class="col-md-4">
             <div class="input-group">
-              <span class="input-group-text">Type</span>
+              <span class="input-group-text">種類</span>
               <select class="form-select"
                 name="downloadType"
                 [(ngModel)]="downloadType"
@@ -235,7 +235,7 @@
           </div>
           <div class="col-md-4">
             <div class="input-group">
-              <span class="input-group-text">Format</span>
+              <span class="input-group-text">形式</span>
               <select class="form-select"
                 name="format"
                 [(ngModel)]="format"
@@ -249,7 +249,7 @@
           </div>
           <div class="col-md-4">
             <div class="input-group">
-              <span class="input-group-text">Quality</span>
+              <span class="input-group-text">画質</span>
               <select class="form-select"
                 name="quality"
                 [(ngModel)]="quality"
@@ -265,7 +265,7 @@
           <!-- 4× col-md-3 is too tight at ~768px (long addons wrap the 4th field); 2×2 md–lg, one row lg+ -->
           <div class="col-12 col-md-6 col-lg-3">
             <div class="input-group">
-              <span class="input-group-text">Type</span>
+              <span class="input-group-text">種類</span>
               <select class="form-select"
                 name="downloadType"
                 [(ngModel)]="downloadType"
@@ -279,7 +279,7 @@
           </div>
           <div class="col-12 col-md-6 col-lg-3">
             <div class="input-group">
-              <span class="input-group-text help-title" ngbPopover="Subtitle output format for captions mode." triggers="click" autoClose="outside" container="body">Format</span>
+              <span class="input-group-text help-title" ngbPopover="字幕モードで出力する字幕ファイルの形式です。" triggers="click" autoClose="outside" container="body">形式</span>
               <select class="form-select"
                 name="format"
                 [(ngModel)]="format"
@@ -293,7 +293,7 @@
           </div>
           <div class="col-12 col-md-6 col-lg-3">
             <div class="input-group">
-              <span class="input-group-text help-title" ngbPopover="Subtitle language (you can type any language code)." triggers="click" autoClose="outside" container="body">Language</span>
+              <span class="input-group-text help-title" ngbPopover="字幕の言語コードを入力できます。" triggers="click" autoClose="outside" container="body">言語</span>
               <input class="form-control"
                 type="text"
                 list="subtitleLanguageOptions"
@@ -301,7 +301,7 @@
                 [(ngModel)]="subtitleLanguage"
                 (change)="subtitleLanguageChanged()"
                 [disabled]="addInProgress || subscribeInProgress || downloads.loading"
-                placeholder="e.g. en, es, zh-Hans">
+                placeholder="例: en, es, zh-Hans">
               <datalist id="subtitleLanguageOptions">
                 @for (lang of subtitleLanguages; track lang.id) {
                   <option [value]="lang.id">{{ lang.text }}</option>
@@ -311,7 +311,7 @@
           </div>
           <div class="col-12 col-md-6 col-lg-3">
             <div class="input-group">
-              <span class="input-group-text help-title" ngbPopover="Choose manual, auto, or fallback preference for captions mode." triggers="click" autoClose="outside" container="body">Subtitle Source</span>
+              <span class="input-group-text help-title" ngbPopover="手動字幕、自動字幕、または優先順を選びます。" triggers="click" autoClose="outside" container="body">字幕の種類</span>
               <select class="form-select"
                 name="subtitleMode"
                 [(ngModel)]="subtitleMode"
@@ -326,7 +326,7 @@
         } @else {
           <div class="col-md-6">
             <div class="input-group">
-              <span class="input-group-text">Type</span>
+              <span class="input-group-text">種類</span>
               <select class="form-select"
                 name="downloadType"
                 [(ngModel)]="downloadType"
@@ -340,7 +340,7 @@
           </div>
           <div class="col-md-6">
             <div class="input-group">
-              <span class="input-group-text">Format</span>
+              <span class="input-group-text">形式</span>
               <input class="form-control" value="JPG" disabled>
             </div>
           </div>
@@ -354,7 +354,7 @@
             (click)="toggleAdvanced()"
             [attr.aria-expanded]="isAdvancedOpen"
             aria-controls="advancedOptions">
-            Advanced Options
+            詳細設定
             <fa-icon
               [icon]="isAdvancedOpen ? faChevronDown : faChevronRight"
               class="ms-1" />
@@ -368,14 +368,14 @@
           <div class="collapse show" id="advancedOptions" [ngbCollapse]="!isAdvancedOpen">
             <div class="pt-1 pb-2">
               <!-- Output -->
-              <div class="settings-section-label">Output</div>
+              <div class="settings-section-label">保存先</div>
               <div class="row g-3">
                 <div class="col-md-6">
                   <div class="input-group">
-                    <span class="input-group-text help-title" ngbPopover="Type to filter existing folders, or enter a new folder name." triggers="click" autoClose="outside" container="body">Download Folder</span>
+                    <span class="input-group-text help-title" ngbPopover="既存フォルダを絞り込むか、新しいフォルダ名を入力します。" triggers="click" autoClose="outside" container="body">保存フォルダ</span>
                     <input type="text"
                       class="form-control"
-                      placeholder="Default"
+                      placeholder="既定"
                       name="folder"
                       [(ngModel)]="folder"
                       [ngbTypeahead]="searchFolder"
@@ -388,10 +388,10 @@
                 </div>
                 <div class="col-md-6">
                   <div class="input-group">
-                    <span class="input-group-text help-title" ngbPopover="Add a prefix to downloaded filenames." triggers="click" autoClose="outside" container="body">Custom Name Prefix</span>
+                    <span class="input-group-text help-title" ngbPopover="保存するファイル名の先頭に付ける文字列です。" triggers="click" autoClose="outside" container="body">ファイル名の先頭</span>
                     <input type="text"
                       class="form-control"
-                      placeholder="Default"
+                      placeholder="既定"
                       name="customNamePrefix"
                       [(ngModel)]="customNamePrefix"
                       [disabled]="addInProgress || subscribeInProgress || downloads.loading">
@@ -404,13 +404,13 @@
                         <input class="form-check-input" type="checkbox" role="switch" id="checkbox-split-chapters"
                           name="splitByChapters" [(ngModel)]="splitByChapters" (change)="splitByChaptersChanged()"
                           [disabled]="addInProgress || subscribeInProgress || downloads.loading">
-                        <label class="form-check-label" for="checkbox-split-chapters">Split by chapters</label>
+                        <label class="form-check-label" for="checkbox-split-chapters">チャプターごとに分割</label>
                       </div>
                     </div>
                     @if (splitByChapters) {
                     <div class="col">
                       <div class="input-group">
-                        <span class="input-group-text help-title" ngbPopover="Output template for chapter files." triggers="click" autoClose="outside" container="body">Template</span>
+                        <span class="input-group-text help-title" ngbPopover="チャプターファイル用の出力テンプレートです。" triggers="click" autoClose="outside" container="body">テンプレート</span>
                         <input type="text" class="form-control" name="chapterTemplate" [(ngModel)]="chapterTemplate"
                           (change)="chapterTemplateChanged()" [disabled]="addInProgress || subscribeInProgress || downloads.loading">
                       </div>
@@ -421,25 +421,25 @@
                 @if (downloadType === 'video' || downloadType === 'audio') {
                 <div class="col-md-6">
                   <div class="input-group">
-                    <span class="input-group-text help-title" ngbPopover="Optional start time (seconds, M:SS, or H:MM:SS). Blank = from start or YouTube &t= in URL." triggers="click" autoClose="outside" container="body">Clip start</span>
+                    <span class="input-group-text help-title" ngbPopover="任意の開始位置です。秒、M:SS、H:MM:SSで指定できます。空欄なら先頭またはURL内のYouTube &t=を使います。" triggers="click" autoClose="outside" container="body">開始位置</span>
                     <input type="text"
                       class="form-control"
                       name="clipStart"
                       [(ngModel)]="clipStart"
                       (change)="clipStartChanged()"
-                      placeholder="e.g. 2:26"
+                      placeholder="例: 2:26"
                       [disabled]="addInProgress || subscribeInProgress || downloads.loading">
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="input-group">
-                    <span class="input-group-text help-title" ngbPopover="Optional end time. Blank = until end of media." triggers="click" autoClose="outside" container="body">Clip end</span>
+                    <span class="input-group-text help-title" ngbPopover="任意の終了位置です。空欄なら最後まで保存します。" triggers="click" autoClose="outside" container="body">終了位置</span>
                     <input type="text"
                       class="form-control"
                       name="clipEnd"
                       [(ngModel)]="clipEnd"
                       (change)="clipEndChanged()"
-                      placeholder="e.g. 3:24"
+                      placeholder="例: 3:24"
                       [disabled]="addInProgress || subscribeInProgress || downloads.loading">
                   </div>
                 </div>
@@ -447,28 +447,28 @@
               </div>
 
               <!-- Behavior -->
-              <div class="settings-section-label">Behavior</div>
+              <div class="settings-section-label">動作</div>
               <div class="row g-3">
                 <div class="col-md-6">
                   <div class="input-group">
-                    <span class="input-group-text help-title" ngbPopover="Automatically start downloads when added." triggers="click" autoClose="outside" container="body">Auto Start</span>
+                    <span class="input-group-text help-title" ngbPopover="追加したら自動で保存を開始します。" triggers="click" autoClose="outside" container="body">自動開始</span>
                     <select class="form-select"
                       name="autoStart"
                       [(ngModel)]="autoStart"
                       (change)="autoStartChanged()"
                       [disabled]="addInProgress || subscribeInProgress || downloads.loading">
-                      <option [ngValue]="true">Yes</option>
-                      <option [ngValue]="false">No</option>
+                      <option [ngValue]="true">はい</option>
+                      <option [ngValue]="false">いいえ</option>
                     </select>
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="input-group">
-                    <span class="input-group-text help-title" ngbPopover="Maximum number of items to download from a playlist or channel (0 = no limit)." triggers="click" autoClose="outside" container="body">Items Limit</span>
+                    <span class="input-group-text help-title" ngbPopover="プレイリストやチャンネルから保存する最大件数です。0なら制限なしです。" triggers="click" autoClose="outside" container="body">取得数の上限</span>
                     <input type="number"
                       min="0"
                       class="form-control"
-                      placeholder="Default"
+                      placeholder="既定"
                       name="playlistItemLimit"
                       (keydown)="isNumber($event)"
                       [(ngModel)]="playlistItemLimit"
@@ -477,7 +477,7 @@
                 </div>
                 <div class="col-md-6">
                   <div class="input-group">
-                    <span class="input-group-text help-title" ngbPopover="How often to poll subscriptions for new videos." triggers="click" autoClose="outside" container="body">Subscription Check (min)</span>
+                    <span class="input-group-text help-title" ngbPopover="自動取得登録の新着確認間隔です。" triggers="click" autoClose="outside" container="body">確認間隔 (分)</span>
                     <input type="number"
                       min="1"
                       class="form-control"
@@ -490,13 +490,13 @@
                 </div>
                 <div class="col-md-6">
                   <div class="input-group">
-                    <span class="input-group-text help-title" ngbPopover="In subscriptions, only titles matching this Python-style regex are queued. Empty = all. Case-sensitive; use (?i) in the pattern for case-insensitive." triggers="click" autoClose="outside" container="body">Subscription Title Filter</span>
+                    <span class="input-group-text help-title" ngbPopover="自動取得登録で、このPython形式の正規表現に一致するタイトルだけをキューに追加します。空欄ならすべて対象です。大文字小文字を区別します。区別しない場合はパターン内で(?i)を使います。" triggers="click" autoClose="outside" container="body">タイトルフィルター</span>
                     <input type="text"
                       class="form-control"
                       name="titleRegex"
                       [(ngModel)]="titleRegex"
                       [disabled]="addInProgress || subscribeInProgress || downloads.loading"
-                      placeholder="Optional regex">
+                      placeholder="任意の正規表現">
                   </div>
                 </div>
                 <div class="col-12">
@@ -506,11 +506,11 @@
                       [disabled]="addInProgress || subscribeInProgress || downloads.loading" />
                     <label class="form-check-label" for="checkbox-skip-subscriber-only">
                       <span class="help-title" tabindex="0" role="button"
-                        ngbPopover="When enabled, subscription checks skip videos marked members-only by yt-dlp (channel Join). Ignored for one-off downloads."
+                        ngbPopover="有効にすると、自動取得の確認時にyt-dlpがメンバー限定と判定した動画をスキップします。単発の保存には影響しません。"
                         triggers="click" autoClose="outside" container="body"
                         (click)="$event.preventDefault(); $event.stopPropagation()"
                         (keydown.enter)="$event.preventDefault(); $event.stopPropagation()"
-                        (keydown.space)="$event.preventDefault(); $event.stopPropagation()">Skip members-only subscription videos</span>
+                        (keydown.space)="$event.preventDefault(); $event.stopPropagation()">メンバー限定動画をスキップ</span>
                     </label>
                   </div>
                 </div>
@@ -634,12 +634,12 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 id="batch-import-modal-title" class="modal-title">Batch Import URLs</h5>
-          <button type="button" class="btn-close" aria-label="Close" (click)="closeBatchImportModal()"></button>
+          <h5 id="batch-import-modal-title" class="modal-title">URLをまとめて追加</h5>
+          <button type="button" class="btn-close" aria-label="閉じる" (click)="closeBatchImportModal()"></button>
         </div>
         <div class="modal-body">
           <textarea id="batch-import-textarea" [(ngModel)]="batchImportText" class="form-control" rows="6"
-          placeholder="Paste one video URL per line"></textarea>
+          placeholder="動画URLを1行に1件ずつ貼り付け"></textarea>
           <div class="mt-2">
             @if (batchImportStatus) {
               <small>{{ batchImportStatus }}</small>
@@ -662,12 +662,12 @@
         <div class="modal-footer">
           @if (importInProgress) {
             <button type="button" class="btn btn-danger me-auto" (click)="cancelBatchImport()">
-              Cancel Import
+              追加をキャンセル
             </button>
           }
-          <button type="button" class="btn btn-secondary" (click)="closeBatchImportModal()">Close</button>
+          <button type="button" class="btn btn-secondary" (click)="closeBatchImportModal()">閉じる</button>
           <button type="button" class="btn btn-primary" (click)="startBatchImport()" [disabled]="importInProgress">
-            Import URLs
+            URLを追加
           </button>
         </div>
       </div>
@@ -677,13 +677,13 @@
 
   @if (downloads.loading) {
     <div class="alert alert-info" role="alert">
-      Connecting to server...
+      サーバーに接続中...
     </div>
   }
-  <div class="metube-section-header">Downloading</div>
+  <div class="metube-section-header">保存中</div>
   <div class="px-2 py-3 border-bottom">
-    <button type="button" class="btn btn-link text-decoration-none px-0 me-4" disabled #queueDelSelected (click)="delSelectedDownloads('queue')"><fa-icon [icon]="faTrashAlt" />&nbsp; Cancel selected</button>
-    <button type="button" class="btn btn-link text-decoration-none px-0 me-4" disabled #queueDownloadSelected (click)="startSelectedDownloads('queue')"><fa-icon [icon]="faDownload" />&nbsp; Download selected</button>
+    <button type="button" class="btn btn-link text-decoration-none px-0 me-4" disabled #queueDelSelected (click)="delSelectedDownloads('queue')"><fa-icon [icon]="faTrashAlt" />&nbsp; 選択項目をキャンセル</button>
+    <button type="button" class="btn btn-link text-decoration-none px-0 me-4" disabled #queueDownloadSelected (click)="startSelectedDownloads('queue')"><fa-icon [icon]="faDownload" />&nbsp; 選択項目を保存</button>
   </div>
   <div class="overflow-auto">
     <table class="table">
@@ -692,9 +692,9 @@
           <th scope="col" style="width: 1rem;">
             <app-select-all-checkbox #queueMasterCheckboxRef [id]="'queue'" [list]="downloads.queue" (changed)="queueSelectionChanged($event)" />
           </th>
-          <th scope="col">Video</th>
-          <th scope="col" style="width: 8rem;">Speed</th>
-          <th scope="col" style="width: 7rem;">ETA</th>
+          <th scope="col">動画</th>
+          <th scope="col" style="width: 8rem;">速度</th>
+          <th scope="col" style="width: 7rem;">残り時間</th>
           <th scope="col" style="width: 6rem;"></th>
         </tr>
       </thead>
@@ -716,10 +716,10 @@
             <td>
               <div class="d-flex">
                 @if (download.value.status === 'pending') {
-                  <button type="button" class="btn btn-link" [attr.aria-label]="'Start download for ' + download.value.title" (click)="downloadItemByKey(download.key)"><fa-icon [icon]="faDownload" /></button>
+                  <button type="button" class="btn btn-link" [attr.aria-label]="'保存を開始: ' + download.value.title" (click)="downloadItemByKey(download.key)"><fa-icon [icon]="faDownload" /></button>
                 }
-                <button type="button" class="btn btn-link" [attr.aria-label]="'Remove ' + download.value.title + ' from queue'" (click)="delDownload('queue', download.key)"><fa-icon [icon]="faTrashAlt" /></button>
-                <a href="{{download.value.url}}" target="_blank" class="btn btn-link" [attr.aria-label]="'Open source URL for ' + download.value.title"><fa-icon [icon]="faExternalLinkAlt" /></a>
+                <button type="button" class="btn btn-link" [attr.aria-label]="'キューから削除: ' + download.value.title" (click)="delDownload('queue', download.key)"><fa-icon [icon]="faTrashAlt" /></button>
+                <a href="{{download.value.url}}" target="_blank" class="btn btn-link" [attr.aria-label]="'元URLを開く: ' + download.value.title"><fa-icon [icon]="faExternalLinkAlt" /></a>
               </div>
             </td>
           </tr>
@@ -728,14 +728,14 @@
     </table>
   </div>
 
-  <div class="metube-section-header">Completed</div>
+  <div class="metube-section-header">完了</div>
   <div class="px-2 py-3 border-bottom">
-    <button type="button" class="btn btn-link text-decoration-none px-0 me-4" (click)="toggleSortOrder()" ngbTooltip="{{ sortAscending ? 'Oldest first' : 'Newest first' }}"><fa-icon [icon]="sortAscending ? faSortAmountUp : faSortAmountDown" />&nbsp; {{ sortAscending ? 'Oldest first' : 'Newest first' }}</button>
-    <button type="button" class="btn btn-link text-decoration-none px-0 me-4" disabled #doneDelSelected (click)="delSelectedDownloads('done')"><fa-icon [icon]="faTrashAlt" />&nbsp; Clear selected</button>
-    <button type="button" class="btn btn-link text-decoration-none px-0 me-4" [disabled]="!hasCompletedDone" (click)="clearCompletedDownloads()"><fa-icon [icon]="faCheckCircle" />&nbsp; Clear completed</button>
-    <button type="button" class="btn btn-link text-decoration-none px-0 me-4" [disabled]="!hasFailedDone" (click)="clearFailedDownloads()"><fa-icon [icon]="faTimesCircle" />&nbsp; Clear failed</button>
-    <button type="button" class="btn btn-link text-decoration-none px-0 me-4" [disabled]="!hasFailedDone" (click)="retryFailedDownloads()"><fa-icon [icon]="faRedoAlt" />&nbsp; Retry failed</button>
-    <button type="button" class="btn btn-link text-decoration-none px-0 me-4" disabled #doneDownloadSelected (click)="downloadSelectedFiles()"><fa-icon [icon]="faDownload" />&nbsp; Download Selected</button>
+    <button type="button" class="btn btn-link text-decoration-none px-0 me-4" (click)="toggleSortOrder()" ngbTooltip="{{ sortAscending ? '古い順' : '新しい順' }}"><fa-icon [icon]="sortAscending ? faSortAmountUp : faSortAmountDown" />&nbsp; {{ sortAscending ? '古い順' : '新しい順' }}</button>
+    <button type="button" class="btn btn-link text-decoration-none px-0 me-4" disabled #doneDelSelected (click)="delSelectedDownloads('done')"><fa-icon [icon]="faTrashAlt" />&nbsp; 選択項目を削除</button>
+    <button type="button" class="btn btn-link text-decoration-none px-0 me-4" [disabled]="!hasCompletedDone" (click)="clearCompletedDownloads()"><fa-icon [icon]="faCheckCircle" />&nbsp; 完了項目を削除</button>
+    <button type="button" class="btn btn-link text-decoration-none px-0 me-4" [disabled]="!hasFailedDone" (click)="clearFailedDownloads()"><fa-icon [icon]="faTimesCircle" />&nbsp; 失敗項目を削除</button>
+    <button type="button" class="btn btn-link text-decoration-none px-0 me-4" [disabled]="!hasFailedDone" (click)="retryFailedDownloads()"><fa-icon [icon]="faRedoAlt" />&nbsp; 失敗項目を再試行</button>
+    <button type="button" class="btn btn-link text-decoration-none px-0 me-4" disabled #doneDownloadSelected (click)="downloadSelectedFiles()"><fa-icon [icon]="faDownload" />&nbsp; 選択項目を保存</button>
   </div>
   <div class="overflow-auto">
     <table class="table">
@@ -744,12 +744,12 @@
           <th scope="col" style="width: 1rem;">
             <app-select-all-checkbox #doneMasterCheckboxRef [id]="'done'" [list]="downloads.done" (changed)="doneSelectionChanged($event)" />
           </th>
-          <th scope="col">Video</th>
-          <th scope="col">Type</th>
-          <th scope="col">Quality</th>
-          <th scope="col">Codec / Format</th>
-          <th scope="col">File Size</th>
-          <th scope="col">Downloaded</th>
+          <th scope="col">動画</th>
+          <th scope="col">種類</th>
+          <th scope="col">画質</th>
+          <th scope="col">コーデック / 形式</th>
+          <th scope="col">ファイルサイズ</th>
+          <th scope="col">完了日時</th>
           <th scope="col" style="width: 8rem;"></th>
         </tr>
       </thead>
@@ -767,7 +767,7 @@
                 @if (entry[1].status === 'error') {
                   <button type="button" class="btn btn-link p-0"
                     (click)="toggleErrorDetail(entry[0])"
-                    [attr.aria-label]="'Toggle error details for ' + entry[1].title"
+                    [attr.aria-label]="'エラー詳細を切り替え: ' + entry[1].title"
                     [attr.aria-expanded]="isErrorExpanded(entry[0])">
                     <fa-icon [icon]="faTimesCircle" class="text-danger" />
                   </button>
@@ -781,7 +781,7 @@
                     {{entry[1].title}}
                     @if (!isErrorExpanded(entry[0])) {
                       <small class="text-danger ms-2">
-                        <fa-icon [icon]="faChevronRight" size="xs" class="me-1" />Click for details
+                        <fa-icon [icon]="faChevronRight" size="xs" class="me-1" />詳細を見る
                       </small>
                     }
                   </button>
@@ -794,18 +794,18 @@
                   <div class="d-flex justify-content-between align-items-start">
                     <div class="flex-grow-1">
                       @if (entry[1].msg) {
-                        <div class="mb-1"><strong>Message:</strong> {{entry[1].msg}}</div>
+                        <div class="mb-1"><strong>メッセージ:</strong> {{entry[1].msg}}</div>
                       }
                       @if (entry[1].error) {
-                        <div class="mb-1"><strong>Error:</strong> {{entry[1].error}}</div>
+                        <div class="mb-1"><strong>エラー:</strong> {{entry[1].error}}</div>
                       }
                       <div class="text-muted" style="word-break: break-all;"><strong>URL:</strong> {{entry[1].url}}</div>
                     </div>
                     <button type="button" class="btn btn-sm btn-outline-danger ms-2 flex-shrink-0"
                       (click)="copyErrorMessage(entry[0], entry[1]); $event.stopPropagation()"
-                      ngbTooltip="Copy error details to clipboard">
+                      ngbTooltip="エラー詳細をクリップボードにコピー">
                       @if (lastCopiedErrorId === entry[0]) {
-                        <span class="text-success">Copied!</span>
+                        <span class="text-success">コピーしました</span>
                       } @else {
                         <fa-icon [icon]="faCopy" />
                       }
@@ -836,16 +836,16 @@
             <td>
               <div class="d-flex">
                 @if (entry[1].status === 'error') {
-                  <button type="button" class="btn btn-link" [attr.aria-label]="'Retry download for ' + entry[1].title" (click)="retryDownload(entry[0], entry[1])"><fa-icon [icon]="faRedoAlt" /></button>
+                  <button type="button" class="btn btn-link" [attr.aria-label]="'保存を再試行: ' + entry[1].title" (click)="retryDownload(entry[0], entry[1])"><fa-icon [icon]="faRedoAlt" /></button>
                 }
                 @if (entry[1].filename) {
-                  <a href="{{buildDownloadLink(entry[1])}}" download class="btn btn-link" [attr.aria-label]="'Download result file for ' + entry[1].title"><fa-icon [icon]="faDownload" /></a>
+                  <a href="{{buildDownloadLink(entry[1])}}" download class="btn btn-link" [attr.aria-label]="'保存済みファイルをダウンロード: ' + entry[1].title"><fa-icon [icon]="faDownload" /></a>
                 }
                 @if (entry[1].filename && canShareDownloads()) {
                   <button type="button" class="btn btn-link" [attr.aria-label]="'Share result file for ' + entry[1].title" (click)="shareDownload(entry[1])"><fa-icon [icon]="faShareNodes" /></button>
                 }
-                <a href="{{entry[1].url}}" target="_blank" class="btn btn-link" [attr.aria-label]="'Open source URL for ' + entry[1].title"><fa-icon [icon]="faExternalLinkAlt" /></a>
-                <button type="button" class="btn btn-link" [attr.aria-label]="'Delete completed item ' + entry[1].title" (click)="delDownload('done', entry[0])"><fa-icon [icon]="faTrashAlt" /></button>
+                <a href="{{entry[1].url}}" target="_blank" class="btn btn-link" [attr.aria-label]="'元URLを開く: ' + entry[1].title"><fa-icon [icon]="faExternalLinkAlt" /></a>
+                <button type="button" class="btn btn-link" [attr.aria-label]="'完了項目を削除: ' + entry[1].title" (click)="delDownload('done', entry[0])"><fa-icon [icon]="faTrashAlt" /></button>
               </div>
             </td>
           </tr>
@@ -856,7 +856,7 @@
               <td>
                 <div style="padding-left: 2rem;">
               <fa-icon [icon]="faCheckCircle" class="text-success me-2" />
-              <a href="{{buildChapterDownloadLink(entry[1], chapterFile.filename)}}" target="_blank" [attr.aria-label]="'Open chapter file ' + getChapterFileName(chapterFile.filename)">{{
+              <a href="{{buildChapterDownloadLink(entry[1], chapterFile.filename)}}" target="_blank" [attr.aria-label]="'チャプターファイルを開く: ' + getChapterFileName(chapterFile.filename)">{{
                 getChapterFileName(chapterFile.filename) }}</a>
             </div>
           </td>
@@ -871,7 +871,7 @@
           <td></td>
           <td>
             <div class="d-flex">
-              <a href="{{buildChapterDownloadLink(entry[1], chapterFile.filename)}}" download [attr.aria-label]="'Download chapter file ' + getChapterFileName(chapterFile.filename)"
+              <a href="{{buildChapterDownloadLink(entry[1], chapterFile.filename)}}" download [attr.aria-label]="'チャプターファイルをダウンロード: ' + getChapterFileName(chapterFile.filename)"
                 class="btn btn-link"><fa-icon [icon]="faDownload" /></a>
             </div>
           </td>
@@ -883,34 +883,34 @@
     </table>
   </div>
 
-  <div class="metube-section-header">Subscriptions</div>
+  <div class="metube-section-header">自動取得登録</div>
   <div class="px-2 py-3 border-bottom">
     @if (checkingAllSubscriptions) {
       <button type="button" class="btn btn-link text-decoration-none px-0 me-4" disabled>
-        <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Check all now
+        <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>今すぐ全件確認
       </button>
     } @else {
       <button type="button" class="btn btn-link text-decoration-none px-0 me-4"
         (click)="checkAllSubscriptions()"
         [disabled]="downloads.loading || cachedSubs.length === 0 || checkingSelectedSubscriptions">
-        <fa-icon [icon]="faRedoAlt" />&nbsp; Check all now
+        <fa-icon [icon]="faRedoAlt" />&nbsp; 今すぐ全件確認
       </button>
     }
     @if (checkingSelectedSubscriptions) {
       <button type="button" class="btn btn-link text-decoration-none px-0 me-4" disabled>
-        <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Check selected
+        <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>選択項目を確認
       </button>
     } @else {
       <button type="button" class="btn btn-link text-decoration-none px-0 me-4"
         (click)="checkSelectedSubscriptions()"
         [disabled]="downloads.loading || selectedSubscriptionIds.size === 0 || checkingAllSubscriptions">
-        <fa-icon [icon]="faRedoAlt" />&nbsp; Check selected
+        <fa-icon [icon]="faRedoAlt" />&nbsp; 選択項目を確認
       </button>
     }
     <button type="button" class="btn btn-link text-decoration-none px-0 me-4"
       (click)="deleteSelectedSubscriptions()"
       [disabled]="downloads.loading || selectedSubscriptionIds.size === 0">
-      <fa-icon [icon]="faTrashAlt" />&nbsp; Delete selected
+      <fa-icon [icon]="faTrashAlt" />&nbsp; 選択項目を削除
     </button>
   </div>
   <div class="overflow-auto">
@@ -922,14 +922,14 @@
               [checked]="allSubsSelected()"
               (change)="toggleSubMaster($event)"
               [disabled]="downloads.loading || cachedSubs.length === 0"
-              aria-label="Select all subscriptions" />
+              aria-label="自動取得登録をすべて選択" />
           </th>
-          <th scope="col">Name</th>
+          <th scope="col">名前</th>
           <th scope="col">URL</th>
-          <th scope="col" class="text-nowrap"><span class="help-title" ngbPopover="Subscriptions only — which new video titles to queue when this feed is checked. Does not affect manual downloads." triggers="click" autoClose="outside" container="body">Filter</span></th>
-          <th scope="col" class="text-nowrap">Interval (min)</th>
-          <th scope="col" class="text-nowrap">Last checked</th>
-          <th scope="col">Status</th>
+          <th scope="col" class="text-nowrap"><span class="help-title" ngbPopover="自動取得登録のみで使います。この登録を確認したとき、条件に合う新着動画タイトルだけをキューに追加します。単発の保存には影響しません。" triggers="click" autoClose="outside" container="body">フィルター</span></th>
+          <th scope="col" class="text-nowrap">間隔 (分)</th>
+          <th scope="col" class="text-nowrap">最終確認</th>
+          <th scope="col">状態</th>
           <th scope="col" style="width: 8rem;"></th>
         </tr>
       </thead>
@@ -941,7 +941,7 @@
                 [checked]="isSubSelected(entry[0])"
                 (change)="toggleSubSelected(entry[0])"
                 [disabled]="downloads.loading"
-                [attr.aria-label]="'Select subscription ' + entry[1].name" />
+                [attr.aria-label]="'自動取得登録を選択: ' + entry[1].name" />
             </td>
             <td>{{ entry[1].name }}</td>
             <td class="text-break"><a [href]="entry[1].url" target="_blank" rel="noopener">{{ entry[1].url }}</a></td>
@@ -955,10 +955,10 @@
                     [disabled]="downloads.loading" />
                   <button type="button" class="btn btn-sm btn-outline-secondary"
                     (click)="saveTitleRegex(entry[0])"
-                    [disabled]="downloads.loading">Save</button>
+                    [disabled]="downloads.loading">保存</button>
                   <button type="button" class="btn btn-sm btn-outline-secondary"
                     (click)="cancelEditTitleRegex()"
-                    [disabled]="downloads.loading">Cancel</button>
+                    [disabled]="downloads.loading">キャンセル</button>
                 </div>
               } @else {
                 <div class="d-flex flex-wrap gap-1 align-items-center">
@@ -967,7 +967,7 @@
                   <button type="button" class="btn btn-link btn-sm p-0"
                     (click)="beginEditTitleRegex(entry[0], entry[1].title_regex)"
                     [disabled]="downloads.loading"
-                    ngbTooltip="Edit subscription title filter (subscriptions only; not for one-off downloads)">Edit</button>
+                    ngbTooltip="自動取得登録のタイトルフィルターを編集します。単発の保存には使いません。">編集</button>
                 </div>
               }
             </td>
@@ -983,9 +983,9 @@
               @if (entry[1].error) {
                 <span class="text-danger small">{{ entry[1].error }}</span>
               } @else if (entry[1].enabled) {
-                <span class="text-success">Active</span>
+                <span class="text-success">有効</span>
               } @else {
-                <span class="text-secondary">Paused</span>
+                <span class="text-secondary">一時停止</span>
               }
             </td>
             <td>
@@ -993,24 +993,24 @@
                 @if (isSubscriptionChecking(entry[0])) {
                   <button type="button" class="btn btn-link btn-sm p-0 me-2"
                     disabled
-                    [attr.aria-label]="'Checking ' + entry[1].name"
-                    ngbTooltip="Checking now">
+                    [attr.aria-label]="'確認中: ' + entry[1].name"
+                    ngbTooltip="確認中">
                     <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                   </button>
                 } @else {
                   <button type="button" class="btn btn-link btn-sm p-0 me-2"
                     (click)="checkSubscriptionNow(entry[0])"
                     [disabled]="downloads.loading"
-                    [attr.aria-label]="'Check now ' + entry[1].name"
-                    ngbTooltip="Check now">
+                    [attr.aria-label]="'今すぐ確認: ' + entry[1].name"
+                    ngbTooltip="今すぐ確認">
                     <fa-icon [icon]="faRedoAlt" />
                   </button>
                 }
                 <button type="button" class="btn btn-link btn-sm p-0 me-2"
                   (click)="toggleSubscriptionEnabled(entry[1])"
                   [disabled]="downloads.loading"
-                  [attr.aria-label]="(entry[1].enabled ? 'Pause ' : 'Resume ') + entry[1].name"
-                  [ngbTooltip]="entry[1].enabled ? 'Pause' : 'Resume'">
+                  [attr.aria-label]="(entry[1].enabled ? '一時停止: ' : '再開: ') + entry[1].name"
+                  [ngbTooltip]="entry[1].enabled ? '一時停止' : '再開'">
                   @if (entry[1].enabled) {
                     <fa-icon [icon]="faPause" />
                   } @else {
@@ -1020,7 +1020,7 @@
                 <button type="button" class="btn btn-link btn-sm p-0 text-danger"
                   (click)="deleteSubscription(entry[0])"
                   [disabled]="downloads.loading"
-                  [attr.aria-label]="'Delete subscription ' + entry[1].name">
+                  [attr.aria-label]="'自動取得登録を削除: ' + entry[1].name">
                   <fa-icon [icon]="faTrashAlt" />
                 </button>
               </div>
