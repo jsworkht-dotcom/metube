@@ -19,6 +19,7 @@ import re
 from urllib.parse import parse_qs, urlencode, urlparse, urlunparse
 from watchfiles import DefaultFilter, Change, awatch
 
+import update_status as update_status_checks
 from ytdl import DownloadQueueNotifier, DownloadQueue, Download
 from subscriptions import SubscriptionManager, SubscriptionNotifier, SubscriptionInfo, coerce_optional_bool
 from yt_dlp.version import __version__ as yt_dlp_version
@@ -40,6 +41,7 @@ def seconds_until_next_daily_time(time_hhmm: str, now: datetime | None = None) -
     if target <= now:
         target += timedelta(days=1)
     return (target - now).total_seconds()
+
 
 def parseLogLevel(logLevel):
     if not isinstance(logLevel, str):
@@ -1114,6 +1116,21 @@ async def version(request):
         "yt-dlp": yt_dlp_version,
         "version": os.getenv("METUBE_VERSION", "dev")
     })
+
+@routes.get(config.URL_PREFIX + 'update-status')
+async def update_status(request):
+    try:
+        payload = await update_status_checks.get_update_status_payload(
+            os.getenv("METUBE_VERSION", "dev"),
+            yt_dlp_version,
+        )
+    except Exception:
+        log.exception('Readonly update status check failed unexpectedly')
+        payload = update_status_checks.failed_update_status_payload(
+            os.getenv("METUBE_VERSION", "dev"),
+            yt_dlp_version,
+        )
+    return web.json_response(payload)
 
 if config.URL_PREFIX != '/':
     @routes.get('/')

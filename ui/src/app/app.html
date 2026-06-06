@@ -1046,6 +1046,15 @@
           <span class="version-value">{{metubeVersion}}</span>
         </div>
         <div class="version-separator"></div>
+        <div class="version-item update-status"
+          [class.update-latest]="updateStatusKind === 'latest'"
+          [class.update-available]="updateStatusKind === 'update_available'"
+          [class.update-failed]="updateStatusKind === 'check_failed'"
+          [class.update-checking]="updateStatusKind === 'checking'">
+          <span class="version-label">更新</span>
+          <span class="version-value">{{updateStatusLabel}}</span>
+        </div>
+        <div class="version-separator"></div>
         @if (ytDlpOptionsUpdateTime) {
           <div class="version-item">
             <span class="version-label">yt-dlp-options</span>
