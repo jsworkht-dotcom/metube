@@ -7,8 +7,8 @@ import { FormsModule } from '@angular/forms';
     selector: 'app-item-checkbox',
     template: `
   <div class="form-check">
-    <input type="checkbox" class="form-check-input" id="{{master().id()}}-{{id()}}-select" [(ngModel)]="checkable().checked" (change)="master().selectionChanged()" [attr.aria-label]="'Select item ' + id()">
-    <label class="form-check-label visually-hidden" for="{{master().id()}}-{{id()}}-select">Select item</label>
+    <input type="checkbox" class="form-check-input" id="{{master().id()}}-{{id()}}-select" [(ngModel)]="checkable().checked" (change)="master().selectionChanged()" [attr.aria-label]="id() + ' を選択'">
+    <label class="form-check-label visually-hidden" for="{{master().id()}}-{{id()}}-select">項目を選択</label>
   </div>
 `,
 imports: [  
