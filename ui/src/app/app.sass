@@ -108,6 +108,23 @@ main
         background: rgba(255,255,255,0.1)
         border-radius: 4px
 
+      &.update-status
+        .version-value
+          font-family: inherit
+          font-weight: 600
+
+        &.update-latest .version-value
+          color: #82e3a6
+
+        &.update-available .version-value
+          color: #ffd166
+
+        &.update-failed .version-value
+          color: #ff9aa2
+
+        &.update-checking .version-value
+          color: #a8d8ff
+
     .version-separator
       width: 1px
       height: 16px

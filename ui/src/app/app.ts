@@ -34,6 +34,12 @@ import {
 import { EtaPipe, SpeedPipe, FileSizePipe } from './pipes';
 import { SelectAllCheckboxComponent, ItemCheckboxComponent } from './components/';
 
+type UpdateStatusKind = 'checking' | 'latest' | 'update_available' | 'check_failed';
+
+interface UpdateStatusResponse {
+  status?: 'latest' | 'update_available' | 'check_failed';
+}
+
 @Component({
   selector: 'app-root',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -125,6 +131,8 @@ export class App implements AfterViewInit, OnInit, OnDestroy {
   ytDlpOptionsUpdateTime: string | null = null;
   ytDlpVersion: string | null = null;
   metubeVersion: string | null = null;
+  updateStatusKind: UpdateStatusKind = 'checking';
+  updateStatusLabel = '確認中';
   isAdvancedOpen = false;
   sortAscending = false;
   expandedErrors: Set<string> = new Set<string>();
@@ -1468,8 +1476,7 @@ export class App implements AfterViewInit, OnInit, OnDestroy {
   }
 
   fetchVersionInfo(): void {
-    // eslint-disable-next-line no-useless-escape
-    const baseUrl = `${window.location.origin}${window.location.pathname.replace(/\/[^\/]*$/, '/')}`;
+    const baseUrl = this.apiBaseUrl();
     const versionUrl = `${baseUrl}version`;
     this.http.get<{ 'yt-dlp': string, version: string }>(versionUrl)
       .subscribe({
@@ -1482,6 +1489,42 @@ export class App implements AfterViewInit, OnInit, OnDestroy {
           this.metubeVersion = null;
         }
       });
+    this.fetchUpdateStatus(baseUrl);
+  }
+
+  private apiBaseUrl(): string {
+    // eslint-disable-next-line no-useless-escape
+    return `${window.location.origin}${window.location.pathname.replace(/\/[^\/]*$/, '/')}`;
+  }
+
+  private fetchUpdateStatus(baseUrl = this.apiBaseUrl()): void {
+    this.updateStatusKind = 'checking';
+    this.updateStatusLabel = '確認中';
+    this.cdr.markForCheck();
+    this.http.get<UpdateStatusResponse>(`${baseUrl}update-status`)
+      .subscribe({
+        next: (data) => {
+          this.applyUpdateStatus(data.status);
+          this.cdr.markForCheck();
+        },
+        error: () => {
+          this.applyUpdateStatus('check_failed');
+          this.cdr.markForCheck();
+        }
+      });
+  }
+
+  private applyUpdateStatus(status: UpdateStatusResponse['status']): void {
+    if (status === 'latest') {
+      this.updateStatusKind = 'latest';
+      this.updateStatusLabel = '最新';
+    } else if (status === 'update_available') {
+      this.updateStatusKind = 'update_available';
+      this.updateStatusLabel = '更新あり';
+    } else {
+      this.updateStatusKind = 'check_failed';
+      this.updateStatusLabel = '更新確認失敗';
+    }
   }
 
   toggleAdvanced() {
