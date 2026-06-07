@@ -97,8 +97,30 @@
   - restart
   - pip install / package update
 
+### Y-05I dry-run / prepare-only update apply contract audit
+
+- Scope: docs-only dry-run / prepare-only contract audit.
+- Contract document: `docs/llmwiki/dry-run-update-contract.md`
+- Defines:
+  - dry-run as readonly planning only
+  - prepare-only as validation only, with no backup or rollback creation in the
+    first prepare stage
+  - future `/update-plan`, `/update-prepare`, `/update-apply`, and
+    `/update-rollback` endpoint boundaries
+  - conservative response fields, stop conditions, and UI constraints
+- Not implemented:
+  - update execution
+  - update prepare endpoint
+  - update apply endpoint
+  - update button
+  - backup creation
+  - rollback creation
+  - Docker pull
+  - git pull / merge / rebase
+  - restart
+  - pip install / package update
+
 ## Current Next Step
 
-Proceed to Y-05I dry-run / prepare-only update apply contract audit. Keep it
-docs-only or readonly contract-only unless a later task explicitly approves
-implementation.
+Proceed to Y-05J readonly `/update-plan` contract-only endpoint. Keep it
+readonly, with blocked defaults and no prepare/apply/rollback execution.

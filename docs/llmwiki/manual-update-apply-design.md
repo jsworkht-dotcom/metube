@@ -217,10 +217,10 @@ Existing readonly endpoints remain:
 Future API boundaries should keep planning, preparation, and execution
 separate. Candidate names:
 
-- `GET /update-apply/dry-run`: compute a proposed plan only.
-- `POST /update-apply/prepare`: validate a specific plan and record operator
+- `GET /update-plan`: compute a proposed plan only.
+- `POST /update-prepare`: validate a specific plan and record operator
   confirmation only after all gates pass.
-- `POST /update-apply/apply`: future execution endpoint, not approved now.
+- `POST /update-apply`: future execution endpoint, not approved now.
 
 The first future API step should be dry-run or prepare-only. It must not run
 Docker pull, git pull / merge / rebase, restart, pip install, package update, or
@@ -261,6 +261,10 @@ approves that behavior.
 
 ## Minimum Future PR Candidate
 
-The next safe PR candidate is Y-05I dry-run / prepare-only update apply
-contract audit. It should remain docs-only or readonly contract-only until a
-later task explicitly approves implementation.
+Y-05I documents the dry-run / prepare-only contract in
+`docs/llmwiki/dry-run-update-contract.md`.
+
+The next safe PR candidate is Y-05J readonly `/update-plan` contract-only
+endpoint. It must remain readonly, use blocked defaults, and exclude prepare,
+apply, rollback, backup creation, Docker pull, git pull / merge / rebase,
+restart, pip install, and package update.

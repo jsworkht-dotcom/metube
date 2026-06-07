@@ -71,6 +71,21 @@ Do not add an update apply endpoint, update button, backup creation, rollback
 creation, Docker pull, git pull / merge / rebase, restart, pip install, or
 package update unless a later task explicitly approves that exact scope.
 
+## Dry-Run / Prepare Boundary
+
+The dry-run / prepare-only contract is tracked in
+`docs/llmwiki/dry-run-update-contract.md`. The contract does not approve
+implementation.
+
+Dry-run means readonly planning only. Prepare-only means validating a specific
+plan and required confirmations only. In the first prepare stage, prepare-only
+must not create backups or rollback targets.
+
+Future dry-run or prepare work must not add update execution, update buttons,
+backup creation, rollback creation, Docker pull, git pull / merge / rebase,
+restart, pip install, package update, or credential handling unless a later task
+explicitly approves that exact scope.
+
 ## Secret Hygiene
 
 Do not read, paste, store, transform, or document real credential values. If credentials

@@ -2,13 +2,13 @@
 
 ## Immediate Next
 
-### Y-05I dry-run / prepare-only update apply contract audit
+### Y-05J readonly `/update-plan` contract-only endpoint
 
-- Audit the contract for a future dry-run or prepare-only update apply step.
-- Keep it docs-only or readonly contract-only unless a later task explicitly
-  approves implementation.
-- Do not add update execution, update buttons, Docker pull, git pull / merge /
-  rebase, restart, pip install, or package updates.
+- Add a readonly `GET /update-plan` contract-only endpoint if explicitly
+  requested.
+- Keep defaults blocked and `can_apply` false.
+- Do not add prepare, apply, rollback, update buttons, backup creation, Docker
+  pull, git pull / merge / rebase, restart, pip install, or package updates.
 
 ## Future Automatic Update Stages
 
@@ -19,8 +19,9 @@ These are candidate stages, not approved implementation work:
 - Stage 3: backup and rollback design (documented)
 - Stage 4: readonly backup / rollback readiness preflight report (implemented)
 - Stage 5: manual approval flow for applying updates (documented)
-- Stage 6: dry-run / prepare-only update apply contract
-- Stage 7: guarded local-only update execution
+- Stage 6: dry-run / prepare-only update apply contract (documented)
+- Stage 7: readonly update-plan contract-only endpoint
+- Stage 8: guarded local-only update execution
 
 Any automatic update stage must respect the safety boundaries in
 `safety-boundaries.md`.

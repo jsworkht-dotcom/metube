@@ -195,6 +195,8 @@ packages, or inspect secret values.
 Y-05H documents the manual-approval update apply design in
 `docs/llmwiki/manual-update-apply-design.md`.
 
-The next safe step is Y-05I dry-run / prepare-only update apply contract audit.
-It should remain docs-only or readonly contract-only unless a later task
-explicitly approves implementation.
+Y-05I documents the dry-run / prepare-only contract in
+`docs/llmwiki/dry-run-update-contract.md`. The next safe step is Y-05J readonly
+`/update-plan` contract-only endpoint, with blocked defaults and no prepare,
+apply, rollback, backup creation, Docker pull, git pull / merge / rebase,
+restart, pip install, or package update.
