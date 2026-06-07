@@ -37,8 +37,12 @@ MeTube. The canonical branch is fork `master`, and local `master` tracks
 - Y-05I dry-run / prepare-only contract is docs-only. It defines dry-run as
   readonly planning only and prepare-only as validation only, with no backup or
   rollback creation in the first prepare stage.
+- `update-plan` is readonly. It reports a blocked-by-default update plan with
+  `can_prepare: false` and `can_apply: false`. It must not execute updates,
+  prepare updates, create backups, create rollback targets, pull Docker images,
+  run git updates, restart the app, or install packages.
 
 ## Next Step
 
-Proceed to Y-05J readonly `/update-plan` contract-only endpoint. Keep it
-readonly, with blocked defaults and no prepare/apply/rollback execution.
+Proceed to Y-05K readonly `/update-plan` runtime verification. Do not implement
+prepare, apply, rollback, backup creation, or update buttons.

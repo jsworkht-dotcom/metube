@@ -120,7 +120,32 @@
   - restart
   - pip install / package update
 
+### Y-05J readonly update-plan contract-only endpoint
+
+- Scope: readonly `/update-plan` contract-only endpoint.
+- Implemented:
+  - readonly update-plan helper
+  - `GET /update-plan` endpoint
+  - blocked-by-default response contract
+  - update-plan tests
+- Contract behavior:
+  - `can_prepare` remains `false`
+  - `can_apply` remains `false`
+  - planned steps and blocked reasons are reported as information only
+- Not implemented:
+  - update execution
+  - update prepare endpoint
+  - update apply endpoint
+  - update rollback endpoint
+  - update button
+  - backup creation
+  - rollback creation
+  - Docker pull
+  - git pull / merge / rebase
+  - restart
+  - pip install / package update
+
 ## Current Next Step
 
-Proceed to Y-05J readonly `/update-plan` contract-only endpoint. Keep it
-readonly, with blocked defaults and no prepare/apply/rollback execution.
+Proceed to Y-05K readonly `/update-plan` runtime verification. Do not implement
+prepare, apply, rollback, backup creation, or update buttons.

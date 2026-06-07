@@ -2,13 +2,12 @@
 
 ## Immediate Next
 
-### Y-05J readonly `/update-plan` contract-only endpoint
+### Y-05K readonly `/update-plan` runtime verification
 
-- Add a readonly `GET /update-plan` contract-only endpoint if explicitly
-  requested.
-- Keep defaults blocked and `can_apply` false.
-- Do not add prepare, apply, rollback, update buttons, backup creation, Docker
-  pull, git pull / merge / rebase, restart, pip install, or package updates.
+- Verify the readonly `/update-plan` endpoint at runtime.
+- Confirm blocked defaults, `can_prepare: false`, and `can_apply: false`.
+- Confirm no prepare, apply, rollback, backup creation, Docker pull, git pull /
+  merge / rebase, restart, pip install, package update, or update buttons.
 
 ## Future Automatic Update Stages
 
@@ -20,8 +19,9 @@ These are candidate stages, not approved implementation work:
 - Stage 4: readonly backup / rollback readiness preflight report (implemented)
 - Stage 5: manual approval flow for applying updates (documented)
 - Stage 6: dry-run / prepare-only update apply contract (documented)
-- Stage 7: readonly update-plan contract-only endpoint
-- Stage 8: guarded local-only update execution
+- Stage 7: readonly update-plan contract-only endpoint (implemented)
+- Stage 8: readonly update-plan runtime verification
+- Stage 9: guarded local-only update execution
 
 Any automatic update stage must respect the safety boundaries in
 `safety-boundaries.md`.
