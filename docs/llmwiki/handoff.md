@@ -19,9 +19,9 @@ MeTube. The canonical branch is fork `master`, and local `master` tracks
 - Do not mix `docker-compose.local.yml` or `docs/local-only.md` into fork-only work.
 - Do not handle real cookies, tokens, secrets, DRM bypass, authentication bypass, or
   restriction circumvention.
-- For this wiki baseline, only `docs/llmwiki/` files should change.
+- `update-status` is readonly. It must not apply updates, pull Docker images,
+  run git updates, restart the app, or install packages.
 
 ## Next Step
 
-After the LLMwiki baseline is merged, return to Y-05D runtime verification for
-`/update-status` and footer display.
+Design backup and rollback requirements before any future update-apply flow.

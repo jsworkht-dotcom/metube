@@ -36,7 +36,23 @@
 - Merge commit: `37256d5b8a885aac0f7e323f413409769055cc83`
 - Scope: readonly update-status baseline.
 
+### Y-05D runtime verification
+
+- Runtime verification confirmed `/update-status` remains readonly.
+- `METUBE_VERSION=dev` was found to display `更新確認失敗` even when metadata
+  fetches succeeded, because `dev` could not be compared with release tags.
+- `METUBE_VERSION=2026.06.06` displayed `最新`.
+- `METUBE_VERSION=0.0.0` displayed `更新あり`.
+- No update execution, Docker pull, git pull, restart, pip install, or
+  cookie/token/secret exposure was observed.
+
+### Y-05E dev version status fix
+
+- Fork PR #4 was merged.
+- Merge commit: `af6987532a741cd680d8b747562b2f2971b9c229`
+- Scope: treat `METUBE_VERSION=dev` as `development` and show `開発版` in
+  the footer while preserving real `check_failed` behavior.
+
 ## Current Next Step
 
-After this LLMwiki introduction, return to Y-05D runtime verification for
-`/update-status` and footer display.
+Proceed to backup and rollback design before any future update-apply behavior.
