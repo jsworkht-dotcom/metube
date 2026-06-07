@@ -29,3 +29,17 @@
 - Status: merged
 - PR URL: `https://github.com/jsworkht-dotcom/metube/pull/4`
 - Merge commit: `af6987532a741cd680d8b747562b2f2971b9c229`
+
+## Fork PR #7
+
+- Target repository: `jsworkht-dotcom/metube`
+- Purpose: readonly update preflight report for backup and rollback readiness
+- Status: merged
+- PR URL: `https://github.com/jsworkht-dotcom/metube/pull/7`
+- Merge commit: `bfbecdb`
+- Changed files:
+  - `app/main.py`
+  - `app/update_preflight.py`
+  - `app/tests/test_update_preflight.py`
+- Not included: update execution, backup creation, rollback creation, Docker pull,
+  git pull / merge / rebase, restart, or pip install / package update.

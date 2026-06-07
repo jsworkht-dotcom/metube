@@ -53,7 +53,30 @@
 - Scope: treat `METUBE_VERSION=dev` as `development` and show `開発版` in
   the footer while preserving real `check_failed` behavior.
 
+### Y-05G readonly update preflight report
+
+- Fork PR #7 was merged.
+- PR URL: `https://github.com/jsworkht-dotcom/metube/pull/7`
+- Merge commit: `bfbecdb`
+- Scope: readonly update preflight report for backup and rollback readiness.
+- Changed files:
+  - `app/main.py`
+  - `app/update_preflight.py`
+  - `app/tests/test_update_preflight.py`
+- Implemented:
+  - readonly `/update-preflight` report
+  - backup / rollback readiness JSON report
+  - update apply readiness as information only with `can_apply_update: false`
+- Not implemented:
+  - update execution
+  - backup creation
+  - rollback creation
+  - Docker pull
+  - git pull / merge / rebase
+  - restart
+  - pip install / package update
+
 ## Current Next Step
 
-Proceed to local-only update preflight report design before any future
-update-apply behavior.
+Proceed to Y-05H manual-approval update apply design audit only. Do not
+implement update apply yet.
