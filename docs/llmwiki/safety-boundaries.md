@@ -46,6 +46,10 @@ explicitly approved by the user in a future task:
 - Local-only scope
 - Explicit manual approval before applying changes
 
+The backup and rollback requirements are tracked in
+`docs/llmwiki/update-rollback-plan.md`. Future update-apply work must satisfy
+that plan before implementation begins.
+
 ## Secret Hygiene
 
 Do not read, paste, store, transform, or document real credential values. If credentials

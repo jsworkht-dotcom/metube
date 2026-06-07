@@ -55,4 +55,5 @@
 
 ## Current Next Step
 
-Proceed to backup and rollback design before any future update-apply behavior.
+Proceed to local-only update preflight report design before any future
+update-apply behavior.
