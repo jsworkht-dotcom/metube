@@ -34,10 +34,10 @@ import {
 import { EtaPipe, SpeedPipe, FileSizePipe } from './pipes';
 import { SelectAllCheckboxComponent, ItemCheckboxComponent } from './components/';
 
-type UpdateStatusKind = 'checking' | 'latest' | 'update_available' | 'check_failed';
+type UpdateStatusKind = 'checking' | 'latest' | 'update_available' | 'development' | 'check_failed';
 
 interface UpdateStatusResponse {
-  status?: 'latest' | 'update_available' | 'check_failed';
+  status?: 'latest' | 'update_available' | 'development' | 'check_failed';
 }
 
 @Component({
@@ -1521,6 +1521,9 @@ export class App implements AfterViewInit, OnInit, OnDestroy {
     } else if (status === 'update_available') {
       this.updateStatusKind = 'update_available';
       this.updateStatusLabel = '更新あり';
+    } else if (status === 'development') {
+      this.updateStatusKind = 'development';
+      this.updateStatusLabel = '開発版';
     } else {
       this.updateStatusKind = 'check_failed';
       this.updateStatusLabel = '更新確認失敗';

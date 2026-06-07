@@ -99,6 +99,10 @@ class CookieServiceStub {
   }
 }
 
+interface HttpClientMock {
+  get: ReturnType<typeof vi.fn>;
+}
+
 describe('App', () => {
   let downloads: DownloadsServiceStub;
 
@@ -136,6 +140,29 @@ describe('App', () => {
     const fixture = TestBed.createComponent(App);
     const app = fixture.componentInstance;
     expect(app).toBeTruthy();
+  });
+
+  it('shows development update status for dev builds', () => {
+    const http = TestBed.inject(HttpClient) as unknown as HttpClientMock;
+    http.get.mockImplementation((url: string) => {
+      if (url.endsWith('version')) {
+        return of({ 'yt-dlp': '2026.03.17', version: 'dev' });
+      }
+      if (url.endsWith('update-status')) {
+        return of({ status: 'development' });
+      }
+      return of({});
+    });
+
+    const fixture = TestBed.createComponent(App);
+    fixture.detectChanges();
+    fixture.detectChanges();
+
+    const app = fixture.componentInstance;
+    const root = fixture.nativeElement as HTMLElement;
+    expect(app.updateStatusKind).toBe('development');
+    expect(app.updateStatusLabel).toBe('開発版');
+    expect(root.textContent).toContain('開発版');
   });
 
   it('hides manual override input when disabled', () => {

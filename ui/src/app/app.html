@@ -1049,6 +1049,7 @@
         <div class="version-item update-status"
           [class.update-latest]="updateStatusKind === 'latest'"
           [class.update-available]="updateStatusKind === 'update_available'"
+          [class.update-development]="updateStatusKind === 'development'"
           [class.update-failed]="updateStatusKind === 'check_failed'"
           [class.update-checking]="updateStatusKind === 'checking'">
           <span class="version-label">更新</span>

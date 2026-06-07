@@ -32,7 +32,9 @@ def _version_key(version: str | None) -> tuple[int, ...]:
 def _compare_update_status(current: str | None, latest: str | None) -> str:
     if not latest:
         return 'check_failed'
-    if not current or current == 'dev':
+    if current == 'dev':
+        return 'development'
+    if not current:
         return 'unknown'
     current_key = _version_key(current)
     latest_key = _version_key(latest)
@@ -89,7 +91,11 @@ def _overall_update_status(targets: dict) -> str:
     ]
     if 'update_available' in statuses:
         return 'update_available'
-    if any(status in ('check_failed', 'unknown') for status in statuses):
+    if 'check_failed' in statuses:
+        return 'check_failed'
+    if 'development' in statuses:
+        return 'development'
+    if 'unknown' in statuses:
         return 'check_failed'
     return 'latest'
 
