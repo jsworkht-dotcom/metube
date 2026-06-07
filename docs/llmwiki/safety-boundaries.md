@@ -50,6 +50,27 @@ The backup and rollback requirements are tracked in
 `docs/llmwiki/update-rollback-plan.md`. Future update-apply work must satisfy
 that plan before implementation begins.
 
+## Manual Update Apply Boundary
+
+The manual-approval update apply design is tracked in
+`docs/llmwiki/manual-update-apply-design.md`. The design does not approve
+implementation.
+
+Future update apply work must remain stopped unless all of these are explicit
+for the specific update attempt:
+
+- `/update-status` reviewed
+- `/update-preflight` reviewed
+- Backup completed
+- Rollback targets recorded
+- Candidate version or changelog reviewed
+- Local-only scope confirmed
+- Manual confirmation provided for the current target
+
+Do not add an update apply endpoint, update button, backup creation, rollback
+creation, Docker pull, git pull / merge / rebase, restart, pip install, or
+package update unless a later task explicitly approves that exact scope.
+
 ## Secret Hygiene
 
 Do not read, paste, store, transform, or document real credential values. If credentials

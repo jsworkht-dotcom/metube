@@ -192,6 +192,9 @@ packages, or inspect secret values.
 
 ## Minimal Future Candidate
 
-The next safe step is Y-05H manual-approval update apply design audit. It should
-remain design and audit work only until a later task explicitly approves
-implementation.
+Y-05H documents the manual-approval update apply design in
+`docs/llmwiki/manual-update-apply-design.md`.
+
+The next safe step is Y-05I dry-run / prepare-only update apply contract audit.
+It should remain docs-only or readonly contract-only unless a later task
+explicitly approves implementation.
