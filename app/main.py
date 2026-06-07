@@ -21,6 +21,7 @@ from watchfiles import DefaultFilter, Change, awatch
 
 import update_status as update_status_checks
 import update_preflight as update_preflight_checks
+import update_plan as update_plan_checks
 from ytdl import DownloadQueueNotifier, DownloadQueue, Download
 from subscriptions import SubscriptionManager, SubscriptionNotifier, SubscriptionInfo, coerce_optional_bool
 from yt_dlp.version import __version__ as yt_dlp_version
@@ -1145,6 +1146,21 @@ async def update_preflight(request):
     except Exception:
         log.exception('Readonly update preflight check failed unexpectedly')
         payload = update_preflight_checks.failed_update_preflight_payload()
+    return web.json_response(payload)
+
+@routes.get(config.URL_PREFIX + 'update-plan')
+async def update_plan(request):
+    metube_version = os.getenv("METUBE_VERSION", "dev")
+    try:
+        payload = await update_plan_checks.build_update_plan_payload(
+            config,
+            dqueue,
+            metube_version,
+            yt_dlp_version,
+        )
+    except Exception:
+        log.exception('Readonly update plan check failed unexpectedly')
+        payload = update_plan_checks.failed_update_plan_payload(metube_version)
     return web.json_response(payload)
 
 if config.URL_PREFIX != '/':
