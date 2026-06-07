@@ -20,6 +20,7 @@ from urllib.parse import parse_qs, urlencode, urlparse, urlunparse
 from watchfiles import DefaultFilter, Change, awatch
 
 import update_status as update_status_checks
+import update_preflight as update_preflight_checks
 from ytdl import DownloadQueueNotifier, DownloadQueue, Download
 from subscriptions import SubscriptionManager, SubscriptionNotifier, SubscriptionInfo, coerce_optional_bool
 from yt_dlp.version import __version__ as yt_dlp_version
@@ -1130,6 +1131,20 @@ async def update_status(request):
             os.getenv("METUBE_VERSION", "dev"),
             yt_dlp_version,
         )
+    return web.json_response(payload)
+
+@routes.get(config.URL_PREFIX + 'update-preflight')
+async def update_preflight(request):
+    try:
+        payload = await update_preflight_checks.build_update_preflight_payload(
+            config,
+            dqueue,
+            os.getenv("METUBE_VERSION", "dev"),
+            yt_dlp_version,
+        )
+    except Exception:
+        log.exception('Readonly update preflight check failed unexpectedly')
+        payload = update_preflight_checks.failed_update_preflight_payload()
     return web.json_response(payload)
 
 if config.URL_PREFIX != '/':
