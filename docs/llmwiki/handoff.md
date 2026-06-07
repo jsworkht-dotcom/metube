@@ -11,6 +11,7 @@ MeTube. The canonical branch is fork `master`, and local `master` tracks
 1. `docs/llmwiki/current-state.md`
 2. `docs/llmwiki/safety-boundaries.md`
 3. `docs/llmwiki/roadmap.md`
+4. `docs/llmwiki/update-rollback-plan.md`
 
 ## Key Points For Codex
 
@@ -21,7 +22,9 @@ MeTube. The canonical branch is fork `master`, and local `master` tracks
   restriction circumvention.
 - `update-status` is readonly. It must not apply updates, pull Docker images,
   run git updates, restart the app, or install packages.
+- Backup and rollback requirements must be satisfied before any update-apply
+  implementation begins.
 
 ## Next Step
 
-Design backup and rollback requirements before any future update-apply flow.
+Design a local-only preflight report for backup and rollback readiness.

@@ -2,10 +2,10 @@
 
 ## Immediate Next
 
-### Backup and rollback design
+### Update preflight report design
 
-- Define the backup and rollback requirements for any future manually approved
-  update-apply flow.
+- Design a local-only preflight report that checks whether backup and rollback
+  requirements are present before any future update-apply flow.
 - Keep this as design and audit work only until explicitly approved for
   implementation.
 
@@ -15,7 +15,7 @@ These are candidate stages, not approved implementation work:
 
 - Stage 1: readonly version/status visibility (implemented)
 - Stage 2: local changelog and update availability confirmation
-- Stage 3: backup and rollback design
+- Stage 3: backup and rollback design (documented)
 - Stage 4: manual approval flow for applying updates
 - Stage 5: guarded local-only update execution
 
