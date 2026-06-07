@@ -20,3 +20,12 @@
 - Purpose: readonly update-status baseline
 - Status: merged
 - Merge commit: `37256d5b8a885aac0f7e323f413409769055cc83`
+
+## Fork PR #4
+
+- Target repository: `jsworkht-dotcom/metube`
+- Purpose: show `METUBE_VERSION=dev` as development status instead of an
+  update-check failure
+- Status: merged
+- PR URL: `https://github.com/jsworkht-dotcom/metube/pull/4`
+- Merge commit: `af6987532a741cd680d8b747562b2f2971b9c229`
