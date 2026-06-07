@@ -53,6 +53,23 @@ async def test_update_status_update_available(monkeypatch):
 
 
 @pytest.mark.asyncio
+async def test_update_status_dev_source_version_is_development(monkeypatch):
+    async def fake_fetch(_session, url):
+        if url == update_status.METUBE_UPSTREAM_TAGS_URL:
+            return [{"name": "2026.06.06"}]
+        if url == update_status.YTDLP_PYPI_URL:
+            return {"info": {"version": "2026.3.17"}}
+        raise AssertionError(f"unexpected url: {url}")
+
+    monkeypatch.setattr(update_status, "fetch_update_json", fake_fetch)
+
+    body = await update_status.get_update_status_payload("dev", "2026.3.17")
+    assert body["status"] == "development"
+    assert body["targets"]["metube_source"]["status"] == "development"
+    assert body["targets"]["yt_dlp"]["status"] == "latest"
+
+
+@pytest.mark.asyncio
 async def test_update_status_check_failed_does_not_leak_exception_text(monkeypatch):
     async def fake_fetch(_session, _url):
         raise RuntimeError("token=secret cookie=private")
@@ -67,6 +84,19 @@ async def test_update_status_check_failed_does_not_leak_exception_text(monkeypat
     assert "secret" not in text
     assert "token" not in text
     assert "cookie" not in text
+
+
+@pytest.mark.asyncio
+async def test_update_status_dev_source_still_fails_when_metadata_fetch_fails(monkeypatch):
+    async def fake_fetch(_session, _url):
+        raise RuntimeError("metadata unavailable")
+
+    monkeypatch.setattr(update_status, "fetch_update_json", fake_fetch)
+
+    body = await update_status.get_update_status_payload("dev", "2026.3.17")
+    assert body["status"] == "check_failed"
+    assert body["targets"]["metube_source"]["status"] == "check_failed"
+    assert body["targets"]["yt_dlp"]["status"] == "check_failed"
 
 
 @pytest.mark.asyncio
