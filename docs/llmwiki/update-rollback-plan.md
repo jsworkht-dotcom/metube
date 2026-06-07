@@ -180,9 +180,18 @@ is true:
 - Any step would require public hosting, ads, DRM bypass, authentication bypass,
   restriction circumvention, or mass-download optimization.
 
-## Minimal Future Implementation Candidate
+## Readonly Preflight Report Status
 
-The next safe implementation step is not update application. It is a local-only
-preflight report that checks and displays whether the required rollback
-information is present. It should not apply updates, change source, pull images,
-restart the app, install packages, or inspect secret values.
+Y-05G implemented the local-only readonly preflight report in fork PR #7
+(`bfbecdb`). The report returns backup / rollback readiness information and
+keeps update application out of scope.
+
+The preflight report does not apply updates, create backups, create rollback
+targets, pull images, run git pull / merge / rebase, restart the app, install
+packages, or inspect secret values.
+
+## Minimal Future Candidate
+
+The next safe step is Y-05H manual-approval update apply design audit. It should
+remain design and audit work only until a later task explicitly approves
+implementation.

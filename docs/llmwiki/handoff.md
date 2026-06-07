@@ -24,7 +24,13 @@ MeTube. The canonical branch is fork `master`, and local `master` tracks
   run git updates, restart the app, or install packages.
 - Backup and rollback requirements must be satisfied before any update-apply
   implementation begins.
+- `update-preflight` is readonly. It reports backup / rollback readiness and
+  must not execute updates, create backups, create rollback targets, pull Docker
+  images, run git updates, restart the app, or install packages.
+- Y-05G readonly update preflight report was merged in fork PR #7
+  (`bfbecdb`).
 
 ## Next Step
 
-Design a local-only preflight report for backup and rollback readiness.
+Proceed to Y-05H manual-approval update apply design audit only. Do not
+implement update apply yet.
