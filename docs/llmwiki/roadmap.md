@@ -2,12 +2,13 @@
 
 ## Immediate Next
 
-### Y-05H manual-approval update apply design audit
+### Y-05I dry-run / prepare-only update apply contract audit
 
-- Audit the design for a future manual-approval update apply flow.
-- Do not implement update apply yet.
-- Keep the audit focused on confirmation, stop conditions, rollback targets,
-  and local-only safety gates.
+- Audit the contract for a future dry-run or prepare-only update apply step.
+- Keep it docs-only or readonly contract-only unless a later task explicitly
+  approves implementation.
+- Do not add update execution, update buttons, Docker pull, git pull / merge /
+  rebase, restart, pip install, or package updates.
 
 ## Future Automatic Update Stages
 
@@ -17,8 +18,9 @@ These are candidate stages, not approved implementation work:
 - Stage 2: local changelog and update availability confirmation
 - Stage 3: backup and rollback design (documented)
 - Stage 4: readonly backup / rollback readiness preflight report (implemented)
-- Stage 5: manual approval flow for applying updates
-- Stage 6: guarded local-only update execution
+- Stage 5: manual approval flow for applying updates (documented)
+- Stage 6: dry-run / prepare-only update apply contract
+- Stage 7: guarded local-only update execution
 
 Any automatic update stage must respect the safety boundaries in
 `safety-boundaries.md`.

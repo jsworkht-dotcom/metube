@@ -76,7 +76,29 @@
   - restart
   - pip install / package update
 
+### Y-05H manual-approval update apply design audit
+
+- Scope: docs-only design audit for future manual-approval update apply.
+- Design document: `docs/llmwiki/manual-update-apply-design.md`
+- Defines:
+  - update target classification for source, Docker, yt-dlp, and state/data
+  - manual approval flow
+  - future UI/API boundaries
+  - stop conditions
+  - rollback hand-off requirements
+- Not implemented:
+  - update execution
+  - update apply endpoint
+  - update button
+  - backup creation
+  - rollback creation
+  - Docker pull
+  - git pull / merge / rebase
+  - restart
+  - pip install / package update
+
 ## Current Next Step
 
-Proceed to Y-05H manual-approval update apply design audit only. Do not
-implement update apply yet.
+Proceed to Y-05I dry-run / prepare-only update apply contract audit. Keep it
+docs-only or readonly contract-only unless a later task explicitly approves
+implementation.
