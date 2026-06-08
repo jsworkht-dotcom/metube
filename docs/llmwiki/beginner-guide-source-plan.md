@@ -336,8 +336,27 @@ Coverage:
 The source does not generate package files and does not approve an HTML
 generator.
 
+Y-06I added the first-open TXT fallback source candidate:
+
+- Source: `docs/llmwiki/package-guides/00-first-open.txt.source.md`
+- Future output:
+  `動画保存ツール_ローカル専用/00_最初に開いてください.txt`
+- Status: draft source material only.
+
+Coverage:
+
+- Short description of the local-only tool.
+- Start, URL paste, save, open save folder, and stop/quit steps.
+- Safe-use boundaries for allowed content, no public hosting, no ads, no
+  cookie/token/secret sharing, and no DRM/auth/restriction bypass.
+- Troubleshooting entry points for in-app help, save folder, and stop/quit.
+- Hand-off to `00_最初に開いてください.html` for the easier visual guide.
+
+The source does not generate package files and does not approve a TXT
+generator.
+
 ## Next PR Candidate
 
-Draft `docs/llmwiki/package-guides/00-first-open.txt.source.md` as the short
-fallback source for future `00_最初に開いてください.txt`, while keeping it as
-source material only.
+Draft `docs/llmwiki/package-guides/03-how-to-use.html.source.md` as the
+everyday-use source for future `03_使い方.html`, while keeping it as source
+material only.
