@@ -377,8 +377,27 @@ Coverage:
 The source does not generate package files and does not approve an HTML
 generator.
 
+Y-06K added the everyday-use TXT fallback source candidate:
+
+- Source: `docs/llmwiki/package-guides/03-how-to-use.txt.source.md`
+- Future output:
+  `動画保存ツール_ローカル専用/03_使い方.txt`
+- Status: draft source material only.
+
+Coverage:
+
+- Basic save steps from app startup through stop/quit.
+- Save-format choices for video, audio-only, standard, and high quality.
+- Saving/completion behavior, retry once, and troubleshooting hand-off.
+- Safe-use boundaries for allowed content, no public hosting, no ads, no
+  cookie/token/secret sharing, and no DRM/auth/restriction bypass.
+- Hand-off to `03_使い方.html` for the easier visual guide.
+
+The source does not generate package files and does not approve a TXT
+generator.
+
 ## Next PR Candidate
 
-Draft `docs/llmwiki/package-guides/03-how-to-use.txt.source.md` as the short
-fallback source for future `03_使い方.txt`, while keeping it as source material
-only.
+Draft `docs/llmwiki/package-guides/04-troubleshooting.html.source.md` as the
+troubleshooting source for future `04_困ったとき.html`, while keeping it as
+source material only.
