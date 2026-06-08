@@ -221,6 +221,20 @@ MeTube. The canonical branch is fork `master`, and local `master` tracks
   folders, package build/copy behavior, notice bundles, Tauri/Electron/WebView2
   implementation, backend/frontend/Docker/CI/package/lockfile changes, or
   update apply.
+- Y-06N safe-use HTML source draft is documented at
+  `docs/llmwiki/package-guides/05-safe-use.html.source.md`.
+- Y-06N outcome: the safe-use HTML source candidate is Japanese-first,
+  source-only, local-only, and structured for future HTML conversion with hero
+  copy, safe-use cards, do / do-not cards, a sensitive-data warning box, an
+  update-safety note, and a footer note.
+- Y-06N covers local-only personal use, allowed examples, prohibited uses,
+  sensitive-data sharing boundaries, safe trouble actions, update safety, no
+  public hosting/ads/external service, no update apply, and no
+  DRM/auth/restriction bypass.
+- Y-06N does not create actual `.html` / `.txt` files, generated package
+  folders, package build/copy behavior, notice bundles, Tauri/Electron/WebView2
+  implementation, backend/frontend/Docker/CI/package/lockfile changes, or
+  update apply.
 - GitHub CLI auth note: in this Windows Codex desktop environment, sandboxed
   `gh auth status` may report an invalid `default` token while escalated
   `gh auth status` succeeds through `keyring`. Root cause is sandbox access to
@@ -230,8 +244,8 @@ MeTube. The canonical branch is fork `master`, and local `master` tracks
 
 ## Next Step
 
-Draft `docs/llmwiki/package-guides/05-safe-use.html.source.md` as the safe-use
-HTML source for future `05_安全な使い方.html`.
+Draft `docs/llmwiki/package-notices/metube-notice.source.md` as the first notice
+source candidate for future clean-package notice review.
 Do not create generated guide outputs, copy license text, create the generated
 package folder, copy package files, implement actual package generation, add
 Tauri/Electron/WebView2, run builds, install dependencies, change
