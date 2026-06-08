@@ -169,6 +169,19 @@ MeTube. The canonical branch is fork `master`, and local `master` tracks
   folders, package build/copy behavior, notice bundles, Tauri/Electron/WebView2
   implementation, backend/frontend/Docker/CI/package/lockfile changes, or
   update apply.
+- Y-06J how-to-use HTML guide source draft is documented at
+  `docs/llmwiki/package-guides/03-how-to-use.html.source.md`.
+- Y-06J outcome: the everyday-use HTML source candidate is Japanese-first,
+  source-only, local-only, and structured for future HTML conversion with hero
+  copy, quick steps, action cards, format cards, status cards, a warning box,
+  troubleshooting link cards, and a footer note.
+- Y-06J covers start, URL paste, save-format selection, save, open save folder,
+  status reading, retry guidance, stop/quit, allowed-use boundaries, no public
+  hosting/ads/credential sharing, and no DRM/auth/restriction bypass.
+- Y-06J does not create actual `.html` / `.txt` files, generated package
+  folders, package build/copy behavior, notice bundles, Tauri/Electron/WebView2
+  implementation, backend/frontend/Docker/CI/package/lockfile changes, or
+  update apply.
 - GitHub CLI auth note: in this Windows Codex desktop environment, sandboxed
   `gh auth status` may report an invalid `default` token while escalated
   `gh auth status` succeeds through `keyring`. Root cause is sandbox access to
@@ -178,8 +191,8 @@ MeTube. The canonical branch is fork `master`, and local `master` tracks
 
 ## Next Step
 
-Draft `docs/llmwiki/package-guides/03-how-to-use.html.source.md` as the
-everyday-use HTML source for future `03_使い方.html`.
+Draft `docs/llmwiki/package-guides/03-how-to-use.txt.source.md` as the short
+TXT fallback source for future `03_使い方.txt`.
 Do not create generated guide outputs, copy license text, create the generated
 package folder, copy package files, implement actual package generation, add
 Tauri/Electron/WebView2, run builds, install dependencies, change
