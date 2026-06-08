@@ -418,8 +418,30 @@ Coverage:
 The source does not generate package files and does not approve an HTML
 generator.
 
+Y-06M added the troubleshooting TXT fallback source candidate:
+
+- Source: `docs/llmwiki/package-guides/04-troubleshooting.txt.source.md`
+- Future output:
+  `動画保存ツール_ローカル専用/04_困ったとき.txt`
+- Status: draft source material only.
+
+Coverage:
+
+- Short first actions for restarting the app, waiting before retrying, opening
+  the save folder, and reading the screen status.
+- Common trouble entries for startup, URL save failure, unknown save folder,
+  stuck-looking saves, missing saved files, stop/quit confusion, and unclear
+  update displays.
+- Stop/quit guidance that prefers `停止して終了` over closing with X.
+- Safe-use boundaries for allowed content, no public hosting, no ads, no
+  cookie/token/secret sharing, and no DRM/auth/restriction bypass.
+- Hand-off to `04_困ったとき.html` for the easier visual guide.
+
+The source does not generate package files and does not approve a TXT
+generator.
+
 ## Next PR Candidate
 
-Draft `docs/llmwiki/package-guides/04-troubleshooting.txt.source.md` as the
-short troubleshooting fallback source for future `04_困ったとき.txt`, while
-keeping it as source material only.
+Draft `docs/llmwiki/package-guides/05-safe-use.html.source.md` as the safe-use
+source for future `05_安全な使い方.html`, while keeping it as source material
+only.

@@ -577,14 +577,44 @@
   - backend/frontend/Docker/CI/package/lockfile changes
   - update apply
 
+### Y-06M troubleshooting TXT fallback source draft
+
+- Scope: source-only troubleshooting TXT fallback draft and minimal LLMwiki
+  sync.
+- Source draft:
+  `docs/llmwiki/package-guides/04-troubleshooting.txt.source.md`
+- Outcome:
+  - Added the TXT fallback source candidate for future
+    `動画保存ツール_ローカル専用/04_困ったとき.txt`.
+  - Kept the draft shorter than the HTML source and readable in a normal text
+    editor.
+  - Covered first actions, common trouble cases, stop/quit behavior, safe-use
+    boundaries, and the HTML guide hand-off.
+  - Reduced clean-package dry-run warning output by satisfying the planned
+    troubleshooting TXT source candidate check.
+- Not implemented:
+  - generated distribution folder
+  - actual `.html` / `.txt` guide files
+  - package build, copy, zip, or generator behavior
+  - license text copying
+  - notice bundle generation
+  - Tauri
+  - Electron
+  - WebView2
+  - desktop packaging
+  - installer
+  - signing or notarization
+  - backend/frontend/Docker/CI/package/lockfile changes
+  - update apply
+
 ## Current Next Step
 
-Draft the troubleshooting TXT fallback source:
-`docs/llmwiki/package-guides/04-troubleshooting.txt.source.md`.
+Draft the safe-use HTML source:
+`docs/llmwiki/package-guides/05-safe-use.html.source.md`.
 
 Next scope:
 
-- Keep the troubleshooting TXT guide short, Japanese-first, beginner-safe, and
+- Keep the safe-use guide short, Japanese-first, beginner-safe, and
   source-material only.
 - Keep guide files as source material only; do not generate package outputs.
 - Keep Tauri/Electron implementation, packaging, installer, signing, updater,
