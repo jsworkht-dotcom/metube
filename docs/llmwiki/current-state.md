@@ -420,15 +420,49 @@
   - backend/frontend/Docker/CI/package/lockfile changes
   - update apply
 
+### Y-06H first beginner guide source draft
+
+- Scope: source-only first-open beginner guide draft and minimal LLMwiki sync.
+- Source draft:
+  `docs/llmwiki/package-guides/00-first-open.html.source.md`
+- Outcome:
+  - Added the first source candidate for future
+    `動画保存ツール_ローカル専用/00_最初に開いてください.html`.
+  - Kept the draft as Markdown source material only, not a generated package
+    guide.
+  - Structured the draft for a future HTML page with hero copy, first-step
+    cards, a warning box, in-app help cards, troubleshooting cards, and a
+    footer note.
+  - Covered local-only use, allowed-content boundaries, start, URL paste,
+    save, open save folder, and stop/quit behavior.
+  - Covered the close-safety note that users should use `停止して終了` because
+    closing with X may not stop the background process cleanly.
+  - Reduced clean-package dry-run warning output by satisfying the planned
+    first-open HTML source, local-only safety source, and Windows/macOS section
+    source candidate checks.
+- Not implemented:
+  - generated distribution folder
+  - actual `.html` / `.txt` guide files
+  - package build, copy, zip, or generator behavior
+  - license text copying
+  - notice bundle generation
+  - Tauri
+  - Electron
+  - WebView2
+  - desktop packaging
+  - installer
+  - signing or notarization
+  - backend/frontend/Docker/CI/package/lockfile changes
+  - update apply
+
 ## Current Next Step
 
-Review the Y-06G warning output and decide which guide source candidate should
-be drafted first.
+Draft the TXT fallback source for the first-open guide:
+`docs/llmwiki/package-guides/00-first-open.txt.source.md`.
 
 Next scope:
 
-- Draft one approved guide source candidate under `docs/llmwiki/` if the
-  warning output is accepted.
+- Keep the TXT fallback short, Japanese-first, and source-material only.
 - Keep guide files as source material only; do not generate package outputs.
 - Keep Tauri/Electron implementation, packaging, installer, signing, updater,
   backend changes, frontend changes, Docker changes, CI changes, package

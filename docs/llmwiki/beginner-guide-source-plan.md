@@ -313,7 +313,31 @@ Warning behavior:
 - No guide generation, package folder, copied license bundle, build/package
   output, or backend/frontend/Docker/CI/package/lockfile changes were added.
 
+## Current Source Drafts
+
+Y-06H added the first beginner guide source candidate:
+
+- Source: `docs/llmwiki/package-guides/00-first-open.html.source.md`
+- Future output:
+  `動画保存ツール_ローカル専用/00_最初に開いてください.html`
+- Status: draft source material only.
+
+Coverage:
+
+- Local-only one-line description.
+- Start, URL paste, save, open save folder, and stop/quit steps.
+- In-app help entry points: `使い方`, `困ったとき`, `安全な使い方`,
+  `保存先を開く`, and `停止して終了`.
+- Safe-use boundaries for allowed content, no public hosting, no ads, no
+  cookie/token/secret sharing, and no DRM/auth/restriction bypass.
+- Troubleshooting entries for app not starting, unknown save location, save
+  failures, and unclear exit behavior.
+
+The source does not generate package files and does not approve an HTML
+generator.
+
 ## Next PR Candidate
 
-Draft one approved beginner guide source candidate under `docs/llmwiki/`,
-likely `00-first-open.html.source.md`, while keeping it as source material only.
+Draft `docs/llmwiki/package-guides/00-first-open.txt.source.md` as the short
+fallback source for future `00_最初に開いてください.txt`, while keeping it as
+source material only.
