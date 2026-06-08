@@ -485,14 +485,46 @@
   - backend/frontend/Docker/CI/package/lockfile changes
   - update apply
 
+### Y-06J how-to-use HTML guide source draft
+
+- Scope: source-only everyday-use HTML guide draft and minimal LLMwiki sync.
+- Source draft:
+  `docs/llmwiki/package-guides/03-how-to-use.html.source.md`
+- Outcome:
+  - Added the HTML source candidate for future
+    `動画保存ツール_ローカル専用/03_使い方.html`.
+  - Structured the draft for a future HTML page with hero copy, quick steps,
+    action cards, format cards, status explanation cards, a warning box,
+    troubleshooting link cards, and a footer note.
+  - Covered start, URL paste, save-format selection, save, open save folder,
+    status reading, retry guidance, and stop/quit behavior.
+  - Kept beginner-facing copy short, local-only, and reusable for future
+    in-app help wording.
+  - Reduced clean-package dry-run warning output by satisfying the planned
+    how-to-use HTML source candidate check.
+- Not implemented:
+  - generated distribution folder
+  - actual `.html` / `.txt` guide files
+  - package build, copy, zip, or generator behavior
+  - license text copying
+  - notice bundle generation
+  - Tauri
+  - Electron
+  - WebView2
+  - desktop packaging
+  - installer
+  - signing or notarization
+  - backend/frontend/Docker/CI/package/lockfile changes
+  - update apply
+
 ## Current Next Step
 
-Draft the everyday-use HTML source:
-`docs/llmwiki/package-guides/03-how-to-use.html.source.md`.
+Draft the everyday-use TXT fallback source:
+`docs/llmwiki/package-guides/03-how-to-use.txt.source.md`.
 
 Next scope:
 
-- Keep the everyday-use guide Japanese-first, beginner-safe, and
+- Keep the everyday-use TXT fallback short, Japanese-first, beginner-safe, and
   source-material only.
 - Keep guide files as source material only; do not generate package outputs.
 - Keep Tauri/Electron implementation, packaging, installer, signing, updater,

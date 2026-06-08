@@ -2,16 +2,37 @@
 
 ## Immediate Next
 
-### Draft everyday-use HTML source
+### Draft everyday-use TXT fallback source
 
-- Draft `docs/llmwiki/package-guides/03-how-to-use.html.source.md` as the
-  everyday-use source for future `03_使い方.html`.
+- Draft `docs/llmwiki/package-guides/03-how-to-use.txt.source.md` as the short
+  fallback source for future `03_使い方.txt`.
 - Keep the next PR source-material only unless explicitly approved otherwise.
 - Do not create guide outputs, copy license text, generate notice bundles, or
   create package files.
 - Do not create `動画保存ツール_ローカル専用/`, copy files, build packages, install
   dependencies, add Tauri/Electron/WebView2, change backend/frontend/Docker/CI,
   or change package/lockfile files.
+
+## Y-06J How-To-Use HTML Guide Source Outcome
+
+- Guide source draft:
+  `docs/llmwiki/package-guides/03-how-to-use.html.source.md`
+- Added source material for future
+  `動画保存ツール_ローカル専用/03_使い方.html`.
+- The draft is Japanese-first and structured for future HTML conversion with:
+  - hero copy
+  - quick steps
+  - action cards
+  - format cards
+  - status explanation cards
+  - a warning box
+  - troubleshooting link cards
+  - a footer note
+- Covered start, URL paste, save-format selection, save, open save folder,
+  status reading, retry guidance, stop/quit, and safe use.
+- No actual `.html` / `.txt` guide output, generated package folder, package
+  build/copy behavior, notice bundle, Tauri/Electron implementation,
+  backend/frontend/Docker/CI change, or package/lockfile change was added.
 
 ## Y-06I First-Open TXT Fallback Source Outcome
 

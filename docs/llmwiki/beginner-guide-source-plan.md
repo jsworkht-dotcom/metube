@@ -355,8 +355,30 @@ Coverage:
 The source does not generate package files and does not approve a TXT
 generator.
 
+Y-06J added the everyday-use HTML source candidate:
+
+- Source: `docs/llmwiki/package-guides/03-how-to-use.html.source.md`
+- Future output:
+  `動画保存ツール_ローカル専用/03_使い方.html`
+- Status: draft source material only.
+
+Coverage:
+
+- Start, URL paste, save-format selection, save, open save folder, and
+  stop/quit steps.
+- Beginner-safe format choices for video, audio-only, standard, high quality,
+  easy settings, and advanced settings.
+- Status explanations for saving, completed, failed, and trying once again.
+- Troubleshooting entry points for startup, save failure, unknown save folder,
+  and a screen that appears stuck.
+- Safe-use boundaries for allowed content, no public hosting, no ads, no
+  cookie/token/secret sharing, and no DRM/auth/restriction bypass.
+
+The source does not generate package files and does not approve an HTML
+generator.
+
 ## Next PR Candidate
 
-Draft `docs/llmwiki/package-guides/03-how-to-use.html.source.md` as the
-everyday-use source for future `03_使い方.html`, while keeping it as source
-material only.
+Draft `docs/llmwiki/package-guides/03-how-to-use.txt.source.md` as the short
+fallback source for future `03_使い方.txt`, while keeping it as source material
+only.
