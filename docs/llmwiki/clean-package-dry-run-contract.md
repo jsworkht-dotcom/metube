@@ -610,19 +610,34 @@ generation, package generation, build/package commands, Tauri/Electron
 implementation, backend/frontend/Docker/CI changes, or package/lockfile
 changes.
 
-## Next Implementation Candidate
+## Y-06G Warning Hardening
 
-Add advisory missing guide-source and missing notice-source warnings to
-`scripts/clean_package_dry_run.py`.
+Y-06G adds advisory warning output to `scripts/clean_package_dry_run.py`.
+
+Warning categories:
+
+- Missing beginner guide source candidates.
+- Missing license/notice source candidates.
+- Missing local-only safety notice source candidates.
+- Missing Windows/macOS section source coverage.
 
 Rules:
 
 - Keep the warnings non-blocking.
+- Keep dry-run `Status: OK` and exit code `0` when warnings are the only
+  findings.
+- Preserve existing blockers for generated package folders, forbidden filename
+  families, secret-like content findings, and PR #1001 leakage.
 - Do not generate guide files.
 - Do not copy license text.
 - Do not create notice bundles.
 - Do not create `動画保存ツール_ローカル専用/`.
 - Do not change backend, frontend, Docker, CI, package, or lockfile files.
+
+## Next Implementation Candidate
+
+Draft one approved beginner guide source candidate under `docs/llmwiki/` after
+reviewing the warning output.
 
 Actual clean-package generation should wait until after repeated successful
 dry-run reports and a later explicit generation task.

@@ -51,6 +51,90 @@ PLANNED_DEVELOPER_ENTRIES = [
     "開発者向け/manifest/planned-output-manifest.json",
 ]
 
+GUIDE_SOURCE_CANDIDATES = [
+    (
+        "00_最初に開いてください.html",
+        "docs/llmwiki/package-guides/00-first-open.html.source.md",
+    ),
+    (
+        "00_最初に開いてください.txt",
+        "docs/llmwiki/package-guides/00-first-open.txt.source.md",
+    ),
+    (
+        "03_使い方.html",
+        "docs/llmwiki/package-guides/03-how-to-use.html.source.md",
+    ),
+    (
+        "03_使い方.txt",
+        "docs/llmwiki/package-guides/03-how-to-use.txt.source.md",
+    ),
+    (
+        "04_困ったとき.html",
+        "docs/llmwiki/package-guides/04-troubleshooting.html.source.md",
+    ),
+    (
+        "04_困ったとき.txt",
+        "docs/llmwiki/package-guides/04-troubleshooting.txt.source.md",
+    ),
+    (
+        "05_安全な使い方.html",
+        "docs/llmwiki/package-guides/05-safe-use.html.source.md",
+    ),
+]
+
+NOTICE_SOURCE_CANDIDATES = [
+    (
+        "MeTube notice candidate",
+        "docs/llmwiki/package-notices/metube-notice.source.md",
+    ),
+    (
+        "yt-dlp notice candidate",
+        "docs/llmwiki/package-notices/yt-dlp-notice.source.md",
+    ),
+    (
+        "FFmpeg notice candidate",
+        "docs/llmwiki/package-notices/ffmpeg-notice.source.md",
+    ),
+    (
+        "Python/runtime notice candidate",
+        "docs/llmwiki/package-notices/python-runtime-notice.source.md",
+    ),
+    (
+        "frontend dependency notice candidate",
+        "docs/llmwiki/package-notices/frontend-dependencies-notice.source.md",
+    ),
+    (
+        "future Tauri/Electron notice candidate",
+        "docs/llmwiki/package-notices/desktop-shell-notice.source.md",
+    ),
+]
+
+SAFETY_NOTICE_SOURCE_CANDIDATES = [
+    (
+        "local-only safety notice source",
+        "docs/llmwiki/package-guides/00-first-open.html.source.md",
+    ),
+    (
+        "local-only TXT safety notice source",
+        "docs/llmwiki/package-guides/00-first-open.txt.source.md",
+    ),
+    (
+        "safe-use boundary source",
+        "docs/llmwiki/package-guides/05-safe-use.html.source.md",
+    ),
+]
+
+PLATFORM_SECTION_SOURCE_CANDIDATES = [
+    (
+        "Windows section source",
+        "docs/llmwiki/package-guides/00-first-open.html.source.md",
+    ),
+    (
+        "macOS section source",
+        "docs/llmwiki/package-guides/00-first-open.html.source.md",
+    ),
+]
+
 REQUIRED_CONTRACT_DOCS = [
     "docs/llmwiki/current-state.md",
     "docs/llmwiki/roadmap.md",
@@ -58,6 +142,8 @@ REQUIRED_CONTRACT_DOCS = [
     "docs/llmwiki/safety-boundaries.md",
     "docs/llmwiki/desktop-package-manifest.md",
     "docs/llmwiki/beginner-guide-skeleton.md",
+    "docs/llmwiki/beginner-guide-source-plan.md",
+    "docs/llmwiki/license-notice-plan.md",
     "docs/llmwiki/clean-package-dry-run-contract.md",
 ]
 
@@ -392,11 +478,66 @@ def collect_filename_findings(root: Path) -> tuple[list[Finding], list[Finding]]
                 Finding(
                     kind="ambiguous_backup_filename",
                     path=rel,
-                    message="Backup-like filename should be reviewed before any future package generation.",
+                    message=(
+                        "Backup-like filename should be reviewed before any "
+                        "future package generation."
+                    ),
                 )
             )
 
     return blocked + errors, warnings
+
+
+def collect_missing_source_warnings(root: Path) -> list[Finding]:
+    warnings: list[Finding] = []
+
+    for output_name, rel in GUIDE_SOURCE_CANDIDATES:
+        if not (root / rel).is_file():
+            warnings.append(
+                Finding(
+                    kind="missing_guide_source",
+                    path=rel,
+                    message=(
+                        f"Beginner guide source for {output_name} is planned "
+                        "but not implemented yet."
+                    ),
+                )
+            )
+
+    for label, rel in NOTICE_SOURCE_CANDIDATES:
+        if not (root / rel).is_file():
+            warnings.append(
+                Finding(
+                    kind="missing_notice_source",
+                    path=rel,
+                    message=f"{label} is planned but not implemented yet.",
+                )
+            )
+
+    for label, rel in SAFETY_NOTICE_SOURCE_CANDIDATES:
+        if not (root / rel).is_file():
+            warnings.append(
+                Finding(
+                    kind="missing_local_only_safety_notice_source",
+                    path=rel,
+                    message=f"{label} is planned but not implemented yet.",
+                )
+            )
+
+    for label, rel in PLATFORM_SECTION_SOURCE_CANDIDATES:
+        if not (root / rel).is_file():
+            warnings.append(
+                Finding(
+                    kind="missing_platform_section_source",
+                    path=rel,
+                    message=(
+                        f"{label} is planned for future Windows/Mac guide "
+                        "coverage but not implemented yet."
+                    ),
+                )
+            )
+
+    return warnings
 
 
 def text_candidate_files(root: Path) -> Iterable[Path]:
@@ -481,7 +622,10 @@ def collect_blockers(root: Path) -> tuple[list[Finding], list[Finding], list[str
             Finding(
                 kind="generated_package_folder_present",
                 path=PACKAGE_ROOT,
-                message="Generated package root already exists; dry-run must not mix it with source files.",
+                message=(
+                    "Generated package root already exists; dry-run must not "
+                    "mix it with source files."
+                ),
             )
         )
 
@@ -491,13 +635,17 @@ def collect_blockers(root: Path) -> tuple[list[Finding], list[Finding], list[str
                 Finding(
                     kind="upstream_pr_1001_leakage",
                     path=rel,
-                    message="Upstream PR #1001 file is present and must stay out of fork-only package work.",
+                    message=(
+                        "Upstream PR #1001 file is present and must stay out "
+                        "of fork-only package work."
+                    ),
                 )
             )
 
     filename_blockers, filename_warnings = collect_filename_findings(root)
     blocked.extend(filename_blockers)
     warnings.extend(filename_warnings)
+    warnings.extend(collect_missing_source_warnings(root))
     blocked.extend(scan_forbidden_content(root))
 
     return blocked, warnings, existing_excluded_paths(root)
@@ -573,23 +721,44 @@ def print_report(
     print(f"  forbidden paths: {forbidden_paths_status}")
     print(f"  forbidden filenames: {forbidden_filenames_status}")
     print(f"  secret-like content: {secret_content_status}")
-    generated_state = "present" if any(b.kind == "generated_package_folder_present" for b in blocked) else "not present"
+    generated_state = (
+        "present"
+        if any(b.kind == "generated_package_folder_present" for b in blocked)
+        else "not present"
+    )
     print(f"  generated package folder: {generated_state}")
     print("  beginner guides: planned")
+    print(
+        "  guide/notice source warnings: "
+        + ("present" if warnings else "none")
+    )
     print("  Windows/Mac sections: planned")
-    print("  PR #1001 leakage: " + ("BLOCKED" if any(b.kind == "upstream_pr_1001_leakage" for b in blocked) else "OK"))
+    pr_1001_status = (
+        "BLOCKED"
+        if any(b.kind == "upstream_pr_1001_leakage" for b in blocked)
+        else "OK"
+    )
+    print(f"  PR #1001 leakage: {pr_1001_status}")
     print()
 
     if warnings:
-        print("Warnings:")
+        print(f"Warnings ({len(warnings)} nonblocking):")
         for warning in warnings:
             print(f"  {format_finding(warning)}")
+        print()
+    else:
+        print("Warnings:")
+        print("  none")
         print()
 
     if blocked:
         print("Blocked reasons:")
         for finding in blocked:
             print(f"  {format_finding(finding)}")
+        print()
+    else:
+        print("Blocked reasons:")
+        print("  none")
         print()
 
     print("Safety flags:")

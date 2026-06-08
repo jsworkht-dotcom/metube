@@ -2,16 +2,35 @@
 
 ## Immediate Next
 
-### Add dry-run warnings for missing guide and notice sources
+### Review Y-06G dry-run warning output
 
-- Add non-blocking warnings to `scripts/clean_package_dry_run.py` for missing
-  guide-source and notice-source candidates defined in Y-06F.
-- Keep the next PR dry-run only.
+- Review the warning list from `scripts/clean_package_dry_run.py`.
+- Choose one beginner guide source candidate to draft first, likely
+  `00_最初に開いてください.html` source material.
+- Keep the next PR source-material only unless explicitly approved otherwise.
 - Do not create guide outputs, copy license text, generate notice bundles, or
   create package files.
 - Do not create `動画保存ツール_ローカル専用/`, copy files, build packages, install
   dependencies, add Tauri/Electron/WebView2, change backend/frontend/Docker/CI,
   or change package/lockfile files.
+
+## Y-06G Dry-Run Warning Hardening Outcome
+
+- Dry-run script:
+  `scripts/clean_package_dry_run.py`
+- Added nonblocking warning output for:
+  - missing beginner guide source candidates
+  - missing license/notice source candidates
+  - missing local-only safety notice source candidates
+  - missing Windows/macOS section source coverage
+- Warning-only dry-runs keep `Status: OK` and exit code `0`.
+- Existing blockers remain blockers:
+  - generated package folder
+  - forbidden filename families
+  - secret-like content findings
+  - upstream PR #1001 leakage
+- No package generation, guide generation, notice copying, build/package output,
+  backend/frontend/Docker/CI changes, or package/lockfile changes were added.
 
 ## Y-06F Guide Source And Notice Review Outcome
 

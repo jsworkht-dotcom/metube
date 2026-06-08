@@ -130,6 +130,19 @@ MeTube. The canonical branch is fork `master`, and local `master` tracks
   backend/frontend/Docker/CI/package/lockfile files, or implement update apply.
 - The selected next PR candidate is to add non-blocking missing guide-source
   and missing notice-source warnings to `scripts/clean_package_dry_run.py`.
+- Y-06G clean-package dry-run guide/notice warning hardening is implemented in
+  `scripts/clean_package_dry_run.py`.
+- Y-06G outcome: the dry-run now reports nonblocking warnings for missing
+  beginner guide source candidates, missing license/notice source candidates,
+  missing local-only safety notice source candidates, and missing Windows/macOS
+  section source coverage.
+- Y-06G warning-only runs keep `Status: OK` and exit code `0`.
+- Y-06G preserves existing blockers for generated package folder presence,
+  forbidden filename families, secret-like content findings, and PR #1001
+  leakage.
+- Y-06G does not create guide files, copy license text, generate notice bundles,
+  create the package root, build packages, add Tauri/Electron/WebView2, change
+  backend/frontend/Docker/CI/package/lockfile files, or implement update apply.
 - GitHub CLI auth note: in this Windows Codex desktop environment, sandboxed
   `gh auth status` may report an invalid `default` token while escalated
   `gh auth status` succeeds through `keyring`. Root cause is sandbox access to
@@ -139,8 +152,9 @@ MeTube. The canonical branch is fork `master`, and local `master` tracks
 
 ## Next Step
 
-Proceed to a dry-run-only warning enhancement for missing guide-source and
-notice-source candidates. Do not create guide files, copy license text, create
-the generated package folder, copy package files, implement actual package
-generation, add Tauri/Electron/WebView2, run builds, install dependencies,
-change backend/frontend/Docker/CI files, or change package/lockfile files yet.
+Review the Y-06G warning output and draft one approved beginner guide source
+candidate, likely the first-open HTML source, if the warning list is accepted.
+Do not create generated guide outputs, copy license text, create the generated
+package folder, copy package files, implement actual package generation, add
+Tauri/Electron/WebView2, run builds, install dependencies, change
+backend/frontend/Docker/CI files, or change package/lockfile files yet.

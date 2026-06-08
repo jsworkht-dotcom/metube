@@ -334,15 +334,21 @@ Future package generation must remain blocked if:
 - A generated `動画保存ツール_ローカル専用/` folder already exists before the
   generation task starts.
 
-## Next PR Candidate
+## Current Dry-Run Support
 
-Add non-blocking missing guide-source and missing notice-source warnings to
+Y-06G added non-blocking missing guide-source and notice-source warnings to
 `scripts/clean_package_dry_run.py`.
 
-Keep the next PR dry-run only:
+Warning behavior:
 
-- No license body copying.
-- No generated package folder.
-- No guide generation.
-- No build or package output.
-- No backend/frontend/Docker/CI/package/lockfile changes.
+- Missing notice source candidates are reported under `Warnings`.
+- Warning-only runs keep `Status: OK` and exit code `0`.
+- No license body copying, generated package folder, guide generation,
+  notice bundle generation, build/package output, or
+  backend/frontend/Docker/CI/package/lockfile changes were added.
+
+## Next PR Candidate
+
+Draft one approved beginner guide source candidate first. License/notice source
+drafting should wait until exact bundled runtime inputs are selected or a later
+task explicitly approves notice source drafting.
