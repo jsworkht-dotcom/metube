@@ -118,6 +118,12 @@ folders, package generation scripts, Tauri/Electron/WebView2 implementation,
 build/package commands, installers, signing, updater behavior, dependency
 changes, or lockfile changes.
 
+The Y-06D clean-package dry-run contract is tracked in
+`docs/llmwiki/clean-package-dry-run-contract.md`. That contract defines future
+dry-run report shape, planned output manifest, include/exclude rules,
+validation gates, warning/error/blocked classification, and stop conditions, but
+it does not approve a generator implementation or any generated package files.
+
 Desktop planning must preserve these safety rules:
 
 - Backend must be planned as local-only and bound to `127.0.0.1`.
@@ -127,6 +133,10 @@ Desktop planning must preserve these safety rules:
   `node_modules`, local downloads, state, logs, temp files, `.env`, `cookies.txt`,
   cookie files, token files, secret files, personal backups, command logs, dev
   branch metadata, or upstream PR #1001 files.
+- Future clean-package dry-run must block forbidden paths, forbidden filenames,
+  forbidden content pattern families, generated package folder presence, PR
+  #1001 leakage, and any planned output that implies public hosting, ads, update
+  apply, Docker pull, git update, package install/update, or credential handling.
 - No logs, diagnostics, package manifests, or guide examples may contain real
   cookie, token, secret, or private URL values.
 - No automatic update apply.

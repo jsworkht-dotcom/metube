@@ -1,0 +1,605 @@
+# Clean Package Dry-Run Contract
+
+## Purpose
+
+Y-06D defines the documentation-only dry-run contract for a future clean-package
+generator.
+
+The generator is intended to plan a beginner-friendly local-only distribution
+package before any files are copied. This contract fixes the report shape,
+planned output manifest, include/exclude rules, validation gates, blocked
+conditions, and implementation sequence.
+
+This document does not approve or implement a package generator, desktop shell,
+installer, build script, dependency change, backend change, frontend change,
+Docker change, CI change, or lockfile change.
+
+## Scope
+
+Allowed in Y-06D:
+
+- Define future dry-run command candidates.
+- Define JSON and Markdown dry-run report candidates.
+- Define exit-code behavior.
+- Define warning, error, and blocked classifications.
+- Define a planned output manifest shape for the future package root.
+- Define include and exclude validation rules.
+- Define safety gates for secrets, caches, local state, generated folders, and
+  upstream PR #1001 file leakage.
+- Define examples for OK, warning, blocked, secret-like pattern found, and
+  excluded path inclusion cases.
+- Propose exactly one next implementation candidate.
+
+Not allowed in Y-06D:
+
+- Creating the actual `動画保存ツール_ローカル専用/` distribution folder.
+- Creating actual beginner `.html` or `.txt` package files.
+- Creating package generation scripts.
+- Adding Tauri, Electron, WebView2, installer, signing, or notarization code.
+- Running build, package, install, Docker pull, git pull / merge / rebase,
+  update apply, or dependency update commands.
+- Changing backend, frontend, yt-dlp, extractor, Docker, CI, package, or
+  lockfile files.
+- Reading, storing, displaying, or transforming real cookie, token, secret, or
+  credential values.
+- Mixing upstream PR #1001 files into fork-only work.
+
+## Sources Checked
+
+Repository sources checked:
+
+- `docs/llmwiki/current-state.md`
+- `docs/llmwiki/roadmap.md`
+- `docs/llmwiki/handoff.md`
+- `docs/llmwiki/safety-boundaries.md`
+- `docs/llmwiki/dockerless-desktop-distribution-feasibility.md`
+- `docs/llmwiki/desktop-sidecar-lifecycle-contract.md`
+- `docs/llmwiki/desktop-package-manifest.md`
+- `docs/llmwiki/beginner-guide-skeleton.md`
+- `docs/llmwiki/dry-run-update-contract.md`
+
+No external references are required for this docs-only contract.
+
+## Dry-Run Definition
+
+Dry-run means report-only planning.
+
+A future dry-run may:
+
+- Read an approved manifest contract.
+- Read repository file paths and metadata.
+- Classify candidate source files into include, exclude, warning, or blocked
+  groups.
+- Build a planned output manifest.
+- Produce JSON and/or Markdown reports.
+- Report missing package sections, missing guides, missing notices, and safety
+  blockers.
+- Report whether a future generation step would be blocked.
+
+A future dry-run must not:
+
+- Create, copy, move, modify, delete, or package files.
+- Create `動画保存ツール_ローカル専用/` or any generated distribution folder.
+- Run frontend or backend builds.
+- Install, update, or download dependencies.
+- Pull Docker images.
+- Run git pull / merge / rebase.
+- Apply updates.
+- Create backups or rollback targets.
+- Read or print real cookie, token, secret, credential, or private config
+  values.
+- Treat a passing dry-run as approval to generate a package.
+
+The dry-run result is advisory. A later explicit task must approve any generator
+implementation, and another later explicit task must approve actual package
+generation.
+
+## Future Command Contract Candidate
+
+The first implementation should be a script-only report generator. Candidate
+location:
+
+```text
+tools/clean_package_dry_run.py
+```
+
+Candidate commands:
+
+```text
+python tools/clean_package_dry_run.py --format json
+python tools/clean_package_dry_run.py --format markdown
+python tools/clean_package_dry_run.py --format both
+python tools/clean_package_dry_run.py --strict --format json
+```
+
+Rules:
+
+- `--format json` writes machine-readable output to stdout.
+- `--format markdown` writes a human-readable report to stdout.
+- `--format both` may write stdout JSON and a Markdown report only after a
+  later task approves report file locations.
+- The first implementation should not write report files unless the exact
+  destination is explicitly approved.
+- `--strict` may promote warnings to blocked in a future CI-oriented check.
+- No command may create the package root or copy package files.
+
+## Exit Codes
+
+Candidate exit codes:
+
+| Code | Status | Meaning |
+| --- | --- | --- |
+| `0` | `ok` | Dry-run completed and no warnings, errors, or blocked reasons were found. |
+| `1` | `warning` | Dry-run completed, package generation would remain stopped for review, but no hard blocker was found. |
+| `2` | `blocked` | Dry-run completed and package generation must not proceed. |
+| `3` | `error` | Dry-run could not complete because required inputs, repository state, or checks failed. |
+
+Rules:
+
+- `blocked` takes precedence over `warning`.
+- `error` means the dry-run did not have enough reliable information to decide.
+- A future actual generation command must refuse to run after exit codes `1`,
+  `2`, or `3` unless a later task defines an explicit override policy.
+- No override policy is approved by this document.
+
+## Status Classification
+
+`ok`:
+
+- All required package sections are present in the planned manifest.
+- No excluded paths are selected for inclusion.
+- No forbidden filenames are selected for inclusion.
+- No forbidden content patterns are found in included text-like files.
+- Required local-only and safety notices are present in planned guide entries.
+- No upstream PR #1001 files are selected.
+- No generated distribution folder already exists in the repository root.
+
+`warning`:
+
+- A required beginner-facing guide entry is planned but its future source is not
+  yet implemented.
+- License, notice, checksum, or manifest entries are planned but unresolved.
+- A large runtime file would need future owner review.
+- Platform-specific package completeness is incomplete but not unsafe.
+- Source maps or diagnostics are present and require explicit future review.
+
+`blocked`:
+
+- Any excluded path is selected for inclusion.
+- Any forbidden filename is selected for inclusion.
+- Any secret-like, cookie-like, token-like, or credential-like content is found
+  in an included candidate.
+- `.git`, `.github`, caches, local downloads, state, logs, temp files, private
+  env files, personal backups, or command logs would be included.
+- `docker-compose.local.yml` or `docs/local-only.md` would be included.
+- A generated `動画保存ツール_ローカル専用/` folder already exists and might be
+  mistaken for a clean output.
+- Public hosting, ads, update apply, Docker pull, package install/update, or
+  credential handling is implied by a planned entry.
+
+`error`:
+
+- The repository root cannot be determined safely.
+- The current branch or source commit cannot be read.
+- Required docs contracts are missing.
+- The scan cannot read a candidate file well enough to classify it.
+- Path resolution cannot prove that planned output is outside forbidden source
+  locations.
+
+## JSON Report Candidate
+
+Candidate top-level fields:
+
+```text
+schema_version
+mode
+status
+exit_code
+checked_at
+repository_root
+source_commit
+source_branch
+package_root
+planned_manifest_path
+planned_outputs
+include_rules
+exclude_rules
+validation
+warnings
+errors
+blocked_reasons
+safety_flags
+next_step
+```
+
+Candidate safety flags:
+
+```text
+local_only=true
+public_hosting=false
+ads=false
+update_apply=false
+docker_pull=false
+git_update=false
+package_install=false
+credential_handling=false
+generated_folder_created=false
+implementation_changes=false
+```
+
+Rules:
+
+- Paths in reports should be repository-relative or package-relative.
+- Reports must not include real personal local paths except the known repository
+  root when explicitly needed for operator orientation.
+- Reports must not include submitted video URLs, cookie contents, tokens,
+  secrets, private environment values, or private filesystem values.
+- Secret-like findings should identify the file path, line number when safe, and
+  pattern family only. They must not echo the matched value.
+
+## Markdown Report Candidate
+
+Candidate sections:
+
+```text
+# Clean Package Dry-Run Report
+
+## Summary
+## Planned Package Root
+## Planned Output Manifest
+## Included Candidates
+## Excluded Matches
+## Validation Results
+## Warnings
+## Blocked Reasons
+## Safety Flags
+## Next Step
+```
+
+Rules:
+
+- Markdown is for human review only.
+- Markdown must remain sanitized.
+- Markdown must not normalize bypassing OS warnings, site restrictions,
+  authentication, DRM, or credentials.
+- Markdown must clearly state that no package files were generated.
+
+## Planned Output Manifest
+
+The future generator should emit a planned manifest during dry-run. Candidate
+future path inside a generated package:
+
+```text
+動画保存ツール_ローカル専用/開発者向け/manifest/planned-output-manifest.json
+```
+
+The dry-run may report the same structure without creating the file.
+
+Candidate package root:
+
+```text
+動画保存ツール_ローカル専用/
+  00_最初に開いてください.html
+  00_最初に開いてください.txt
+  Windows用/
+  Mac用/
+  保存先/
+  困ったとき/
+  開発者向け/
+```
+
+Candidate manifest entry fields:
+
+```text
+package_relative_path
+source
+kind
+target_os
+target_arch
+include_reason
+required
+generated
+checksum_candidate
+license_notice_required
+safety_notes
+```
+
+Candidate root-level entries:
+
+- `00_最初に開いてください.html`
+- `00_最初に開いてください.txt`
+- `Windows用/`
+- `Mac用/`
+- `保存先/`
+- `困ったとき/`
+- `開発者向け/`
+- `開発者向け/manifest/package-manifest.json`
+- `開発者向け/manifest/checksums.json`
+- `開発者向け/licenses/`
+- `開発者向け/notices/`
+- `Windows用/notices/`
+- `Mac用/notices/`
+
+The dry-run must distinguish planned future generated entries from source files
+that already exist. Planned guide entries do not mean actual guide files are
+created in Y-06D.
+
+## Include Rules
+
+Future clean packages may include these categories only after implementation is
+explicitly approved:
+
+- Desktop launcher shell.
+- Backend sidecar bundle.
+- Built Angular frontend assets.
+- Python runtime and dependency bundle required by the sidecar.
+- yt-dlp Python package and required dependencies.
+- Platform-specific ffmpeg binaries.
+- Optional Deno/bgutil parity assets after platform-specific review.
+- User-facing `.html` beginner guide.
+- User-facing `.txt` fallback guide.
+- Developer docs under `開発者向け/`, including selected `docs/llmwiki/`
+  planning material.
+- License files and notice files.
+- Package manifest, planned output manifest, and checksum files.
+
+Source repository include candidates for the first dry-run script:
+
+- `app/` only as a source classification input, not as copied package output.
+- `ui/` only as a source classification input, not as copied package output.
+- `docs/llmwiki/desktop-sidecar-lifecycle-contract.md`
+- `docs/llmwiki/desktop-package-manifest.md`
+- `docs/llmwiki/beginner-guide-skeleton.md`
+- `docs/llmwiki/clean-package-dry-run-contract.md`
+- `LICENSE`, `NOTICE`, or equivalent license/notice files when present.
+
+Rules:
+
+- Source code should not be copied into a beginner package unless a future
+  developer-material decision explicitly approves it.
+- `docs/llmwiki/` material belongs under `開発者向け/`, never as the first
+  beginner entry point.
+- Markdown files are developer-facing planning material, not the normal
+  beginner guide.
+- User-facing guide entries must be `.html` and `.txt`.
+
+## Exclude Rules
+
+Future clean packages must exclude:
+
+- `.git/`
+- `.github/`
+- `.pytest_cache/`
+- `.ruff_cache/`
+- `.mypy_cache/`
+- `.coverage`
+- `node_modules/`
+- `ui/node_modules/`
+- `ui/.angular/`
+- build caches
+- test caches
+- `downloads/`
+- `state/`
+- `logs/`
+- `temp/`
+- `.env`
+- `.env.*`
+- `cookies.txt`
+- cookie files
+- token files
+- secret files
+- private config values
+- personal backups
+- local virtual environments
+- package manager caches
+- local command logs
+- dev branch metadata
+- generated distribution folders
+- unrelated upstream PR #1001 files:
+  - `docker-compose.local.yml`
+  - `docs/local-only.md`
+
+Filename families that should default to blocked when selected for inclusion:
+
+- names containing `cookie`
+- names containing `token`
+- names containing `secret`
+- names containing `credential`
+- names containing `password`
+- names ending in `.pem`, `.key`, `.p12`, or `.pfx`
+- names beginning with `.env`
+
+## Validation Rules
+
+Path validation:
+
+- Resolve every candidate path under the repository root before classification.
+- Reject path traversal such as `..` escaping the intended root.
+- Preserve non-ASCII paths.
+- Preserve spaces in paths.
+- Treat symlinks, junctions, and shortcuts as requiring explicit future review.
+- Block if a candidate path points into excluded directories.
+- Block if `動画保存ツール_ローカル専用/` already exists in the repository root.
+
+Filename validation:
+
+- Block forbidden filename families listed in the exclude rules.
+- Warn on ambiguous backup names such as `backup`, `old`, `copy`, `tmp`, or
+  dated personal archive names.
+- Warn on source maps unless a future task proves they are safe for beginner
+  packages.
+
+Content validation:
+
+- Scan included text-like files for secret-like, cookie-like, token-like,
+  credential-like, private URL, and private env assignment patterns.
+- Do not scan binary payload contents into logs.
+- Do not echo matched values.
+- Report only path, line number when safe, and pattern family.
+- Block if a forbidden content pattern is found in an included candidate.
+
+Completeness validation:
+
+- Warn if the planned HTML guide is missing.
+- Warn if the planned TXT fallback guide is missing.
+- Warn if local-only notice is missing from planned guide entries.
+- Warn if Windows package section is incomplete.
+- Warn if macOS package section is incomplete.
+- Warn if license, notice, checksum, or manifest candidates are missing.
+
+Large-file validation:
+
+- Warn on large files that are not known runtime binaries.
+- Block extremely large files unless a later task classifies them as required
+  runtime artifacts.
+- Do not include local downloads as large runtime artifacts.
+
+Safety validation:
+
+- Block public hosting, LAN service mode, public tunnel, reverse proxy, ads,
+  monetization, update apply, Docker pull, git update, package install/update,
+  credential handling, DRM bypass, authentication bypass, restriction
+  circumvention, and mass-download optimization.
+- Block PR #1001 leakage by detecting `docker-compose.local.yml` and
+  `docs/local-only.md`.
+- Block generated distribution files when this task is docs-only.
+
+## Dry-Run Output Examples
+
+### OK
+
+```json
+{
+  "schema_version": "0.1",
+  "mode": "dry_run",
+  "status": "ok",
+  "exit_code": 0,
+  "package_root": "動画保存ツール_ローカル専用/",
+  "planned_outputs": 13,
+  "warnings": [],
+  "blocked_reasons": [],
+  "safety_flags": {
+    "local_only": true,
+    "generated_folder_created": false,
+    "credential_handling": false
+  },
+  "next_step": "Review the dry-run report; do not generate package files yet."
+}
+```
+
+### Warning
+
+```json
+{
+  "schema_version": "0.1",
+  "mode": "dry_run",
+  "status": "warning",
+  "exit_code": 1,
+  "warnings": [
+    {
+      "kind": "missing_notice_candidate",
+      "path": "開発者向け/notices/",
+      "message": "Notice location is planned but no approved source has been selected."
+    }
+  ],
+  "blocked_reasons": []
+}
+```
+
+### Blocked
+
+```json
+{
+  "schema_version": "0.1",
+  "mode": "dry_run",
+  "status": "blocked",
+  "exit_code": 2,
+  "warnings": [],
+  "blocked_reasons": [
+    {
+      "kind": "generated_folder_present",
+      "path": "動画保存ツール_ローカル専用/",
+      "message": "A generated package root already exists and must not be mixed into docs-only work."
+    }
+  ]
+}
+```
+
+### Secret-Like Pattern Found
+
+```json
+{
+  "schema_version": "0.1",
+  "mode": "dry_run",
+  "status": "blocked",
+  "exit_code": 2,
+  "blocked_reasons": [
+    {
+      "kind": "forbidden_content_pattern",
+      "path": "example/config-template.txt",
+      "line": 12,
+      "pattern_family": "secret_like_assignment",
+      "message": "A secret-like assignment was found. The value is intentionally omitted."
+    }
+  ]
+}
+```
+
+### Excluded Path Would Be Included
+
+```json
+{
+  "schema_version": "0.1",
+  "mode": "dry_run",
+  "status": "blocked",
+  "exit_code": 2,
+  "blocked_reasons": [
+    {
+      "kind": "excluded_path_selected",
+      "path": "ui/node_modules/",
+      "message": "Excluded dependency cache path would be included."
+    }
+  ]
+}
+```
+
+## Safety Gates Before Actual Generation
+
+A future actual generation task must remain blocked until all of these are true:
+
+- Dry-run script exists and is reviewed.
+- Dry-run has succeeded repeatedly from a clean `fork/master`-based branch.
+- Dry-run reports are sanitized.
+- Planned output manifest is accepted.
+- Include and exclude rules are explicit.
+- Forbidden path and filename detection is implemented.
+- Forbidden content pattern detection is implemented.
+- Large file warnings are reviewed.
+- HTML and TXT guide source material is approved.
+- Local-only notice is present.
+- Windows and macOS package sections are complete enough for the selected next
+  package stage.
+- License, notice, checksum, and manifest locations are reviewed.
+- No generated package folder exists in the repository before generation.
+- No backend/frontend/Docker/CI/package/lockfile changes are mixed into the
+  generator task unless explicitly approved.
+- No PR #1001 files are included.
+- No cookie/token/secret handling is added.
+- No update apply, Docker pull, git pull / merge / rebase, restart, pip install,
+  package install, or package update is added.
+
+## Next Implementation Candidate
+
+Y-06E should implement only the report-only dry-run script:
+
+- Candidate path: `tools/clean_package_dry_run.py`
+- Input: repository tree and accepted LLMwiki contracts.
+- Output: sanitized JSON or Markdown report.
+- Behavior: no file generation, no copying, no build, no install, no package
+  creation, no generated `動画保存ツール_ローカル専用/` folder.
+- Validation: forbidden paths, forbidden filenames, forbidden content pattern
+  families, package section completeness, local-only notice, and PR #1001 leakage
+  checks.
+
+Actual clean-package generation should wait until after repeated successful
+dry-run reports and a later explicit generation task.

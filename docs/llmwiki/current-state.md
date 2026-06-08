@@ -289,16 +289,50 @@
   - backend/frontend/Docker/CI/package/lockfile changes
   - update apply
 
+### Y-06D clean-package generator dry-run contract docs
+
+- Scope: docs-only dry-run contract for a future clean beginner package
+  generator.
+- Contract document:
+  `docs/llmwiki/clean-package-dry-run-contract.md`
+- Outcome:
+  - Defined dry-run as report-only planning before any clean package files are
+    copied or generated.
+  - Defined future command candidates, JSON/Markdown report shape, exit code
+    policy, planned output manifest, include/exclude rules, validation gates,
+    and blocked conditions.
+  - Fixed safety checks for forbidden paths, forbidden filenames,
+    secret-like content patterns, large files, missing guides/notices,
+    local-only notice requirements, Windows/macOS package section completeness,
+    generated folder presence, and PR #1001 leakage.
+  - Kept actual package generation, clean-package generator implementation,
+    Tauri/Electron/WebView2 implementation, build/package commands,
+    dependency install/update, Docker pull, update apply, cookie/token/secret
+    handling, public hosting, ads, and upstream PR #1001 work out of scope.
+- Not implemented:
+  - clean-package generator script
+  - generated distribution folder
+  - actual `.html` / `.txt` guide files
+  - package build or copy behavior
+  - Tauri
+  - Electron
+  - WebView2
+  - desktop packaging
+  - installer
+  - signing or notarization
+  - backend/frontend/Docker/CI/package/lockfile changes
+  - update apply
+
 ## Current Next Step
 
-Proceed to Y-06D clean-package generator dry-run contract docs.
+Proceed to Y-06E report-only clean-package dry-run script.
 
-Y-06D scope:
+Y-06E scope:
 
-- Docs-only dry-run contract for a future clean-package generator.
-- Define dry-run report shape, safe path checks, include/exclude validation,
-  secret scanning boundaries, generated-folder stop conditions, and PR #1001
-  leakage checks.
+- Implement only a dry-run script that emits sanitized JSON/Markdown reports.
+- Validate safe path checks, include/exclude rules, forbidden filename families,
+  forbidden content pattern families, generated-folder stop conditions,
+  local-only notice requirements, and PR #1001 leakage checks.
 - Keep Tauri/Electron implementation, packaging, installer, signing, updater,
   backend changes, frontend changes, Docker changes, CI changes, package
   changes, and lockfile changes out of scope unless explicitly approved later.

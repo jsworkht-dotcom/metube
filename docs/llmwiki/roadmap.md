@@ -2,18 +2,37 @@
 
 ## Immediate Next
 
-### Y-06D clean-package generator dry-run contract docs
+### Y-06E report-only clean-package dry-run script
 
-- Write the docs-only dry-run contract required before any clean-package
-  generator implementation.
-- Scope: Windows + macOS, local-only personal use, Tauri-first unless a later
-  checkpoint explicitly changes that.
-- Define dry-run report shape, safe path validation, include/exclude checks,
-  secret scanning boundaries, generated-folder stop conditions, and PR #1001
-  leakage checks.
-- Do not implement Tauri, Electron, packaging, installers, signing, updater
-  logic, backend changes, frontend changes, Docker changes, CI changes, or
-  package/lockfile changes in Y-06D.
+- Implement a report-only dry-run script for future clean beginner package
+  planning.
+- Candidate script path: `tools/clean_package_dry_run.py`.
+- Output only sanitized JSON/Markdown reports.
+- Validate forbidden paths, forbidden filenames, forbidden content pattern
+  families, large file warnings, missing guide/notice warnings, local-only
+  notice requirements, Windows/macOS package section completeness, generated
+  folder stop conditions, and PR #1001 leakage checks.
+- Do not create `動画保存ツール_ローカル専用/`, copy files, build packages, install
+  dependencies, add Tauri/Electron/WebView2, change backend/frontend/Docker/CI,
+  or change package/lockfile files in Y-06E.
+
+## Y-06D Dry-Run Contract Outcome
+
+- Clean-package generator dry-run contract is documented in
+  `docs/llmwiki/clean-package-dry-run-contract.md`.
+- Dry-run is fixed as report-only planning before any package files are copied
+  or generated.
+- Future command candidates, JSON/Markdown report shape, exit code policy,
+  warning/error/blocked classifications, planned output manifest,
+  include/exclude rules, validation rules, and output examples are defined.
+- Secret-like content, forbidden paths, forbidden filenames, generated package
+  folders, local-only notice gaps, Windows/macOS section gaps, large file review,
+  and upstream PR #1001 leakage are explicit safety gates.
+- Actual package generation, clean-package generator implementation,
+  Tauri/Electron/WebView2, installers, signing, build/package commands,
+  dependency install/update, Docker pull, update apply, cookie/token/secret
+  handling, public hosting, ads, backend/frontend/Docker/CI changes, and
+  package/lockfile changes remain unapproved.
 
 ## Y-06C Manifest And Guide Outcome
 
