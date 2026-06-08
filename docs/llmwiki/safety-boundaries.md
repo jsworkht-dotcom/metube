@@ -104,11 +104,19 @@ Beginner-friendly UX planning is allowed as documentation. Public hosting,
 external-user offering, ads, DRM bypass, authentication bypass, restriction
 circumvention, and mass-download optimization remain out of scope.
 
+The Y-06B contract is tracked in
+`docs/llmwiki/desktop-sidecar-lifecycle-contract.md`. That contract defines
+future desktop sidecar lifecycle and package boundaries, but it does not approve
+implementation, build scripts, installers, signing, updater behavior, dependency
+changes, or lockfile changes.
+
 Desktop planning must preserve these safety rules:
 
 - Backend must be planned as local-only and bound to `127.0.0.1`.
 - No public tunnel, reverse proxy, LAN service mode, or hosted mode.
 - No cookie/token/secret handling in the beginner desktop flow.
+- No logs, diagnostics, package manifests, or guide examples may contain real
+  cookie, token, secret, or private URL values.
 - No automatic update apply.
 - No Docker pull, git pull / merge / rebase, restart, pip install, package
   install, or package update from a desktop app.

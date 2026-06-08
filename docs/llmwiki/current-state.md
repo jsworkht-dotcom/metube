@@ -231,15 +231,41 @@
   - backend/frontend/Docker/CI/package/lockfile changes
   - update apply
 
+### Y-06B desktop sidecar lifecycle and package contract docs
+
+- Scope: docs-only lifecycle and package contract for a future Level 3
+  Dockerless desktop-like distribution.
+- Contract document:
+  `docs/llmwiki/desktop-sidecar-lifecycle-contract.md`
+- Outcome:
+  - Defined desktop wrapper ownership for backend sidecar start, readiness,
+    monitoring, stop, close confirmation, and abnormal-exit recovery.
+  - Defined required desktop env overrides, including `HOST=127.0.0.1` and
+    per-user download/state/temp paths.
+  - Defined package contents, package exclusions, Windows/macOS package
+    boundaries, and beginner `.html` / `.txt` guide requirements.
+  - Kept cookie/token/secret handling, update apply, Docker pull, package
+    install/update, public hosting, ads, and implementation work out of scope.
+- Not implemented:
+  - Tauri
+  - Electron
+  - WebView2
+  - desktop packaging
+  - installer
+  - signing or notarization
+  - backend/frontend/Docker/CI/package/lockfile changes
+  - update apply
+
 ## Current Next Step
 
-Proceed to Y-06B desktop sidecar lifecycle and package contract docs.
+Proceed to Y-06C desktop package manifest and beginner guide skeleton docs.
 
-Y-06B scope:
+Y-06C scope:
 
-- Docs-only contract for desktop sidecar start/ready/stop states, close-safety
-  rules, desktop environment overrides, state/download/temp paths, package
-  manifest, package exclusions, and beginner `.html` / `.txt` guide outline.
+- Docs-only package manifest and beginner guide skeleton for the future
+  Dockerless desktop path.
+- Define concrete Windows/macOS package file layout, package exclusions, and
+  beginner `.html` / `.txt` guide structure.
 - Keep Tauri/Electron implementation, packaging, installer, signing, updater,
   backend changes, frontend changes, Docker changes, CI changes, package
   changes, and lockfile changes out of scope unless explicitly approved later.

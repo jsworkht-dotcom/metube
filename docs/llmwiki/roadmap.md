@@ -2,16 +2,31 @@
 
 ## Immediate Next
 
-### Y-06B desktop sidecar lifecycle and package contract docs
+### Y-06C desktop package manifest and beginner guide skeleton docs
 
-- Write the docs-only contract required before a Dockerless desktop prototype.
-- Scope: Windows + macOS, local-only personal use, Tauri-first.
-- Define backend sidecar start/ready/stop states, close confirmation rules,
-  desktop path/env overrides, package manifest/exclusions, and beginner
-  `.html` / `.txt` guide outline.
+- Write the docs-only package manifest and beginner guide skeleton required
+  before any Dockerless desktop implementation.
+- Scope: Windows + macOS, local-only personal use, Tauri-first unless a later
+  checkpoint explicitly changes that.
+- Define package file layout, package exclusions, bundled runtime notes, and
+  beginner `.html` / `.txt` guide sections.
 - Do not implement Tauri, Electron, packaging, installers, signing, updater
   logic, backend changes, frontend changes, Docker changes, CI changes, or
-  package/lockfile changes in Y-06B.
+  package/lockfile changes in Y-06C.
+
+## Y-06B Contract Outcome
+
+- Desktop sidecar lifecycle and package boundaries are documented in
+  `docs/llmwiki/desktop-sidecar-lifecycle-contract.md`.
+- The desktop wrapper owns backend sidecar start, readiness checks, monitoring,
+  stop, close confirmation, and abnormal-exit recovery.
+- Future desktop launch must force `HOST=127.0.0.1` and per-user
+  download/state/temp paths.
+- Package contents, exclusions, Windows/macOS boundaries, and beginner
+  `.html` / `.txt` guide requirements are defined at contract level.
+- Tauri/Electron/WebView2 implementation, package builds, installers, signing,
+  backend/frontend/Docker/CI/package/lockfile changes, and update apply remain
+  unapproved.
 
 ## Y-06A Feasibility Outcome
 
