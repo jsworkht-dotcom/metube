@@ -145,7 +145,33 @@
   - restart
   - pip install / package update
 
+### Y-05K-R update-plan runtime verification
+
+- Runtime verification succeeded after Docker Desktop / Docker daemon recovery.
+- Docker: Docker Desktop `4.76.0`, Engine `29.5.2`.
+- Image: existing local `ghcr.io/alexta69/metube:latest` used with
+  `--pull=never`.
+- Bind: `127.0.0.1:18082` only.
+- Mounts: app and built UI were mounted read-only.
+- `/update-plan` response:
+  - `overall: blocked`
+  - `can_prepare: false`
+  - `can_apply: false`
+  - `blocked_reasons` present
+  - `planned_steps` present
+  - rollback/doc references present
+- Related endpoints:
+  - `/update-status`: `latest`
+  - `/update-preflight`: `not_ready`, `can_apply_update: false`
+  - `/version`: `version: 2026.06.06`, `yt-dlp: 2026.03.17`
+- No secret/token/cookie values appeared in responses or logs.
+- No update execution, Docker pull, git pull / merge / rebase, restart, pip
+  install/update, backup creation, or rollback creation occurred.
+- Temporary container was stopped and removed.
+- Read-only mount `chown ... Read-only file system` warnings were observed
+  during verification and are expected for that test launch style.
+
 ## Current Next Step
 
-Proceed to Y-05K readonly `/update-plan` runtime verification. Do not implement
-prepare, apply, rollback, backup creation, or update buttons.
+Proceed to Y-05L planning. Prefer a small readonly plan/preflight UI display or
+closeout decision. Do not implement update apply yet.

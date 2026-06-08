@@ -186,17 +186,12 @@ Not allowed for the first dry-run / prepare stage:
 
 ## Minimum Next PR Candidate
 
-The next safest PR candidate is Y-05J readonly `/update-plan` contract-only
-endpoint design and implementation.
+Y-05J implemented the readonly `GET /update-plan` contract-only endpoint, and
+Y-05K-R verified it at runtime with blocked defaults, `can_prepare: false`, and
+`can_apply: false`.
 
-The scope should be:
-
-- readonly `GET /update-plan`
-- response contract based on this document
-- tests for blocked defaults and failure payloads
-- no frontend controls unless explicitly requested
-
-The scope must exclude:
+The next safest candidate is Y-05L planning. Prefer a small readonly
+plan/preflight UI display or a closeout decision. The scope must still exclude:
 
 - update execution
 - update prepare endpoint
