@@ -156,6 +156,19 @@ MeTube. The canonical branch is fork `master`, and local `master` tracks
   folders, package build/copy behavior, notice bundles, Tauri/Electron/WebView2
   implementation, backend/frontend/Docker/CI/package/lockfile changes, or
   update apply.
+- Y-06I first-open TXT fallback source draft is documented at
+  `docs/llmwiki/package-guides/00-first-open.txt.source.md`.
+- Y-06I outcome: the first-open TXT source candidate is shorter than the HTML
+  source, readable in a normal text editor, source-only, local-only, and focused
+  on the first-use flow.
+- Y-06I covers what the tool is, start, URL paste, save, open save folder,
+  stop/quit, allowed-use boundaries, no public hosting/ads/credential sharing,
+  no DRM/auth/restriction bypass, troubleshooting entry points, and the hand-off
+  to `00_最初に開いてください.html`.
+- Y-06I does not create actual `.html` / `.txt` files, generated package
+  folders, package build/copy behavior, notice bundles, Tauri/Electron/WebView2
+  implementation, backend/frontend/Docker/CI/package/lockfile changes, or
+  update apply.
 - GitHub CLI auth note: in this Windows Codex desktop environment, sandboxed
   `gh auth status` may report an invalid `default` token while escalated
   `gh auth status` succeeds through `keyring`. Root cause is sandbox access to
@@ -165,8 +178,8 @@ MeTube. The canonical branch is fork `master`, and local `master` tracks
 
 ## Next Step
 
-Draft `docs/llmwiki/package-guides/00-first-open.txt.source.md` as the short
-TXT fallback source for future `00_最初に開いてください.txt`.
+Draft `docs/llmwiki/package-guides/03-how-to-use.html.source.md` as the
+everyday-use HTML source for future `03_使い方.html`.
 Do not create generated guide outputs, copy license text, create the generated
 package folder, copy package files, implement actual package generation, add
 Tauri/Electron/WebView2, run builds, install dependencies, change

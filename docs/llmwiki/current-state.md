@@ -455,14 +455,45 @@
   - backend/frontend/Docker/CI/package/lockfile changes
   - update apply
 
+### Y-06I first-open TXT fallback source draft
+
+- Scope: source-only first-open TXT fallback draft and minimal LLMwiki sync.
+- Source draft:
+  `docs/llmwiki/package-guides/00-first-open.txt.source.md`
+- Outcome:
+  - Added the TXT fallback source candidate for future
+    `動画保存ツール_ローカル専用/00_最初に開いてください.txt`.
+  - Kept the draft shorter than the HTML source and readable in a normal text
+    editor.
+  - Covered what the tool is, the short start/save/open-folder/stop flow,
+    safe-use boundaries, troubleshooting entry points, and the HTML guide
+    hand-off.
+  - Reduced clean-package dry-run warning output by satisfying the planned
+    first-open TXT source and local-only TXT safety source checks.
+- Not implemented:
+  - generated distribution folder
+  - actual `.html` / `.txt` guide files
+  - package build, copy, zip, or generator behavior
+  - license text copying
+  - notice bundle generation
+  - Tauri
+  - Electron
+  - WebView2
+  - desktop packaging
+  - installer
+  - signing or notarization
+  - backend/frontend/Docker/CI/package/lockfile changes
+  - update apply
+
 ## Current Next Step
 
-Draft the TXT fallback source for the first-open guide:
-`docs/llmwiki/package-guides/00-first-open.txt.source.md`.
+Draft the everyday-use HTML source:
+`docs/llmwiki/package-guides/03-how-to-use.html.source.md`.
 
 Next scope:
 
-- Keep the TXT fallback short, Japanese-first, and source-material only.
+- Keep the everyday-use guide Japanese-first, beginner-safe, and
+  source-material only.
 - Keep guide files as source material only; do not generate package outputs.
 - Keep Tauri/Electron implementation, packaging, installer, signing, updater,
   backend changes, frontend changes, Docker changes, CI changes, package
