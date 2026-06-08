@@ -63,3 +63,17 @@
 - Not included: update execution, prepare/apply/rollback endpoints, update
   button, backup creation, rollback creation, Docker pull, git pull / merge /
   rebase, restart, or pip install / package update.
+
+## Fork PR #12
+
+- Target repository: `jsworkht-dotcom/metube`
+- Purpose: close out successful readonly `/update-plan` runtime verification
+- Status: merged
+- PR URL: `https://github.com/jsworkht-dotcom/metube/pull/12`
+- Merge commit: `c9e14bf3a14a12be47b02304e02ecece13b2f5e7`
+- Scope: docs-only Y-05K-R runtime verification closeout.
+- Result: `/update-plan` was verified at runtime with `overall: blocked`,
+  `can_prepare: false`, `can_apply: false`, non-empty blocked reasons, planned
+  steps, and rollback/doc references.
+- Not included: update execution, backup creation, rollback creation, Docker
+  pull, git pull / merge / rebase, restart, or pip install / package update.

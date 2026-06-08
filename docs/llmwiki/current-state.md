@@ -171,7 +171,39 @@
 - Read-only mount `chown ... Read-only file system` warnings were observed
   during verification and are expected for that test launch style.
 
+### Y-05 readonly update readiness phase closeout
+
+- Y-05 readonly update readiness is complete for now.
+- Completed scope:
+  - readonly `/update-status`
+  - readonly `/update-preflight`
+  - readonly `/update-plan`
+  - backup / rollback planning
+  - manual approval design
+  - dry-run / prepare-only contract
+  - runtime verification for `/update-plan`
+- Update execution remains intentionally not implemented.
+- Still not implemented:
+  - update apply
+  - update prepare
+  - update rollback
+  - update button
+  - backup creation
+  - rollback creation
+  - Docker pull
+  - git pull / merge / rebase
+  - restart
+  - pip install / package update
+
 ## Current Next Step
 
-Proceed to Y-05L planning. Prefer a small readonly plan/preflight UI display or
-closeout decision. Do not implement update apply yet.
+Proceed to Y-06A Dockerless desktop distribution feasibility audit.
+
+Y-06A scope:
+
+- Level 3 feasibility audit only.
+- Windows + macOS.
+- Dockerless desktop distribution for local-only personal use.
+- Beginner-friendly UX planning is the source of truth for this phase.
+- Do not implement packaging, installer, signing, updater, backend changes,
+  frontend changes, Docker changes, CI changes, or package/lockfile changes.
