@@ -43,3 +43,23 @@
   - `app/tests/test_update_preflight.py`
 - Not included: update execution, backup creation, rollback creation, Docker pull,
   git pull / merge / rebase, restart, or pip install / package update.
+
+## Fork PR #11
+
+- Target repository: `jsworkht-dotcom/metube`
+- Purpose: readonly `/update-plan` contract-only endpoint
+- Status: merged
+- PR URL: `https://github.com/jsworkht-dotcom/metube/pull/11`
+- Merge commit: `341ca569492315f03ac234de75f1fb72646b7e30`
+- Changed files:
+  - `app/main.py`
+  - `app/update_plan.py`
+  - `app/tests/test_update_plan.py`
+  - `docs/llmwiki/current-state.md`
+  - `docs/llmwiki/handoff.md`
+  - `docs/llmwiki/roadmap.md`
+- Runtime verification: Y-05K-R succeeded with blocked defaults and
+  `can_prepare: false` / `can_apply: false`.
+- Not included: update execution, prepare/apply/rollback endpoints, update
+  button, backup creation, rollback creation, Docker pull, git pull / merge /
+  rebase, restart, or pip install / package update.

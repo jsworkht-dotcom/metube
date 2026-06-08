@@ -264,7 +264,10 @@ approves that behavior.
 Y-05I documents the dry-run / prepare-only contract in
 `docs/llmwiki/dry-run-update-contract.md`.
 
-The next safe PR candidate is Y-05J readonly `/update-plan` contract-only
-endpoint. It must remain readonly, use blocked defaults, and exclude prepare,
+Y-05J implemented the readonly `/update-plan` contract-only endpoint, and
+Y-05K-R verified blocked defaults at runtime.
+
+The next safe PR candidate is Y-05L planning. Prefer a small readonly
+plan/preflight UI display or a closeout decision. It must still exclude prepare,
 apply, rollback, backup creation, Docker pull, git pull / merge / rebase,
 restart, pip install, and package update.

@@ -41,8 +41,14 @@ MeTube. The canonical branch is fork `master`, and local `master` tracks
   `can_prepare: false` and `can_apply: false`. It must not execute updates,
   prepare updates, create backups, create rollback targets, pull Docker images,
   run git updates, restart the app, or install packages.
+- Y-05K-R runtime verification succeeded after Docker recovery. `/update-plan`
+  returned `overall: blocked`, `can_prepare: false`, `can_apply: false`,
+  non-empty `blocked_reasons`, non-empty `planned_steps`, and rollback/doc
+  references. `/update-status` was `latest`; `/update-preflight` was
+  `not_ready` with `can_apply_update: false`; `/version` reported
+  `2026.06.06` and yt-dlp `2026.03.17`.
 
 ## Next Step
 
-Proceed to Y-05K readonly `/update-plan` runtime verification. Do not implement
-prepare, apply, rollback, backup creation, or update buttons.
+Proceed to Y-05L planning. Prefer a small readonly plan/preflight UI display or
+closeout decision. Do not implement update apply yet.

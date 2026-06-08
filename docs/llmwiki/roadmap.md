@@ -2,12 +2,15 @@
 
 ## Immediate Next
 
-### Y-05K readonly `/update-plan` runtime verification
+### Y-05L next update-safety planning
 
-- Verify the readonly `/update-plan` endpoint at runtime.
-- Confirm blocked defaults, `can_prepare: false`, and `can_apply: false`.
-- Confirm no prepare, apply, rollback, backup creation, Docker pull, git pull /
-  merge / rebase, restart, pip install, package update, or update buttons.
+- Choose the next small local-only step after successful `/update-plan` runtime
+  verification.
+- Prefer either a small readonly plan/preflight UI display or a closeout
+  decision.
+- Do not implement update apply, prepare, rollback, backup creation, Docker pull,
+  git pull / merge / rebase, restart, pip install, package update, or update
+  buttons.
 
 ## Future Automatic Update Stages
 
@@ -20,8 +23,9 @@ These are candidate stages, not approved implementation work:
 - Stage 5: manual approval flow for applying updates (documented)
 - Stage 6: dry-run / prepare-only update apply contract (documented)
 - Stage 7: readonly update-plan contract-only endpoint (implemented)
-- Stage 8: readonly update-plan runtime verification
-- Stage 9: guarded local-only update execution
+- Stage 8: readonly update-plan runtime verification (completed)
+- Stage 9: optional readonly plan/preflight UI visibility or closeout decision
+- Stage 10: guarded local-only update execution
 
 Any automatic update stage must respect the safety boundaries in
 `safety-boundaries.md`.
