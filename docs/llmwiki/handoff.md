@@ -47,8 +47,16 @@ MeTube. The canonical branch is fork `master`, and local `master` tracks
   references. `/update-status` was `latest`; `/update-preflight` was
   `not_ready` with `can_apply_update: false`; `/version` reported
   `2026.06.06` and yt-dlp `2026.03.17`.
+- Y-05 readonly update readiness is closed out for now. Update execution,
+  prepare, apply, rollback, update buttons, backup creation, Docker pull, git
+  pull / merge / rebase, restart, pip install, and package update remain out of
+  scope.
+- Y-06A is next: Level 3 Dockerless desktop distribution feasibility audit for
+  Windows + macOS. Beginner-friendly UX planning is the source of truth for
+  this phase.
 
 ## Next Step
 
-Proceed to Y-05L planning. Prefer a small readonly plan/preflight UI display or
-closeout decision. Do not implement update apply yet.
+Proceed to Y-06A Dockerless desktop distribution feasibility audit. Do not
+implement packaging, installers, signing, updater logic, backend/frontend
+changes, Docker changes, CI changes, or package/lockfile changes yet.

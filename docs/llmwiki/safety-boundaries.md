@@ -91,3 +91,15 @@ explicitly approves that exact scope.
 Do not read, paste, store, transform, or document real credential values. If credentials
 or private values appear in a chat or file, stop and separate the issue as requiring
 verification and redaction.
+
+## Dockerless Desktop Distribution Boundary
+
+Y-06A is a feasibility audit only. It may discuss Dockerless desktop
+distribution for Windows and macOS, but it must not implement packaging,
+installers, code signing, notarization, updater logic, backend changes,
+frontend changes, Docker changes, CI changes, package changes, or lockfile
+changes unless a later task explicitly approves that exact scope.
+
+Beginner-friendly UX planning is allowed as documentation. Public hosting,
+external-user offering, ads, DRM bypass, authentication bypass, restriction
+circumvention, and mass-download optimization remain out of scope.

@@ -2,19 +2,32 @@
 
 ## Immediate Next
 
-### Y-05L next update-safety planning
+### Y-06A Dockerless desktop distribution feasibility audit
 
-- Choose the next small local-only step after successful `/update-plan` runtime
-  verification.
-- Prefer either a small readonly plan/preflight UI display or a closeout
-  decision.
-- Do not implement update apply, prepare, rollback, backup creation, Docker pull,
-  git pull / merge / rebase, restart, pip install, package update, or update
-  buttons.
+- Run a Level 3 feasibility audit for Dockerless desktop distribution.
+- Scope: Windows + macOS, local-only personal use.
+- Make beginner-friendly UX planning the source of truth for this phase.
+- Do not implement packaging, installers, signing, updater logic, backend
+  changes, frontend changes, Docker changes, CI changes, or package/lockfile
+  changes in Y-06A.
+
+## Beginner UX Source Of Truth
+
+Y-06 should optimize for a non-developer local desktop user:
+
+- Start MeTube without understanding Docker.
+- Keep setup language short, Japanese, and concrete.
+- Prefer one clear local launch path per OS.
+- Make storage location, app status, and stop/quit behavior obvious.
+- Avoid public hosting, account setup, ads, background sync, or external-user
+  assumptions.
+- Preserve the existing readonly update readiness work as diagnostic support,
+  not as update execution.
 
 ## Future Automatic Update Stages
 
-These are candidate stages, not approved implementation work:
+Y-05 readiness work is complete for now. These remain historical or candidate
+stages, not approved update execution work:
 
 - Stage 1: readonly version/status visibility (implemented)
 - Stage 2: local changelog and update availability confirmation
@@ -45,3 +58,5 @@ Any automatic update stage must respect the safety boundaries in
 - Mass-download optimization
 - External wiki tooling
 - Background daemons or automatic sync
+- Update apply implementation
+- Desktop installer or packaging implementation
