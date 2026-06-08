@@ -389,17 +389,47 @@
   - backend/frontend/Docker/CI/package/lockfile changes
   - update apply
 
+### Y-06G clean-package dry-run guide/notice warning hardening
+
+- Scope: dry-run script warning hardening and minimal LLMwiki sync.
+- Script:
+  `scripts/clean_package_dry_run.py`
+- Outcome:
+  - Added nonblocking warnings for planned-but-missing beginner guide source
+    candidates.
+  - Added nonblocking warnings for planned-but-missing license/notice source
+    candidates.
+  - Added nonblocking warnings for local-only safety notice and Windows/macOS
+    section source coverage.
+  - Kept dry-run `Status: OK` and exit code `0` when only warnings are present.
+  - Preserved existing blocking behavior for generated package folders,
+    forbidden filename families, secret-like content findings, and PR #1001
+    leakage.
+- Not implemented:
+  - generated distribution folder
+  - actual `.html` / `.txt` guide files
+  - license text copying
+  - notice bundle generation
+  - package build, copy, zip, or generator behavior
+  - Tauri
+  - Electron
+  - WebView2
+  - desktop packaging
+  - installer
+  - signing or notarization
+  - backend/frontend/Docker/CI/package/lockfile changes
+  - update apply
+
 ## Current Next Step
 
-Proceed to a dry-run-only warning enhancement for missing guide and notice
-source candidates.
+Review the Y-06G warning output and decide which guide source candidate should
+be drafted first.
 
 Next scope:
 
-- Add non-blocking warnings to `scripts/clean_package_dry_run.py` for missing
-  guide-source and notice-source candidates defined by Y-06F.
-- Keep the warnings advisory until a later generation task explicitly makes
-  those sources required.
+- Draft one approved guide source candidate under `docs/llmwiki/` if the
+  warning output is accepted.
+- Keep guide files as source material only; do not generate package outputs.
 - Keep Tauri/Electron implementation, packaging, installer, signing, updater,
   backend changes, frontend changes, Docker changes, CI changes, package
   changes, and lockfile changes out of scope unless explicitly approved later.
