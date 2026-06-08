@@ -396,8 +396,30 @@ Coverage:
 The source does not generate package files and does not approve a TXT
 generator.
 
+Y-06L added the troubleshooting HTML source candidate:
+
+- Source: `docs/llmwiki/package-guides/04-troubleshooting.html.source.md`
+- Future output:
+  `動画保存ツール_ローカル専用/04_困ったとき.html`
+- Status: draft source material only.
+
+Coverage:
+
+- First checks for restart, waiting while saving, opening the save folder, and
+  reading the screen status.
+- Common trouble cards for startup, URL save failure, unknown save folder,
+  stuck-looking saves, missing saved files, stop/quit confusion, possible
+  background activity after closing, and unclear update displays.
+- Gentle error-message examples for app startup, save-folder confirmation,
+  waiting before retry, and URLs that may not be savable.
+- Safe-use boundaries for allowed content, no public hosting, no ads, no
+  cookie/token/secret sharing, and no DRM/auth/restriction bypass.
+
+The source does not generate package files and does not approve an HTML
+generator.
+
 ## Next PR Candidate
 
-Draft `docs/llmwiki/package-guides/04-troubleshooting.html.source.md` as the
-troubleshooting source for future `04_困ったとき.html`, while keeping it as
-source material only.
+Draft `docs/llmwiki/package-guides/04-troubleshooting.txt.source.md` as the
+short troubleshooting fallback source for future `04_困ったとき.txt`, while
+keeping it as source material only.

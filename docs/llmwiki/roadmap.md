@@ -2,16 +2,35 @@
 
 ## Immediate Next
 
-### Draft troubleshooting HTML source
+### Draft troubleshooting TXT fallback source
 
-- Draft `docs/llmwiki/package-guides/04-troubleshooting.html.source.md` as the
-  troubleshooting source for future `04_困ったとき.html`.
+- Draft `docs/llmwiki/package-guides/04-troubleshooting.txt.source.md` as the
+  short troubleshooting fallback source for future `04_困ったとき.txt`.
 - Keep the next PR source-material only unless explicitly approved otherwise.
 - Do not create guide outputs, copy license text, generate notice bundles, or
   create package files.
 - Do not create `動画保存ツール_ローカル専用/`, copy files, build packages, install
   dependencies, add Tauri/Electron/WebView2, change backend/frontend/Docker/CI,
   or change package/lockfile files.
+
+## Y-06L Troubleshooting HTML Source Outcome
+
+- Guide source draft:
+  `docs/llmwiki/package-guides/04-troubleshooting.html.source.md`
+- Added source material for future
+  `動画保存ツール_ローカル専用/04_困ったとき.html`.
+- The draft is Japanese-first and structured for future HTML conversion with:
+  - hero copy
+  - quick checklist
+  - trouble cards
+  - a warning box
+  - a safe-use reminder
+  - a footer note
+- Covered first checks, common trouble cases, gentle error messages, save-folder
+  guidance, stop/quit behavior, update-display uncertainty, and safe use.
+- No actual `.html` / `.txt` guide output, generated package folder, package
+  build/copy behavior, notice bundle, Tauri/Electron implementation,
+  backend/frontend/Docker/CI change, or package/lockfile change was added.
 
 ## Y-06K How-To-Use TXT Fallback Source Outcome
 

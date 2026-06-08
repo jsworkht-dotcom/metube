@@ -195,6 +195,20 @@ MeTube. The canonical branch is fork `master`, and local `master` tracks
   folders, package build/copy behavior, notice bundles, Tauri/Electron/WebView2
   implementation, backend/frontend/Docker/CI/package/lockfile changes, or
   update apply.
+- Y-06L troubleshooting HTML source draft is documented at
+  `docs/llmwiki/package-guides/04-troubleshooting.html.source.md`.
+- Y-06L outcome: the troubleshooting HTML source candidate is Japanese-first,
+  source-only, local-only, and structured for future HTML conversion with hero
+  copy, a quick checklist, trouble cards, a warning box, a safe-use reminder,
+  and a footer note.
+- Y-06L covers first checks, common trouble cases, gentle error messages,
+  save-folder guidance, stop/quit behavior, update-display uncertainty,
+  allowed-use boundaries, no public hosting/ads/credential sharing, and no
+  DRM/auth/restriction bypass.
+- Y-06L does not create actual `.html` / `.txt` files, generated package
+  folders, package build/copy behavior, notice bundles, Tauri/Electron/WebView2
+  implementation, backend/frontend/Docker/CI/package/lockfile changes, or
+  update apply.
 - GitHub CLI auth note: in this Windows Codex desktop environment, sandboxed
   `gh auth status` may report an invalid `default` token while escalated
   `gh auth status` succeeds through `keyring`. Root cause is sandbox access to
@@ -204,8 +218,8 @@ MeTube. The canonical branch is fork `master`, and local `master` tracks
 
 ## Next Step
 
-Draft `docs/llmwiki/package-guides/04-troubleshooting.html.source.md` as the
-troubleshooting HTML source for future `04_困ったとき.html`.
+Draft `docs/llmwiki/package-guides/04-troubleshooting.txt.source.md` as the
+short troubleshooting TXT fallback source for future `04_困ったとき.txt`.
 Do not create generated guide outputs, copy license text, create the generated
 package folder, copy package files, implement actual package generation, add
 Tauri/Electron/WebView2, run builds, install dependencies, change

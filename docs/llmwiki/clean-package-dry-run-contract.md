@@ -735,10 +735,35 @@ Rules:
   generation, Tauri/Electron implementation, backend/frontend/Docker/CI
   changes, package/lockfile changes, or update apply.
 
+## Y-06L Troubleshooting HTML Source
+
+Y-06L adds the troubleshooting HTML source candidate:
+
+```text
+docs/llmwiki/package-guides/04-troubleshooting.html.source.md
+```
+
+This source is intended for a future generated package path:
+
+```text
+動画保存ツール_ローカル専用/04_困ったとき.html
+```
+
+Rules:
+
+- The source remains Markdown planning/source material only.
+- The dry-run may treat this file as satisfying the planned troubleshooting
+  HTML source candidate warning.
+- This does not create actual `.html` or `.txt` files.
+- This does not create `動画保存ツール_ローカル専用/`.
+- This does not approve guide generation, package generation, notice bundle
+  generation, Tauri/Electron implementation, backend/frontend/Docker/CI
+  changes, package/lockfile changes, or update apply.
+
 ## Next Implementation Candidate
 
-Draft the troubleshooting HTML source under `docs/llmwiki/package-guides/` after
-reviewing the updated warning output.
+Draft the troubleshooting TXT fallback source under
+`docs/llmwiki/package-guides/` after reviewing the updated warning output.
 
 Actual clean-package generation should wait until after repeated successful
 dry-run reports and a later explicit generation task.
