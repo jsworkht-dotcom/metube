@@ -16,7 +16,9 @@ MeTube. The canonical branch is fork `master`, and local `master` tracks
 6. `docs/llmwiki/dry-run-update-contract.md`
 7. `docs/llmwiki/dockerless-desktop-distribution-feasibility.md`
 8. `docs/llmwiki/desktop-sidecar-lifecycle-contract.md`
-9. `docs/llmwiki/codex-gh-auth-runbook.md` if GitHub CLI auth, PR creation,
+9. `docs/llmwiki/desktop-package-manifest.md`
+10. `docs/llmwiki/beginner-guide-skeleton.md`
+11. `docs/llmwiki/codex-gh-auth-runbook.md` if GitHub CLI auth, PR creation,
    checks, or merge commands fail inside Codex
 
 ## Key Points For Codex
@@ -75,6 +77,18 @@ MeTube. The canonical branch is fork `master`, and local `master` tracks
 - Package contents, package exclusions, Windows/macOS boundaries, and beginner
   `.html` / `.txt` guide requirements are contract-defined, but no
   implementation or packaging is approved yet.
+- Y-06C desktop package manifest is documented in
+  `docs/llmwiki/desktop-package-manifest.md`.
+- Y-06C beginner guide skeleton is documented in
+  `docs/llmwiki/beginner-guide-skeleton.md`.
+- Y-06C outcome: future package root is `動画保存ツール_ローカル専用/`, with
+  `00_最初に開いてください.html` as the primary beginner guide,
+  `00_最初に開いてください.txt` as fallback, and `.md` material reserved for
+  developer/LLMwiki use.
+- Windows and macOS package skeletons, include/exclude rules, generated
+  manifest candidates, user data paths, notices, checksums, and safe beginner
+  copy boundaries are defined. No generated distribution folder, package
+  generator, implementation, package build, or installer is approved yet.
 - GitHub CLI auth note: in this Windows Codex desktop environment, sandboxed
   `gh auth status` may report an invalid `default` token while escalated
   `gh auth status` succeeds through `keyring`. Root cause is sandbox access to
@@ -84,7 +98,6 @@ MeTube. The canonical branch is fork `master`, and local `master` tracks
 
 ## Next Step
 
-Proceed to Y-06C desktop package manifest and beginner guide skeleton docs. Do
-not implement Tauri, Electron, packaging, installers, signing, updater logic,
-backend/frontend changes, Docker changes, CI changes, or package/lockfile
-changes yet.
+Proceed to Y-06D clean-package generator dry-run contract docs. Do not implement
+Tauri, Electron, packaging, installers, signing, updater logic, backend/frontend
+changes, Docker changes, CI changes, or package/lockfile changes yet.

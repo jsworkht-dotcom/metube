@@ -192,7 +192,8 @@ Path rules:
 ## Package Contract
 
 Y-06B does not package the app. A future packaging task must produce an explicit
-manifest before build scripts are added.
+manifest before build scripts are added. Y-06C refines that manifest in
+`docs/llmwiki/desktop-package-manifest.md`.
 
 Required package contents:
 
@@ -241,7 +242,8 @@ macOS package boundary:
 ## Beginner Guide Contract
 
 The beginner guide should be documentation-first and Japanese-first, but this
-contract does not add user-facing copy to the app.
+contract does not add user-facing copy to the app. Y-06C refines the guide
+skeleton in `docs/llmwiki/beginner-guide-skeleton.md`.
 
 The `.html` and `.txt` guides should cover:
 
@@ -323,13 +325,14 @@ These remain unresolved and must be treated as future design work:
   beginner desktop entry path in a future frontend task.
 - Exact local port lock or stale-process recovery mechanism.
 
-## Next PR Candidate
+## Y-06C Follow-Up
 
-Y-06C should be a docs-only package manifest and beginner guide skeleton:
+Y-06C refines this contract with docs-only package manifest and beginner guide
+skeleton documents:
 
-- Define concrete Windows/macOS package file layout.
-- Define package exclusions.
-- Draft the `.html` and `.txt` guide structure.
-- Keep implementation, build scripts, installers, signing, backend changes,
-  frontend changes, Docker changes, CI changes, package changes, and lockfile
-  changes out of scope.
+- `docs/llmwiki/desktop-package-manifest.md`
+- `docs/llmwiki/beginner-guide-skeleton.md`
+
+Implementation, build scripts, installers, signing, backend changes, frontend
+changes, Docker changes, CI changes, package changes, and lockfile changes
+remain out of scope until a later task explicitly approves them.
