@@ -517,14 +517,43 @@
   - backend/frontend/Docker/CI/package/lockfile changes
   - update apply
 
+### Y-06K how-to-use TXT fallback source draft
+
+- Scope: source-only everyday-use TXT fallback draft and minimal LLMwiki sync.
+- Source draft:
+  `docs/llmwiki/package-guides/03-how-to-use.txt.source.md`
+- Outcome:
+  - Added the TXT fallback source candidate for future
+    `動画保存ツール_ローカル専用/03_使い方.txt`.
+  - Kept the draft shorter than the HTML source and readable in a normal text
+    editor.
+  - Covered basic save steps, save-format choices, saving/completion behavior,
+    stop/quit behavior, safe-use boundaries, and the HTML guide hand-off.
+  - Reduced clean-package dry-run warning output by satisfying the planned
+    how-to-use TXT source candidate check.
+- Not implemented:
+  - generated distribution folder
+  - actual `.html` / `.txt` guide files
+  - package build, copy, zip, or generator behavior
+  - license text copying
+  - notice bundle generation
+  - Tauri
+  - Electron
+  - WebView2
+  - desktop packaging
+  - installer
+  - signing or notarization
+  - backend/frontend/Docker/CI/package/lockfile changes
+  - update apply
+
 ## Current Next Step
 
-Draft the everyday-use TXT fallback source:
-`docs/llmwiki/package-guides/03-how-to-use.txt.source.md`.
+Draft the troubleshooting HTML source:
+`docs/llmwiki/package-guides/04-troubleshooting.html.source.md`.
 
 Next scope:
 
-- Keep the everyday-use TXT fallback short, Japanese-first, beginner-safe, and
+- Keep the troubleshooting guide Japanese-first, beginner-safe, and
   source-material only.
 - Keep guide files as source material only; do not generate package outputs.
 - Keep Tauri/Electron implementation, packaging, installer, signing, updater,
