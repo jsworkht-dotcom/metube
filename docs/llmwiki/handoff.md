@@ -14,6 +14,8 @@ MeTube. The canonical branch is fork `master`, and local `master` tracks
 4. `docs/llmwiki/update-rollback-plan.md`
 5. `docs/llmwiki/manual-update-apply-design.md`
 6. `docs/llmwiki/dry-run-update-contract.md`
+7. `docs/llmwiki/codex-gh-auth-runbook.md` if GitHub CLI auth, PR creation,
+   checks, or merge commands fail inside Codex
 
 ## Key Points For Codex
 
@@ -61,6 +63,12 @@ MeTube. The canonical branch is fork `master`, and local `master` tracks
 - Key desktop blockers: backend sidecar lifecycle, close safety, desktop path
   defaults, ffmpeg / yt-dlp / Deno / bgutil packaging, signing/notarization, and
   excluding cookie/token/secret features from the beginner desktop flow.
+- GitHub CLI auth note: in this Windows Codex desktop environment, sandboxed
+  `gh auth status` may report an invalid `default` token while escalated
+  `gh auth status` succeeds through `keyring`. Root cause is sandbox access to
+  the Windows keyring, not project state. For PR create/view/checks/merge work,
+  verify escalated `gh auth status` and then use narrowly scoped escalated `gh`
+  commands. Do not read, paste, or store token values.
 
 ## Next Step
 

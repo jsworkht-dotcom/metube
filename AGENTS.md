@@ -58,3 +58,17 @@ ui/src/app/          — Angular standalone components (no NgModules)
 - Frontend uses standalone Angular components with `inject()` for DI, RxJS Subjects for state, and `takeUntilDestroyed()` for cleanup.
 - State is persisted as JSON files via `AtomicJsonStore` in `app/state_store.py`.
 - No pre-commit hooks — linting and tests are enforced in CI only.
+
+## Codex GitHub CLI auth note
+
+In this Windows Codex desktop environment, sandboxed `gh auth status` can report
+an invalid `default` token while escalated `gh auth status` succeeds through
+Windows `keyring`. Treat that as a sandbox/keyring access issue, not a repository
+or GitHub account problem.
+
+For PR create/view/checks/merge work, first verify `gh auth status`. If sandboxed
+auth fails but escalated auth succeeds, run only the needed `gh` PR commands with
+`sandbox_permissions=require_escalated` and narrow `prefix_rule` values such as
+`["gh", "pr", "view"]`, `["gh", "pr", "checks"]`, or `["gh", "pr", "merge"]`.
+Do not read, paste, or store token values. See
+`docs/llmwiki/codex-gh-auth-runbook.md` for the full runbook.

@@ -17,6 +17,11 @@ RAG pipeline, MCP server, daemon, external sync, or public publishing workflow.
 4. `pr-history.md` - compressed PR and merge history
 5. `handoff.md` - short startup note for the next chat
 
+Operational notes:
+
+- `codex-gh-auth-runbook.md` - GitHub CLI auth troubleshooting for Codex sandbox
+  versus Windows keyring behavior
+
 ## Update Rules
 
 Do not update every file on every task. Update the LLMwiki only when one of these
