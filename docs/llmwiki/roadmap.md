@@ -2,14 +2,28 @@
 
 ## Immediate Next
 
-### Y-06A Dockerless desktop distribution feasibility audit
+### Y-06B desktop sidecar lifecycle and package contract docs
 
-- Run a Level 3 feasibility audit for Dockerless desktop distribution.
-- Scope: Windows + macOS, local-only personal use.
-- Make beginner-friendly UX planning the source of truth for this phase.
-- Do not implement packaging, installers, signing, updater logic, backend
-  changes, frontend changes, Docker changes, CI changes, or package/lockfile
-  changes in Y-06A.
+- Write the docs-only contract required before a Dockerless desktop prototype.
+- Scope: Windows + macOS, local-only personal use, Tauri-first.
+- Define backend sidecar start/ready/stop states, close confirmation rules,
+  desktop path/env overrides, package manifest/exclusions, and beginner
+  `.html` / `.txt` guide outline.
+- Do not implement Tauri, Electron, packaging, installers, signing, updater
+  logic, backend changes, frontend changes, Docker changes, CI changes, or
+  package/lockfile changes in Y-06B.
+
+## Y-06A Feasibility Outcome
+
+- Dockerless desktop distribution is feasible, but not beginner-ready from the
+  current repository state.
+- Tauri is the preferred first candidate.
+- Electron remains the fallback if Tauri WebView, sidecar, or signing friction
+  becomes unacceptable.
+- WebView2 is a Windows-only fallback and not the primary cross-platform path.
+- The main blockers are backend lifecycle, close safety, desktop path defaults,
+  ffmpeg / yt-dlp / Deno / bgutil packaging, signing/notarization, and excluding
+  cookie/token/secret features from the beginner desktop flow.
 
 ## Beginner UX Source Of Truth
 
@@ -60,3 +74,4 @@ Any automatic update stage must respect the safety boundaries in
 - Background daemons or automatic sync
 - Update apply implementation
 - Desktop installer or packaging implementation
+- Tauri/Electron implementation
