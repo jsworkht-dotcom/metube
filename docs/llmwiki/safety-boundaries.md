@@ -94,12 +94,23 @@ verification and redaction.
 
 ## Dockerless Desktop Distribution Boundary
 
-Y-06A is a feasibility audit only. It may discuss Dockerless desktop
-distribution for Windows and macOS, but it must not implement packaging,
-installers, code signing, notarization, updater logic, backend changes,
-frontend changes, Docker changes, CI changes, package changes, or lockfile
-changes unless a later task explicitly approves that exact scope.
+Y-06 desktop work may discuss Dockerless desktop distribution for Windows and
+macOS, but it must not implement packaging, installers, code signing,
+notarization, updater logic, backend changes, frontend changes, Docker changes,
+CI changes, package changes, or lockfile changes unless a later task explicitly
+approves that exact scope.
 
 Beginner-friendly UX planning is allowed as documentation. Public hosting,
 external-user offering, ads, DRM bypass, authentication bypass, restriction
 circumvention, and mass-download optimization remain out of scope.
+
+Desktop planning must preserve these safety rules:
+
+- Backend must be planned as local-only and bound to `127.0.0.1`.
+- No public tunnel, reverse proxy, LAN service mode, or hosted mode.
+- No cookie/token/secret handling in the beginner desktop flow.
+- No automatic update apply.
+- No Docker pull, git pull / merge / rebase, restart, pip install, package
+  install, or package update from a desktop app.
+- No Tauri/Electron/WebView2 implementation until a later task explicitly
+  approves that exact implementation scope.

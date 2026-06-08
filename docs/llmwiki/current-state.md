@@ -195,15 +195,51 @@
   - restart
   - pip install / package update
 
+### Y-06A Dockerless desktop distribution feasibility audit
+
+- Scope: docs-only feasibility audit for Dockerless desktop distribution.
+- Audit document:
+  `docs/llmwiki/dockerless-desktop-distribution-feasibility.md`
+- Outcome:
+  - Dockerless Windows/macOS desktop distribution is feasible for local-only
+    personal use, but not beginner-ready from the current repository state.
+  - Tauri is the preferred first candidate.
+  - Electron remains the fallback if Tauri sidecar, WebView, or signing friction
+    becomes unacceptable.
+  - WebView2 is a Windows-only fallback and is not the primary path because
+    macOS parity is required.
+- Recommended architecture:
+  - Tauri shell
+  - existing Angular UI reused as built static assets
+  - Python backend packaged as a sidecar, likely PyInstaller one-folder output
+  - bundled platform-specific ffmpeg
+  - desktop launcher forcing `HOST=127.0.0.1` and per-user state/download/temp
+    paths
+- Main blockers before beginner distribution:
+  - backend lifecycle and close-safety contract
+  - desktop-specific path contract
+  - ffmpeg / yt-dlp / Deno / bgutil packaging and license review
+  - Windows SmartScreen and macOS Gatekeeper / notarization story
+  - cookie/token/secret features excluded from the beginner desktop flow
+- Not implemented:
+  - Tauri
+  - Electron
+  - WebView2
+  - desktop packaging
+  - installer
+  - signing or notarization
+  - backend/frontend/Docker/CI/package/lockfile changes
+  - update apply
+
 ## Current Next Step
 
-Proceed to Y-06A Dockerless desktop distribution feasibility audit.
+Proceed to Y-06B desktop sidecar lifecycle and package contract docs.
 
-Y-06A scope:
+Y-06B scope:
 
-- Level 3 feasibility audit only.
-- Windows + macOS.
-- Dockerless desktop distribution for local-only personal use.
-- Beginner-friendly UX planning is the source of truth for this phase.
-- Do not implement packaging, installer, signing, updater, backend changes,
-  frontend changes, Docker changes, CI changes, or package/lockfile changes.
+- Docs-only contract for desktop sidecar start/ready/stop states, close-safety
+  rules, desktop environment overrides, state/download/temp paths, package
+  manifest, package exclusions, and beginner `.html` / `.txt` guide outline.
+- Keep Tauri/Electron implementation, packaging, installer, signing, updater,
+  backend changes, frontend changes, Docker changes, CI changes, package
+  changes, and lockfile changes out of scope unless explicitly approved later.

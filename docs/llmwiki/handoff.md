@@ -51,12 +51,20 @@ MeTube. The canonical branch is fork `master`, and local `master` tracks
   prepare, apply, rollback, update buttons, backup creation, Docker pull, git
   pull / merge / rebase, restart, pip install, and package update remain out of
   scope.
-- Y-06A is next: Level 3 Dockerless desktop distribution feasibility audit for
-  Windows + macOS. Beginner-friendly UX planning is the source of truth for
-  this phase.
+- Y-06A Dockerless desktop distribution feasibility audit is documented in
+  `docs/llmwiki/dockerless-desktop-distribution-feasibility.md`.
+- Y-06A outcome: Dockerless Windows/macOS desktop distribution is feasible for
+  local-only personal use, but not beginner-ready from the current repository
+  state.
+- Tauri is the preferred first candidate. Electron remains the fallback.
+  WebView2 is Windows-only and not the primary cross-platform path.
+- Key desktop blockers: backend sidecar lifecycle, close safety, desktop path
+  defaults, ffmpeg / yt-dlp / Deno / bgutil packaging, signing/notarization, and
+  excluding cookie/token/secret features from the beginner desktop flow.
 
 ## Next Step
 
-Proceed to Y-06A Dockerless desktop distribution feasibility audit. Do not
-implement packaging, installers, signing, updater logic, backend/frontend
-changes, Docker changes, CI changes, or package/lockfile changes yet.
+Proceed to Y-06B desktop sidecar lifecycle and package contract docs. Do not
+implement Tauri, Electron, packaging, installers, signing, updater logic,
+backend/frontend changes, Docker changes, CI changes, or package/lockfile
+changes yet.
