@@ -785,9 +785,34 @@ Rules:
   generation, Tauri/Electron implementation, backend/frontend/Docker/CI
   changes, package/lockfile changes, or update apply.
 
+## Y-06N Safe-Use HTML Source
+
+Y-06N adds the safe-use HTML source candidate:
+
+```text
+docs/llmwiki/package-guides/05-safe-use.html.source.md
+```
+
+This source is intended for a future generated package path:
+
+```text
+動画保存ツール_ローカル専用/05_安全な使い方.html
+```
+
+Rules:
+
+- The source remains Markdown planning/source material only.
+- The dry-run may treat this file as satisfying the planned safe-use HTML source
+  candidate warning and safe-use boundary source warning.
+- This does not create actual `.html` or `.txt` files.
+- This does not create `動画保存ツール_ローカル専用/`.
+- This does not approve guide generation, package generation, notice bundle
+  generation, Tauri/Electron implementation, backend/frontend/Docker/CI
+  changes, package/lockfile changes, or update apply.
+
 ## Next Implementation Candidate
 
-Draft the safe-use HTML source under `docs/llmwiki/package-guides/` after
+Draft the first notice source under `docs/llmwiki/package-notices/` after
 reviewing the updated warning output.
 
 Actual clean-package generation should wait until after repeated successful

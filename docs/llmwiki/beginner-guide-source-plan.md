@@ -440,8 +440,31 @@ Coverage:
 The source does not generate package files and does not approve a TXT
 generator.
 
+Y-06N added the safe-use HTML source candidate:
+
+- Source: `docs/llmwiki/package-guides/05-safe-use.html.source.md`
+- Future output:
+  `動画保存ツール_ローカル専用/05_安全な使い方.html`
+- Status: draft source material only.
+
+Coverage:
+
+- Local-only personal-use premise for using the tool on the user's own PC.
+- Allowed-use examples for user-uploaded videos, permission-granted videos,
+  legally savable material, and personal learning/organization/backup use.
+- Prohibited-use cards for public hosting, ads, external-user service,
+  DRM bypass, authentication bypass, restriction circumvention, and
+  mass-download purposes.
+- Sensitive-data warning for cookie, token, secret, `.env`, cookies.txt,
+  personal save data, and personal backups.
+- Safe trouble actions and update-safety wording that preserves readonly update
+  status and no automatic update execution.
+
+The source does not generate package files and does not approve an HTML
+generator.
+
 ## Next PR Candidate
 
-Draft `docs/llmwiki/package-guides/05-safe-use.html.source.md` as the safe-use
-source for future `05_安全な使い方.html`, while keeping it as source material
-only.
+Draft `docs/llmwiki/package-notices/metube-notice.source.md` as the first
+notice source candidate for future clean-package notice review, while keeping it
+as source material only.

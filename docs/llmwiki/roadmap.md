@@ -2,16 +2,35 @@
 
 ## Immediate Next
 
-### Draft safe-use HTML source
+### Draft MeTube notice source
 
-- Draft `docs/llmwiki/package-guides/05-safe-use.html.source.md` as the
-  safe-use source for future `05_安全な使い方.html`.
+- Draft `docs/llmwiki/package-notices/metube-notice.source.md` as the first
+  notice source candidate for future clean-package notice review.
 - Keep the next PR source-material only unless explicitly approved otherwise.
 - Do not create guide outputs, copy license text, generate notice bundles, or
   create package files.
 - Do not create `動画保存ツール_ローカル専用/`, copy files, build packages, install
   dependencies, add Tauri/Electron/WebView2, change backend/frontend/Docker/CI,
   or change package/lockfile files.
+
+## Y-06N Safe-Use HTML Source Outcome
+
+- Guide source draft:
+  `docs/llmwiki/package-guides/05-safe-use.html.source.md`
+- Added source material for future
+  `動画保存ツール_ローカル専用/05_安全な使い方.html`.
+- The draft is Japanese-first and structured for future HTML conversion with:
+  - hero copy
+  - safe-use cards
+  - do / do-not cards
+  - a sensitive-data warning box
+  - an update-safety note
+  - a footer note
+- Covered local-only personal use, allowed examples, prohibited uses,
+  sensitive-data sharing boundaries, safe trouble actions, and update safety.
+- No actual `.html` / `.txt` guide output, generated package folder, package
+  build/copy behavior, notice bundle, Tauri/Electron implementation,
+  backend/frontend/Docker/CI change, or package/lockfile change was added.
 
 ## Y-06M Troubleshooting TXT Fallback Source Outcome
 

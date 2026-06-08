@@ -607,16 +607,46 @@
   - backend/frontend/Docker/CI/package/lockfile changes
   - update apply
 
+### Y-06N safe-use HTML source draft
+
+- Scope: source-only safe-use HTML guide draft and minimal LLMwiki sync.
+- Source draft:
+  `docs/llmwiki/package-guides/05-safe-use.html.source.md`
+- Outcome:
+  - Added the HTML source candidate for future
+    `動画保存ツール_ローカル専用/05_安全な使い方.html`.
+  - Structured the draft for future HTML conversion with hero copy, safe-use
+    cards, do / do-not cards, a sensitive-data warning box, an update-safety
+    note, and a footer note.
+  - Covered local-only personal use, allowed examples, prohibited uses,
+    sensitive-data sharing boundaries, safe trouble actions, and update safety.
+  - Reduced clean-package dry-run warning output by satisfying the planned
+    safe-use HTML source and safe-use boundary source checks.
+- Not implemented:
+  - generated distribution folder
+  - actual `.html` / `.txt` guide files
+  - package build, copy, zip, or generator behavior
+  - license text copying
+  - notice bundle generation
+  - Tauri
+  - Electron
+  - WebView2
+  - desktop packaging
+  - installer
+  - signing or notarization
+  - backend/frontend/Docker/CI/package/lockfile changes
+  - update apply
+
 ## Current Next Step
 
-Draft the safe-use HTML source:
-`docs/llmwiki/package-guides/05-safe-use.html.source.md`.
+Draft the first notice source:
+`docs/llmwiki/package-notices/metube-notice.source.md`.
 
 Next scope:
 
-- Keep the safe-use guide short, Japanese-first, beginner-safe, and
-  source-material only.
-- Keep guide files as source material only; do not generate package outputs.
+- Keep notice material source-only, sanitized, and review-oriented.
+- Keep guide and notice files as source material only; do not generate package
+  outputs.
 - Keep Tauri/Electron implementation, packaging, installer, signing, updater,
   backend changes, frontend changes, Docker changes, CI changes, package
   changes, and lockfile changes out of scope unless explicitly approved later.
