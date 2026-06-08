@@ -546,14 +546,45 @@
   - backend/frontend/Docker/CI/package/lockfile changes
   - update apply
 
+### Y-06L troubleshooting HTML source draft
+
+- Scope: source-only troubleshooting HTML guide draft and minimal LLMwiki sync.
+- Source draft:
+  `docs/llmwiki/package-guides/04-troubleshooting.html.source.md`
+- Outcome:
+  - Added the HTML source candidate for future
+    `動画保存ツール_ローカル専用/04_困ったとき.html`.
+  - Structured the draft for future HTML conversion with hero copy, a quick
+    checklist, trouble cards, a warning box, a safe-use reminder, and a footer
+    note.
+  - Covered first checks, common beginner trouble cases, gentle error-message
+    examples, safe stop/quit behavior, save-folder guidance, update-display
+    uncertainty, and safe-use boundaries.
+  - Reduced clean-package dry-run warning output by satisfying the planned
+    troubleshooting HTML source candidate check.
+- Not implemented:
+  - generated distribution folder
+  - actual `.html` / `.txt` guide files
+  - package build, copy, zip, or generator behavior
+  - license text copying
+  - notice bundle generation
+  - Tauri
+  - Electron
+  - WebView2
+  - desktop packaging
+  - installer
+  - signing or notarization
+  - backend/frontend/Docker/CI/package/lockfile changes
+  - update apply
+
 ## Current Next Step
 
-Draft the troubleshooting HTML source:
-`docs/llmwiki/package-guides/04-troubleshooting.html.source.md`.
+Draft the troubleshooting TXT fallback source:
+`docs/llmwiki/package-guides/04-troubleshooting.txt.source.md`.
 
 Next scope:
 
-- Keep the troubleshooting guide Japanese-first, beginner-safe, and
+- Keep the troubleshooting TXT guide short, Japanese-first, beginner-safe, and
   source-material only.
 - Keep guide files as source material only; do not generate package outputs.
 - Keep Tauri/Electron implementation, packaging, installer, signing, updater,
