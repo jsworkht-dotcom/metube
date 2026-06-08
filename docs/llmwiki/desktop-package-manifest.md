@@ -491,15 +491,22 @@ Before any package generator is implemented, a later task should verify:
 - No backend/frontend/Docker/CI/package/lockfile change is mixed into package
   planning.
 
-## Next PR Candidate
+## Current Dry-Run Support
 
 Y-06D added the docs-only clean-package generator dry-run contract in
 `docs/llmwiki/clean-package-dry-run-contract.md`.
 
-The next candidate is Y-06E report-only dry-run script implementation:
+Y-06E added the initial report-only dry-run script:
+
+- Script path: `scripts/clean_package_dry_run.py`
+- Output: sanitized human-readable text report.
+- Exit codes: `0` for OK, `1` for blockers, and `2` for CLI usage errors.
+
+The next review step is to run the dry-run report before any future clean-package
+generation task:
 
 - Read this manifest contract and the related LLMwiki contracts.
-- Emit sanitized JSON/Markdown reports only.
+- Emit sanitized reports only.
 - Validate unsafe paths, excluded files, forbidden filename families, forbidden
   content pattern families, generated distribution folders, local-only notice
   requirements, Windows/macOS section completeness, and PR #1001 leakage.

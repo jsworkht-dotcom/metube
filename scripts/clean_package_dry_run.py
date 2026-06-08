@@ -1,0 +1,618 @@
+#!/usr/bin/env python3
+"""Report-only dry-run for the future beginner clean package.
+
+This script intentionally does not create, copy, move, zip, or package files.
+"""
+
+from __future__ import annotations
+
+import argparse
+import os
+import re
+import subprocess
+import sys
+from dataclasses import dataclass
+from pathlib import Path, PurePosixPath
+from typing import Iterable
+
+
+PACKAGE_ROOT = "動画保存ツール_ローカル専用/"
+
+PLANNED_TOP_LEVEL_ENTRIES = [
+    "00_最初に開いてください.html",
+    "00_最初に開いてください.txt",
+    "Windows用/",
+    "Mac用/",
+    "保存先/",
+    "困ったとき/",
+    "開発者向け/",
+]
+
+PLANNED_WINDOWS_ENTRIES = [
+    "Windows用/動画保存ツール.exe",
+    "Windows用/予備_起動する.bat",
+    "Windows用/予備_停止する.bat",
+    "Windows用/予備_保存先を開く.bat",
+]
+
+PLANNED_MAC_ENTRIES = [
+    "Mac用/動画保存ツール.app",
+    "Mac用/予備_起動する.command",
+    "Mac用/予備_停止する.command",
+    "Mac用/予備_保存先を開く.command",
+]
+
+PLANNED_DEVELOPER_ENTRIES = [
+    "開発者向け/README.md",
+    "開発者向け/docs/",
+    "開発者向け/docs/llmwiki/",
+    "開発者向け/licenses/",
+    "開発者向け/notices/",
+    "開発者向け/manifest/planned-output-manifest.json",
+]
+
+REQUIRED_CONTRACT_DOCS = [
+    "docs/llmwiki/current-state.md",
+    "docs/llmwiki/roadmap.md",
+    "docs/llmwiki/handoff.md",
+    "docs/llmwiki/safety-boundaries.md",
+    "docs/llmwiki/desktop-package-manifest.md",
+    "docs/llmwiki/beginner-guide-skeleton.md",
+    "docs/llmwiki/clean-package-dry-run-contract.md",
+]
+
+EXCLUDED_PATHS = [
+    ".git/",
+    ".github/",
+    ".pytest_cache/",
+    ".ruff_cache/",
+    ".mypy_cache/",
+    ".coverage",
+    "node_modules/",
+    "ui/node_modules/",
+    "ui/.angular/",
+    "dist/",
+    "build/",
+    "coverage/",
+    ".turbo/",
+    ".cache/",
+    "downloads/",
+    "state/",
+    "logs/",
+    "temp/",
+    ".env",
+    ".env.*",
+    "cookies.txt",
+    "動画保存ツール_ローカル専用/",
+]
+
+PR_1001_LEAKAGE_PATHS = [
+    "docker-compose.local.yml",
+    "docs/local-only.md",
+]
+
+FORBIDDEN_NAME_FRAGMENTS = [
+    "cookie",
+    "token",
+    "secret",
+    "credential",
+    "password",
+]
+
+FORBIDDEN_SUFFIXES = [
+    ".pem",
+    ".key",
+    ".p12",
+    ".pfx",
+]
+
+AMBIGUOUS_BACKUP_FRAGMENTS = [
+    "backup",
+    "old",
+    "copy",
+    "tmp",
+]
+
+TEXT_SUFFIXES = {
+    ".bat",
+    ".command",
+    ".css",
+    ".html",
+    ".js",
+    ".json",
+    ".md",
+    ".py",
+    ".scss",
+    ".txt",
+    ".toml",
+    ".ts",
+    ".yaml",
+    ".yml",
+}
+
+TEXT_SCAN_ROOTS = [
+    "app",
+    "ui/src",
+    "docs/llmwiki",
+]
+
+TEXT_SCAN_FILES = [
+    "README.md",
+    "LICENSE",
+    "NOTICE",
+]
+
+SECRET_PATTERNS = [
+    (
+        "private_key_block",
+        re.compile(r"-----BEGIN [A-Z0-9 ]*PRIVATE KEY-----"),
+    ),
+    (
+        "sensitive_assignment",
+        re.compile(
+            r"(?i)\b(?:api[_-]?key|access[_-]?key|auth[_-]?token|token|secret|"
+            r"password|passwd|credential|cookie|session)\b\s*[:=]\s*"
+            r"['\"]?[A-Za-z0-9_./+=:@~$%!-]{20,}['\"]?"
+        ),
+    ),
+    (
+        "bearer_token",
+        re.compile(r"(?i)\bbearer\s+[A-Za-z0-9._~+/-]{20,}"),
+    ),
+    (
+        "github_token",
+        re.compile(r"\b(?:gh[pousr]_[A-Za-z0-9]{20,}|github_pat_[A-Za-z0-9_]{20,})\b"),
+    ),
+    (
+        "openai_style_key",
+        re.compile(r"\bsk-[A-Za-z0-9_-]{20,}\b"),
+    ),
+    (
+        "cookie_file_line",
+        re.compile(r"^[^\s#]+\t(?:TRUE|FALSE)\t[^\t]*\t(?:TRUE|FALSE)\t\d+\t[^\t]+\t.{8,}$"),
+    ),
+    (
+        "private_url_query",
+        re.compile(r"(?i)https?://[^\s]+[?&](?:token|secret|key|auth|session)=[^\s&]{12,}"),
+    ),
+]
+
+
+@dataclass(frozen=True)
+class Finding:
+    kind: str
+    path: str
+    message: str
+    line: int | None = None
+    pattern_family: str | None = None
+
+
+def parse_args(argv: list[str]) -> argparse.Namespace:
+    parser = argparse.ArgumentParser(
+        description="Print a report-only clean package dry-run. No files are generated."
+    )
+    parser.add_argument(
+        "--format",
+        choices=["text"],
+        default="text",
+        help="Report format. Only text is implemented in this initial dry-run.",
+    )
+    return parser.parse_args(argv)
+
+
+def repo_root() -> Path:
+    return Path(__file__).resolve().parents[1]
+
+
+def repo_relative(path: Path, root: Path) -> str:
+    return path.resolve().relative_to(root.resolve()).as_posix()
+
+
+def normalize_rule(rule: str) -> str:
+    return rule.rstrip("/")
+
+
+def rule_matches(rel_path: str, rule: str) -> bool:
+    rel = rel_path.replace("\\", "/")
+    normalized = normalize_rule(rule)
+    if "*" in normalized:
+        regex = "^" + re.escape(normalized).replace(r"\*", "[^/]*") + "$"
+        return re.match(regex, rel) is not None
+    return rel == normalized or rel.startswith(normalized + "/")
+
+
+def is_excluded_path(rel_path: str) -> bool:
+    return any(rule_matches(rel_path, rule) for rule in EXCLUDED_PATHS)
+
+
+def should_skip_dir(rel_path: str, name: str) -> bool:
+    lowered = name.lower()
+    if lowered in {
+        ".git",
+        ".github",
+        ".pytest_cache",
+        ".ruff_cache",
+        ".mypy_cache",
+        "node_modules",
+        "downloads",
+        "state",
+        "logs",
+        "temp",
+        "dist",
+        "build",
+        "coverage",
+        ".turbo",
+        ".cache",
+    }:
+        return True
+    return is_excluded_path(rel_path)
+
+
+def git_value(root: Path, *args: str) -> str:
+    try:
+        result = subprocess.run(
+            ["git", *args],
+            cwd=root,
+            check=False,
+            capture_output=True,
+            text=True,
+        )
+    except OSError:
+        return "unknown"
+    if result.returncode != 0:
+        return "unknown"
+    return result.stdout.strip() or "unknown"
+
+
+def existing_excluded_paths(root: Path) -> list[str]:
+    found: list[str] = []
+    for rule in EXCLUDED_PATHS:
+        if "*" in rule:
+            continue
+        candidate = root / normalize_rule(rule)
+        try:
+            if candidate.exists():
+                found.append(rule)
+        except OSError:
+            found.append(rule)
+    return found
+
+
+def validate_required_docs(root: Path) -> list[Finding]:
+    findings: list[Finding] = []
+    for rel in REQUIRED_CONTRACT_DOCS:
+        path = root / rel
+        if not path.is_file():
+            findings.append(
+                Finding(
+                    kind="required_contract_missing",
+                    path=rel,
+                    message="Required dry-run source-of-truth document is missing.",
+                )
+            )
+    return findings
+
+
+def validate_planned_paths() -> list[Finding]:
+    findings: list[Finding] = []
+    planned = (
+        [PACKAGE_ROOT]
+        + PLANNED_TOP_LEVEL_ENTRIES
+        + PLANNED_WINDOWS_ENTRIES
+        + PLANNED_MAC_ENTRIES
+        + PLANNED_DEVELOPER_ENTRIES
+    )
+    for rel in planned:
+        clean = rel.rstrip("/")
+        path = PurePosixPath(clean)
+        if path.is_absolute() or ".." in path.parts:
+            findings.append(
+                Finding(
+                    kind="invalid_planned_path",
+                    path=rel,
+                    message="Planned package path is absolute or uses path traversal.",
+                )
+            )
+    return findings
+
+
+def walk_repo_files(root: Path, errors: list[Finding]) -> Iterable[Path]:
+    def on_error(error: OSError) -> None:
+        rel = Path(error.filename).as_posix() if error.filename else "."
+        errors.append(
+            Finding(
+                kind="scan_error",
+                path=rel,
+                message="Repository path could not be read for dry-run classification.",
+            )
+        )
+
+    for current, dirnames, filenames in os.walk(root, onerror=on_error):
+        current_path = Path(current)
+        kept_dirs: list[str] = []
+        for dirname in dirnames:
+            child = current_path / dirname
+            try:
+                rel = repo_relative(child, root)
+            except ValueError:
+                continue
+            if should_skip_dir(rel, dirname):
+                continue
+            kept_dirs.append(dirname)
+        dirnames[:] = kept_dirs
+
+        for filename in filenames:
+            path = current_path / filename
+            try:
+                rel = repo_relative(path, root)
+            except ValueError:
+                continue
+            if is_excluded_path(rel):
+                continue
+            yield path
+
+
+def forbidden_filename_family(name: str) -> str | None:
+    lowered = name.lower()
+    if lowered == ".env" or lowered.startswith(".env."):
+        return "env_file"
+    if lowered == "cookies.txt":
+        return "cookie_file"
+    for suffix in FORBIDDEN_SUFFIXES:
+        if lowered.endswith(suffix):
+            return "sensitive_file_suffix"
+    for fragment in FORBIDDEN_NAME_FRAGMENTS:
+        if fragment in lowered:
+            return f"{fragment}_filename"
+    return None
+
+
+def collect_filename_findings(root: Path) -> tuple[list[Finding], list[Finding]]:
+    errors: list[Finding] = []
+    blocked: list[Finding] = []
+    warnings: list[Finding] = []
+
+    for path in walk_repo_files(root, errors):
+        rel = repo_relative(path, root)
+        family = forbidden_filename_family(path.name)
+        if family:
+            blocked.append(
+                Finding(
+                    kind="forbidden_filename",
+                    path=rel,
+                    pattern_family=family,
+                    message="Forbidden filename family is present outside excluded paths.",
+                )
+            )
+            continue
+
+        lowered = path.name.lower()
+        if any(fragment in lowered for fragment in AMBIGUOUS_BACKUP_FRAGMENTS):
+            warnings.append(
+                Finding(
+                    kind="ambiguous_backup_filename",
+                    path=rel,
+                    message="Backup-like filename should be reviewed before any future package generation.",
+                )
+            )
+
+    return blocked + errors, warnings
+
+
+def text_candidate_files(root: Path) -> Iterable[Path]:
+    yielded: set[Path] = set()
+
+    for rel in TEXT_SCAN_FILES:
+        path = root / rel
+        if path.is_file():
+            yielded.add(path)
+            yield path
+
+    for scan_root in TEXT_SCAN_ROOTS:
+        path = root / scan_root
+        if not path.exists():
+            continue
+        for current, dirnames, filenames in os.walk(path):
+            current_path = Path(current)
+            kept_dirs: list[str] = []
+            for dirname in dirnames:
+                child = current_path / dirname
+                rel = repo_relative(child, root)
+                if should_skip_dir(rel, dirname):
+                    continue
+                kept_dirs.append(dirname)
+            dirnames[:] = kept_dirs
+
+            for filename in filenames:
+                file_path = current_path / filename
+                rel = repo_relative(file_path, root)
+                if is_excluded_path(rel):
+                    continue
+                if file_path.suffix.lower() not in TEXT_SUFFIXES:
+                    continue
+                if file_path in yielded:
+                    continue
+                yielded.add(file_path)
+                yield file_path
+
+
+def scan_forbidden_content(root: Path) -> list[Finding]:
+    findings: list[Finding] = []
+    for path in text_candidate_files(root):
+        rel = repo_relative(path, root)
+        try:
+            with path.open("r", encoding="utf-8", errors="replace") as handle:
+                for line_number, line in enumerate(handle, start=1):
+                    for family, pattern in SECRET_PATTERNS:
+                        if pattern.search(line):
+                            findings.append(
+                                Finding(
+                                    kind="forbidden_content_pattern",
+                                    path=rel,
+                                    line=line_number,
+                                    pattern_family=family,
+                                    message=(
+                                        "Secret-like content was detected. "
+                                        "The matched value is intentionally omitted."
+                                    ),
+                                )
+                            )
+        except OSError:
+            findings.append(
+                Finding(
+                    kind="scan_error",
+                    path=rel,
+                    message="Text candidate could not be read for dry-run classification.",
+                )
+            )
+    return findings
+
+
+def collect_blockers(root: Path) -> tuple[list[Finding], list[Finding], list[str]]:
+    blocked: list[Finding] = []
+    warnings: list[Finding] = []
+
+    blocked.extend(validate_required_docs(root))
+    blocked.extend(validate_planned_paths())
+
+    generated_path = root / normalize_rule(PACKAGE_ROOT)
+    if generated_path.exists():
+        blocked.append(
+            Finding(
+                kind="generated_package_folder_present",
+                path=PACKAGE_ROOT,
+                message="Generated package root already exists; dry-run must not mix it with source files.",
+            )
+        )
+
+    for rel in PR_1001_LEAKAGE_PATHS:
+        if (root / rel).exists():
+            blocked.append(
+                Finding(
+                    kind="upstream_pr_1001_leakage",
+                    path=rel,
+                    message="Upstream PR #1001 file is present and must stay out of fork-only package work.",
+                )
+            )
+
+    filename_blockers, filename_warnings = collect_filename_findings(root)
+    blocked.extend(filename_blockers)
+    warnings.extend(filename_warnings)
+    blocked.extend(scan_forbidden_content(root))
+
+    return blocked, warnings, existing_excluded_paths(root)
+
+
+def format_finding(finding: Finding) -> str:
+    parts = [finding.path]
+    if finding.line is not None:
+        parts.append(f"line {finding.line}")
+    if finding.pattern_family:
+        parts.append(f"family={finding.pattern_family}")
+    return f"{' | '.join(parts)}: {finding.message}"
+
+
+def print_list(title: str, items: Iterable[str]) -> None:
+    print(f"{title}:")
+    values = list(items)
+    if not values:
+        print("  none")
+        return
+    for item in values:
+        print(f"  {item}")
+
+
+def print_report(
+    root: Path,
+    blocked: list[Finding],
+    warnings: list[Finding],
+    excluded_found: list[str],
+) -> None:
+    status = "BLOCKED" if blocked else "OK"
+    branch = git_value(root, "branch", "--show-current")
+    commit = git_value(root, "rev-parse", "--short", "HEAD")
+
+    print("Clean package dry-run report")
+    print()
+    print("Package root:")
+    print(f"  {PACKAGE_ROOT}")
+    print()
+    print("Status:")
+    print(f"  {status}")
+    print()
+    print("Repository:")
+    print(f"  branch: {branch}")
+    print(f"  commit: {commit}")
+    print()
+    print_list("Planned entries", PLANNED_TOP_LEVEL_ENTRIES)
+    print()
+    print_list("Planned Windows entries", PLANNED_WINDOWS_ENTRIES)
+    print()
+    print_list("Planned macOS entries", PLANNED_MAC_ENTRIES)
+    print()
+    print_list("Planned developer entries", PLANNED_DEVELOPER_ENTRIES)
+    print()
+    print_list("Excluded rules", EXCLUDED_PATHS)
+    print()
+    print_list("Excluded paths currently present", excluded_found)
+    print()
+    print("Checks:")
+    forbidden_paths_status = (
+        "BLOCKED"
+        if any(b.kind == "generated_package_folder_present" for b in blocked)
+        else "OK"
+    )
+    forbidden_filenames_status = (
+        "BLOCKED" if any(b.kind == "forbidden_filename" for b in blocked) else "OK"
+    )
+    secret_content_status = (
+        "BLOCKED"
+        if any(b.kind == "forbidden_content_pattern" for b in blocked)
+        else "OK"
+    )
+    print(f"  forbidden paths: {forbidden_paths_status}")
+    print(f"  forbidden filenames: {forbidden_filenames_status}")
+    print(f"  secret-like content: {secret_content_status}")
+    generated_state = "present" if any(b.kind == "generated_package_folder_present" for b in blocked) else "not present"
+    print(f"  generated package folder: {generated_state}")
+    print("  beginner guides: planned")
+    print("  Windows/Mac sections: planned")
+    print("  PR #1001 leakage: " + ("BLOCKED" if any(b.kind == "upstream_pr_1001_leakage" for b in blocked) else "OK"))
+    print()
+
+    if warnings:
+        print("Warnings:")
+        for warning in warnings:
+            print(f"  {format_finding(warning)}")
+        print()
+
+    if blocked:
+        print("Blocked reasons:")
+        for finding in blocked:
+            print(f"  {format_finding(finding)}")
+        print()
+
+    print("Safety flags:")
+    print("  local_only: true")
+    print("  public_hosting: false")
+    print("  ads: false")
+    print("  update_apply: false")
+    print("  docker_pull: false")
+    print("  git_update: false")
+    print("  package_install: false")
+    print("  credential_handling: false")
+    print("  generated_folder_created: false")
+    print()
+    print("No files were generated.")
+
+
+def main(argv: list[str]) -> int:
+    parse_args(argv)
+    root = repo_root()
+    blocked, warnings, excluded_found = collect_blockers(root)
+    print_report(root, blocked, warnings, excluded_found)
+    return 1 if blocked else 0
+
+
+if __name__ == "__main__":
+    sys.exit(main(sys.argv[1:]))

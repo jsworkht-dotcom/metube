@@ -323,16 +323,42 @@
   - backend/frontend/Docker/CI/package/lockfile changes
   - update apply
 
+### Y-06E report-only clean-package dry-run script
+
+- Scope: stdlib-only dry-run script and minimal LLMwiki sync.
+- Script:
+  `scripts/clean_package_dry_run.py`
+- Outcome:
+  - Prints a human-readable clean-package dry-run report.
+  - Reports the planned `動画保存ツール_ローカル専用/` package root and manifest.
+  - Treats forbidden repository paths as excluded, not copied.
+  - Blocks generated package-folder presence, forbidden filename families,
+    forbidden content pattern families, and PR #1001 file leakage.
+  - Reports only sanitized path, line, and pattern-family details for
+    secret-like content checks. Matched values are not printed.
+  - Uses exit code `0` for OK, `1` for blockers, and `2` for CLI usage errors.
+- Not implemented:
+  - generated distribution folder
+  - actual `.html` / `.txt` guide files
+  - package build, copy, zip, or generator behavior
+  - Tauri
+  - Electron
+  - WebView2
+  - desktop packaging
+  - installer
+  - signing or notarization
+  - backend/frontend/Docker/CI/package/lockfile changes
+  - update apply
+
 ## Current Next Step
 
-Proceed to Y-06E report-only clean-package dry-run script.
+Review Y-06E dry-run output before any future clean-package generation work.
 
-Y-06E scope:
+Next scope:
 
-- Implement only a dry-run script that emits sanitized JSON/Markdown reports.
-- Validate safe path checks, include/exclude rules, forbidden filename families,
-  forbidden content pattern families, generated-folder stop conditions,
-  local-only notice requirements, and PR #1001 leakage checks.
+- Re-run the dry-run from a clean `fork/master`-based branch when needed.
+- Review future beginner guide source material, license/notice sources, and
+  package manifest details before approving generation.
 - Keep Tauri/Electron implementation, packaging, installer, signing, updater,
   backend changes, frontend changes, Docker changes, CI changes, package
   changes, and lockfile changes out of scope unless explicitly approved later.

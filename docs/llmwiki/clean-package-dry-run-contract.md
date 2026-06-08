@@ -94,52 +94,47 @@ The dry-run result is advisory. A later explicit task must approve any generator
 implementation, and another later explicit task must approve actual package
 generation.
 
-## Future Command Contract Candidate
+## Initial Command Contract
 
-The first implementation should be a script-only report generator. Candidate
-location:
+Y-06E implements a script-only report generator. Location:
 
 ```text
-tools/clean_package_dry_run.py
+scripts/clean_package_dry_run.py
 ```
 
-Candidate commands:
+Initial commands:
 
 ```text
-python tools/clean_package_dry_run.py --format json
-python tools/clean_package_dry_run.py --format markdown
-python tools/clean_package_dry_run.py --format both
-python tools/clean_package_dry_run.py --strict --format json
+python scripts/clean_package_dry_run.py
+python scripts/clean_package_dry_run.py --format text
 ```
 
 Rules:
 
-- `--format json` writes machine-readable output to stdout.
-- `--format markdown` writes a human-readable report to stdout.
-- `--format both` may write stdout JSON and a Markdown report only after a
-  later task approves report file locations.
-- The first implementation should not write report files unless the exact
-  destination is explicitly approved.
-- `--strict` may promote warnings to blocked in a future CI-oriented check.
+- `--format text` writes a human-readable report to stdout.
+- JSON and Markdown report modes remain future candidates.
+- The initial implementation does not write report files.
+- `--strict` is not implemented in Y-06E.
 - No command may create the package root or copy package files.
 
 ## Exit Codes
 
-Candidate exit codes:
+Y-06E initial script exit codes:
 
 | Code | Status | Meaning |
 | --- | --- | --- |
-| `0` | `ok` | Dry-run completed and no warnings, errors, or blocked reasons were found. |
-| `1` | `warning` | Dry-run completed, package generation would remain stopped for review, but no hard blocker was found. |
-| `2` | `blocked` | Dry-run completed and package generation must not proceed. |
-| `3` | `error` | Dry-run could not complete because required inputs, repository state, or checks failed. |
+| `0` | `ok` | Dry-run completed and no blockers were found. |
+| `1` | `blocked` | Dry-run completed and package generation must not proceed. |
+| `2` | `usage_error` | CLI arguments were invalid. |
 
 Rules:
 
 - `blocked` takes precedence over `warning`.
-- `error` means the dry-run did not have enough reliable information to decide.
-- A future actual generation command must refuse to run after exit codes `1`,
-  `2`, or `3` unless a later task defines an explicit override policy.
+- Non-blocking warning items remain review notes in Y-06E text output.
+- A future actual generation command must refuse to run after exit code `1`
+  unless a later task defines an explicit override policy.
+- Future JSON, Markdown, strict, or CI-oriented modes may define richer warning
+  or error codes only after a later task approves them.
 - No override policy is approved by this document.
 
 ## Status Classification
@@ -466,6 +461,9 @@ Safety validation:
 
 ## Dry-Run Output Examples
 
+These JSON examples remain future report-shape examples. Y-06E initial output is
+human-readable text only.
+
 ### OK
 
 ```json
@@ -487,14 +485,14 @@ Safety validation:
 }
 ```
 
-### Warning
+### Non-Blocking Review Note
 
 ```json
 {
   "schema_version": "0.1",
   "mode": "dry_run",
-  "status": "warning",
-  "exit_code": 1,
+  "status": "ok",
+  "exit_code": 0,
   "warnings": [
     {
       "kind": "missing_notice_candidate",
@@ -513,7 +511,7 @@ Safety validation:
   "schema_version": "0.1",
   "mode": "dry_run",
   "status": "blocked",
-  "exit_code": 2,
+  "exit_code": 1,
   "warnings": [],
   "blocked_reasons": [
     {
@@ -532,7 +530,7 @@ Safety validation:
   "schema_version": "0.1",
   "mode": "dry_run",
   "status": "blocked",
-  "exit_code": 2,
+  "exit_code": 1,
   "blocked_reasons": [
     {
       "kind": "forbidden_content_pattern",
@@ -552,7 +550,7 @@ Safety validation:
   "schema_version": "0.1",
   "mode": "dry_run",
   "status": "blocked",
-  "exit_code": 2,
+  "exit_code": 1,
   "blocked_reasons": [
     {
       "kind": "excluded_path_selected",
@@ -590,11 +588,12 @@ A future actual generation task must remain blocked until all of these are true:
 
 ## Next Implementation Candidate
 
-Y-06E should implement only the report-only dry-run script:
+Y-06E implemented only the report-only dry-run script:
 
-- Candidate path: `tools/clean_package_dry_run.py`
+- Script path: `scripts/clean_package_dry_run.py`
 - Input: repository tree and accepted LLMwiki contracts.
-- Output: sanitized JSON or Markdown report.
+- Output: sanitized human-readable text report. JSON and Markdown report modes
+  remain future candidates.
 - Behavior: no file generation, no copying, no build, no install, no package
   creation, no generated `動画保存ツール_ローカル専用/` folder.
 - Validation: forbidden paths, forbidden filenames, forbidden content pattern
