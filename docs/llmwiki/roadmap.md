@@ -2,17 +2,40 @@
 
 ## Immediate Next
 
-### Review Y-06E report-only clean-package dry-run output
+### Add dry-run warnings for missing guide and notice sources
 
-- Re-run `scripts/clean_package_dry_run.py` from a clean `fork/master`-based
-  branch when needed.
-- Review the planned beginner package manifest before any future package
-  generation task.
-- Keep guide source material, license/notice sources, checksums, and manifest
-  details in review until a later task explicitly approves generation.
+- Add non-blocking warnings to `scripts/clean_package_dry_run.py` for missing
+  guide-source and notice-source candidates defined in Y-06F.
+- Keep the next PR dry-run only.
+- Do not create guide outputs, copy license text, generate notice bundles, or
+  create package files.
 - Do not create `動画保存ツール_ローカル専用/`, copy files, build packages, install
   dependencies, add Tauri/Electron/WebView2, change backend/frontend/Docker/CI,
   or change package/lockfile files.
+
+## Y-06F Guide Source And Notice Review Outcome
+
+- Guide source plan:
+  `docs/llmwiki/beginner-guide-source-plan.md`
+- License/notice plan:
+  `docs/llmwiki/license-notice-plan.md`
+- Y-06F is docs-only and does not generate package files.
+- Planned future guide outputs:
+  - `00_最初に開いてください.html`
+  - `00_最初に開いてください.txt`
+  - `03_使い方.html`
+  - `03_使い方.txt`
+  - `04_困ったとき.html`
+  - `04_困ったとき.txt`
+  - `05_安全な使い方.html`
+- Planned notice categories cover MeTube, yt-dlp, ffmpeg, Python runtime,
+  bundled Python dependencies, frontend runtime dependencies, and future
+  Tauri/Electron runtime pieces only if implemented later.
+- License text copying, notice bundle generation, guide generation, package
+  generation, Tauri/Electron implementation, backend/frontend/Docker/CI
+  changes, and package/lockfile changes remain unapproved.
+- Next PR candidate: add advisory dry-run warnings for missing guide and notice
+  source candidates.
 
 ## Y-06E Dry-Run Script Outcome
 

@@ -19,7 +19,9 @@ MeTube. The canonical branch is fork `master`, and local `master` tracks
 9. `docs/llmwiki/desktop-package-manifest.md`
 10. `docs/llmwiki/beginner-guide-skeleton.md`
 11. `docs/llmwiki/clean-package-dry-run-contract.md`
-12. `docs/llmwiki/codex-gh-auth-runbook.md` if GitHub CLI auth, PR creation,
+12. `docs/llmwiki/beginner-guide-source-plan.md`
+13. `docs/llmwiki/license-notice-plan.md`
+14. `docs/llmwiki/codex-gh-auth-runbook.md` if GitHub CLI auth, PR creation,
    checks, or merge commands fail inside Codex
 
 ## Key Points For Codex
@@ -114,6 +116,20 @@ MeTube. The canonical branch is fork `master`, and local `master` tracks
   zip files, build packages, install dependencies, add Tauri/Electron/WebView2,
   change backend/frontend/Docker/CI/package/lockfile files, or implement update
   apply.
+- Y-06F beginner guide source and license notice review is documented in
+  `docs/llmwiki/beginner-guide-source-plan.md` and
+  `docs/llmwiki/license-notice-plan.md`.
+- Y-06F outcome: future beginner guide source candidates are defined for
+  first-open, usage, troubleshooting, safe-use, and TXT fallback pages.
+- Y-06F outcome: license/notice planning covers MeTube, yt-dlp, ffmpeg, Python
+  runtime, Python dependencies, frontend runtime dependencies, and future
+  Tauri/Electron runtime pieces only if they are later implemented and bundled.
+- Y-06F remains docs-only. It does not create `.html` / `.txt` guide files,
+  copy license text, generate notice bundles, change the dry-run script, create
+  the package root, build packages, add Tauri/Electron/WebView2, change
+  backend/frontend/Docker/CI/package/lockfile files, or implement update apply.
+- The selected next PR candidate is to add non-blocking missing guide-source
+  and missing notice-source warnings to `scripts/clean_package_dry_run.py`.
 - GitHub CLI auth note: in this Windows Codex desktop environment, sandboxed
   `gh auth status` may report an invalid `default` token while escalated
   `gh auth status` succeeds through `keyring`. Root cause is sandbox access to
@@ -123,8 +139,8 @@ MeTube. The canonical branch is fork `master`, and local `master` tracks
 
 ## Next Step
 
-Review Y-06E dry-run output before any future clean-package generation task.
-Do not create the generated package folder, copy package files, implement
-actual package generation, add Tauri/Electron/WebView2, run builds, install
-dependencies, change backend/frontend/Docker/CI files, or change
-package/lockfile files yet.
+Proceed to a dry-run-only warning enhancement for missing guide-source and
+notice-source candidates. Do not create guide files, copy license text, create
+the generated package folder, copy package files, implement actual package
+generation, add Tauri/Electron/WebView2, run builds, install dependencies,
+change backend/frontend/Docker/CI files, or change package/lockfile files yet.

@@ -350,15 +350,56 @@
   - backend/frontend/Docker/CI/package/lockfile changes
   - update apply
 
+### Y-06F beginner guide source and license notice review
+
+- Scope: docs-only review for future beginner guide source candidates and
+  license/notice planning.
+- Guide source plan:
+  `docs/llmwiki/beginner-guide-source-plan.md`
+- License/notice plan:
+  `docs/llmwiki/license-notice-plan.md`
+- Outcome:
+  - Defined future source candidates for `00_最初に開いてください.html`,
+    `00_最初に開いてください.txt`, `03_使い方.*`, `04_困ったとき.*`, and
+    `05_安全な使い方.html`.
+  - Defined beginner wording rules: Japanese-first, local-only, concrete
+    actions, and no normal-flow Docker / terminal / Git / Python / Node.js /
+    package-manager jargon.
+  - Defined package placement candidates for guides, troubleshooting pages,
+    developer docs, license directories, notice directories, and a future
+    license-notice manifest.
+  - Identified notice categories for MeTube, yt-dlp, ffmpeg, Python runtime,
+    Python dependencies, frontend dependencies, and future Tauri/Electron
+    runtime pieces if implemented later.
+  - Selected the next PR candidate: add non-blocking missing guide-source and
+    missing notice-source warnings to `scripts/clean_package_dry_run.py`.
+- Not implemented:
+  - generated distribution folder
+  - actual `.html` / `.txt` guide files
+  - license text copying
+  - notice bundle generation
+  - dry-run script changes
+  - package build, copy, zip, or generator behavior
+  - Tauri
+  - Electron
+  - WebView2
+  - desktop packaging
+  - installer
+  - signing or notarization
+  - backend/frontend/Docker/CI/package/lockfile changes
+  - update apply
+
 ## Current Next Step
 
-Review Y-06E dry-run output before any future clean-package generation work.
+Proceed to a dry-run-only warning enhancement for missing guide and notice
+source candidates.
 
 Next scope:
 
-- Re-run the dry-run from a clean `fork/master`-based branch when needed.
-- Review future beginner guide source material, license/notice sources, and
-  package manifest details before approving generation.
+- Add non-blocking warnings to `scripts/clean_package_dry_run.py` for missing
+  guide-source and notice-source candidates defined by Y-06F.
+- Keep the warnings advisory until a later generation task explicitly makes
+  those sources required.
 - Keep Tauri/Electron implementation, packaging, installer, signing, updater,
   backend changes, frontend changes, Docker changes, CI changes, package
   changes, and lockfile changes out of scope unless explicitly approved later.

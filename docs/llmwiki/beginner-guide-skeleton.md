@@ -345,11 +345,18 @@ Y-06E added the initial report-only dry-run script:
 - Output: sanitized human-readable text report.
 - Exit codes: `0` for OK, `1` for blockers, and `2` for CLI usage errors.
 
-The next review step is to run the dry-run report before any future beginner
-guide generation task:
+Y-06F added a guide source plan:
+
+- Plan document: `docs/llmwiki/beginner-guide-source-plan.md`
+- Planned outputs include first-open, usage, troubleshooting, safe-use, and TXT
+  fallback pages.
+- The plan is docs-only and does not create actual `.html` or `.txt` files.
+
+The next review step is to add advisory dry-run warnings before any future
+beginner guide generation task:
 
 - Emit sanitized reports only.
-- Validate future guide presence and local-only notice requirements.
+- Validate future guide-source presence and local-only notice requirements.
 - Validate safe paths, include/exclude rules, forbidden filename families,
   forbidden content pattern families, generated folder presence, and PR #1001
   leakage checks.

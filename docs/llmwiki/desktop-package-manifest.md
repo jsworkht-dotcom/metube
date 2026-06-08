@@ -502,14 +502,22 @@ Y-06E added the initial report-only dry-run script:
 - Output: sanitized human-readable text report.
 - Exit codes: `0` for OK, `1` for blockers, and `2` for CLI usage errors.
 
-The next review step is to run the dry-run report before any future clean-package
-generation task:
+Y-06F added package-source review plans:
+
+- Guide source plan: `docs/llmwiki/beginner-guide-source-plan.md`
+- License/notice plan: `docs/llmwiki/license-notice-plan.md`
+- These plans do not create package files, guide outputs, license bundles, or
+  notice bundles.
+
+The next review step is to add advisory dry-run warnings before any future
+clean-package generation task:
 
 - Read this manifest contract and the related LLMwiki contracts.
 - Emit sanitized reports only.
 - Validate unsafe paths, excluded files, forbidden filename families, forbidden
-  content pattern families, generated distribution folders, local-only notice
-  requirements, Windows/macOS section completeness, and PR #1001 leakage.
+  content pattern families, generated distribution folders, guide-source
+  candidates, notice-source candidates, local-only notice requirements,
+  Windows/macOS section completeness, and PR #1001 leakage.
 - Keep actual package generation, file copying, build scripts, installers,
   signing, backend changes, frontend changes, Docker changes, CI changes,
   package changes, and lockfile changes out of scope.
