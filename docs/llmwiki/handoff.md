@@ -18,7 +18,8 @@ MeTube. The canonical branch is fork `master`, and local `master` tracks
 8. `docs/llmwiki/desktop-sidecar-lifecycle-contract.md`
 9. `docs/llmwiki/desktop-package-manifest.md`
 10. `docs/llmwiki/beginner-guide-skeleton.md`
-11. `docs/llmwiki/codex-gh-auth-runbook.md` if GitHub CLI auth, PR creation,
+11. `docs/llmwiki/clean-package-dry-run-contract.md`
+12. `docs/llmwiki/codex-gh-auth-runbook.md` if GitHub CLI auth, PR creation,
    checks, or merge commands fail inside Codex
 
 ## Key Points For Codex
@@ -89,6 +90,18 @@ MeTube. The canonical branch is fork `master`, and local `master` tracks
   manifest candidates, user data paths, notices, checksums, and safe beginner
   copy boundaries are defined. No generated distribution folder, package
   generator, implementation, package build, or installer is approved yet.
+- Y-06D clean-package generator dry-run contract is documented in
+  `docs/llmwiki/clean-package-dry-run-contract.md`.
+- Y-06D outcome: dry-run is report-only planning before any package files are
+  copied or generated. The contract defines future command candidates,
+  JSON/Markdown report shape, exit code policy, warning/error/blocked
+  classifications, planned output manifest, include/exclude rules, validation
+  gates, output examples, and the next implementation candidate.
+- Future dry-run validation must block forbidden paths, forbidden filenames,
+  forbidden content pattern families, generated package folders, PR #1001 file
+  leakage, cookie/token/secret handling, public hosting, ads, update apply,
+  Docker pull, git update, package install/update, and unrelated implementation
+  behavior.
 - GitHub CLI auth note: in this Windows Codex desktop environment, sandboxed
   `gh auth status` may report an invalid `default` token while escalated
   `gh auth status` succeeds through `keyring`. Root cause is sandbox access to
@@ -98,6 +111,7 @@ MeTube. The canonical branch is fork `master`, and local `master` tracks
 
 ## Next Step
 
-Proceed to Y-06D clean-package generator dry-run contract docs. Do not implement
-Tauri, Electron, packaging, installers, signing, updater logic, backend/frontend
-changes, Docker changes, CI changes, or package/lockfile changes yet.
+Proceed to Y-06E report-only clean-package dry-run script. Do not create the
+generated package folder, copy package files, implement actual package
+generation, add Tauri/Electron/WebView2, run builds, install dependencies,
+change backend/frontend/Docker/CI files, or change package/lockfile files yet.

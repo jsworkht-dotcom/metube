@@ -493,12 +493,16 @@ Before any package generator is implemented, a later task should verify:
 
 ## Next PR Candidate
 
-Y-06D should be a docs-only clean-package generator dry-run contract:
+Y-06D added the docs-only clean-package generator dry-run contract in
+`docs/llmwiki/clean-package-dry-run-contract.md`.
 
-- Define how a future generator would read this manifest contract.
-- Define a dry-run report shape without creating files.
-- Define stop conditions for unsafe paths, excluded files, secrets, generated
-  distribution folders, and PR #1001 file leakage.
-- Keep implementation, build scripts, package generation, installers, signing,
-  backend changes, frontend changes, Docker changes, CI changes, package
-  changes, and lockfile changes out of scope.
+The next candidate is Y-06E report-only dry-run script implementation:
+
+- Read this manifest contract and the related LLMwiki contracts.
+- Emit sanitized JSON/Markdown reports only.
+- Validate unsafe paths, excluded files, forbidden filename families, forbidden
+  content pattern families, generated distribution folders, local-only notice
+  requirements, Windows/macOS section completeness, and PR #1001 leakage.
+- Keep actual package generation, file copying, build scripts, installers,
+  signing, backend changes, frontend changes, Docker changes, CI changes,
+  package changes, and lockfile changes out of scope.

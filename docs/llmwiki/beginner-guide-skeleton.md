@@ -336,12 +336,16 @@ A future generated guide is acceptable only if:
 
 ## Next PR Candidate
 
-Y-06D should be a docs-only clean-package generator dry-run contract:
+Y-06D added the docs-only clean-package generator dry-run contract in
+`docs/llmwiki/clean-package-dry-run-contract.md`.
 
-- Define dry-run output for future package generation.
-- Define safe path validation.
-- Define include/exclude validation.
-- Define secret and PR #1001 leakage checks.
-- Keep implementation, generated folders, build scripts, installers, signing,
-  backend changes, frontend changes, Docker changes, CI changes, package
-  changes, and lockfile changes out of scope.
+The next candidate is Y-06E report-only dry-run script implementation:
+
+- Emit sanitized JSON/Markdown reports only.
+- Validate future guide presence and local-only notice requirements.
+- Validate safe paths, include/exclude rules, forbidden filename families,
+  forbidden content pattern families, generated folder presence, and PR #1001
+  leakage checks.
+- Keep actual guide generation, package generation, generated folders, build
+  scripts, installers, signing, backend changes, frontend changes, Docker
+  changes, CI changes, package changes, and lockfile changes out of scope.
