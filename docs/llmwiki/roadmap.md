@@ -2,19 +2,36 @@
 
 ## Immediate Next
 
-### Y-06E report-only clean-package dry-run script
+### Review Y-06E report-only clean-package dry-run output
 
-- Implement a report-only dry-run script for future clean beginner package
-  planning.
-- Candidate script path: `tools/clean_package_dry_run.py`.
-- Output only sanitized JSON/Markdown reports.
-- Validate forbidden paths, forbidden filenames, forbidden content pattern
-  families, large file warnings, missing guide/notice warnings, local-only
-  notice requirements, Windows/macOS package section completeness, generated
-  folder stop conditions, and PR #1001 leakage checks.
+- Re-run `scripts/clean_package_dry_run.py` from a clean `fork/master`-based
+  branch when needed.
+- Review the planned beginner package manifest before any future package
+  generation task.
+- Keep guide source material, license/notice sources, checksums, and manifest
+  details in review until a later task explicitly approves generation.
 - Do not create `動画保存ツール_ローカル専用/`, copy files, build packages, install
   dependencies, add Tauri/Electron/WebView2, change backend/frontend/Docker/CI,
-  or change package/lockfile files in Y-06E.
+  or change package/lockfile files.
+
+## Y-06E Dry-Run Script Outcome
+
+- Report-only dry-run script:
+  `scripts/clean_package_dry_run.py`
+- Output is a human-readable sanitized text report.
+- The script reports the planned `動画保存ツール_ローカル専用/` package root,
+  top-level entries, Windows entries, macOS entries, developer entries,
+  excluded path rules, validation checks, safety flags, and blocker details.
+- Implemented safety checks:
+  - forbidden path and generated-folder checks
+  - forbidden filename family checks
+  - forbidden content pattern family checks without printing matched values
+  - required LLMwiki contract presence checks
+  - PR #1001 leakage checks for `docker-compose.local.yml` and
+    `docs/local-only.md`
+- Exit codes are `0` for OK, `1` for blockers, and `2` for CLI usage errors.
+- JSON/Markdown report modes remain future candidates, not implemented in the
+  initial Y-06E script.
 
 ## Y-06D Dry-Run Contract Outcome
 

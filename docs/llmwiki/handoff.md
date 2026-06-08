@@ -102,6 +102,18 @@ MeTube. The canonical branch is fork `master`, and local `master` tracks
   leakage, cookie/token/secret handling, public hosting, ads, update apply,
   Docker pull, git update, package install/update, and unrelated implementation
   behavior.
+- Y-06E report-only clean-package dry-run script is implemented at
+  `scripts/clean_package_dry_run.py`.
+- Y-06E outcome: the script prints a sanitized text report for the planned
+  `動画保存ツール_ローカル専用/` package root, planned top-level / Windows /
+  macOS / developer entries, excluded path rules, validation checks, safety
+  flags, and blocker details.
+- Y-06E exit codes are `0` for OK, `1` for blockers, and `2` for CLI usage
+  errors. JSON/Markdown report modes remain future candidates.
+- Y-06E remains dry-run only. It does not create the package root, copy files,
+  zip files, build packages, install dependencies, add Tauri/Electron/WebView2,
+  change backend/frontend/Docker/CI/package/lockfile files, or implement update
+  apply.
 - GitHub CLI auth note: in this Windows Codex desktop environment, sandboxed
   `gh auth status` may report an invalid `default` token while escalated
   `gh auth status` succeeds through `keyring`. Root cause is sandbox access to
@@ -111,7 +123,8 @@ MeTube. The canonical branch is fork `master`, and local `master` tracks
 
 ## Next Step
 
-Proceed to Y-06E report-only clean-package dry-run script. Do not create the
-generated package folder, copy package files, implement actual package
-generation, add Tauri/Electron/WebView2, run builds, install dependencies,
-change backend/frontend/Docker/CI files, or change package/lockfile files yet.
+Review Y-06E dry-run output before any future clean-package generation task.
+Do not create the generated package folder, copy package files, implement
+actual package generation, add Tauri/Electron/WebView2, run builds, install
+dependencies, change backend/frontend/Docker/CI files, or change
+package/lockfile files yet.

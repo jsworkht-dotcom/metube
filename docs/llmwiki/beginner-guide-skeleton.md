@@ -334,14 +334,21 @@ A future generated guide is acceptable only if:
 - Public hosting and ads are excluded.
 - No implementation or package generation is mixed into the docs task.
 
-## Next PR Candidate
+## Current Dry-Run Support
 
 Y-06D added the docs-only clean-package generator dry-run contract in
 `docs/llmwiki/clean-package-dry-run-contract.md`.
 
-The next candidate is Y-06E report-only dry-run script implementation:
+Y-06E added the initial report-only dry-run script:
 
-- Emit sanitized JSON/Markdown reports only.
+- Script path: `scripts/clean_package_dry_run.py`
+- Output: sanitized human-readable text report.
+- Exit codes: `0` for OK, `1` for blockers, and `2` for CLI usage errors.
+
+The next review step is to run the dry-run report before any future beginner
+guide generation task:
+
+- Emit sanitized reports only.
 - Validate future guide presence and local-only notice requirements.
 - Validate safe paths, include/exclude rules, forbidden filename families,
   forbidden content pattern families, generated folder presence, and PR #1001
