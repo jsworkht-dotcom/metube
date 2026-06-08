@@ -256,16 +256,49 @@
   - backend/frontend/Docker/CI/package/lockfile changes
   - update apply
 
+### Y-06C desktop package manifest and beginner guide skeleton docs
+
+- Scope: docs-only package manifest and beginner guide skeleton for a future
+  Level 3 beginner desktop distribution.
+- Manifest document:
+  `docs/llmwiki/desktop-package-manifest.md`
+- Guide skeleton document:
+  `docs/llmwiki/beginner-guide-skeleton.md`
+- Outcome:
+  - Defined the future user-facing package root:
+    `動画保存ツール_ローカル専用/`.
+  - Fixed primary beginner guide as `00_最初に開いてください.html`, fallback as
+    `00_最初に開いてください.txt`, and Markdown as developer/LLMwiki material.
+  - Defined Windows and macOS package skeletons, warning/signing boundaries,
+    include/exclude rules, generated manifest candidates, user data path
+    templates, config sample boundaries, notices, and checksum candidates.
+  - Kept build/package generation, Tauri/Electron/WebView2 implementation,
+    installers, signing, update apply, Docker pull, dependency install/update,
+    cookie/token/secret handling, public hosting, ads, and implementation work
+    out of scope.
+- Not implemented:
+  - generated distribution folder
+  - actual `.html` / `.txt` guide files
+  - package generator
+  - Tauri
+  - Electron
+  - WebView2
+  - desktop packaging
+  - installer
+  - signing or notarization
+  - backend/frontend/Docker/CI/package/lockfile changes
+  - update apply
+
 ## Current Next Step
 
-Proceed to Y-06C desktop package manifest and beginner guide skeleton docs.
+Proceed to Y-06D clean-package generator dry-run contract docs.
 
-Y-06C scope:
+Y-06D scope:
 
-- Docs-only package manifest and beginner guide skeleton for the future
-  Dockerless desktop path.
-- Define concrete Windows/macOS package file layout, package exclusions, and
-  beginner `.html` / `.txt` guide structure.
+- Docs-only dry-run contract for a future clean-package generator.
+- Define dry-run report shape, safe path checks, include/exclude validation,
+  secret scanning boundaries, generated-folder stop conditions, and PR #1001
+  leakage checks.
 - Keep Tauri/Electron implementation, packaging, installer, signing, updater,
   backend changes, frontend changes, Docker changes, CI changes, package
   changes, and lockfile changes out of scope unless explicitly approved later.

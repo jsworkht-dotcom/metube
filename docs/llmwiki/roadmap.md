@@ -2,17 +2,35 @@
 
 ## Immediate Next
 
-### Y-06C desktop package manifest and beginner guide skeleton docs
+### Y-06D clean-package generator dry-run contract docs
 
-- Write the docs-only package manifest and beginner guide skeleton required
-  before any Dockerless desktop implementation.
+- Write the docs-only dry-run contract required before any clean-package
+  generator implementation.
 - Scope: Windows + macOS, local-only personal use, Tauri-first unless a later
   checkpoint explicitly changes that.
-- Define package file layout, package exclusions, bundled runtime notes, and
-  beginner `.html` / `.txt` guide sections.
+- Define dry-run report shape, safe path validation, include/exclude checks,
+  secret scanning boundaries, generated-folder stop conditions, and PR #1001
+  leakage checks.
 - Do not implement Tauri, Electron, packaging, installers, signing, updater
   logic, backend changes, frontend changes, Docker changes, CI changes, or
-  package/lockfile changes in Y-06C.
+  package/lockfile changes in Y-06D.
+
+## Y-06C Manifest And Guide Outcome
+
+- Desktop package manifest is documented in
+  `docs/llmwiki/desktop-package-manifest.md`.
+- Beginner HTML/TXT guide skeleton is documented in
+  `docs/llmwiki/beginner-guide-skeleton.md`.
+- Future package root is fixed as `動画保存ツール_ローカル専用/`.
+- Primary guide is `00_最初に開いてください.html`; fallback guide is
+  `00_最初に開いてください.txt`; Markdown is developer/LLMwiki material.
+- Windows and macOS package skeletons, include/exclude rules, generated
+  manifest candidates, user data paths, notices, checksums, and safe beginner
+  copy boundaries are defined.
+- Generated distribution folders, package scripts, Tauri/Electron/WebView2
+  implementation, package builds, installers, signing,
+  backend/frontend/Docker/CI/package/lockfile changes, and update apply remain
+  unapproved.
 
 ## Y-06B Contract Outcome
 

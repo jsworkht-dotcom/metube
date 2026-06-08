@@ -110,11 +110,23 @@ future desktop sidecar lifecycle and package boundaries, but it does not approve
 implementation, build scripts, installers, signing, updater behavior, dependency
 changes, or lockfile changes.
 
+The Y-06C package and guide contracts are tracked in
+`docs/llmwiki/desktop-package-manifest.md` and
+`docs/llmwiki/beginner-guide-skeleton.md`. Those contracts define future
+package layout and guide shape, but they do not approve generated distribution
+folders, package generation scripts, Tauri/Electron/WebView2 implementation,
+build/package commands, installers, signing, updater behavior, dependency
+changes, or lockfile changes.
+
 Desktop planning must preserve these safety rules:
 
 - Backend must be planned as local-only and bound to `127.0.0.1`.
 - No public tunnel, reverse proxy, LAN service mode, or hosted mode.
 - No cookie/token/secret handling in the beginner desktop flow.
+- No generated beginner package may contain `.git`, `.github`, caches,
+  `node_modules`, local downloads, state, logs, temp files, `.env`, `cookies.txt`,
+  cookie files, token files, secret files, personal backups, command logs, dev
+  branch metadata, or upstream PR #1001 files.
 - No logs, diagnostics, package manifests, or guide examples may contain real
   cookie, token, secret, or private URL values.
 - No automatic update apply.
