@@ -760,10 +760,35 @@ Rules:
   generation, Tauri/Electron implementation, backend/frontend/Docker/CI
   changes, package/lockfile changes, or update apply.
 
+## Y-06M Troubleshooting TXT Fallback Source
+
+Y-06M adds the troubleshooting TXT fallback source candidate:
+
+```text
+docs/llmwiki/package-guides/04-troubleshooting.txt.source.md
+```
+
+This source is intended for a future generated package path:
+
+```text
+動画保存ツール_ローカル専用/04_困ったとき.txt
+```
+
+Rules:
+
+- The source remains Markdown planning/source material only.
+- The dry-run may treat this file as satisfying the planned troubleshooting TXT
+  source candidate warning.
+- This does not create actual `.html` or `.txt` files.
+- This does not create `動画保存ツール_ローカル専用/`.
+- This does not approve guide generation, package generation, notice bundle
+  generation, Tauri/Electron implementation, backend/frontend/Docker/CI
+  changes, package/lockfile changes, or update apply.
+
 ## Next Implementation Candidate
 
-Draft the troubleshooting TXT fallback source under
-`docs/llmwiki/package-guides/` after reviewing the updated warning output.
+Draft the safe-use HTML source under `docs/llmwiki/package-guides/` after
+reviewing the updated warning output.
 
 Actual clean-package generation should wait until after repeated successful
 dry-run reports and a later explicit generation task.
