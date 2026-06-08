@@ -14,7 +14,9 @@ MeTube. The canonical branch is fork `master`, and local `master` tracks
 4. `docs/llmwiki/update-rollback-plan.md`
 5. `docs/llmwiki/manual-update-apply-design.md`
 6. `docs/llmwiki/dry-run-update-contract.md`
-7. `docs/llmwiki/codex-gh-auth-runbook.md` if GitHub CLI auth, PR creation,
+7. `docs/llmwiki/dockerless-desktop-distribution-feasibility.md`
+8. `docs/llmwiki/desktop-sidecar-lifecycle-contract.md`
+9. `docs/llmwiki/codex-gh-auth-runbook.md` if GitHub CLI auth, PR creation,
    checks, or merge commands fail inside Codex
 
 ## Key Points For Codex
@@ -63,6 +65,16 @@ MeTube. The canonical branch is fork `master`, and local `master` tracks
 - Key desktop blockers: backend sidecar lifecycle, close safety, desktop path
   defaults, ffmpeg / yt-dlp / Deno / bgutil packaging, signing/notarization, and
   excluding cookie/token/secret features from the beginner desktop flow.
+- Y-06B desktop sidecar lifecycle and package contract is documented in
+  `docs/llmwiki/desktop-sidecar-lifecycle-contract.md`.
+- Y-06B outcome: the future desktop wrapper owns backend sidecar start,
+  readiness, monitoring, stop, close confirmation, and abnormal-exit recovery.
+- Future desktop launch must force `HOST=127.0.0.1`, use per-user
+  download/state/temp paths, and keep runtime data out of the install
+  directory.
+- Package contents, package exclusions, Windows/macOS boundaries, and beginner
+  `.html` / `.txt` guide requirements are contract-defined, but no
+  implementation or packaging is approved yet.
 - GitHub CLI auth note: in this Windows Codex desktop environment, sandboxed
   `gh auth status` may report an invalid `default` token while escalated
   `gh auth status` succeeds through `keyring`. Root cause is sandbox access to
@@ -72,7 +84,7 @@ MeTube. The canonical branch is fork `master`, and local `master` tracks
 
 ## Next Step
 
-Proceed to Y-06B desktop sidecar lifecycle and package contract docs. Do not
-implement Tauri, Electron, packaging, installers, signing, updater logic,
+Proceed to Y-06C desktop package manifest and beginner guide skeleton docs. Do
+not implement Tauri, Electron, packaging, installers, signing, updater logic,
 backend/frontend changes, Docker changes, CI changes, or package/lockfile
 changes yet.
