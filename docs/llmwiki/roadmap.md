@@ -2,17 +2,37 @@
 
 ## Immediate Next
 
-### Review Y-06G dry-run warning output
+### Draft first-open TXT fallback source
 
-- Review the warning list from `scripts/clean_package_dry_run.py`.
-- Choose one beginner guide source candidate to draft first, likely
-  `00_最初に開いてください.html` source material.
+- Draft `docs/llmwiki/package-guides/00-first-open.txt.source.md` as the short
+  fallback source for future `00_最初に開いてください.txt`.
 - Keep the next PR source-material only unless explicitly approved otherwise.
 - Do not create guide outputs, copy license text, generate notice bundles, or
   create package files.
 - Do not create `動画保存ツール_ローカル専用/`, copy files, build packages, install
   dependencies, add Tauri/Electron/WebView2, change backend/frontend/Docker/CI,
   or change package/lockfile files.
+
+## Y-06H First-Open Guide Source Outcome
+
+- Guide source draft:
+  `docs/llmwiki/package-guides/00-first-open.html.source.md`
+- Added source material for future
+  `動画保存ツール_ローカル専用/00_最初に開いてください.html`.
+- The draft is Japanese-first and structured for future HTML conversion with:
+  - hero copy
+  - first-step cards
+  - a local-only warning box
+  - in-app help cards
+  - troubleshooting cards
+  - a footer note
+- Covered start, URL paste, save, open save folder, stop/quit, safe use, and
+  first troubleshooting actions.
+- Covered the `停止して終了` close-safety note and kept X-close behavior as a
+  caution, not the preferred exit path.
+- No actual `.html` / `.txt` guide output, generated package folder, package
+  build/copy behavior, notice bundle, Tauri/Electron implementation,
+  backend/frontend/Docker/CI change, or package/lockfile change was added.
 
 ## Y-06G Dry-Run Warning Hardening Outcome
 
