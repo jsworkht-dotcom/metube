@@ -586,7 +586,7 @@ A future actual generation task must remain blocked until all of these are true:
 - No update apply, Docker pull, git pull / merge / rebase, restart, pip install,
   package install, or package update is added.
 
-## Next Implementation Candidate
+## Guide And Notice Source Plans
 
 Y-06E implemented only the report-only dry-run script:
 
@@ -599,6 +599,30 @@ Y-06E implemented only the report-only dry-run script:
 - Validation: forbidden paths, forbidden filenames, forbidden content pattern
   families, package section completeness, local-only notice, and PR #1001 leakage
   checks.
+
+Y-06F added docs-only source plans for future dry-run warning inputs:
+
+- Guide source plan: `docs/llmwiki/beginner-guide-source-plan.md`
+- License/notice plan: `docs/llmwiki/license-notice-plan.md`
+
+These plans do not approve guide generation, license body copying, notice bundle
+generation, package generation, build/package commands, Tauri/Electron
+implementation, backend/frontend/Docker/CI changes, or package/lockfile
+changes.
+
+## Next Implementation Candidate
+
+Add advisory missing guide-source and missing notice-source warnings to
+`scripts/clean_package_dry_run.py`.
+
+Rules:
+
+- Keep the warnings non-blocking.
+- Do not generate guide files.
+- Do not copy license text.
+- Do not create notice bundles.
+- Do not create `動画保存ツール_ローカル専用/`.
+- Do not change backend, frontend, Docker, CI, package, or lockfile files.
 
 Actual clean-package generation should wait until after repeated successful
 dry-run reports and a later explicit generation task.
