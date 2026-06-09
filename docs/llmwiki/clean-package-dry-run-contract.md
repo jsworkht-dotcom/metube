@@ -1137,6 +1137,44 @@ Rules:
   unchanged.
 - Existing blockers must not be weakened.
 
+## Y-06Y Package Output Diff Prediction
+
+Y-06Y adds a report-only package output diff prediction to:
+
+```text
+scripts/clean_package_dry_run.py
+```
+
+The dry-run text report now includes:
+
+```text
+Package output diff prediction
+```
+
+Prediction fields:
+
+- `future_package_root`
+- `would_create_directories`
+- `would_create_files`
+- `would_copy_source_groups`
+- `would_generate_future_outputs`
+- excluded path rule count and currently-present excluded path count
+- `no_files_generated: true`
+- `human_review_required_before_generation: true`
+- cleanup / rollback candidate note
+
+Rules:
+
+- The prediction is text-only and report-only.
+- The script does not create `manifest.json`, `NOTICE.txt`, `LICENSES/`, or
+  `動画保存ツール_ローカル専用/`.
+- The script does not generate notice bundles, license bundles, inventories,
+  manifest files, or HTML/TXT guide output.
+- The prediction must not imply actual package generation approval.
+- Existing `Package manifest preview`, `Status: OK`, warnings, blockers, and
+  exit-code behavior remain unchanged.
+- Existing blockers must not be weakened.
+
 ## Y-CHECK-01 Repository Safety Gate Relationship
 
 Y-CHECK-01 is documented in:
@@ -1193,9 +1231,9 @@ Relationship:
 Review the existing report-only safety checker before low- or medium-risk fork
 PRs, then select the next source-only package notice gap explicitly.
 
-The next package-material candidate should be selected explicitly from
-remaining source-only notice or inventory work after reviewing the updated
-warning output.
+The next package-material candidate should be selected explicitly. A good next
+candidate is a JSON or Markdown report mode design for the existing dry-run, or
+another source-only notice / inventory gap if one is selected.
 
 Actual clean-package generation should wait until after repeated successful
 dry-run reports and a later explicit generation task.

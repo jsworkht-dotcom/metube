@@ -319,6 +319,16 @@ Rules:
 - Prediction must state that no filesystem changes were made.
 - Prediction must flag any generated output that would require human approval.
 
+Y-06Y implementation note:
+
+- `scripts/clean_package_dry_run.py` now prints this as a text-only
+  `Package output diff prediction` section.
+- The prediction reports future package root, would-create path candidates,
+  source group candidates, future output candidates, excluded path summary,
+  no-files-generated state, and human review requirement before generation.
+- It does not create `manifest.json`, `NOTICE.txt`, `LICENSES/`, the package
+  root, or any package file.
+
 ## Package Manifest Preview Candidate
 
 Future dry-run / preview may include a package manifest preview candidate
@@ -378,6 +388,7 @@ Before actual generation, a human reviewer must confirm:
 
 - dry-run / preview output is sanitized and complete;
 - package manifest preview is acceptable;
+- package output diff prediction is acceptable;
 - notice source index and source drafts are still current;
 - exact artifacts, versions, source URLs, and license text have been reviewed;
 - no generated package folder exists before generation begins;
@@ -420,8 +431,9 @@ High-high:
 Candidate phases, each requiring a separate explicit task:
 
 1. Add report-only preview fields to `scripts/clean_package_dry_run.py`.
-2. Add a package manifest preview mode that writes nothing.
-3. Add a package output diff prediction report that writes nothing.
+2. Add a package manifest preview mode that writes nothing. Completed by Y-06X.
+3. Add a package output diff prediction report that writes nothing. Completed
+   by Y-06Y.
 4. Add JSON or Markdown report output, still without writing package files.
 5. Add a human-reviewed generator prototype that can be inspected but does not
    run actual generation in automated checks.
