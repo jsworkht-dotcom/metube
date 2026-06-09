@@ -811,6 +811,46 @@
   - backend/frontend/Docker/CI/package/lockfile changes
   - 更新適用機能
 
+### Y-06T desktop shell notice source draft
+
+- Scope: source-only desktop shell notice draft and minimal LLMwiki sync.
+- Source draft:
+  `docs/llmwiki/package-notices/desktop-shell-notice.source.md`
+- Outcome:
+  - Added the desktop shell notice source candidate for future
+    `動画保存ツール_ローカル専用/開発者向け/notices/desktop-shell-notice.txt`.
+  - Recorded Windows and macOS notice placement candidates for future
+    `Windows用/notices/desktop-shell-notice.txt` and
+    `Mac用/notices/desktop-shell-notice.txt`.
+  - Kept the draft as Markdown source material only, not a generated notice
+    file, notice bundle, desktop shell implementation, package output, or
+    legal conclusion.
+  - Recorded Tauri, Electron, WebView2 direct host, and native launcher plus
+    browser tab as candidates only.
+  - Recorded official reference candidates for later recheck, beginner-facing
+    notice copy, developer-facing notice draft, manifest fields, future
+    generated notice-bundle requirements, and review checklist items.
+  - Preserved actual desktop shell selection and exact license/runtime review
+    for a later package generation / license review task.
+- Not implemented:
+  - generated distribution folder
+  - actual notice files
+  - actual license bundle
+  - generated desktop shell dependency inventory
+  - desktop shell build artifact manifest
+  - Tauri implementation
+  - Electron implementation
+  - WebView2 implementation
+  - installer implementation
+  - signing or notarization
+  - package or lockfile changes
+  - dependency changes
+  - package manager operations
+  - HTML/TXT package guide output
+  - package build, copy, zip, or generator behavior
+  - backend/frontend/Docker/CI/package/lockfile changes
+  - 更新適用機能
+
 ### Y-CHECK-01 safety gate checker design
 
 - Scope: docs-only design for a future repository safety checker and automation
@@ -880,11 +920,11 @@
 Use `scripts/check_repo_safety.py` as a local report-only check before the next
 low- or medium-risk fork PR.
 
-The previous package-material next step is complete through Y-06S.
+The previous package-material next step is complete through Y-06T.
 
 The next package-material candidate is a separate source-only notice or
-inventory draft for bundled Python dependencies or desktop shell runtime pieces
-after an explicit task selects one.
+inventory draft for bundled Python dependencies or another explicitly selected
+package notice gap.
 
 Next scope:
 

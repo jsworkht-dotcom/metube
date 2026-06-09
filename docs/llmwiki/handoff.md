@@ -311,6 +311,22 @@ MeTube. The canonical branch is fork `master`, and local `master` tracks
   package or lock files, change dependencies, run package manager operations,
   add Tauri/Electron/WebView2, change backend/frontend/Docker/CI/package files,
   or implement 更新適用機能.
+- Y-06T desktop shell notice source draft is documented at
+  `docs/llmwiki/package-notices/desktop-shell-notice.source.md`.
+- Y-06T outcome: the desktop shell notice source candidate is source-only,
+  sanitized, and review-oriented for a future
+  `動画保存ツール_ローカル専用/開発者向け/notices/desktop-shell-notice.txt`.
+- Y-06T covers shared and OS-specific notice placement candidates, Tauri,
+  Electron, WebView2 direct host, and native launcher candidate notes,
+  official reference candidates for later recheck, beginner-facing notice copy,
+  developer notice draft, manifest candidate fields, future generated
+  notice-bundle requirements, and review checklist items.
+- Y-06T does not create actual notice files, copy license text, generate notice
+  bundles, create generated package folders, implement Tauri, implement
+  Electron, implement WebView2, add installer behavior, add signing or
+  notarization behavior, change package or lock files, change dependencies, run
+  package manager operations, change backend/frontend/Docker/CI/package files,
+  or implement 更新適用機能.
 - Y-CHECK-01 safety gate checker design is documented at
   `docs/llmwiki/safety-gate-checker-design.md`.
 - Y-CHECK-01 outcome: the future checker should evaluate repository diffs for
@@ -350,7 +366,7 @@ Use `scripts/check_repo_safety.py` before the next low- or medium-risk fork PR.
 
 The next package-material candidate should be selected explicitly from
 remaining source-only notice or inventory work, such as bundled Python
-dependency inventory or desktop shell runtime pieces.
+dependency inventory or another explicitly selected package notice gap.
 
 Do not create generated guide outputs, copy license text, create the generated
 package folder, copy package files, implement actual package generation, add
