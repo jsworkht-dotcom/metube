@@ -16,7 +16,7 @@
 
 ### Next package-material candidate
 
-- Y-06U completes the current bundled Python dependency inventory source draft.
+- Y-06V completes the current notice source index draft.
 - The next package-material candidate should be selected explicitly from
   remaining source-only notice or inventory work for another explicitly
   selected package notice gap.
@@ -26,6 +26,32 @@
 - Do not create `動画保存ツール_ローカル専用/`, copy files, build packages, install
   dependencies, add Tauri/Electron/WebView2, change backend/frontend/Docker/CI,
   or change package/lockfile files.
+
+## Y-06V Notice Source Index Outcome
+
+- Index source draft:
+  `docs/llmwiki/package-notices/notice-source-index.source.md`
+- Added source material for a future notice / license / dependency inventory
+  source index used by clean-package review.
+- The draft is source-only and review-oriented, with:
+  - source file inventory
+  - future output mapping for aggregate notices, license directories,
+    manifest files, beginner guide notice sections, and developer checklist
+    items
+  - review status vocabulary
+  - unresolved questions
+  - future generated notice-bundle requirements
+  - no-generation boundary
+- Read-only checked existing source drafts for MeTube, yt-dlp, FFmpeg, Python
+  runtime, frontend dependencies, desktop shell, and bundled Python/backend
+  dependency inventory.
+- Kept actual notice output, license output, generated inventory, manifest
+  output, package generation, and package-time legal review as future work.
+- No actual notice bundle, license bundle, generated package folder,
+  generated manifest, generated inventory, HTML/TXT guide output, build
+  artifact, package/lockfile change, dependency change, package manager
+  operation, backend/frontend/Docker/CI change, or package/lockfile change was
+  added.
 
 ## Y-06U Bundled Python Dependency Inventory Source Outcome
 

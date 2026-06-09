@@ -347,6 +347,26 @@ MeTube. The canonical branch is fork `master`, and local `master` tracks
   operations, run dependency install/update/audit/build/package commands,
   change backend/frontend/Docker/CI/package files, handle cookie/token/secret
   values, touch PR #1001 files, or implement 更新適用機能.
+- Y-06V notice source index draft is documented at
+  `docs/llmwiki/package-notices/notice-source-index.source.md`.
+- Y-06V outcome: the notice / license / dependency inventory source index is
+  source-only, sanitized, and review-oriented for future clean-package notice
+  bundle planning.
+- Y-06V read-only checks the existing MeTube, yt-dlp, FFmpeg, Python runtime,
+  frontend dependency, desktop shell, and bundled Python dependency inventory
+  source drafts.
+- Y-06V covers source file inventory, future output mapping for aggregate
+  notices, license directories, manifests, beginner guide notice sections, and
+  developer review checklist items, review status vocabulary, unresolved
+  questions, future generated notice-bundle requirements, and no-generation
+  boundaries.
+- Y-06V does not create generated notice bundles, generated license bundles,
+  generated inventory files, generated manifest files, generated package
+  folders, HTML/TXT guide output, change package or lock files, change
+  dependencies, run package manager operations, run dependency
+  install/update/audit/build/package commands, change
+  backend/frontend/Docker/CI/package files, handle cookie/token/secret values,
+  touch PR #1001 files, or implement 更新適用機能.
 - Y-CHECK-01 safety gate checker design is documented at
   `docs/llmwiki/safety-gate-checker-design.md`.
 - Y-CHECK-01 outcome: the future checker should evaluate repository diffs for

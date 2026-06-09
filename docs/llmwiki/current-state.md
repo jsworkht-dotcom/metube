@@ -887,6 +887,41 @@
   - PR #1001 file changes
   - 更新適用機能
 
+### Y-06V notice source index draft
+
+- Scope: source-only notice / license / dependency inventory source index and
+  minimal LLMwiki sync.
+- Source draft:
+  `docs/llmwiki/package-notices/notice-source-index.source.md`
+- Outcome:
+  - Added a hand-reviewed source index for future clean-package notice,
+    license, manifest, beginner guide notice section, developer checklist, and
+    dependency inventory review.
+  - Read-only checked the existing MeTube, yt-dlp, FFmpeg, Python runtime,
+    frontend dependency, desktop shell, and bundled Python dependency inventory
+    source drafts.
+  - Recorded future output mapping candidates for aggregate notices,
+    license directories, manifest files, beginner guide notice sections, and
+    developer review checklist items.
+  - Standardized review status vocabulary: `source draft`, `legal-not-final`,
+    `candidate only`, and `package-time review required`.
+  - Kept unresolved questions and generated notice-bundle requirements as
+    package-time review inputs only.
+- Not implemented:
+  - generated distribution folder
+  - generated notice bundle
+  - generated license bundle
+  - generated dependency inventory files
+  - generated manifest files
+  - HTML/TXT package guide output
+  - package generation
+  - backend/frontend/Docker/CI/package/lockfile changes
+  - package manager operations
+  - dependency install, update, audit, build, or package commands
+  - cookie/token/secret handling
+  - PR #1001 file changes
+  - 更新適用機能
+
 ### Y-CHECK-01 safety gate checker design
 
 - Scope: docs-only design for a future repository safety checker and automation
@@ -956,7 +991,7 @@
 Use `scripts/check_repo_safety.py` as a local report-only check before the next
 low- or medium-risk fork PR.
 
-The previous package-material next step is complete through Y-06U.
+The previous package-material next step is complete through Y-06V.
 
 The next package-material candidate is a separate source-only notice or
 inventory draft for another explicitly selected package notice gap.

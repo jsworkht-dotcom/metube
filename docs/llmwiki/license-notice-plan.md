@@ -47,6 +47,11 @@ Existing LLMwiki notes already list external reference URLs for Tauri,
 Electron, PyInstaller, yt-dlp, FFmpeg, WebView2, SmartScreen, and macOS signing
 in `docs/llmwiki/dockerless-desktop-distribution-feasibility.md`.
 
+Y-06V adds a source-only cross-reference index for current notice, license, and
+dependency inventory source drafts:
+
+- `docs/llmwiki/package-notices/notice-source-index.source.md`
+
 ## Important Boundary
 
 This plan is not legal advice and does not decide redistribution readiness.
@@ -237,6 +242,7 @@ Required future review:
 
 Candidate source:
 
+- `docs/llmwiki/package-notices/notice-source-index.source.md`
 - `pyproject.toml`
 - `uv.lock`
 - `docs/llmwiki/package-notices/bundled-python-dependency-inventory.source.md`
@@ -563,6 +569,40 @@ license bundle, generate inventory output, create package files, change package
 or lock files, change dependencies, run package manager operations, run
 dependency install/update/audit/build/package commands, or approve a notice
 generator.
+
+Y-06V added the notice source index candidate:
+
+- Source:
+  `docs/llmwiki/package-notices/notice-source-index.source.md`
+- Future aggregate notice output candidates:
+  `動画保存ツール_ローカル専用/開発者向け/notices/NOTICE.txt` and
+  `動画保存ツール_ローカル専用/開発者向け/notices/third-party-notices.txt`
+- Future license output root candidate:
+  `動画保存ツール_ローカル専用/開発者向け/licenses/`
+- Future manifest output candidate:
+  `動画保存ツール_ローカル専用/開発者向け/manifest/license-notice-manifest.json`
+- Future beginner guide notice section candidates:
+  `00_最初に開いてください.html`, `00_最初に開いてください.txt`,
+  `困ったとき/`, and `開発者向け/README.md`
+- Status: draft source material only; not final legal advice; not generated
+  output.
+
+Coverage:
+
+- Source file inventory for MeTube, yt-dlp, FFmpeg, Python runtime, frontend
+  dependencies, desktop shell, and bundled Python/backend dependency inventory
+  source drafts.
+- Future output mapping for notice, license, manifest, beginner guide notice
+  section, and developer review checklist candidates.
+- Review status vocabulary: `source draft`, `legal-not-final`,
+  `candidate only`, and `package-time review required`.
+- Unresolved questions and future generated notice-bundle requirements.
+
+The source does not copy full license text, generate notice files, generate a
+license bundle, generate inventory output, generate manifest output, create
+package files, change package or lock files, change dependencies, run package
+manager operations, run dependency install/update/audit/build/package commands,
+or approve a notice generator.
 
 ## Next PR Candidate
 
