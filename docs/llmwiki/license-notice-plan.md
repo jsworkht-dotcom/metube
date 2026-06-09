@@ -491,7 +491,42 @@ The source does not copy full license text, generate notice files, generate a
 license bundle, create package files, change package or lock files, change
 dependencies, run package manager operations, or approve a notice generator.
 
+Y-06T added the desktop shell notice source candidate:
+
+- Source: `docs/llmwiki/package-notices/desktop-shell-notice.source.md`
+- Future notice output:
+  `動画保存ツール_ローカル専用/開発者向け/notices/desktop-shell-notice.txt`
+- Future Windows notice output candidate:
+  `動画保存ツール_ローカル専用/Windows用/notices/desktop-shell-notice.txt`
+- Future macOS notice output candidate:
+  `動画保存ツール_ローカル専用/Mac用/notices/desktop-shell-notice.txt`
+- Future license directory candidate:
+  `動画保存ツール_ローカル専用/開発者向け/licenses/third-party/desktop-shell/`
+- Status: draft source material only; not final legal advice.
+
+Coverage:
+
+- Future package role and shared / OS-specific placement candidates.
+- Tauri, Electron, WebView2 direct host, and native launcher plus browser tab
+  candidate notes.
+- Official reference candidates for later recheck before implementation or
+  packaging.
+- Beginner-facing notice copy.
+- Developer-facing notice draft.
+- Manifest candidate fields for future `license-notice-manifest.json`.
+- Future generated notice-bundle requirements.
+- Future review checklist for selected shell, exact versions, runtime payload,
+  WebView/runtime distribution terms, installer payload, dependency graph,
+  signing/notarization output, local-only behavior, and no-private-data hygiene.
+
+The source does not copy full license text, generate notice files, generate a
+license bundle, create package files, implement Tauri, implement Electron,
+implement WebView2, add installer behavior, change package or lock files,
+change dependencies, run package manager operations, or approve a notice
+generator.
+
 ## Next PR Candidate
 
 Select the next source-only notice or inventory candidate explicitly, such as
-bundled Python dependency inventory or desktop shell runtime pieces.
+bundled Python dependency inventory or another explicitly selected package
+notice gap.

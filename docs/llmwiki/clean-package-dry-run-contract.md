@@ -958,6 +958,37 @@ Rules:
   implementation, backend/frontend/Docker/CI changes, package/lockfile changes,
   dependency changes, or 更新適用機能.
 
+## Y-06T Desktop Shell Notice Source
+
+Y-06T adds the desktop shell notice source candidate:
+
+```text
+docs/llmwiki/package-notices/desktop-shell-notice.source.md
+```
+
+This source is intended for future generated package paths:
+
+```text
+動画保存ツール_ローカル専用/開発者向け/notices/desktop-shell-notice.txt
+動画保存ツール_ローカル専用/Windows用/notices/desktop-shell-notice.txt
+動画保存ツール_ローカル専用/Mac用/notices/desktop-shell-notice.txt
+動画保存ツール_ローカル専用/開発者向け/licenses/third-party/desktop-shell/
+```
+
+Rules:
+
+- The source remains Markdown planning/source material only.
+- The dry-run may treat this file as satisfying the planned future
+  Tauri/Electron notice source candidate warning.
+- This does not copy full license text.
+- This does not create actual notice files.
+- This does not create `動画保存ツール_ローカル専用/`.
+- This does not select, implement, build, install, package, or bundle Tauri,
+  Electron, WebView2, installer output, signing output, or notarization output.
+- This does not approve notice bundle generation, selected desktop shell
+  approval, guide generation, package generation, backend/frontend/Docker/CI
+  changes, package/lockfile changes, dependency changes, or 更新適用機能.
+
 ## Y-CHECK-01 Repository Safety Gate Relationship
 
 Y-CHECK-01 is documented in:

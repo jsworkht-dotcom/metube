@@ -16,16 +16,40 @@
 
 ### Next package-material candidate
 
-- Y-06S completes the current frontend dependency notice source draft.
+- Y-06T completes the current desktop shell notice source draft.
 - The next package-material candidate should be selected explicitly from
   remaining source-only notice or inventory work, such as bundled Python
-  dependency inventory or desktop shell runtime pieces.
+  dependency inventory or another explicitly selected package notice gap.
 - Keep the next PR source-material only unless explicitly approved otherwise.
 - Do not create guide outputs, copy license text, generate notice bundles, or
   create package files.
 - Do not create `動画保存ツール_ローカル専用/`, copy files, build packages, install
   dependencies, add Tauri/Electron/WebView2, change backend/frontend/Docker/CI,
   or change package/lockfile files.
+
+## Y-06T Desktop Shell Notice Source Outcome
+
+- Notice source draft:
+  `docs/llmwiki/package-notices/desktop-shell-notice.source.md`
+- Added source material for future
+  `動画保存ツール_ローカル専用/開発者向け/notices/desktop-shell-notice.txt`.
+- The draft is source-only and review-oriented, with:
+  - future notice / license placement candidates
+  - Windows and macOS notice placement candidates
+  - Tauri, Electron, WebView2 direct host, and native launcher candidate notes
+  - official reference candidates for later recheck
+  - short beginner-facing notice pointer
+  - developer-facing notice draft
+  - manifest candidate fields
+  - required future review checklist
+  - future generated notice-bundle requirements
+- Kept desktop shell choice, exact version, runtime payload, WebView/runtime
+  distribution terms, installer payload, signing/notarization output, and
+  dependency inventory as future package-generation / license-review work.
+- No actual notice output, license bundle, generated package folder, desktop
+  shell implementation, dependency inventory, build artifact, package/lockfile
+  change, dependency change, package manager operation,
+  backend/frontend/Docker/CI change, or package/lockfile change was added.
 
 ## Y-06S Frontend Dependency Notice Source Outcome
 
