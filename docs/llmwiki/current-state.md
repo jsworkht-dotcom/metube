@@ -637,10 +637,39 @@
   - backend/frontend/Docker/CI/package/lockfile changes
   - update apply
 
+### Y-06O MeTube notice source draft
+
+- Scope: source-only MeTube notice draft and minimal LLMwiki sync.
+- Source draft:
+  `docs/llmwiki/package-notices/metube-notice.source.md`
+- Outcome:
+  - Added the first notice source candidate for future
+    `動画保存ツール_ローカル専用/開発者向け/notices/MeTube-notice.txt`.
+  - Kept the draft as Markdown source material only, not a generated notice
+    file or license bundle.
+  - Recorded local source candidates, package placement candidates, a short
+    beginner-facing license pointer, a developer-facing notice draft, manifest
+    candidate fields, and future review checklist items.
+  - Reduced clean-package dry-run warning output by satisfying the planned
+    MeTube notice source candidate check.
+- Not implemented:
+  - generated distribution folder
+  - actual notice files
+  - actual license bundle
+  - package build, copy, zip, or generator behavior
+  - Tauri
+  - Electron
+  - WebView2
+  - desktop packaging
+  - installer
+  - signing or notarization
+  - backend/frontend/Docker/CI/package/lockfile changes
+  - update apply
+
 ## Current Next Step
 
-Draft the first notice source:
-`docs/llmwiki/package-notices/metube-notice.source.md`.
+Draft the next notice source:
+`docs/llmwiki/package-notices/yt-dlp-notice.source.md`.
 
 Next scope:
 

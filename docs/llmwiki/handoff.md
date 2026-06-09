@@ -235,6 +235,19 @@ MeTube. The canonical branch is fork `master`, and local `master` tracks
   folders, package build/copy behavior, notice bundles, Tauri/Electron/WebView2
   implementation, backend/frontend/Docker/CI/package/lockfile changes, or
   update apply.
+- Y-06O MeTube notice source draft is documented at
+  `docs/llmwiki/package-notices/metube-notice.source.md`.
+- Y-06O outcome: the MeTube notice source candidate is source-only,
+  sanitized, and review-oriented for a future
+  `動画保存ツール_ローカル専用/開発者向け/notices/MeTube-notice.txt`.
+- Y-06O covers future notice / license placement candidates, component summary,
+  short beginner-facing license pointer, developer-facing notice draft,
+  manifest candidate fields, required future review, and no-private-data
+  notice hygiene.
+- Y-06O does not create actual notice files, copy license text, generate notice
+  bundles, create generated package folders, add Tauri/Electron/WebView2,
+  change backend/frontend/Docker/CI/package/lockfile files, or implement update
+  apply.
 - GitHub CLI auth note: in this Windows Codex desktop environment, sandboxed
   `gh auth status` may report an invalid `default` token while escalated
   `gh auth status` succeeds through `keyring`. Root cause is sandbox access to
@@ -244,7 +257,7 @@ MeTube. The canonical branch is fork `master`, and local `master` tracks
 
 ## Next Step
 
-Draft `docs/llmwiki/package-notices/metube-notice.source.md` as the first notice
+Draft `docs/llmwiki/package-notices/yt-dlp-notice.source.md` as the next notice
 source candidate for future clean-package notice review.
 Do not create generated guide outputs, copy license text, create the generated
 package folder, copy package files, implement actual package generation, add

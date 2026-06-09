@@ -810,9 +810,36 @@ Rules:
   generation, Tauri/Electron implementation, backend/frontend/Docker/CI
   changes, package/lockfile changes, or update apply.
 
+## Y-06O MeTube Notice Source
+
+Y-06O adds the first notice source candidate:
+
+```text
+docs/llmwiki/package-notices/metube-notice.source.md
+```
+
+This source is intended for future generated package paths:
+
+```text
+動画保存ツール_ローカル専用/開発者向け/notices/MeTube-notice.txt
+動画保存ツール_ローカル専用/開発者向け/licenses/MeTube-LICENSE.txt
+```
+
+Rules:
+
+- The source remains Markdown planning/source material only.
+- The dry-run may treat this file as satisfying the planned MeTube notice
+  source candidate warning.
+- This does not copy full license text.
+- This does not create actual notice files.
+- This does not create `動画保存ツール_ローカル専用/`.
+- This does not approve notice bundle generation, guide generation, package
+  generation, Tauri/Electron implementation, backend/frontend/Docker/CI
+  changes, package/lockfile changes, or update apply.
+
 ## Next Implementation Candidate
 
-Draft the first notice source under `docs/llmwiki/package-notices/` after
+Draft the next notice source under `docs/llmwiki/package-notices/` after
 reviewing the updated warning output.
 
 Actual clean-package generation should wait until after repeated successful
