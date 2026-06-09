@@ -50,11 +50,11 @@
 
 ### Next package-material candidate
 
-- Y-06Y completes the package output diff prediction section in the
+- Y-06Z completes the docs-only Markdown report mode design for the
   clean-package dry-run report.
 - The next package-material candidate should be selected explicitly. A good
-  next candidate is a JSON or Markdown report mode design for the existing
-  dry-run, or another source-only notice / inventory gap if one is selected.
+  next candidate is a docs-only JSON report mode design, or a future
+  report-only Markdown implementation if explicitly approved.
 - Keep the next PR report-only, dry-run-only, or source-material only unless
   explicitly approved otherwise.
 - Do not create guide outputs, copy license text, generate notice bundles,
@@ -62,6 +62,29 @@
 - Do not create `動画保存ツール_ローカル専用/`, copy files, build packages, install
   dependencies, add Tauri/Electron/WebView2, change backend/frontend/Docker/CI,
   or change package/lockfile files.
+
+## Y-06Z Markdown Report Mode Design Outcome
+
+- Design:
+  `docs/llmwiki/clean-package-dry-run-markdown-report-mode-design.md`
+- Added a docs-only design for a future Markdown report mode in
+  `scripts/clean_package_dry_run.py`.
+- Recommends `--format markdown` as the first future selector and keeps current
+  text output as the default.
+- Defines Markdown sections for Summary, Status, Risk Classification, Package
+  Manifest Preview, Package Output Diff Prediction, Notice / Guide Source
+  Coverage, Excluded Paths Summary, Blockers, Warnings, Human Review
+  Checklist, and No-Generation Boundary.
+- Defines PR body reuse, handoff reuse, safety boundaries, future
+  implementation checklist, future verification checklist, cleanup / rollback
+  note, and High-low / High-mid boundary.
+- This Y-06Z PR does not change scripts, implement JSON or Markdown output,
+  create `manifest.json`, `NOTICE.txt`, `LICENSES/`, generated distribution
+  folders, notice bundles, license bundles, inventory files, manifest files,
+  HTML/TXT guide output, ビルド/パッケージ/インストール操作, dependency changes,
+  package/lockfile changes, backend/frontend/Docker/CI changes,
+  cookie/token/secret handling, public hosting, ads, PR #1001 file changes, or
+  更新適用機能.
 
 ## Y-06Y Package Output Diff Prediction Outcome
 
