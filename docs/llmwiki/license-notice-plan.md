@@ -397,7 +397,70 @@ The source does not copy full license text, generate notice files, generate a
 license bundle, install or update yt-dlp, create package files, or approve a
 notice generator.
 
+Y-06Q added the FFmpeg notice source candidate:
+
+- Source: `docs/llmwiki/package-notices/ffmpeg-notice.source.md`
+- Future notice output:
+  `動画保存ツール_ローカル専用/開発者向け/notices/ffmpeg-notice.txt`
+- Future Windows notice output candidate:
+  `動画保存ツール_ローカル専用/Windows用/notices/ffmpeg-notice.txt`
+- Future macOS notice output candidate:
+  `動画保存ツール_ローカル専用/Mac用/notices/ffmpeg-notice.txt`
+- Future license output candidate:
+  `動画保存ツール_ローカル専用/開発者向け/licenses/third-party/ffmpeg-LICENSE.txt`
+- Status: draft source material only.
+
+Coverage:
+
+- Local usage candidates from `Dockerfile`, `app/dl_formats.py`, `app/ytdl.py`,
+  and Dockerless package planning docs.
+- Official FFmpeg project, legal, and source repository URL candidates.
+- License candidate recorded as dependent on the selected binary build.
+- Beginner-facing short notice pointer.
+- Developer-facing notice draft.
+- Manifest candidate fields for future `license-notice-manifest.json`.
+- Future review checklist for selected binary provider, version, architecture,
+  build configuration, source availability, LGPL/GPL status, and
+  patent-sensitive/nonfree options.
+
+The source does not copy full license text, generate notice files, generate a
+license bundle, install or update FFmpeg, choose a binary provider, create
+package files, or approve a notice generator.
+
+Y-06R added the Python runtime notice source candidate:
+
+- Source: `docs/llmwiki/package-notices/python-runtime-notice.source.md`
+- Future notice output:
+  `動画保存ツール_ローカル専用/開発者向け/notices/python-runtime-notice.txt`
+- Future Windows notice output candidate:
+  `動画保存ツール_ローカル専用/Windows用/notices/python-runtime-notice.txt`
+- Future macOS notice output candidate:
+  `動画保存ツール_ローカル専用/Mac用/notices/python-runtime-notice.txt`
+- Future license output candidate:
+  `動画保存ツール_ローカル専用/開発者向け/licenses/third-party/python-runtime-LICENSE.txt`
+- Status: draft source material only; not final legal advice.
+
+Coverage:
+
+- Local runtime candidates from `pyproject.toml`, `Dockerfile`, and Dockerless
+  package planning docs.
+- Official Python site, license documentation, source release, and CPython
+  source repository URL candidates.
+- License candidate recorded as PSF License Version 2 plus required review of
+  the selected version's historical license stack and incorporated software.
+- Beginner-facing short notice pointer.
+- Developer-facing notice draft.
+- Manifest candidate fields for future `license-notice-manifest.json`.
+- Future review checklist for exact runtime artifact, target OS/architecture,
+  provider, packaging method, standard-library incorporated software, native
+  libraries, bundler runtime pieces, and separate Python dependency notices.
+
+The source does not copy full license text, generate notice files, generate a
+license bundle, install/build/update Python, choose a runtime artifact, create
+package files, or approve a notice generator.
+
 ## Next PR Candidate
 
-Draft `docs/llmwiki/package-notices/ffmpeg-notice.source.md` as the next notice
-source candidate, while keeping it source-only and review-oriented.
+Select the next source-only notice or inventory candidate explicitly, such as
+frontend dependency notices, bundled Python dependency inventory, or desktop
+shell runtime pieces.

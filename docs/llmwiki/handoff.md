@@ -263,6 +263,38 @@ MeTube. The canonical branch is fork `master`, and local `master` tracks
   bundles, create generated package folders, install or update yt-dlp, add
   Tauri/Electron/WebView2, change backend/frontend/Docker/CI/package/lockfile
   files, or implement 更新適用機能.
+- Y-06Q FFmpeg notice source draft is documented at
+  `docs/llmwiki/package-notices/ffmpeg-notice.source.md`.
+- Y-06Q outcome: the FFmpeg notice source candidate is source-only, sanitized,
+  and review-oriented for a future
+  `動画保存ツール_ローカル専用/開発者向け/notices/ffmpeg-notice.txt`.
+- Y-06Q covers OS-specific notice placement candidates for Windows and macOS,
+  local FFmpeg usage candidates, official FFmpeg source / legal URL
+  candidates, a beginner-facing notice pointer, developer notice draft,
+  manifest candidate fields, and future review for selected binary provider,
+  version, build configuration, license status, source availability, and
+  patent-sensitive/nonfree options.
+- Y-06Q does not create actual notice files, copy license text, generate notice
+  bundles, create generated package folders, install or update FFmpeg, choose a
+  binary provider, add Tauri/Electron/WebView2, change
+  backend/frontend/Docker/CI/package/lockfile files, or implement 更新適用機能.
+- Y-06R Python runtime notice source draft is documented at
+  `docs/llmwiki/package-notices/python-runtime-notice.source.md`.
+- Y-06R outcome: the Python runtime notice source candidate is source-only,
+  sanitized, and review-oriented for a future
+  `動画保存ツール_ローカル専用/開発者向け/notices/python-runtime-notice.txt`.
+- Y-06R covers OS-specific runtime notice placement candidates for Windows and
+  macOS, local runtime candidates from `pyproject.toml`, `Dockerfile`, and
+  Dockerless package planning docs, official Python source / license URL
+  candidates, a beginner-facing notice pointer, developer notice draft,
+  manifest candidate fields, and future review for exact runtime artifact,
+  standard-library incorporated software, native libraries, bundler runtime
+  pieces, and bundled Python dependency notices.
+- Y-06R does not create actual notice files, copy license text, generate notice
+  bundles, create generated package folders, install/build/update Python, choose
+  a runtime artifact, add PyInstaller spec files, add Tauri/Electron/WebView2,
+  change backend/frontend/Docker/CI/package/lockfile files, or implement
+  更新適用機能.
 - Y-CHECK-01 safety gate checker design is documented at
   `docs/llmwiki/safety-gate-checker-design.md`.
 - Y-CHECK-01 outcome: the future checker should evaluate repository diffs for
@@ -300,9 +332,9 @@ MeTube. The canonical branch is fork `master`, and local `master` tracks
 
 Use `scripts/check_repo_safety.py` before the next low- or medium-risk fork PR.
 
-The next package-material step is draft
-`docs/llmwiki/package-notices/ffmpeg-notice.source.md` as the next notice source
-candidate for future clean-package notice review.
+The next package-material candidate should be selected explicitly from
+remaining source-only notice or inventory work, such as frontend dependency
+notices, bundled Python dependency inventory, or desktop shell runtime pieces.
 
 Do not create generated guide outputs, copy license text, create the generated
 package folder, copy package files, implement actual package generation, add

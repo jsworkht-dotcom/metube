@@ -837,6 +837,95 @@ Rules:
   generation, Tauri/Electron implementation, backend/frontend/Docker/CI
   changes, package/lockfile changes, or update apply.
 
+## Y-06P yt-dlp Notice Source
+
+Y-06P adds the yt-dlp notice source candidate:
+
+```text
+docs/llmwiki/package-notices/yt-dlp-notice.source.md
+```
+
+This source is intended for future generated package paths:
+
+```text
+動画保存ツール_ローカル専用/開発者向け/notices/yt-dlp-notice.txt
+動画保存ツール_ローカル専用/開発者向け/licenses/third-party/yt-dlp-LICENSE.txt
+```
+
+Rules:
+
+- The source remains Markdown planning/source material only.
+- The dry-run may treat this file as satisfying the planned yt-dlp notice
+  source candidate warning.
+- This does not copy full license text.
+- This does not create actual notice files.
+- This does not create `動画保存ツール_ローカル専用/`.
+- This does not approve notice bundle generation, guide generation, package
+  generation, Tauri/Electron implementation, backend/frontend/Docker/CI
+  changes, package/lockfile changes, dependency install/update, or
+  更新適用機能.
+
+## Y-06Q FFmpeg Notice Source
+
+Y-06Q adds the FFmpeg notice source candidate:
+
+```text
+docs/llmwiki/package-notices/ffmpeg-notice.source.md
+```
+
+This source is intended for future generated package paths:
+
+```text
+動画保存ツール_ローカル専用/開発者向け/notices/ffmpeg-notice.txt
+動画保存ツール_ローカル専用/Windows用/notices/ffmpeg-notice.txt
+動画保存ツール_ローカル専用/Mac用/notices/ffmpeg-notice.txt
+動画保存ツール_ローカル専用/開発者向け/licenses/third-party/ffmpeg-LICENSE.txt
+```
+
+Rules:
+
+- The source remains Markdown planning/source material only.
+- The dry-run may treat this file as satisfying the planned FFmpeg notice
+  source candidate warning.
+- This does not copy full license text.
+- This does not create actual notice files.
+- This does not create `動画保存ツール_ローカル専用/`.
+- This does not approve notice bundle generation, selected FFmpeg binary
+  approval, guide generation, package generation, Tauri/Electron
+  implementation, backend/frontend/Docker/CI changes, package/lockfile
+  changes, dependency install/update, or 更新適用機能.
+
+## Y-06R Python Runtime Notice Source
+
+Y-06R adds the Python runtime notice source candidate:
+
+```text
+docs/llmwiki/package-notices/python-runtime-notice.source.md
+```
+
+This source is intended for future generated package paths:
+
+```text
+動画保存ツール_ローカル専用/開発者向け/notices/python-runtime-notice.txt
+動画保存ツール_ローカル専用/Windows用/notices/python-runtime-notice.txt
+動画保存ツール_ローカル専用/Mac用/notices/python-runtime-notice.txt
+動画保存ツール_ローカル専用/開発者向け/licenses/third-party/python-runtime-LICENSE.txt
+```
+
+Rules:
+
+- The source remains Markdown planning/source material only.
+- The dry-run may treat this file as satisfying the planned Python runtime
+  notice source candidate warning.
+- This does not copy full license text.
+- This does not create actual notice files.
+- This does not create `動画保存ツール_ローカル専用/`.
+- This does not choose, download, install, build, update, or bundle Python.
+- This does not approve notice bundle generation, selected Python runtime
+  approval, guide generation, package generation, PyInstaller spec files,
+  Tauri/Electron implementation, backend/frontend/Docker/CI changes,
+  package/lockfile changes, dependency install/update, or 更新適用機能.
+
 ## Y-CHECK-01 Repository Safety Gate Relationship
 
 Y-CHECK-01 is documented in:
@@ -863,11 +952,11 @@ cookie/token/secret values.
 
 ## Next Implementation Candidate
 
-Review the Y-CHECK-01 safety gate checker design before deciding whether to
-implement a local report-only repository safety checker.
+Review the existing report-only safety checker before low- or medium-risk fork
+PRs.
 
-The previous package-material next candidate remains available: draft the next
-notice source under `docs/llmwiki/package-notices/` after reviewing the updated
+The next package-material candidate should be selected explicitly from
+remaining source-only notice or inventory work after reviewing the updated
 warning output.
 
 Actual clean-package generation should wait until after repeated successful

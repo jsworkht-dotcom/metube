@@ -14,16 +14,67 @@
   generated distribution folders, and cookie/token/secret handling out of
   scope unless explicitly approved.
 
-### Draft ffmpeg notice source
+### Next package-material candidate
 
-- Draft `docs/llmwiki/package-notices/ffmpeg-notice.source.md` as the next
-  notice source candidate for future clean-package notice review.
+- Y-06R completes the current Python runtime notice source draft.
+- The next package-material candidate should be selected explicitly from
+  remaining source-only notice or inventory work, such as frontend dependency
+  notices, bundled Python dependency inventory, or desktop shell runtime pieces.
 - Keep the next PR source-material only unless explicitly approved otherwise.
 - Do not create guide outputs, copy license text, generate notice bundles, or
   create package files.
 - Do not create `動画保存ツール_ローカル専用/`, copy files, build packages, install
   dependencies, add Tauri/Electron/WebView2, change backend/frontend/Docker/CI,
   or change package/lockfile files.
+
+## Y-06R Python Runtime Notice Source Outcome
+
+- Notice source draft:
+  `docs/llmwiki/package-notices/python-runtime-notice.source.md`
+- Added source material for future
+  `動画保存ツール_ローカル専用/開発者向け/notices/python-runtime-notice.txt`.
+- The draft is source-only and review-oriented, with:
+  - future runtime / notice / license placement candidates
+  - local Python/runtime candidates from `pyproject.toml`, `Dockerfile`, and
+    Dockerless package planning docs
+  - official Python source / license URL candidates
+  - short beginner-facing notice pointer
+  - developer-facing notice draft
+  - manifest candidate fields
+  - required future review checklist
+- Covered CPython/Python runtime selection as unresolved until the exact
+  Windows/macOS artifact, provider, version, architecture, and packaging method
+  are chosen later.
+- Kept Python dependency notices, incorporated software acknowledgements,
+  native library notices, and bundler runtime notices as separate future review
+  items.
+- No actual notice output, license bundle, generated package folder, Python
+  runtime download/install/build/update behavior, package build/copy behavior,
+  Tauri/Electron implementation, backend/frontend/Docker/CI change, or
+  package/lockfile change was added.
+
+## Y-06Q FFmpeg Notice Source Outcome
+
+- Notice source draft:
+  `docs/llmwiki/package-notices/ffmpeg-notice.source.md`
+- Added source material for future
+  `動画保存ツール_ローカル専用/開発者向け/notices/ffmpeg-notice.txt`.
+- The draft is source-only and review-oriented, with:
+  - future notice / license placement candidates
+  - OS-specific notice candidates for Windows and macOS runtime folders
+  - FFmpeg component summary
+  - local usage candidates from `Dockerfile`, `app/dl_formats.py`,
+    `app/ytdl.py`, and Dockerless package planning docs
+  - official FFmpeg source / legal URL candidates
+  - manifest candidate fields
+  - required future review checklist
+- Covered selected binary provider, version, target OS, architecture, build
+  configuration, LGPL/GPL status, source availability, and patent-sensitive or
+  nonfree options as unresolved future review items.
+- No actual notice output, license bundle, generated package folder, FFmpeg
+  download/install/update behavior, package build/copy behavior, Tauri/Electron
+  implementation, backend/frontend/Docker/CI change, or package/lockfile change
+  was added.
 
 ## Y-06P yt-dlp Notice Source Outcome
 
