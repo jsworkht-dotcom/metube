@@ -109,6 +109,24 @@ NOTICE_SOURCE_CANDIDATES = [
     ),
 ]
 
+MANIFEST_PREVIEW_NOTICE_SOURCES = NOTICE_SOURCE_CANDIDATES + [
+    (
+        "bundled Python dependency inventory candidate",
+        "docs/llmwiki/package-notices/bundled-python-dependency-inventory.source.md",
+    ),
+    (
+        "notice source index candidate",
+        "docs/llmwiki/package-notices/notice-source-index.source.md",
+    ),
+]
+
+MANIFEST_PREVIEW_FUTURE_OUTPUTS = [
+    "NOTICE.txt",
+    "LICENSES/",
+    "manifest.json",
+    "beginner guide notice section",
+]
+
 SAFETY_NOTICE_SOURCE_CANDIDATES = [
     (
         "local-only safety notice source",
@@ -145,6 +163,7 @@ REQUIRED_CONTRACT_DOCS = [
     "docs/llmwiki/beginner-guide-source-plan.md",
     "docs/llmwiki/license-notice-plan.md",
     "docs/llmwiki/clean-package-dry-run-contract.md",
+    "docs/llmwiki/clean-package-generator-contract-addendum.md",
 ]
 
 EXCLUDED_PATHS = [
@@ -670,6 +689,58 @@ def print_list(title: str, items: Iterable[str]) -> None:
         print(f"  {item}")
 
 
+def present_candidate_lines(
+    root: Path,
+    candidates: Iterable[tuple[str, str]],
+) -> tuple[int, list[str]]:
+    present = 0
+    lines: list[str] = []
+    for label, rel in candidates:
+        exists = (root / rel).is_file()
+        if exists:
+            present += 1
+        state = "present" if exists else "missing"
+        lines.append(f"{state}: {label} -> {rel}")
+    return present, lines
+
+
+def print_package_manifest_preview(root: Path, excluded_found: list[str]) -> None:
+    notice_present, notice_lines = present_candidate_lines(
+        root, MANIFEST_PREVIEW_NOTICE_SOURCES
+    )
+    guide_present, guide_lines = present_candidate_lines(root, GUIDE_SOURCE_CANDIDATES)
+
+    print("Package manifest preview:")
+    print("  package_name candidate: 動画保存ツール_ローカル専用")
+    print("  package_type candidate: local-only beginner package")
+    print("  local_only: true")
+    print("  generated_artifacts: false")
+    print(
+        "  notice_sources: "
+        f"{notice_present}/{len(MANIFEST_PREVIEW_NOTICE_SOURCES)} present"
+    )
+    for line in notice_lines:
+        print(f"    {line}")
+    print(f"  guide_sources: {guide_present}/{len(GUIDE_SOURCE_CANDIDATES)} present")
+    for line in guide_lines:
+        print(f"    {line}")
+    print("  excluded_paths summary:")
+    print(f"    rules: {len(EXCLUDED_PATHS)}")
+    print(f"    currently_present: {len(excluded_found)}")
+    print("  future_outputs candidate:")
+    for output in MANIFEST_PREVIEW_FUTURE_OUTPUTS:
+        print(f"    {output}")
+    print("  human_review_required_before_generation: true")
+    print("  legal_final: false")
+    print("  secret_values_printed: false")
+    print("  token_values_printed: false")
+    print("  cookie_values_printed: false")
+    print(
+        "  no_generation_boundary: preview text only; no manifest.json or "
+        "package files were generated."
+    )
+
+
 def print_report(
     root: Path,
     blocked: list[Finding],
@@ -699,6 +770,8 @@ def print_report(
     print_list("Planned macOS entries", PLANNED_MAC_ENTRIES)
     print()
     print_list("Planned developer entries", PLANNED_DEVELOPER_ENTRIES)
+    print()
+    print_package_manifest_preview(root, excluded_found)
     print()
     print_list("Excluded rules", EXCLUDED_PATHS)
     print()
