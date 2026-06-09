@@ -986,10 +986,45 @@
   - update execution
   - cookie/token/secret value output
 
+### Y-AUTO-01 Codex automation expansion policy
+
+- Scope: docs-only Codex automation policy for low-, medium-, and qualifying
+  high-low-risk work.
+- Policy document:
+  `docs/llmwiki/codex-automation-policy.md`
+- Outcome:
+  - Defined five risk levels: Low, Medium, High-low, High-mid, and High-high.
+  - Kept Low work eligible for auto PR and auto merge when the current task
+    scope and required gates pass.
+  - Kept Medium work eligible for auto PR and auto merge when safety gates pass.
+  - Added conditional High-low auto PR / auto merge for docs-only,
+    report-only, or dry-run-only work that passes the full mandatory gate set.
+  - Required High-low work to pass `check_repo_safety.py`,
+    `check_repo_safety.py --base fork/master`, `clean_package_dry_run.py`,
+    `git diff --check`, GitHub clean merge state, and no failed checks.
+  - Kept High-mid work PR-capable but auto-merge prohibited.
+  - Kept High-high work automatic-execution prohibited until explicit human
+    confirmation.
+- Not implemented:
+  - generated distribution folder
+  - generated guide, notice, manifest, ZIP, package, or installer output
+  - build/package/install commands
+  - dependency changes
+  - package/lockfile changes
+  - backend/frontend/Docker/CI changes
+  - cookie/token/secret handling
+  - PR #1001 file changes
+  - public hosting or ads
+  - 更新適用機能
+
 ## Current Next Step
 
-Use `scripts/check_repo_safety.py` as a local report-only check before the next
-low- or medium-risk fork PR.
+Use `docs/llmwiki/codex-automation-policy.md` to classify the next Codex task
+before auto PR or auto merge.
+
+Use `scripts/check_repo_safety.py` and `scripts/clean_package_dry_run.py` as
+local report-only gates before the next low-, medium-, or qualifying
+high-low-risk fork PR.
 
 The previous package-material next step is complete through Y-06V.
 

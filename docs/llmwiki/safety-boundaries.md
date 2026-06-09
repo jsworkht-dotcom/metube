@@ -112,6 +112,33 @@ The checker must not weaken existing human approval gates for destructive,
 credential, deployment, infrastructure, install/update, push, merge, release, or
 customer-data actions.
 
+## Codex Automation Boundary
+
+The Codex automation policy is tracked in
+`docs/llmwiki/codex-automation-policy.md`.
+
+Low-risk work may use auto PR and auto merge when the current task scope and
+required gates pass.
+
+Medium-risk work may use auto PR and auto merge only when safety gates pass and
+the diff does not add package output, dependency changes, generated
+distribution folders, credential handling, public hosting, ads, or PR #1001
+file leakage.
+
+High-low work may use auto PR and auto merge only when it remains docs-only,
+report-only, or dry-run-only and all high-low mandatory conditions pass.
+Generated distribution folders, ZIP/package/installer creation, dependency
+install/update, package/lockfile changes, and Docker pull/build are prohibited
+in high-low auto-merge work. Backend download or queue logic changes, yt-dlp
+logic changes, cookie/token/secret handling, public hosting, and ads are also
+prohibited.
+
+High-mid work may be done and opened as a PR only after an explicit task
+approves the scope. Auto merge is prohibited and human review is required.
+
+High-high work is automatic-execution prohibited. Codex must stop before
+implementation and request explicit human confirmation.
+
 ## Dockerless Desktop Distribution Boundary
 
 Y-06 desktop work may discuss Dockerless desktop distribution for Windows and
