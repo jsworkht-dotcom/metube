@@ -53,6 +53,10 @@ MeTube. The canonical branch is fork `master`, and local `master` tracks
   existing `Status: OK` / `Status: BLOCKED` behavior.
 - `auto-merge-ok` is advisory and valid only when the safety report has no
   blockers and the PR merge state / checks are clean.
+- Y-AUTO-04 extends the checker so High-mid-like implementation-adjacent or
+  generated-output-adjacent scopes report `automation: pr-only-human-merge`.
+- When the checker reports `pr-only-human-merge`, do not auto merge. Prepare a
+  Ready-for-review PR with `human-review-required` in the PR body.
 - `update-status` is readonly. It must not apply updates, pull Docker images,
   run git updates, restart the app, or install packages.
 - Backup and rollback requirements must be satisfied before any update-apply
@@ -421,6 +425,8 @@ MeTube. The canonical branch is fork `master`, and local `master` tracks
   allow High-mid auto merge.
 - High-mid PR bodies must explain why the work is High-mid, what was not
   performed, rollback/cleanup candidates, remaining risk, and verification.
+- Y-AUTO-04 makes the checker surface High-mid PR-only guidance directly in the
+  `Risk classification` section.
 - GitHub CLI auth note: in this Windows Codex desktop environment, sandboxed
   `gh auth status` may report an invalid `default` token while escalated
   `gh auth status` succeeds through `keyring`. Root cause is sandbox access to

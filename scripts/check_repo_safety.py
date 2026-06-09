@@ -72,6 +72,52 @@ HIGH_LOW_DOC_PATHS = {
     "docs/llmwiki/update-rollback-plan.md",
 }
 
+HIGH_LOW_SCRIPT_MARKERS = (
+    "dry-run",
+    "dry_run",
+    "preview",
+    "preflight",
+    "report",
+    "report-only",
+)
+
+HIGH_MID_PATH_PREFIXES = (
+    "desktop/",
+    "launcher/",
+    "launchers/",
+    "packaging/",
+    "tauri/",
+    "electron/",
+    "webview/",
+    "webview2/",
+)
+
+HIGH_MID_PATH_MARKERS = (
+    "artifact-cleanup",
+    "cleanup",
+    "close-confirm",
+    "desktop-shell",
+    "electron",
+    "generator",
+    "generated-artifact",
+    "generated-output",
+    "launcher",
+    "local-launcher",
+    "notice-bundle",
+    "open-folder",
+    "output-staging",
+    "package-manifest",
+    "package-output",
+    "safe-close",
+    "save-folder",
+    "sidecar",
+    "staging",
+    "stop-exit",
+    "tauri",
+    "webview",
+    "webview2",
+)
+
 BLOCKED_SCOPE_RULES = [
     ("docker", re.compile(r"(^|/)Dockerfile$|(^|/)docker-compose[^/]*\.ya?ml$")),
     ("ci", re.compile(r"^\.github/")),
@@ -608,6 +654,26 @@ def has_high_low_doc_path(paths: list[str]) -> bool:
     return any(path in HIGH_LOW_DOC_PATHS for path in paths)
 
 
+def normalized_marker_path(path: str) -> str:
+    return path.lower().replace("\\", "/").replace("_", "-")
+
+
+def is_high_low_script_path(path: str) -> bool:
+    if not path.startswith("scripts/") or path in REPORT_ONLY_SCRIPT_PATHS:
+        return False
+    normalized = normalized_marker_path(path)
+    return any(marker in normalized for marker in HIGH_LOW_SCRIPT_MARKERS)
+
+
+def has_high_low_script_scope(paths: list[str]) -> bool:
+    return all(
+        path.startswith("docs/llmwiki/")
+        or path in REPORT_ONLY_SCRIPT_PATHS
+        or is_high_low_script_path(path)
+        for path in paths
+    ) and any(is_high_low_script_path(path) for path in paths)
+
+
 def is_known_llmwiki_docs_scope(paths: list[str]) -> bool:
     return all(path.startswith("docs/llmwiki/") for path in paths)
 
@@ -630,12 +696,21 @@ def has_high_high_path(paths: list[str]) -> bool:
 
 
 def has_high_mid_path(paths: list[str]) -> bool:
-    if any(path.startswith("ui/") for path in paths):
-        return True
-    return any(
-        path.startswith("scripts/") and path not in REPORT_ONLY_SCRIPT_PATHS
-        for path in paths
-    )
+    for path in paths:
+        if path.startswith("docs/"):
+            continue
+        if path.startswith("ui/"):
+            return True
+        normalized = normalized_marker_path(path)
+        if any(normalized.startswith(prefix) for prefix in HIGH_MID_PATH_PREFIXES):
+            return True
+        if path.startswith("scripts/"):
+            if path in REPORT_ONLY_SCRIPT_PATHS or is_high_low_script_path(path):
+                continue
+            return True
+        if any(marker in normalized for marker in HIGH_MID_PATH_MARKERS):
+            return True
+    return False
 
 
 def classify_risk(
@@ -673,18 +748,29 @@ def classify_risk(
             reason="High-high path or safety finding requires stopping before PR.",
         )
 
-    if has_high_mid_path(paths):
-        return RiskClassification(
-            tier="High-mid",
-            automation=blocked_result or "pr-only-human-merge",
-            reason="Implementation-adjacent path requires human merge review.",
-        )
-
     if only_report_script_and_llmwiki(paths):
         return RiskClassification(
             tier="Medium",
             automation=blocked_result or "auto-merge-ok",
             reason="Known report-only checker or dry-run script scope.",
+        )
+
+    if has_high_low_script_scope(paths):
+        return RiskClassification(
+            tier="High-low",
+            automation=blocked_result or "auto-merge-ok",
+            reason="Report-only, dry-run-only, preview, or preflight script scope.",
+        )
+
+    if has_high_mid_path(paths):
+        return RiskClassification(
+            tier="High-mid",
+            automation=blocked_result or "pr-only-human-merge",
+            reason=(
+                "High-mid-like implementation or generated-output-adjacent scope. "
+                "Auto merge disabled; human review required before merge; PR body "
+                "must include human-review-required."
+            ),
         )
 
     if is_known_llmwiki_docs_scope(paths):

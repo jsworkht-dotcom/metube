@@ -341,6 +341,21 @@ Risk classification:
 PR targets fork `master`, GitHub merge state is clean, and no required checks
 failed.
 
+Y-AUTO-04 extends the report-only checker guidance for High-mid-like scopes.
+When changed paths look implementation-adjacent or generated-output-adjacent,
+the report should show:
+
+```text
+Risk classification:
+  tier: High-mid
+  automation: pr-only-human-merge
+  reason: High-mid-like implementation or generated-output-adjacent scope. Auto merge disabled; human review required before merge; PR body must include human-review-required.
+```
+
+This is guidance only. It does not approve auto merge, generated artifacts,
+dependency changes, package/lockfile changes, backend risky behavior, public
+hosting, ads, or credential handling.
+
 `scripts/clean_package_dry_run.py` remains the package-planning dry-run gate.
 
 For high-low auto merge, both gates are required because the work is close to
