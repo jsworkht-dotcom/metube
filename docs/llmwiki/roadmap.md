@@ -50,16 +50,37 @@
 
 ### Next package-material candidate
 
-- Y-06V completes the current notice source index draft.
-- The next package-material candidate should be selected explicitly from
-  remaining source-only notice or inventory work for another explicitly
-  selected package notice gap.
-- Keep the next PR source-material only unless explicitly approved otherwise.
-- Do not create guide outputs, copy license text, generate notice bundles, or
-  create package files.
+- Y-06W completes the clean package generator contract addendum for using the
+  notice source index as a future dry-run / preview input candidate.
+- The next package-material candidate should be selected explicitly. A good
+  next candidate is a report-only dry-run preview enhancement for notice source
+  index presence, package manifest preview, or package output diff prediction.
+- Keep the next PR report-only, dry-run-only, or source-material only unless
+  explicitly approved otherwise.
+- Do not create guide outputs, copy license text, generate notice bundles,
+  generate manifests, or create package files.
 - Do not create `動画保存ツール_ローカル専用/`, copy files, build packages, install
   dependencies, add Tauri/Electron/WebView2, change backend/frontend/Docker/CI,
   or change package/lockfile files.
+
+## Y-06W Clean Package Generator Contract Addendum Outcome
+
+- Addendum:
+  `docs/llmwiki/clean-package-generator-contract-addendum.md`
+- The addendum treats `docs/llmwiki/package-notices/notice-source-index.source.md`
+  as a future generator input candidate for dry-run / preview review.
+- It defines preview checks for `NOTICE.txt`, `LICENSES/`, `manifest.json`,
+  beginner guide notice sections, developer review checklist items, output diff
+  prediction, package manifest preview, cleanup / rollback candidates, and
+  human review gates.
+- It keeps actual generation behind later explicit human approval and preserves
+  High-low / High-mid / High-high boundaries.
+- This Y-06W PR is docs-only / no-generation. It does not add generated
+  distribution folders, notice bundles, license bundles, inventory files,
+  manifest files, HTML/TXT guide output, build/package/install commands,
+  dependency changes, package/lockfile changes, backend/frontend/Docker/CI
+  changes, cookie/token/secret handling, public hosting, ads, PR #1001 file
+  changes, or 更新適用機能.
 
 ## Y-AUTO-04 High-mid Checker Guidance Outcome
 

@@ -1062,6 +1062,40 @@ Rules:
   generation, backend/frontend/Docker/CI changes, package/lockfile changes,
   dependency changes, or 更新適用機能.
 
+## Y-06W Generator Contract Addendum
+
+Y-06W adds a clean package generator contract addendum:
+
+```text
+docs/llmwiki/clean-package-generator-contract-addendum.md
+```
+
+This addendum treats the Y-06V notice source index as a future generator input
+candidate for dry-run / preview review across:
+
+```text
+NOTICE.txt
+LICENSES/
+manifest.json
+beginner guide notice sections
+developer review checklist items
+```
+
+Rules:
+
+- The addendum is docs-only and no-generation.
+- The notice source index remains source material, not generated output or
+  legal approval.
+- Future preview reports may describe package manifest candidates, package
+  output before/after diff prediction candidates, cleanup / rollback
+  candidates, and human review gates.
+- Preview reports must not create files, copy license text, generate notice
+  bundles, generate HTML/TXT guide output, create `動画保存ツール_ローカル専用/`,
+  run build/package/install commands, change dependencies, change package or
+  lock files, change backend/frontend/Docker/CI files, touch PR #1001 files, or
+  handle cookie/token/secret values.
+- Actual generation remains a later human-reviewed task.
+
 ## Y-CHECK-01 Repository Safety Gate Relationship
 
 Y-CHECK-01 is documented in:
