@@ -420,6 +420,12 @@ The section contains `tier`, `automation`, and `reason` so PR summaries can
 distinguish auto-merge-eligible work from human-merge or stop-before-PR work.
 This does not change the existing `Status: OK` / `Status: BLOCKED` gate.
 
+Y-AUTO-04 extends the report-only risk classification so High-mid-like
+implementation-adjacent or generated-output-adjacent scopes report
+`automation: pr-only-human-merge`. The reason must mention that auto merge is
+disabled, human review is required before merge, and the PR body must include
+`human-review-required`.
+
 High-mid and high-high work remain outside auto merge. High-mid work may proceed
 through implementation, verification, PR creation, and Ready-for-review handoff
 when the task explicitly approves the scope, but the PR must state
@@ -453,6 +459,7 @@ Implemented stage 1 behavior:
 - Optional `--base` branch diff context.
 - Sanitized secret-like findings with path, line, and pattern family only.
 - Risk classification summary with tier, automation, and reason.
+- High-mid-like scope guidance with `pr-only-human-merge`.
 - Exit codes `0` for OK/warning-only, `1` for blocked, and `2` for usage
   errors.
 

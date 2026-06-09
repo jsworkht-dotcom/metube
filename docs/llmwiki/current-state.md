@@ -1080,6 +1080,40 @@
   - public hosting or ads
   - 更新適用機能
 
+### Y-AUTO-04 High-mid PR-only checker guidance
+
+- Scope: report-only checker improvement and minimal LLMwiki sync.
+- Script:
+  `scripts/check_repo_safety.py`
+- Outcome:
+  - Added path and filename based High-mid-like scope detection.
+  - High-mid-like scopes now report `tier: High-mid`.
+  - High-mid-like scopes without blockers now report
+    `automation: pr-only-human-merge`.
+  - High-mid-like reasons explicitly state that auto merge is disabled, human
+    review is required before merge, and the PR body must include
+    `human-review-required`.
+  - Known report-only checker / dry-run script changes remain `Medium` with
+    `automation: auto-merge-ok` when no blockers are present.
+  - Existing `Status: OK` / `Status: BLOCKED` behavior is unchanged.
+  - Existing blockers for forbidden paths, generated distribution folders,
+    PR #1001 leakage, secret-like content, dangerous behavior, and required
+    LLMwiki basics are unchanged.
+- Not implemented:
+  - automation gate implementation
+  - CI integration
+  - PR bot/comment automation
+  - generated distribution folder
+  - generated guide, notice, manifest, ZIP, package, or installer output
+  - build/package/install commands
+  - dependency changes
+  - package/lockfile changes
+  - backend/frontend/Docker/CI changes
+  - cookie/token/secret handling
+  - PR #1001 file changes
+  - public hosting or ads
+  - 更新適用機能
+
 ## Current Next Step
 
 Use the `Risk classification` section from `scripts/check_repo_safety.py` as the

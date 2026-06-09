@@ -2,12 +2,15 @@
 
 ## Immediate Next
 
-### Use Y-AUTO-03 High-mid PR-ready policy
+### Use Y-AUTO-04 High-mid checker guidance
 
 - Read the `Risk classification` section from
   `scripts/check_repo_safety.py` before auto PR or auto merge.
 - Cross-check the tier against `docs/llmwiki/codex-automation-policy.md` when
   the report says `High-low`, `High-mid`, `High-high`, or `Unknown`.
+- If the report says `High-mid` with `automation: pr-only-human-merge`, prepare
+  a Ready-for-review PR only and do not auto merge.
+- High-mid PR bodies must include `human-review-required`.
 - Run `scripts/check_repo_safety.py` and
   `scripts/check_repo_safety.py --base fork/master` before the next low-,
   medium-, or qualifying high-low-risk fork PR.
@@ -37,6 +40,27 @@
 - Do not create `動画保存ツール_ローカル専用/`, copy files, build packages, install
   dependencies, add Tauri/Electron/WebView2, change backend/frontend/Docker/CI,
   or change package/lockfile files.
+
+## Y-AUTO-04 High-mid Checker Guidance Outcome
+
+- Script:
+  `scripts/check_repo_safety.py`
+- Added High-mid-like path / filename detection for implementation-adjacent and
+  generated-output-adjacent scopes.
+- High-mid-like scopes now report `automation: pr-only-human-merge` when no
+  blockers are present.
+- High-mid-like reasons include auto-merge-disabled guidance, human review
+  requirement, and the `human-review-required` PR body requirement.
+- Known report-only checker and clean-package dry-run script changes still
+  classify as `Medium` with `automation: auto-merge-ok`.
+- Existing `Status: OK` / `Status: BLOCKED` behavior and blocker checks are
+  unchanged.
+- This Y-AUTO-04 PR itself is a report-only checker improvement with minimal
+  LLMwiki sync and does not add generated distribution folders, generated notice
+  bundles, generated guide output, package output, build/package/install
+  commands, dependency changes, package/lockfile changes,
+  backend/frontend/Docker/CI changes, cookie/token/secret handling, public
+  hosting, ads, PR #1001 file changes, or 更新適用機能.
 
 ## Y-AUTO-03 High-mid PR-Ready Policy Outcome
 
