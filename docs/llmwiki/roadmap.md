@@ -16,16 +16,46 @@
 
 ### Next package-material candidate
 
-- Y-06R completes the current Python runtime notice source draft.
+- Y-06S completes the current frontend dependency notice source draft.
 - The next package-material candidate should be selected explicitly from
-  remaining source-only notice or inventory work, such as frontend dependency
-  notices, bundled Python dependency inventory, or desktop shell runtime pieces.
+  remaining source-only notice or inventory work, such as bundled Python
+  dependency inventory or desktop shell runtime pieces.
 - Keep the next PR source-material only unless explicitly approved otherwise.
 - Do not create guide outputs, copy license text, generate notice bundles, or
   create package files.
 - Do not create `動画保存ツール_ローカル専用/`, copy files, build packages, install
   dependencies, add Tauri/Electron/WebView2, change backend/frontend/Docker/CI,
   or change package/lockfile files.
+
+## Y-06S Frontend Dependency Notice Source Outcome
+
+- Notice source draft:
+  `docs/llmwiki/package-notices/frontend-deps-notice.source.md`
+- Added source material for future
+  `動画保存ツール_ローカル専用/開発者向け/notices/frontend-deps-notice.txt`.
+- The draft is source-only and review-oriented, with:
+  - future notice / license placement candidates
+  - read-only local candidate sources from `ui/package.json` and
+    `ui/pnpm-lock.yaml`
+  - frontend runtime dependency candidates
+  - developer/build-tool dependency candidates
+  - package / lockfile review candidates
+  - short beginner-facing notice pointer
+  - developer-facing notice draft
+  - manifest candidate fields
+  - required future review checklist
+  - future generated notice-bundle requirements
+- Covered Angular, Bootstrap, Font Awesome, Popper, RxJS, tslib, Zone.js,
+  ng-bootstrap, ng-select, Socket.IO frontend integration, browser helper
+  packages, Angular build tooling, TypeScript, ESLint, Vitest, jsdom, Vite,
+  Sass, PostCSS, and transitive packages as candidates only.
+- Kept exact license names, source URLs, runtime inclusion, developer-only
+  classification, source map handling, font/icon/style asset notices, and
+  build artifact review as future package-generation / license-review work.
+- No actual notice output, license bundle, generated package folder, frontend
+  build artifact, dependency inventory, package/lockfile change, dependency
+  change, package manager operation, Tauri/Electron implementation,
+  backend/frontend/Docker/CI change, or package/lockfile change was added.
 
 ## Y-06R Python Runtime Notice Source Outcome
 

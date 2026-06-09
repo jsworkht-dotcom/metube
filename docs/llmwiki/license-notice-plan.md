@@ -459,8 +459,39 @@ The source does not copy full license text, generate notice files, generate a
 license bundle, install/build/update Python, choose a runtime artifact, create
 package files, or approve a notice generator.
 
+Y-06S added the frontend dependency notice source candidate:
+
+- Source: `docs/llmwiki/package-notices/frontend-deps-notice.source.md`
+- Future notice output:
+  `動画保存ツール_ローカル専用/開発者向け/notices/frontend-deps-notice.txt`
+- Future aggregate notice output candidate:
+  `動画保存ツール_ローカル専用/開発者向け/notices/frontend-notices.txt`
+- Future license directory candidate:
+  `動画保存ツール_ローカル専用/開発者向け/licenses/third-party/frontend/`
+- Status: draft source material only; not final legal advice.
+
+Coverage:
+
+- Read-only local candidate sources from `ui/package.json` and
+  `ui/pnpm-lock.yaml`.
+- Direct runtime dependency candidates and developer/build-tool dependency
+  candidates.
+- Package / lockfile review candidates, runtime vs developer-only
+  classification candidates, package placement candidates, and registry URL
+  candidate shape.
+- Beginner-facing short notice pointer.
+- Developer-facing notice draft.
+- Manifest candidate fields for future `license-notice-manifest.json`.
+- Future generated notice-bundle requirements.
+- Future review checklist for exact built frontend assets, resolved dependency
+  graph, source maps, Font Awesome icon assets, Bootstrap/Popper/RxJS/Zone.js
+  notices, transitive packages, and developer/build-tool exclusions.
+
+The source does not copy full license text, generate notice files, generate a
+license bundle, create package files, change package or lock files, change
+dependencies, run package manager operations, or approve a notice generator.
+
 ## Next PR Candidate
 
 Select the next source-only notice or inventory candidate explicitly, such as
-frontend dependency notices, bundled Python dependency inventory, or desktop
-shell runtime pieces.
+bundled Python dependency inventory or desktop shell runtime pieces.
