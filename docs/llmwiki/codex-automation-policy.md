@@ -197,6 +197,10 @@ Automation result:
 - PRs must clearly state `human-review-required`.
 - PR bodies must explain why the work is High-mid, what was not performed,
   rollback/cleanup candidates, and remaining risk.
+- PR bodies must include the required High-mid template fields exactly enough
+  for reviewers to find `Risk tier: High-mid`, `Automation decision:
+  PR-ready only`, `automation: pr-only-human-merge`, and
+  `human-review-required`.
 - Human review is required before merge.
 
 High-mid mandatory conditions:
@@ -221,10 +225,14 @@ High-mid PR body template:
 
 ```md
 ## Risk tier
-High-mid
+Risk tier: High-mid
 
 ## Automation decision
-PR-ready only. Auto merge is disabled. Human review is required before merge.
+Automation decision: PR-ready only
+automation: pr-only-human-merge
+human-review-required
+
+Auto merge is disabled. Human review is required before merge.
 
 ## Why High-mid
 - <reason>
@@ -245,6 +253,12 @@ PR-ready only. Auto merge is disabled. Human review is required before merge.
 - `python scripts/check_repo_safety.py --base fork/master`
 - `python scripts/clean_package_dry_run.py`
 - additional tests/checks as applicable
+
+## Rollback / cleanup candidates
+- <rollback or cleanup candidate>
+
+## Residual risks
+- <remaining risk>
 
 ## Human review checklist
 - scope is acceptable

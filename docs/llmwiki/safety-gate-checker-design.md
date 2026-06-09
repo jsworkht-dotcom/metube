@@ -442,6 +442,19 @@ High-mid PR summaries should explain why the work is High-mid, what was not
 performed, rollback/cleanup candidates, and remaining risk. The checker remains
 report-only; it does not grant merge approval.
 
+For High-mid PR body dry-runs, the required reviewer-visible fields are:
+
+- `Risk tier: High-mid`
+- `Automation decision: PR-ready only`
+- `automation: pr-only-human-merge`
+- `human-review-required`
+- `Why High-mid`
+- `Explicitly not performed`
+- `Verification`
+- `Rollback / cleanup candidates`
+- `Residual risks`
+- `Human review checklist`
+
 ## Suggested Implementation Sequence
 
 Y-CHECK-02 implements stage 1:
