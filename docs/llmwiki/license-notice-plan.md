@@ -372,7 +372,32 @@ Coverage:
 The source does not copy full license text, generate notice files, generate a
 license bundle, create package files, or approve a notice generator.
 
+Y-06P added the yt-dlp notice source candidate:
+
+- Source: `docs/llmwiki/package-notices/yt-dlp-notice.source.md`
+- Future notice output:
+  `動画保存ツール_ローカル専用/開発者向け/notices/yt-dlp-notice.txt`
+- Future license output candidate:
+  `動画保存ツール_ローカル専用/開発者向け/licenses/third-party/yt-dlp-LICENSE.txt`
+- Status: draft source material only.
+
+Coverage:
+
+- Local dependency candidates from `pyproject.toml`, `uv.lock`, and previous
+  runtime `/version` verification.
+- Official project and package source URL candidates.
+- Unlicense candidate from official project metadata.
+- Beginner-facing short notice pointer.
+- Developer-facing notice draft.
+- Manifest candidate fields for future `license-notice-manifest.json`.
+- Future review checklist for selected version, selected artifact, extras,
+  transitive dependencies, and no-private-data hygiene.
+
+The source does not copy full license text, generate notice files, generate a
+license bundle, install or update yt-dlp, create package files, or approve a
+notice generator.
+
 ## Next PR Candidate
 
-Draft `docs/llmwiki/package-notices/yt-dlp-notice.source.md` as the next notice
+Draft `docs/llmwiki/package-notices/ffmpeg-notice.source.md` as the next notice
 source candidate, while keeping it source-only and review-oriented.
