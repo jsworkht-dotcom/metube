@@ -400,12 +400,28 @@ gate report separate from package generation reports.
 
 ## Suggested Implementation Sequence
 
-Only a later explicit task may implement these stages:
+Y-CHECK-02 implements stage 1:
 
-1. Add a local report-only checker that prints sanitized text.
-2. Add an optional JSON output mode after the text report is reviewed.
-3. Add a PR body summary helper after the report shape is stable.
-4. Add CI integration only after local behavior is stable and explicitly
+```text
+scripts/check_repo_safety.py
+```
+
+Implemented stage 1 behavior:
+
+- Local report-only checker.
+- Stdlib-only.
+- Text output.
+- Current working tree diff by default, including untracked files.
+- Optional `--base` branch diff context.
+- Sanitized secret-like findings with path, line, and pattern family only.
+- Exit codes `0` for OK/warning-only, `1` for blocked, and `2` for usage
+  errors.
+
+Only a later explicit task may implement the remaining stages:
+
+1. Add an optional JSON output mode after the text report is reviewed.
+2. Add a PR body summary helper after the report shape is stable.
+3. Add CI integration only after local behavior is stable and explicitly
    approved.
 
 Each stage must remain blocked if it would add package generation, update
@@ -428,12 +444,11 @@ Stop and report facts if any of these occur:
 
 ## Y-CHECK-01 Outcome
 
-Y-CHECK-01 is complete when this design is merged as documentation only and the
-LLMwiki references are synchronized.
+Y-CHECK-01 is complete. Y-CHECK-02 adds the first report-only implementation at
+`scripts/check_repo_safety.py`.
 
 Not implemented:
 
-- repo safety checker script
 - automation gate implementation
 - CI integration
 - PR bot/comment automation

@@ -260,6 +260,21 @@ MeTube. The canonical branch is fork `master`, and local `master` tracks
   gate, CI integration, PR bot/comment automation, package generation, generated
   distribution folder, backend/frontend/Docker/CI/package/lockfile changes,
   update execution, or cookie/token/secret handling.
+- Y-CHECK-02 repo safety check script is implemented at
+  `scripts/check_repo_safety.py`.
+- Y-CHECK-02 outcome: the script is stdlib-only and report-only. It checks the
+  current working tree diff by default, including untracked files, and supports
+  optional `--base` diff context such as `fork/master`.
+- Y-CHECK-02 checks changed-file scope, forbidden paths, generated distribution
+  folder presence, upstream PR #1001 leakage, secret-like changed content,
+  dangerous behavior patterns, required LLMwiki basics, and package
+  guide/notice source warnings.
+- Y-CHECK-02 reports secret-like findings only as path, line, and pattern
+  family. It does not print matched values.
+- Y-CHECK-02 does not implement automation gate behavior, CI integration, PR
+  bot/comment automation, package generation, generated distribution folders,
+  backend/frontend/Docker/CI/package/lockfile changes, update execution, or
+  cookie/token/secret value output.
 - GitHub CLI auth note: in this Windows Codex desktop environment, sandboxed
   `gh auth status` may report an invalid `default` token while escalated
   `gh auth status` succeeds through `keyring`. Root cause is sandbox access to
@@ -269,15 +284,15 @@ MeTube. The canonical branch is fork `master`, and local `master` tracks
 
 ## Next Step
 
-Review `docs/llmwiki/safety-gate-checker-design.md` and decide whether to
-implement a local report-only checker in a later explicitly approved task.
+Use `scripts/check_repo_safety.py` before the next low- or medium-risk fork PR.
 
-The previous package-material next step remains available after that review:
-draft `docs/llmwiki/package-notices/yt-dlp-notice.source.md` as the next notice
-source candidate for future clean-package notice review.
+The previous package-material next step remains available: draft
+`docs/llmwiki/package-notices/yt-dlp-notice.source.md` as the next notice source
+candidate for future clean-package notice review.
 
 Do not create generated guide outputs, copy license text, create the generated
 package folder, copy package files, implement actual package generation, add
 Tauri/Electron/WebView2, run builds, install dependencies, change
 backend/frontend/Docker/CI files, change package/lockfile files, implement
-update execution, or handle cookie/token/secret values yet.
+update execution, handle cookie/token/secret values, or add Y-CHECK automation /
+CI / PR bot behavior yet.

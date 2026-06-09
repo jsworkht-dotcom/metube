@@ -697,17 +697,51 @@
   - update execution
   - cookie/token/secret handling
 
+### Y-CHECK-02 repo safety check script
+
+- Scope: stdlib-only, report-only repository safety checker and minimal
+  LLMwiki sync.
+- Script:
+  `scripts/check_repo_safety.py`
+- Outcome:
+  - Added a local report-only safety gate script for low- and medium-risk Codex
+    work.
+  - Default mode checks the current working tree diff against `HEAD`, including
+    untracked files.
+  - Optional `--base` can include committed branch diff context, for example
+    `--base fork/master`.
+  - Reports changed files, scope classification, warnings, blockers, and check
+    statuses.
+  - Checks changed-file scope, forbidden paths, generated distribution folder
+    presence, upstream PR #1001 leakage, secret-like changed content,
+    dangerous behavior patterns, required LLMwiki basics, and package
+    guide/notice source presence.
+  - Secret-like findings are sanitized and report only path, line, and pattern
+    family.
+  - Exit codes are `0` for OK or warning-only, `1` for blocked, and `2` for
+    usage errors.
+- Not implemented:
+  - automation gate implementation
+  - CI integration
+  - PR bot/comment automation
+  - generated distribution folder
+  - package generation
+  - backend/frontend/Docker/CI/package/lockfile changes
+  - update execution
+  - cookie/token/secret value output
+
 ## Current Next Step
 
-Review the Y-CHECK-01 safety gate checker design and decide whether to implement
-the first report-only local checker in a later explicitly approved task.
+Use `scripts/check_repo_safety.py` as a local report-only check before the next
+low- or medium-risk fork PR.
 
-The previous package-material next step remains available after that review:
+The previous package-material next step remains available:
 draft `docs/llmwiki/package-notices/yt-dlp-notice.source.md`.
 
 Next scope:
 
-- Keep any Y-CHECK implementation report-only until explicitly approved.
+- Keep any further Y-CHECK automation, CI, or PR-comment integration separate
+  until explicitly approved.
 - Keep notice material source-only, sanitized, and review-oriented.
 - Keep guide and notice files as source material only; do not generate package
   outputs.
