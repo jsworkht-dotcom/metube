@@ -127,6 +127,28 @@ MANIFEST_PREVIEW_FUTURE_OUTPUTS = [
     "beginner guide notice section",
 ]
 
+DIFF_PREDICTION_CREATE_DIRECTORIES = [
+    "Windows用/",
+    "Mac用/",
+    "保存先/",
+    "困ったとき/",
+    "開発者向け/",
+    "LICENSES/",
+]
+
+DIFF_PREDICTION_CREATE_FILES = [
+    "NOTICE.txt",
+    "manifest.json",
+    "00_最初に開いてください.html",
+    "00_最初に開いてください.txt",
+]
+
+DIFF_PREDICTION_COPY_SOURCE_GROUPS = [
+    "beginner guide sources",
+    "notice source materials",
+    "developer review checklist sources",
+]
+
 SAFETY_NOTICE_SOURCE_CANDIDATES = [
     (
         "local-only safety notice source",
@@ -689,6 +711,16 @@ def print_list(title: str, items: Iterable[str]) -> None:
         print(f"  {item}")
 
 
+def print_nested_list(title: str, items: Iterable[str]) -> None:
+    print(f"  {title}:")
+    values = list(items)
+    if not values:
+        print("    none")
+        return
+    for item in values:
+        print(f"    - {item}")
+
+
 def present_candidate_lines(
     root: Path,
     candidates: Iterable[tuple[str, str]],
@@ -741,6 +773,33 @@ def print_package_manifest_preview(root: Path, excluded_found: list[str]) -> Non
     )
 
 
+def print_package_output_diff_prediction(excluded_found: list[str]) -> None:
+    print("Package output diff prediction:")
+    print(f"  future_package_root: {PACKAGE_ROOT}")
+    print_nested_list(
+        "would_create_directories",
+        DIFF_PREDICTION_CREATE_DIRECTORIES,
+    )
+    print_nested_list("would_create_files", DIFF_PREDICTION_CREATE_FILES)
+    print_nested_list(
+        "would_copy_source_groups",
+        DIFF_PREDICTION_COPY_SOURCE_GROUPS,
+    )
+    print_nested_list(
+        "would_generate_future_outputs",
+        MANIFEST_PREVIEW_FUTURE_OUTPUTS,
+    )
+    print("  would_exclude_paths summary:")
+    print(f"    rules: {len(EXCLUDED_PATHS)}")
+    print(f"    currently_present: {len(excluded_found)}")
+    print("  no_files_generated: true")
+    print("  human_review_required_before_generation: true")
+    print(
+        "  cleanup_rollback_candidate: future package root only; "
+        "human review required before any action."
+    )
+
+
 def print_report(
     root: Path,
     blocked: list[Finding],
@@ -772,6 +831,8 @@ def print_report(
     print_list("Planned developer entries", PLANNED_DEVELOPER_ENTRIES)
     print()
     print_package_manifest_preview(root, excluded_found)
+    print()
+    print_package_output_diff_prediction(excluded_found)
     print()
     print_list("Excluded rules", EXCLUDED_PATHS)
     print()

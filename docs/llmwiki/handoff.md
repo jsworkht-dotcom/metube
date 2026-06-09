@@ -423,6 +423,22 @@ MeTube. The canonical branch is fork `master`, and local `master` tracks
   output, build / package / install behavior, dependency changes,
   package/lockfile changes, backend/frontend/Docker/CI changes,
   cookie/token/secret handling, PR #1001 file changes, or 更新適用機能.
+- Y-06Y package output diff prediction is implemented in
+  `scripts/clean_package_dry_run.py`.
+- Y-06Y outcome: the clean-package dry-run text report now includes a
+  `Package output diff prediction` section with the future package root
+  candidate, would-create directory and file candidates, would-copy source
+  groups, future output candidates, excluded path summary,
+  currently-present excluded path count, no-files-generated state, human review
+  requirement before generation, and cleanup / rollback candidate note.
+- Y-06Y preserves existing dry-run `Status: OK`, warnings, blockers,
+  `Package manifest preview`, exit-code behavior, and no-files-generated
+  behavior.
+- Y-06Y does not create `manifest.json`, `NOTICE.txt`, `LICENSES/`, generated
+  package folders, notice bundles, license bundles, inventory files, manifest
+  files, HTML/TXT guide output, build / package / install behavior, dependency
+  changes, package/lockfile changes, backend/frontend/Docker/CI changes,
+  cookie/token/secret handling, PR #1001 file changes, or 更新適用機能.
 - Y-CHECK-01 safety gate checker design is documented at
   `docs/llmwiki/safety-gate-checker-design.md`.
 - Y-CHECK-01 outcome: the future checker should evaluate repository diffs for
@@ -491,7 +507,7 @@ Run `scripts/check_repo_safety.py`,
 high-low-risk fork PR.
 
 The next package-material candidate should be selected explicitly. A good next
-candidate is a report-only package output diff prediction enhancement, or
+candidate is a JSON or Markdown report mode design for the existing dry-run, or
 another source-only notice / inventory gap if one is selected.
 
 Do not create generated guide outputs, copy license text, create the generated

@@ -50,10 +50,11 @@
 
 ### Next package-material candidate
 
-- Y-06X completes the package manifest preview section in the clean-package
-  dry-run report.
+- Y-06Y completes the package output diff prediction section in the
+  clean-package dry-run report.
 - The next package-material candidate should be selected explicitly. A good
-  next candidate is a report-only package output diff prediction enhancement.
+  next candidate is a JSON or Markdown report mode design for the existing
+  dry-run, or another source-only notice / inventory gap if one is selected.
 - Keep the next PR report-only, dry-run-only, or source-material only unless
   explicitly approved otherwise.
 - Do not create guide outputs, copy license text, generate notice bundles,
@@ -61,6 +62,26 @@
 - Do not create `動画保存ツール_ローカル専用/`, copy files, build packages, install
   dependencies, add Tauri/Electron/WebView2, change backend/frontend/Docker/CI,
   or change package/lockfile files.
+
+## Y-06Y Package Output Diff Prediction Outcome
+
+- Script:
+  `scripts/clean_package_dry_run.py`
+- Added a report-only `Package output diff prediction` section to the
+  clean-package dry-run text output.
+- The prediction reports the future package root candidate, would-create
+  directory candidates, would-create file candidates, would-copy source groups,
+  future output candidates, excluded path summary, currently-present excluded
+  path count, no-files-generated state, human review requirement before
+  generation, and cleanup / rollback candidate note.
+- Existing dry-run status, blockers, warnings, package manifest preview, and
+  no-files-generated behavior remain unchanged.
+- This Y-06Y PR does not create `manifest.json`, `NOTICE.txt`, `LICENSES/`,
+  generated distribution folders, notice bundles, license bundles, inventory
+  files, manifest files, HTML/TXT guide output, build/package/install commands,
+  dependency changes, package/lockfile changes, backend/frontend/Docker/CI
+  changes, cookie/token/secret handling, public hosting, ads, PR #1001 file
+  changes, or 更新適用機能.
 
 ## Y-06X Package Manifest Preview Outcome
 
