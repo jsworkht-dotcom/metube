@@ -35,7 +35,7 @@ NOTICE_SOURCE_CANDIDATES = [
     ("python-runtime", "docs/llmwiki/package-notices/python-runtime-notice.source.md"),
     (
         "frontend-dependencies",
-        "docs/llmwiki/package-notices/frontend-dependencies-notice.source.md",
+        "docs/llmwiki/package-notices/frontend-deps-notice.source.md",
     ),
 ]
 

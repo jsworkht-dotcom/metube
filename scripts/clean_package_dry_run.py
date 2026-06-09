@@ -101,7 +101,7 @@ NOTICE_SOURCE_CANDIDATES = [
     ),
     (
         "frontend dependency notice candidate",
-        "docs/llmwiki/package-notices/frontend-dependencies-notice.source.md",
+        "docs/llmwiki/package-notices/frontend-deps-notice.source.md",
     ),
     (
         "future Tauri/Electron notice candidate",
