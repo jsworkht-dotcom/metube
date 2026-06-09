@@ -1017,10 +1017,43 @@
   - public hosting or ads
   - 更新適用機能
 
+### Y-AUTO-02 repo safety risk classification
+
+- Scope: report-only checker improvement and minimal LLMwiki sync.
+- Script:
+  `scripts/check_repo_safety.py`
+- Outcome:
+  - Added a `Risk classification` section to the repo safety report.
+  - The report now includes `tier`, `automation`, and `reason`.
+  - Supported tiers are `Low`, `Medium`, `High-low`, `High-mid`,
+    `High-high`, and `Unknown`.
+  - Supported automation outputs are `auto-merge-ok`,
+    `pr-only-human-merge`, `stop-before-pr`, and `unknown`.
+  - Existing `Status: OK` / `Status: BLOCKED` behavior is unchanged.
+  - Existing blockers for forbidden paths, generated distribution folders,
+    PR #1001 leakage, secret-like content, dangerous behavior, and required
+    LLMwiki basics are unchanged.
+  - For this report-only checker task, the working-tree report classified the
+    change as `Medium` with `automation: auto-merge-ok`.
+- Not implemented:
+  - automation gate implementation
+  - CI integration
+  - PR bot/comment automation
+  - generated distribution folder
+  - generated guide, notice, manifest, ZIP, package, or installer output
+  - build/package/install commands
+  - dependency changes
+  - package/lockfile changes
+  - backend/frontend/Docker/CI changes
+  - cookie/token/secret handling
+  - PR #1001 file changes
+  - public hosting or ads
+  - 更新適用機能
+
 ## Current Next Step
 
-Use `docs/llmwiki/codex-automation-policy.md` to classify the next Codex task
-before auto PR or auto merge.
+Use the `Risk classification` section from `scripts/check_repo_safety.py` as the
+first local summary before auto PR or auto merge.
 
 Use `scripts/check_repo_safety.py` and `scripts/clean_package_dry_run.py` as
 local report-only gates before the next low-, medium-, or qualifying

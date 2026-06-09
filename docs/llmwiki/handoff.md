@@ -45,6 +45,11 @@ MeTube. The canonical branch is fork `master`, and local `master` tracks
   required.
 - High-high work must stop before implementation and request explicit human
   confirmation.
+- Y-AUTO-02 adds `Risk classification` to `scripts/check_repo_safety.py`.
+- The checker now reports `tier`, `automation`, and `reason` while preserving
+  existing `Status: OK` / `Status: BLOCKED` behavior.
+- `auto-merge-ok` is advisory and valid only when the safety report has no
+  blockers and the PR merge state / checks are clean.
 - `update-status` is readonly. It must not apply updates, pull Docker images,
   run git updates, restart the app, or install packages.
 - Backup and rollback requirements must be satisfied before any update-apply
@@ -406,6 +411,9 @@ MeTube. The canonical branch is fork `master`, and local `master` tracks
   bot/comment automation, package generation, generated distribution folders,
   backend/frontend/Docker/CI/package/lockfile changes, update execution, or
   cookie/token/secret value output.
+- Y-AUTO-02 extends Y-CHECK-02 with report-only risk classification. For the
+  checker enhancement itself, the report shows `tier: Medium` and
+  `automation: auto-merge-ok`.
 - GitHub CLI auth note: in this Windows Codex desktop environment, sandboxed
   `gh auth status` may report an invalid `default` token while escalated
   `gh auth status` succeeds through `keyring`. Root cause is sandbox access to
@@ -415,7 +423,10 @@ MeTube. The canonical branch is fork `master`, and local `master` tracks
 
 ## Next Step
 
-Use `docs/llmwiki/codex-automation-policy.md` before auto PR or auto merge.
+Use the `Risk classification` section from `scripts/check_repo_safety.py`
+before auto PR or auto merge, then cross-check
+`docs/llmwiki/codex-automation-policy.md` for High-low, High-mid, High-high, or
+Unknown outcomes.
 
 Run `scripts/check_repo_safety.py`,
 `scripts/check_repo_safety.py --base fork/master`, and

@@ -253,6 +253,20 @@ Stop and report facts if any of these occur:
 
 `scripts/check_repo_safety.py` remains the repository-diff safety gate.
 
+Y-AUTO-02 adds a report-only `Risk classification` section to
+`scripts/check_repo_safety.py`:
+
+```text
+Risk classification:
+  tier: Low | Medium | High-low | High-mid | High-high | Unknown
+  automation: auto-merge-ok | pr-only-human-merge | stop-before-pr | unknown
+  reason: <short reason>
+```
+
+`auto-merge-ok` is advisory and valid only when the report has no blockers, the
+PR targets fork `master`, GitHub merge state is clean, and no required checks
+failed.
+
 `scripts/clean_package_dry_run.py` remains the package-planning dry-run gate.
 
 For high-low auto merge, both gates are required because the work is close to

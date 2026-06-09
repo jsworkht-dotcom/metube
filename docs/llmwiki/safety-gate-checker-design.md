@@ -360,6 +360,9 @@ base_ref
 head_ref
 changed_file_count
 changed_files
+risk_tier
+risk_automation
+risk_reason
 scope_result
 forbidden_path_result
 secret_like_pattern_result
@@ -412,6 +415,11 @@ itself that high-low auto merge is safe. For high-low work, the automation
 policy requires this checker, the clean-package dry-run, `git diff --check`,
 GitHub clean merge state, and successful checks to agree before auto merge.
 
+Y-AUTO-02 adds a report-only `Risk classification` section to the text report.
+The section contains `tier`, `automation`, and `reason` so PR summaries can
+distinguish auto-merge-eligible work from human-merge or stop-before-PR work.
+This does not change the existing `Status: OK` / `Status: BLOCKED` gate.
+
 High-mid and high-high work remain outside auto merge. If a diff includes real
 generation, implementation, or dependency install/update, auto merge is
 prohibited. Docker pull/build is prohibited for auto merge. Package/lockfile
@@ -434,6 +442,7 @@ Implemented stage 1 behavior:
 - Current working tree diff by default, including untracked files.
 - Optional `--base` branch diff context.
 - Sanitized secret-like findings with path, line, and pattern family only.
+- Risk classification summary with tier, automation, and reason.
 - Exit codes `0` for OK/warning-only, `1` for blocked, and `2` for usage
   errors.
 
