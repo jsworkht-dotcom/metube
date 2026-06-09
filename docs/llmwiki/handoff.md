@@ -249,6 +249,20 @@ MeTube. The canonical branch is fork `master`, and local `master` tracks
   bundles, create generated package folders, add Tauri/Electron/WebView2,
   change backend/frontend/Docker/CI/package/lockfile files, or implement update
   apply.
+- Y-06P yt-dlp notice source draft is documented at
+  `docs/llmwiki/package-notices/yt-dlp-notice.source.md`.
+- Y-06P outcome: the yt-dlp notice source candidate is source-only,
+  sanitized, and review-oriented for a future
+  `動画保存ツール_ローカル専用/開発者向け/notices/yt-dlp-notice.txt`.
+- Y-06P covers local dependency candidates from `pyproject.toml`, `uv.lock`,
+  and previous runtime `/version` verification; official project and package
+  source URL candidates; a short beginner-facing notice pointer; developer
+  notice draft; manifest candidate fields; and future review for extras and
+  transitive dependency notices.
+- Y-06P does not create actual notice files, copy license text, generate notice
+  bundles, create generated package folders, install or update yt-dlp, add
+  Tauri/Electron/WebView2, change backend/frontend/Docker/CI/package/lockfile
+  files, or implement 更新適用機能.
 - Y-CHECK-01 safety gate checker design is documented at
   `docs/llmwiki/safety-gate-checker-design.md`.
 - Y-CHECK-01 outcome: the future checker should evaluate repository diffs for
@@ -286,8 +300,8 @@ MeTube. The canonical branch is fork `master`, and local `master` tracks
 
 Use `scripts/check_repo_safety.py` before the next low- or medium-risk fork PR.
 
-The previous package-material next step remains available: draft
-`docs/llmwiki/package-notices/yt-dlp-notice.source.md` as the next notice source
+The next package-material step is draft
+`docs/llmwiki/package-notices/ffmpeg-notice.source.md` as the next notice source
 candidate for future clean-package notice review.
 
 Do not create generated guide outputs, copy license text, create the generated

@@ -664,6 +664,40 @@
   - installer
   - signing or notarization
   - backend/frontend/Docker/CI/package/lockfile changes
+  - 更新適用機能
+
+### Y-06P yt-dlp notice source draft
+
+- Scope: source-only yt-dlp notice draft and minimal LLMwiki sync.
+- Source draft:
+  `docs/llmwiki/package-notices/yt-dlp-notice.source.md`
+- Outcome:
+  - Added the yt-dlp notice source candidate for future
+    `動画保存ツール_ローカル専用/開発者向け/notices/yt-dlp-notice.txt`.
+  - Kept the draft as Markdown source material only, not a generated notice
+    file or license bundle.
+  - Recorded local dependency candidates from `pyproject.toml`, `uv.lock`, and
+    previous runtime `/version` verification.
+  - Recorded official project and package source URL candidates, a short
+    beginner-facing notice pointer, a developer-facing notice draft, manifest
+    candidate fields, and future review checklist items.
+  - Preserved separate future review for yt-dlp extras and transitive
+    dependencies such as `curl-cffi` and Deno-related pieces.
+- Not implemented:
+  - generated distribution folder
+  - actual notice files
+  - actual license bundle
+  - transitive dependency license inventory
+  - standalone yt-dlp executable review
+  - yt-dlp install or update behavior
+  - package build, copy, zip, or generator behavior
+  - Tauri
+  - Electron
+  - WebView2
+  - desktop packaging
+  - installer
+  - signing or notarization
+  - backend/frontend/Docker/CI/package/lockfile changes
   - update apply
 
 ### Y-CHECK-01 safety gate checker design
@@ -735,8 +769,10 @@
 Use `scripts/check_repo_safety.py` as a local report-only check before the next
 low- or medium-risk fork PR.
 
-The previous package-material next step remains available:
-draft `docs/llmwiki/package-notices/yt-dlp-notice.source.md`.
+The previous package-material next step is complete through Y-06P.
+
+The next package-material step is:
+draft `docs/llmwiki/package-notices/ffmpeg-notice.source.md`.
 
 Next scope:
 

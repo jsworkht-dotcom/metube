@@ -14,9 +14,9 @@
   generated distribution folders, and cookie/token/secret handling out of
   scope unless explicitly approved.
 
-### Draft yt-dlp notice source
+### Draft ffmpeg notice source
 
-- Draft `docs/llmwiki/package-notices/yt-dlp-notice.source.md` as the next
+- Draft `docs/llmwiki/package-notices/ffmpeg-notice.source.md` as the next
   notice source candidate for future clean-package notice review.
 - Keep the next PR source-material only unless explicitly approved otherwise.
 - Do not create guide outputs, copy license text, generate notice bundles, or
@@ -24,6 +24,29 @@
 - Do not create `動画保存ツール_ローカル専用/`, copy files, build packages, install
   dependencies, add Tauri/Electron/WebView2, change backend/frontend/Docker/CI,
   or change package/lockfile files.
+
+## Y-06P yt-dlp Notice Source Outcome
+
+- Notice source draft:
+  `docs/llmwiki/package-notices/yt-dlp-notice.source.md`
+- Added source material for future
+  `動画保存ツール_ローカル専用/開発者向け/notices/yt-dlp-notice.txt`.
+- The draft is source-only and review-oriented, with:
+  - future notice / license placement candidates
+  - yt-dlp component summary
+  - local dependency candidates from `pyproject.toml`, `uv.lock`, and previous
+    runtime `/version` verification
+  - short beginner-facing notice pointer
+  - developer-facing notice draft
+  - manifest candidate fields
+  - required future review checklist
+- Covered official project and package source URL candidates, the Unlicense
+  candidate, selected extras, and separate future review for transitive
+  dependency notices.
+- No actual notice output, license bundle, generated package folder,
+  yt-dlp install/update behavior, package build/copy behavior,
+  Tauri/Electron implementation, backend/frontend/Docker/CI change, or
+  package/lockfile change was added.
 
 ## Y-CHECK-01 Safety Gate Checker Design Outcome
 
