@@ -2,7 +2,7 @@
 
 ## Immediate Next
 
-### Use Y-AUTO-04 High-mid checker guidance
+### Use Y-AUTO-05 High-mid PR template dry-run policy
 
 - Read the `Risk classification` section from
   `scripts/check_repo_safety.py` before auto PR or auto merge.
@@ -10,7 +10,11 @@
   the report says `High-low`, `High-mid`, `High-high`, or `Unknown`.
 - If the report says `High-mid` with `automation: pr-only-human-merge`, prepare
   a Ready-for-review PR only and do not auto merge.
-- High-mid PR bodies must include `human-review-required`.
+- High-mid PR bodies must include `Risk tier: High-mid`, `Automation decision:
+  PR-ready only`, `automation: pr-only-human-merge`,
+  `human-review-required`, `Why High-mid`, `Explicitly not performed`,
+  `Verification`, `Rollback / cleanup candidates`, `Residual risks`, and
+  `Human review checklist`.
 - Run `scripts/check_repo_safety.py` and
   `scripts/check_repo_safety.py --base fork/master` before the next low-,
   medium-, or qualifying high-low-risk fork PR.
@@ -27,6 +31,22 @@
   pull, backend/frontend/Docker/CI changes, package/lockfile changes,
   generated distribution folders, and cookie/token/secret handling out of
   scope unless explicitly approved.
+
+## Y-AUTO-05 High-mid PR Template Dry-Run Policy Check Outcome
+
+- Policy documents now require the High-mid PR body template to show
+  `Risk tier: High-mid`, `Automation decision: PR-ready only`,
+  `automation: pr-only-human-merge`, and `human-review-required`.
+- The template includes reviewer sections for why the task is High-mid, what was
+  explicitly not performed, verification, rollback/cleanup candidates,
+  residual risks, and a human review checklist.
+- The checker guidance remains report-only and continues to classify
+  High-mid-like scopes as `automation: pr-only-human-merge`.
+- This Y-AUTO-05 check is docs/checker-policy only. It does not add a real
+  High-mid implementation, generated distribution folder, generated notice
+  bundle, HTML/TXT guide output, build/package/install command, dependency
+  change, package/lockfile change, backend/frontend/Docker/CI change,
+  cookie/token/secret handling, public hosting, ads, or PR #1001 file changes.
 
 ### Next package-material candidate
 

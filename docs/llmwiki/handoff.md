@@ -425,6 +425,12 @@ MeTube. The canonical branch is fork `master`, and local `master` tracks
   allow High-mid auto merge.
 - High-mid PR bodies must explain why the work is High-mid, what was not
   performed, rollback/cleanup candidates, remaining risk, and verification.
+- Y-AUTO-05 confirms the High-mid PR body dry-run template requirements:
+  `Risk tier: High-mid`, `Automation decision: PR-ready only`,
+  `automation: pr-only-human-merge`, `human-review-required`,
+  `Why High-mid`, `Explicitly not performed`, `Verification`,
+  `Rollback / cleanup candidates`, `Residual risks`, and
+  `Human review checklist`.
 - Y-AUTO-04 makes the checker surface High-mid PR-only guidance directly in the
   `Risk classification` section.
 - GitHub CLI auth note: in this Windows Codex desktop environment, sandboxed
@@ -443,6 +449,10 @@ Unknown outcomes.
 
 For High-mid outcomes, stop after PR-ready handoff and wait for human review
 before merge.
+
+Before the next actual High-mid task, use the Y-AUTO-05 PR body checklist and
+confirm the PR body includes `human-review-required`, rollback/cleanup
+candidates, residual risks, and the human review checklist.
 
 Run `scripts/check_repo_safety.py`,
 `scripts/check_repo_safety.py --base fork/master`, and
