@@ -1044,6 +1044,53 @@
   - PR #1001 file changes
   - 更新適用機能
 
+### Y-06Z clean package dry-run Markdown report mode design
+
+- Scope: docs-only / High-low report mode design.
+- Design document:
+  `docs/llmwiki/clean-package-dry-run-markdown-report-mode-design.md`
+- Read-only sources checked:
+  - `scripts/clean_package_dry_run.py`
+  - `scripts/check_repo_safety.py`
+  - `docs/llmwiki/clean-package-dry-run-contract.md`
+  - `docs/llmwiki/clean-package-generator-contract-addendum.md`
+  - `docs/llmwiki/codex-automation-policy.md`
+  - `docs/llmwiki/handoff.md`
+  - `docs/llmwiki/roadmap.md`
+- Outcome:
+  - Designed a future Markdown report mode for clean-package dry-run output.
+  - Recommends `--format markdown` as the first future selector and keeps text
+    output as the default.
+  - Defines Markdown sections for Summary, Status, Risk Classification,
+    Package Manifest Preview, Package Output Diff Prediction, Notice / Guide
+    Source Coverage, Excluded Paths Summary, Blockers, Warnings, Human Review
+    Checklist, and No-Generation Boundary.
+  - Defines PR body reuse, handoff reuse, safety boundaries, future
+    implementation checklist, future verification checklist, cleanup /
+    rollback note, and High-low / High-mid boundary.
+- Not implemented:
+  - `scripts/clean_package_dry_run.py` changes
+  - `scripts/check_repo_safety.py` changes
+  - JSON output
+  - Markdown output
+  - real `manifest.json` generation
+  - real `NOTICE.txt` generation
+  - real `LICENSES/` generation
+  - generated distribution folder
+  - generated notice bundle
+  - generated license bundle
+  - generated dependency inventory files
+  - generated manifest files
+  - HTML/TXT package guide output
+  - package generation
+  - ビルド/パッケージ/インストール操作
+  - dependency changes
+  - package/lockfile changes
+  - backend/frontend/Docker/CI changes
+  - cookie/token/secret handling
+  - PR #1001 file changes
+  - 更新適用機能
+
 ### Y-CHECK-01 safety gate checker design
 
 - Scope: docs-only design for a future repository safety checker and automation
@@ -1245,12 +1292,11 @@ Use `scripts/check_repo_safety.py` and `scripts/clean_package_dry_run.py` as
 local report-only gates before the next low-, medium-, or qualifying
 high-low-risk fork PR.
 
-The previous package-material next step is complete through Y-06Y.
+The previous package-material next step is complete through Y-06Z.
 
 The next package-material candidate should be selected explicitly. A good next
-candidate is a JSON or Markdown report mode design for the existing dry-run, or
-another source-only notice / inventory draft if a remaining package notice gap is
-selected first.
+candidate is a docs-only JSON report mode design, or a future report-only
+Markdown implementation if explicitly approved.
 
 Next scope:
 

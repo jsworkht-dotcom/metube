@@ -364,6 +364,24 @@ Y-06X implementation note:
 - The preview reports source counts and candidate future outputs only.
 - It does not create `manifest.json` or any package file.
 
+## Markdown Report Mode Design Candidate
+
+Future dry-run / preview may include Markdown output for PR body reuse,
+handoff reuse, and human review notes.
+
+Y-06Z design note:
+
+- `docs/llmwiki/clean-package-dry-run-markdown-report-mode-design.md` defines
+  the Markdown report mode design.
+- The design keeps text output as the default.
+- The design prefers `--format markdown` for the first future selector.
+- The design requires Summary, Status, Risk Classification, Package Manifest
+  Preview, Package Output Diff Prediction, Notice / Guide Source Coverage,
+  Excluded Paths Summary, Blockers, Warnings, Human Review Checklist, and
+  No-Generation Boundary sections.
+- The design does not implement Markdown output, write report files, create
+  package output, or weaken existing blockers.
+
 ## Cleanup / Rollback Candidate
 
 Future implementation planning should include cleanup and rollback candidates
@@ -435,6 +453,8 @@ Candidate phases, each requiring a separate explicit task:
 3. Add a package output diff prediction report that writes nothing. Completed
    by Y-06Y.
 4. Add JSON or Markdown report output, still without writing package files.
+   Markdown report mode design is documented by Y-06Z; implementation remains a
+   future explicit task.
 5. Add a human-reviewed generator prototype that can be inspected but does not
    run actual generation in automated checks.
 6. Add actual generation only after human approval, clean dry-runs, reviewed

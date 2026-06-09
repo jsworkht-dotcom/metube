@@ -439,6 +439,24 @@ MeTube. The canonical branch is fork `master`, and local `master` tracks
   files, HTML/TXT guide output, build / package / install behavior, dependency
   changes, package/lockfile changes, backend/frontend/Docker/CI changes,
   cookie/token/secret handling, PR #1001 file changes, or 更新適用機能.
+- Y-06Z clean package dry-run Markdown report mode design is documented at
+  `docs/llmwiki/clean-package-dry-run-markdown-report-mode-design.md`.
+- Y-06Z outcome: future Markdown report mode should keep text output as the
+  default, prefer `--format markdown` as the first future selector, and produce
+  PR/handoff-friendly sections for Summary, Status, Risk Classification,
+  Package Manifest Preview, Package Output Diff Prediction, Notice / Guide
+  Source Coverage, Excluded Paths Summary, Blockers, Warnings, Human Review
+  Checklist, and No-Generation Boundary.
+- Y-06Z also defines PR body reuse, handoff reuse, safety boundaries, future
+  implementation checklist, future verification checklist, cleanup / rollback
+  note, and High-low / High-mid boundary.
+- Y-06Z is docs-only. It does not change `scripts/clean_package_dry_run.py` or
+  `scripts/check_repo_safety.py`, implement JSON or Markdown output, create
+  `manifest.json`, `NOTICE.txt`, `LICENSES/`, generated package folders,
+  notice bundles, license bundles, inventory files, manifest files, HTML/TXT
+  guide output, ビルド/パッケージ/インストール操作, dependency changes,
+  package/lockfile changes, backend/frontend/Docker/CI changes,
+  cookie/token/secret handling, PR #1001 file changes, or 更新適用機能.
 - Y-CHECK-01 safety gate checker design is documented at
   `docs/llmwiki/safety-gate-checker-design.md`.
 - Y-CHECK-01 outcome: the future checker should evaluate repository diffs for
@@ -507,8 +525,8 @@ Run `scripts/check_repo_safety.py`,
 high-low-risk fork PR.
 
 The next package-material candidate should be selected explicitly. A good next
-candidate is a JSON or Markdown report mode design for the existing dry-run, or
-another source-only notice / inventory gap if one is selected.
+candidate is a docs-only JSON report mode design, or a future report-only
+Markdown implementation if explicitly approved.
 
 Do not create generated guide outputs, copy license text, create the generated
 package folder, copy package files, implement actual package generation, add

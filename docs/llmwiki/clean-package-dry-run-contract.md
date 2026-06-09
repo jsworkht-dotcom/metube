@@ -1175,6 +1175,47 @@ Rules:
   exit-code behavior remain unchanged.
 - Existing blockers must not be weakened.
 
+## Y-06Z Markdown Report Mode Design
+
+Y-06Z adds a docs-only design for a future Markdown report mode:
+
+```text
+docs/llmwiki/clean-package-dry-run-markdown-report-mode-design.md
+```
+
+The design recommends a future selector:
+
+```text
+python scripts/clean_package_dry_run.py --format markdown
+```
+
+Rules:
+
+- Current text output remains the default.
+- Y-06Z does not implement Markdown output.
+- Y-06Z does not change `scripts/clean_package_dry_run.py`.
+- Y-06Z does not change `scripts/check_repo_safety.py`.
+- A future Markdown mode should write to stdout only in its first
+  implementation.
+- A future Markdown mode should preserve existing `Status: OK`,
+  `Status: BLOCKED`, warnings, blockers, and exit-code behavior.
+- A future Markdown mode should not create package files or generated
+  artifacts.
+
+Required future Markdown sections:
+
+- Summary
+- Status
+- Risk Classification
+- Package Manifest Preview
+- Package Output Diff Prediction
+- Notice / Guide Source Coverage
+- Excluded Paths Summary
+- Blockers
+- Warnings
+- Human Review Checklist
+- No-Generation Boundary
+
 ## Y-CHECK-01 Repository Safety Gate Relationship
 
 Y-CHECK-01 is documented in:
@@ -1232,8 +1273,8 @@ Review the existing report-only safety checker before low- or medium-risk fork
 PRs, then select the next source-only package notice gap explicitly.
 
 The next package-material candidate should be selected explicitly. A good next
-candidate is a JSON or Markdown report mode design for the existing dry-run, or
-another source-only notice / inventory gap if one is selected.
+candidate is a docs-only JSON report mode design, or a future report-only
+Markdown implementation if explicitly approved.
 
 Actual clean-package generation should wait until after repeated successful
 dry-run reports and a later explicit generation task.
