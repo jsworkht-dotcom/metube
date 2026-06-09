@@ -698,6 +698,78 @@
   - installer
   - signing or notarization
   - backend/frontend/Docker/CI/package/lockfile changes
+  - 更新適用機能
+
+### Y-06Q FFmpeg notice source draft
+
+- Scope: source-only FFmpeg notice draft.
+- Source draft:
+  `docs/llmwiki/package-notices/ffmpeg-notice.source.md`
+- Outcome:
+  - Added the FFmpeg notice source candidate for future
+    `動画保存ツール_ローカル専用/開発者向け/notices/ffmpeg-notice.txt`.
+  - Recorded OS-specific notice placement candidates for
+    `Windows用/notices/ffmpeg-notice.txt` and
+    `Mac用/notices/ffmpeg-notice.txt`.
+  - Kept the draft as Markdown source material only, not a generated notice
+    file or license bundle.
+  - Recorded current local FFmpeg usage candidates from `Dockerfile`,
+    `app/dl_formats.py`, `app/ytdl.py`, and Dockerless package planning docs.
+  - Preserved required future review for selected binary provider, version,
+    target OS, architecture, build configuration, LGPL/GPL status, source
+    availability, and patent-sensitive/nonfree options.
+- Not implemented:
+  - generated distribution folder
+  - actual notice files
+  - actual license bundle
+  - selected FFmpeg binary approval
+  - FFmpeg download, install, or update behavior
+  - package build, copy, zip, or generator behavior
+  - Tauri
+  - Electron
+  - WebView2
+  - desktop packaging
+  - installer
+  - signing or notarization
+  - backend/frontend/Docker/CI/package/lockfile changes
+  - 更新適用機能
+
+### Y-06R Python runtime notice source draft
+
+- Scope: source-only Python runtime notice draft and minimal LLMwiki sync.
+- Source draft:
+  `docs/llmwiki/package-notices/python-runtime-notice.source.md`
+- Outcome:
+  - Added the Python runtime notice source candidate for future
+    `動画保存ツール_ローカル専用/開発者向け/notices/python-runtime-notice.txt`.
+  - Recorded OS-specific notice placement candidates for
+    `Windows用/notices/python-runtime-notice.txt` and
+    `Mac用/notices/python-runtime-notice.txt`.
+  - Kept the draft as Markdown source material only, not a generated notice
+    file, notice bundle, runtime bundle, or legal conclusion.
+  - Recorded local runtime candidates from `pyproject.toml`, `Dockerfile`, and
+    Dockerless package planning docs.
+  - Recorded official Python source / license URL candidates and kept the
+    exact bundled runtime artifact as a future review item.
+  - Preserved separate future review for bundled Python dependencies,
+    standard-library incorporated software, native libraries, and any bundler
+    runtime pieces.
+- Not implemented:
+  - generated distribution folder
+  - actual notice files
+  - actual license bundle
+  - selected Python runtime approval
+  - Python download, install, build, or update behavior
+  - PyInstaller spec files
+  - Python dependency license inventory
+  - package build, copy, zip, or generator behavior
+  - Tauri
+  - Electron
+  - WebView2
+  - desktop packaging
+  - installer
+  - signing or notarization
+  - backend/frontend/Docker/CI/package/lockfile changes
   - update apply
 
 ### Y-CHECK-01 safety gate checker design
@@ -769,10 +841,11 @@
 Use `scripts/check_repo_safety.py` as a local report-only check before the next
 low- or medium-risk fork PR.
 
-The previous package-material next step is complete through Y-06P.
+The previous package-material next step is complete through Y-06R.
 
-The next package-material step is:
-draft `docs/llmwiki/package-notices/ffmpeg-notice.source.md`.
+The next package-material candidate is a separate source-only notice or
+inventory draft for frontend dependencies, bundled Python dependencies, or
+desktop shell runtime pieces after an explicit task selects one.
 
 Next scope:
 
