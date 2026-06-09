@@ -239,6 +239,7 @@ Candidate source:
 
 - `pyproject.toml`
 - `uv.lock`
+- `docs/llmwiki/package-notices/bundled-python-dependency-inventory.source.md`
 - Future bundled Python runtime files
 - Future dependency license scanner output
 
@@ -247,6 +248,9 @@ Required future review:
 - Confirm Python runtime license and bundled standard-library notices.
 - Generate dependency license inventory from the resolved lockfile used for the
   package.
+- Use the bundled Python dependency inventory source as review starting
+  material only; confirm all license names and source artifacts from selected
+  package inputs.
 - Include runtime native library notices when applicable.
 - Keep dev-only dependencies out of beginner runtime notices unless they are
   actually bundled.
@@ -525,8 +529,42 @@ implement WebView2, add installer behavior, change package or lock files,
 change dependencies, run package manager operations, or approve a notice
 generator.
 
+Y-06U added the bundled Python dependency inventory source candidate:
+
+- Source:
+  `docs/llmwiki/package-notices/bundled-python-dependency-inventory.source.md`
+- Future generated inventory output:
+  `動画保存ツール_ローカル専用/開発者向け/inventory/bundled-python-dependency-inventory.json`
+- Future generated inventory Markdown candidate:
+  `動画保存ツール_ローカル専用/開発者向け/inventory/bundled-python-dependency-inventory.md`
+- Future notice output candidate:
+  `動画保存ツール_ローカル専用/開発者向け/notices/python-deps-notice.txt`
+- Future license directory candidate:
+  `動画保存ツール_ローカル専用/開発者向け/licenses/third-party/python-dependencies/`
+- Status: draft source material only; not final legal advice.
+
+Coverage:
+
+- Read-only dependency source files inspected: `pyproject.toml` and `uv.lock`
+  present; Poetry, requirements, setup, Pipenv, Conda environment,
+  constraints, tox, and nox dependency source files not present.
+- Runtime dependency candidates with lockfile version candidates.
+- Developer-only dependency candidates with lockfile version candidates.
+- Optional / indirect dependency candidates from the runtime graph and selected
+  `yt-dlp` extras.
+- Candidate package URL shape, manifest fields, license review checklist,
+  notice bundle review checklist, legal-not-final boundary, and future
+  generated inventory requirements.
+- License values remain `needs_verification` except the existing yt-dlp source
+  draft candidate, which still requires recheck before package generation.
+
+The source does not copy full license text, generate notice files, generate a
+license bundle, generate inventory output, create package files, change package
+or lock files, change dependencies, run package manager operations, run
+dependency install/update/audit/build/package commands, or approve a notice
+generator.
+
 ## Next PR Candidate
 
-Select the next source-only notice or inventory candidate explicitly, such as
-bundled Python dependency inventory or another explicitly selected package
-notice gap.
+Select the next source-only notice or inventory candidate explicitly for
+another package notice gap.

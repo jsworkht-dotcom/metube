@@ -327,6 +327,26 @@ MeTube. The canonical branch is fork `master`, and local `master` tracks
   notarization behavior, change package or lock files, change dependencies, run
   package manager operations, change backend/frontend/Docker/CI/package files,
   or implement 更新適用機能.
+- Y-06U bundled Python dependency inventory source draft is documented at
+  `docs/llmwiki/package-notices/bundled-python-dependency-inventory.source.md`.
+- Y-06U outcome: the bundled Python/backend dependency inventory source
+  candidate is source-only, sanitized, and review-oriented for future
+  `動画保存ツール_ローカル専用/開発者向け/inventory/bundled-python-dependency-inventory.json`
+  and related Python dependency notice / license review output.
+- Y-06U covers read-only dependency source files inspected, runtime dependency
+  candidates, developer-only dependency candidates, optional / indirect
+  dependency candidates, manifest candidate fields, license review checklist,
+  notice bundle review checklist, legal-not-final boundary, and future
+  generated inventory requirements.
+- Y-06U records `pyproject.toml` and `uv.lock` as present local dependency
+  sources; records Poetry, requirements, setup, Pipenv, Conda environment,
+  constraints, tox, and nox dependency source files as not present.
+- Y-06U does not create generated inventory files, actual notice files, copy
+  license text, generate notice bundles, create generated package folders,
+  change package or lock files, change dependencies, run package manager
+  operations, run dependency install/update/audit/build/package commands,
+  change backend/frontend/Docker/CI/package files, handle cookie/token/secret
+  values, touch PR #1001 files, or implement 更新適用機能.
 - Y-CHECK-01 safety gate checker design is documented at
   `docs/llmwiki/safety-gate-checker-design.md`.
 - Y-CHECK-01 outcome: the future checker should evaluate repository diffs for
@@ -365,8 +385,7 @@ MeTube. The canonical branch is fork `master`, and local `master` tracks
 Use `scripts/check_repo_safety.py` before the next low- or medium-risk fork PR.
 
 The next package-material candidate should be selected explicitly from
-remaining source-only notice or inventory work, such as bundled Python
-dependency inventory or another explicitly selected package notice gap.
+remaining source-only notice or inventory work for another package notice gap.
 
 Do not create generated guide outputs, copy license text, create the generated
 package folder, copy package files, implement actual package generation, add
