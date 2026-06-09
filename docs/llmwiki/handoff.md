@@ -295,6 +295,22 @@ MeTube. The canonical branch is fork `master`, and local `master` tracks
   a runtime artifact, add PyInstaller spec files, add Tauri/Electron/WebView2,
   change backend/frontend/Docker/CI/package/lockfile files, or implement
   更新適用機能.
+- Y-06S frontend dependency notice source draft is documented at
+  `docs/llmwiki/package-notices/frontend-deps-notice.source.md`.
+- Y-06S outcome: the frontend dependency notice source candidate is
+  source-only, sanitized, and review-oriented for a future
+  `動画保存ツール_ローカル専用/開発者向け/notices/frontend-deps-notice.txt`.
+- Y-06S covers read-only local candidate sources from `ui/package.json` and
+  `ui/pnpm-lock.yaml`, frontend runtime dependency candidates,
+  developer/build-tool dependency candidates, package / lockfile review
+  candidates, beginner-facing notice copy, developer notice draft, manifest
+  candidate fields, future generated notice-bundle requirements, and review
+  checklist items.
+- Y-06S does not create actual notice files, copy license text, generate notice
+  bundles, create generated package folders, build frontend assets, change
+  package or lock files, change dependencies, run package manager operations,
+  add Tauri/Electron/WebView2, change backend/frontend/Docker/CI/package files,
+  or implement 更新適用機能.
 - Y-CHECK-01 safety gate checker design is documented at
   `docs/llmwiki/safety-gate-checker-design.md`.
 - Y-CHECK-01 outcome: the future checker should evaluate repository diffs for
@@ -333,8 +349,8 @@ MeTube. The canonical branch is fork `master`, and local `master` tracks
 Use `scripts/check_repo_safety.py` before the next low- or medium-risk fork PR.
 
 The next package-material candidate should be selected explicitly from
-remaining source-only notice or inventory work, such as frontend dependency
-notices, bundled Python dependency inventory, or desktop shell runtime pieces.
+remaining source-only notice or inventory work, such as bundled Python
+dependency inventory or desktop shell runtime pieces.
 
 Do not create generated guide outputs, copy license text, create the generated
 package folder, copy package files, implement actual package generation, add

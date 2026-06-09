@@ -926,6 +926,38 @@ Rules:
   Tauri/Electron implementation, backend/frontend/Docker/CI changes,
   package/lockfile changes, dependency install/update, or 更新適用機能.
 
+## Y-06S Frontend Dependency Notice Source
+
+Y-06S adds the frontend dependency notice source candidate:
+
+```text
+docs/llmwiki/package-notices/frontend-deps-notice.source.md
+```
+
+This source is intended for future generated package paths:
+
+```text
+動画保存ツール_ローカル専用/開発者向け/notices/frontend-deps-notice.txt
+動画保存ツール_ローカル専用/開発者向け/notices/frontend-notices.txt
+動画保存ツール_ローカル専用/開発者向け/licenses/third-party/frontend/
+```
+
+Rules:
+
+- The source remains Markdown planning/source material only.
+- The dry-run may treat this file as frontend dependency notice source material
+  after the warning contract is updated in a later approved script task.
+- This does not copy full license text.
+- This does not create actual notice files.
+- This does not create `動画保存ツール_ローカル専用/`.
+- This does not generate frontend build artifacts.
+- This does not change package or lock files.
+- This does not change dependencies or run package manager operations.
+- This does not approve notice bundle generation, selected frontend dependency
+  inventory approval, guide generation, package generation, Tauri/Electron
+  implementation, backend/frontend/Docker/CI changes, package/lockfile changes,
+  dependency changes, or 更新適用機能.
+
 ## Y-CHECK-01 Repository Safety Gate Relationship
 
 Y-CHECK-01 is documented in:

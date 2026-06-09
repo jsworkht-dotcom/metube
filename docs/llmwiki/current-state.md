@@ -770,7 +770,46 @@
   - installer
   - signing or notarization
   - backend/frontend/Docker/CI/package/lockfile changes
-  - update apply
+  - 更新適用機能
+
+### Y-06S frontend dependency notice source draft
+
+- Scope: source-only frontend dependency notice draft and minimal LLMwiki sync.
+- Source draft:
+  `docs/llmwiki/package-notices/frontend-deps-notice.source.md`
+- Outcome:
+  - Added the frontend dependency notice source candidate for future
+    `動画保存ツール_ローカル専用/開発者向け/notices/frontend-deps-notice.txt`.
+  - Kept the draft as Markdown source material only, not a generated notice
+    file, notice bundle, frontend build artifact, package output, or legal
+    conclusion.
+  - Recorded read-only local candidate sources from `ui/package.json` and
+    `ui/pnpm-lock.yaml`.
+  - Recorded direct runtime dependency candidates, developer/build-tool
+    candidates, lockfile review candidates, package placement candidates,
+    beginner-facing notice copy, developer-facing notice draft, manifest fields,
+    future generated notice-bundle requirements, and review checklist items.
+  - Preserved exact license and bundled dependency classification for a later
+    package generation / license review task.
+- Not implemented:
+  - generated distribution folder
+  - actual notice files
+  - actual license bundle
+  - generated dependency license inventory
+  - frontend build artifact manifest
+  - package or lockfile changes
+  - dependency changes
+  - package manager operations
+  - HTML/TXT package guide output
+  - package build, copy, zip, or generator behavior
+  - Tauri
+  - Electron
+  - WebView2
+  - desktop packaging
+  - installer
+  - signing or notarization
+  - backend/frontend/Docker/CI/package/lockfile changes
+  - 更新適用機能
 
 ### Y-CHECK-01 safety gate checker design
 
@@ -841,11 +880,11 @@
 Use `scripts/check_repo_safety.py` as a local report-only check before the next
 low- or medium-risk fork PR.
 
-The previous package-material next step is complete through Y-06R.
+The previous package-material next step is complete through Y-06S.
 
 The next package-material candidate is a separate source-only notice or
-inventory draft for frontend dependencies, bundled Python dependencies, or
-desktop shell runtime pieces after an explicit task selects one.
+inventory draft for bundled Python dependencies or desktop shell runtime pieces
+after an explicit task selects one.
 
 Next scope:
 
