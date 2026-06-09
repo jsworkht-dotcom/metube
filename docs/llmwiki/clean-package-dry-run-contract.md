@@ -837,10 +837,38 @@ Rules:
   generation, Tauri/Electron implementation, backend/frontend/Docker/CI
   changes, package/lockfile changes, or update apply.
 
+## Y-CHECK-01 Repository Safety Gate Relationship
+
+Y-CHECK-01 is documented in:
+
+```text
+docs/llmwiki/safety-gate-checker-design.md
+```
+
+Relationship:
+
+- The clean-package dry-run remains package-focused and plans future package
+  output without creating files.
+- The Y-CHECK-01 gate is repository-diff-focused and checks whether a task stays
+  inside its approved scope.
+- Both designs share forbidden path, secret-like pattern, generated package
+  folder, PR #1001 leakage, and package guide / notice completeness concepts.
+- Package guide / notice completeness should remain warning-only in the
+  repository gate unless a task attempts actual package generation.
+
+Y-CHECK-01 does not implement a checker, add scripts, change CI, generate a
+package, create `動画保存ツール_ローカル専用/`, change backend/frontend/Docker/CI
+files, change package/lockfile files, implement update execution, or handle
+cookie/token/secret values.
+
 ## Next Implementation Candidate
 
-Draft the next notice source under `docs/llmwiki/package-notices/` after
-reviewing the updated warning output.
+Review the Y-CHECK-01 safety gate checker design before deciding whether to
+implement a local report-only repository safety checker.
+
+The previous package-material next candidate remains available: draft the next
+notice source under `docs/llmwiki/package-notices/` after reviewing the updated
+warning output.
 
 Actual clean-package generation should wait until after repeated successful
 dry-run reports and a later explicit generation task.

@@ -2,6 +2,16 @@
 
 ## Immediate Next
 
+### Review Y-CHECK-01 safety gate checker design
+
+- Review `docs/llmwiki/safety-gate-checker-design.md`.
+- Decide whether the next approved task should implement a local report-only
+  repository safety checker.
+- Keep any implementation separate from package generation, update execution,
+  dependency install/update, Docker pull, backend/frontend/Docker/CI changes,
+  package/lockfile changes, generated distribution folders, and
+  cookie/token/secret handling.
+
 ### Draft yt-dlp notice source
 
 - Draft `docs/llmwiki/package-notices/yt-dlp-notice.source.md` as the next
@@ -12,6 +22,27 @@
 - Do not create `動画保存ツール_ローカル専用/`, copy files, build packages, install
   dependencies, add Tauri/Electron/WebView2, change backend/frontend/Docker/CI,
   or change package/lockfile files.
+
+## Y-CHECK-01 Safety Gate Checker Design Outcome
+
+- Design document:
+  `docs/llmwiki/safety-gate-checker-design.md`
+- Defined a future repository safety checker and automation gate for low- and
+  medium-risk Codex work.
+- Designed checks for:
+  - changed files scope
+  - forbidden paths
+  - secret-like pattern families without printing matched values
+  - generated `動画保存ツール_ローカル専用/` folder presence
+  - upstream PR #1001 file leakage
+  - dangerous behavior
+  - update execution
+  - package guide / notice completeness warnings
+  - LLMwiki consistency
+  - PR safety gate summary
+- The design is docs-only and does not add scripts, CI, package generation,
+  update execution, generated distribution folders, backend/frontend/Docker/CI
+  changes, package/lockfile changes, or credential handling.
 
 ## Y-06O MeTube Notice Source Outcome
 

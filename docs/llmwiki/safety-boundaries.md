@@ -92,6 +92,26 @@ Do not read, paste, store, transform, or document real credential values. If cre
 or private values appear in a chat or file, stop and separate the issue as requiring
 verification and redaction.
 
+## Repository Safety Gate Boundary
+
+The Y-CHECK-01 safety gate checker design is tracked in
+`docs/llmwiki/safety-gate-checker-design.md`. The design does not approve
+implementation.
+
+A future repository safety checker may report on changed-file scope, forbidden
+paths, secret-like pattern families, generated distribution folder presence, PR
+#1001 file leakage, dangerous behavior, update execution, package guide /
+notice completeness warnings, LLMwiki consistency, and PR safety summary fields.
+
+The checker must remain report-only until a later task explicitly approves an
+implementation stage. It must not create files, modify the repository, change
+CI, install dependencies, run Docker pull, generate packages, apply updates,
+send external notifications, or print secret/cookie/token values.
+
+The checker must not weaken existing human approval gates for destructive,
+credential, deployment, infrastructure, install/update, push, merge, release, or
+customer-data actions.
+
 ## Dockerless Desktop Distribution Boundary
 
 Y-06 desktop work may discuss Dockerless desktop distribution for Windows and

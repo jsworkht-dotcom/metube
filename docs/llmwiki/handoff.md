@@ -19,9 +19,10 @@ MeTube. The canonical branch is fork `master`, and local `master` tracks
 9. `docs/llmwiki/desktop-package-manifest.md`
 10. `docs/llmwiki/beginner-guide-skeleton.md`
 11. `docs/llmwiki/clean-package-dry-run-contract.md`
-12. `docs/llmwiki/beginner-guide-source-plan.md`
-13. `docs/llmwiki/license-notice-plan.md`
-14. `docs/llmwiki/codex-gh-auth-runbook.md` if GitHub CLI auth, PR creation,
+12. `docs/llmwiki/safety-gate-checker-design.md`
+13. `docs/llmwiki/beginner-guide-source-plan.md`
+14. `docs/llmwiki/license-notice-plan.md`
+15. `docs/llmwiki/codex-gh-auth-runbook.md` if GitHub CLI auth, PR creation,
    checks, or merge commands fail inside Codex
 
 ## Key Points For Codex
@@ -248,6 +249,17 @@ MeTube. The canonical branch is fork `master`, and local `master` tracks
   bundles, create generated package folders, add Tauri/Electron/WebView2,
   change backend/frontend/Docker/CI/package/lockfile files, or implement update
   apply.
+- Y-CHECK-01 safety gate checker design is documented at
+  `docs/llmwiki/safety-gate-checker-design.md`.
+- Y-CHECK-01 outcome: the future checker should evaluate repository diffs for
+  changed-file scope, forbidden paths, secret-like pattern families, generated
+  distribution folder presence, upstream PR #1001 file leakage, dangerous
+  behavior, update execution, package guide / notice completeness warnings,
+  LLMwiki consistency, and a sanitized PR safety summary.
+- Y-CHECK-01 is docs-only. It does not implement a checker script, automation
+  gate, CI integration, PR bot/comment automation, package generation, generated
+  distribution folder, backend/frontend/Docker/CI/package/lockfile changes,
+  update execution, or cookie/token/secret handling.
 - GitHub CLI auth note: in this Windows Codex desktop environment, sandboxed
   `gh auth status` may report an invalid `default` token while escalated
   `gh auth status` succeeds through `keyring`. Root cause is sandbox access to
@@ -257,9 +269,15 @@ MeTube. The canonical branch is fork `master`, and local `master` tracks
 
 ## Next Step
 
-Draft `docs/llmwiki/package-notices/yt-dlp-notice.source.md` as the next notice
+Review `docs/llmwiki/safety-gate-checker-design.md` and decide whether to
+implement a local report-only checker in a later explicitly approved task.
+
+The previous package-material next step remains available after that review:
+draft `docs/llmwiki/package-notices/yt-dlp-notice.source.md` as the next notice
 source candidate for future clean-package notice review.
+
 Do not create generated guide outputs, copy license text, create the generated
 package folder, copy package files, implement actual package generation, add
 Tauri/Electron/WebView2, run builds, install dependencies, change
-backend/frontend/Docker/CI files, or change package/lockfile files yet.
+backend/frontend/Docker/CI files, change package/lockfile files, implement
+update execution, or handle cookie/token/secret values yet.

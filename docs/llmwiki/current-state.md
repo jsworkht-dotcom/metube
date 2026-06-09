@@ -666,13 +666,48 @@
   - backend/frontend/Docker/CI/package/lockfile changes
   - update apply
 
+### Y-CHECK-01 safety gate checker design
+
+- Scope: docs-only design for a future repository safety checker and automation
+  gate.
+- Design document:
+  `docs/llmwiki/safety-gate-checker-design.md`
+- Outcome:
+  - Defined a future diff-oriented safety gate for low- and medium-risk Codex
+    work.
+  - Covered changed files scope, forbidden paths, secret-like pattern handling,
+    generated distribution folder detection, PR #1001 leakage, dangerous
+    behavior, update execution, package guide / notice completeness warnings,
+    LLMwiki consistency, and PR safety summary output.
+  - Kept reports sanitized: paths, line numbers, and pattern families only for
+    secret-like findings.
+  - Positioned package guide / notice completeness as warning-only unless actual
+    package generation is attempted.
+  - Clarified that the gate does not override human approval requirements for
+    destructive, credential, deployment, install/update, push, merge, or release
+    actions.
+- Not implemented:
+  - repo safety checker script
+  - automation gate implementation
+  - CI integration
+  - PR bot/comment automation
+  - generated distribution folder
+  - package generation
+  - backend/frontend/Docker/CI/package/lockfile changes
+  - update execution
+  - cookie/token/secret handling
+
 ## Current Next Step
 
-Draft the next notice source:
-`docs/llmwiki/package-notices/yt-dlp-notice.source.md`.
+Review the Y-CHECK-01 safety gate checker design and decide whether to implement
+the first report-only local checker in a later explicitly approved task.
+
+The previous package-material next step remains available after that review:
+draft `docs/llmwiki/package-notices/yt-dlp-notice.source.md`.
 
 Next scope:
 
+- Keep any Y-CHECK implementation report-only until explicitly approved.
 - Keep notice material source-only, sanitized, and review-oriented.
 - Keep guide and notice files as source material only; do not generate package
   outputs.
