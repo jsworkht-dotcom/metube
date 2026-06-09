@@ -922,6 +922,48 @@
   - PR #1001 file changes
   - 更新適用機能
 
+### Y-06W clean package generator contract addendum
+
+- Scope: docs-only / no-generation contract addendum for future clean package
+  generator dry-run and preview behavior.
+- Addendum:
+  `docs/llmwiki/clean-package-generator-contract-addendum.md`
+- Read-only sources checked:
+  - `docs/llmwiki/package-notices/notice-source-index.source.md`
+  - `docs/llmwiki/clean-package-dry-run-contract.md`
+  - `docs/llmwiki/license-notice-plan.md`
+  - `docs/llmwiki/codex-automation-policy.md`
+  - `docs/llmwiki/safety-boundaries.md`
+  - `scripts/clean_package_dry_run.py`
+  - `scripts/check_repo_safety.py`
+- Outcome:
+  - Treats the Y-06V notice source index as a future generator input candidate
+    for dry-run / preview review.
+  - Defines future output mapping checks for `NOTICE.txt`, `LICENSES/`,
+    `manifest.json`, beginner guide notice sections, and developer review
+    checklist items.
+  - Defines no-generation boundary, generated artifact exclusion,
+    cookie/token/secret value non-disclosure, package output before/after diff
+    prediction candidate, package manifest preview candidate, cleanup /
+    rollback candidate, and human review gate before actual generation.
+  - Clarifies High-low / High-mid / High-high boundaries and future
+    implementation phases.
+- Not implemented:
+  - generated distribution folder
+  - generated notice bundle
+  - generated license bundle
+  - generated dependency inventory files
+  - generated manifest files
+  - HTML/TXT package guide output
+  - package generation
+  - build/package/install commands
+  - dependency changes
+  - package/lockfile changes
+  - backend/frontend/Docker/CI changes
+  - cookie/token/secret handling
+  - PR #1001 file changes
+  - 更新適用機能
+
 ### Y-CHECK-01 safety gate checker design
 
 - Scope: docs-only design for a future repository safety checker and automation
@@ -1123,10 +1165,13 @@ Use `scripts/check_repo_safety.py` and `scripts/clean_package_dry_run.py` as
 local report-only gates before the next low-, medium-, or qualifying
 high-low-risk fork PR.
 
-The previous package-material next step is complete through Y-06V.
+The previous package-material next step is complete through Y-06W.
 
-The next package-material candidate is a separate source-only notice or
-inventory draft for another explicitly selected package notice gap.
+The next package-material candidate should be selected explicitly. A good next
+candidate is a report-only clean-package dry-run preview enhancement for notice
+source index presence, package manifest preview, or package output diff
+prediction. Another source-only notice or inventory draft is also acceptable if
+a remaining package notice gap is selected first.
 
 Next scope:
 
@@ -1135,6 +1180,8 @@ Next scope:
 - Keep notice material source-only, sanitized, and review-oriented.
 - Keep guide and notice files as source material only; do not generate package
   outputs.
+- Keep clean-package preview work report-only / dry-run-only until actual
+  generation is explicitly approved.
 - Keep Tauri/Electron implementation, packaging, installer, signing, updater,
   backend changes, frontend changes, Docker changes, CI changes, package
   changes, and lockfile changes out of scope unless explicitly approved later.

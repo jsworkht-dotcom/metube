@@ -20,10 +20,11 @@ MeTube. The canonical branch is fork `master`, and local `master` tracks
 10. `docs/llmwiki/desktop-package-manifest.md`
 11. `docs/llmwiki/beginner-guide-skeleton.md`
 12. `docs/llmwiki/clean-package-dry-run-contract.md`
-13. `docs/llmwiki/safety-gate-checker-design.md`
-14. `docs/llmwiki/beginner-guide-source-plan.md`
-15. `docs/llmwiki/license-notice-plan.md`
-16. `docs/llmwiki/codex-gh-auth-runbook.md` if GitHub CLI auth, PR creation,
+13. `docs/llmwiki/clean-package-generator-contract-addendum.md`
+14. `docs/llmwiki/safety-gate-checker-design.md`
+15. `docs/llmwiki/beginner-guide-source-plan.md`
+16. `docs/llmwiki/license-notice-plan.md`
+17. `docs/llmwiki/codex-gh-auth-runbook.md` if GitHub CLI auth, PR creation,
    checks, or merge commands fail inside Codex
 
 ## Key Points For Codex
@@ -392,6 +393,21 @@ MeTube. The canonical branch is fork `master`, and local `master` tracks
   install/update/audit/build/package commands, change
   backend/frontend/Docker/CI/package files, handle cookie/token/secret values,
   touch PR #1001 files, or implement 更新適用機能.
+- Y-06W clean package generator contract addendum is documented at
+  `docs/llmwiki/clean-package-generator-contract-addendum.md`.
+- Y-06W outcome: the notice source index is defined as a future generator input
+  candidate for dry-run / preview review across `NOTICE.txt`, `LICENSES/`,
+  `manifest.json`, beginner guide notice sections, and developer review
+  checklist items.
+- Y-06W also defines no-generation boundaries, generated artifact exclusion,
+  cookie/token/secret value non-disclosure, output diff prediction candidates,
+  package manifest preview candidates, cleanup / rollback candidates, human
+  review gates, risk boundaries, and future implementation phases.
+- Y-06W does not create generated package folders, notice bundles, license
+  bundles, inventory files, manifest files, HTML/TXT guide output, build /
+  package / install behavior, dependency changes, package/lockfile changes,
+  backend/frontend/Docker/CI changes, cookie/token/secret handling, PR #1001
+  file changes, or 更新適用機能.
 - Y-CHECK-01 safety gate checker design is documented at
   `docs/llmwiki/safety-gate-checker-design.md`.
 - Y-CHECK-01 outcome: the future checker should evaluate repository diffs for
@@ -459,8 +475,9 @@ Run `scripts/check_repo_safety.py`,
 `scripts/clean_package_dry_run.py` before the next low-, medium-, or qualifying
 high-low-risk fork PR.
 
-The next package-material candidate should be selected explicitly from
-remaining source-only notice or inventory work for another package notice gap.
+The next package-material candidate should be selected explicitly. A good next
+candidate is a report-only dry-run preview enhancement based on the Y-06W
+addendum, or another source-only notice / inventory gap if one is selected.
 
 Do not create generated guide outputs, copy license text, create the generated
 package folder, copy package files, implement actual package generation, add

@@ -604,7 +604,39 @@ package files, change package or lock files, change dependencies, run package
 manager operations, run dependency install/update/audit/build/package commands,
 or approve a notice generator.
 
+Y-06W added the clean package generator contract addendum:
+
+- Source:
+  `docs/llmwiki/clean-package-generator-contract-addendum.md`
+- Future role: dry-run / preview contract for using the notice source index and
+  source drafts as generator input candidates.
+- Future output mapping covered by the addendum:
+  `NOTICE.txt`, `LICENSES/`, `manifest.json`, beginner guide notice sections,
+  and developer review checklist items.
+- Status: docs-only contract addendum; not generated output; not final legal
+  advice.
+
+Coverage:
+
+- Dry-run / preview checks for notice source index presence, source draft
+  presence, manifest field completeness, OS-specific runtime notice
+  differences, output diff prediction, manifest preview, cleanup / rollback
+  candidates, and human review gates.
+- Generated artifact exclusion rules and non-disclosure rules for real
+  cookie/token/secret/credential values.
+- High-low / High-mid / High-high boundaries for future package generation
+  work.
+- Future implementation phases that start with report-only preview fields and
+  keep actual generation behind later explicit human approval.
+
+The addendum does not copy license text, generate notice files, generate a
+license bundle, generate inventory output, generate manifest output, create
+package files, change package or lock files, change dependencies, run package
+manager operations, run dependency install/update/audit/build/package commands,
+or approve a notice generator.
+
 ## Next PR Candidate
 
-Select the next source-only notice or inventory candidate explicitly for
-another package notice gap.
+Select a report-only dry-run preview enhancement explicitly, or select another
+source-only notice / inventory candidate if a remaining package notice gap is
+identified.
