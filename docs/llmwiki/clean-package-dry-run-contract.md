@@ -1023,6 +1023,44 @@ Rules:
   backend/frontend/Docker/CI changes, package/lockfile changes, dependency
   changes, or 更新適用機能.
 
+## Y-06V Notice Source Index
+
+Y-06V adds the notice source index candidate:
+
+```text
+docs/llmwiki/package-notices/notice-source-index.source.md
+```
+
+This source is intended for future package review mapping across:
+
+```text
+動画保存ツール_ローカル専用/開発者向け/notices/NOTICE.txt
+動画保存ツール_ローカル専用/開発者向け/notices/third-party-notices.txt
+動画保存ツール_ローカル専用/開発者向け/licenses/
+動画保存ツール_ローカル専用/開発者向け/manifest/license-notice-manifest.json
+動画保存ツール_ローカル専用/開発者向け/inventory/
+```
+
+Rules:
+
+- The source remains Markdown planning/source material only.
+- The dry-run may treat this file as satisfying a planned future notice source
+  index candidate warning.
+- This does not copy full license text.
+- This does not create generated notice bundle files.
+- This does not create generated license bundle files.
+- This does not create generated dependency inventory files.
+- This does not create generated manifest files.
+- This does not create actual HTML/TXT guide output.
+- This does not create `動画保存ツール_ローカル専用/`.
+- This does not install, update, audit, build, package, or bundle
+  dependencies.
+- This does not change package or lock files.
+- This does not approve notice bundle generation, license bundle generation,
+  selected dependency inventory approval, guide generation, package
+  generation, backend/frontend/Docker/CI changes, package/lockfile changes,
+  dependency changes, or 更新適用機能.
+
 ## Y-CHECK-01 Repository Safety Gate Relationship
 
 Y-CHECK-01 is documented in:
