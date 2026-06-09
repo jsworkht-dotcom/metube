@@ -5,9 +5,11 @@
 Y-AUTO-01 defines the automation expansion policy for Codex work in this
 local-only fork.
 
-The goal is to let Codex continue safely through low-risk, medium-risk, and
-qualifying high-low-risk work, including fork PR creation and fork squash merge
-when all gates pass.
+The goal is to let Codex continue safely through low-risk, medium-risk,
+qualifying high-low-risk work, and high-mid PR-ready work. Low, Medium, and
+qualifying High-low may allow fork PR creation and fork squash merge when all
+gates pass. High-mid may allow implementation, verification, PR creation, and
+Ready-for-review handoff, but auto merge remains prohibited.
 
 This policy is documentation only. It does not create package outputs, build
 artifacts, installers, generated guide files, notice bundles, backend changes,
@@ -83,7 +85,7 @@ Needs verification on each run:
 
 Allowed examples:
 
-- `docs/llmwiki/` documentation.
+- `docs/llmwiki/` documentation and source-only planning.
 - Notice source material.
 - Guide source material.
 - Inventory source material.
@@ -93,7 +95,7 @@ Automation result:
 
 - Auto PR is OK.
 - Auto merge is OK.
-- Required gates must still pass for the current task.
+- Safety gates are required for the current task.
 
 ### 2. Medium
 
@@ -109,6 +111,8 @@ Automation result:
 
 - Auto PR is OK.
 - Auto merge is OK if safety gates pass.
+- `py_compile` or equivalent task-appropriate verification is required for
+  changed scripts.
 - The diff must not include backend risky behavior, package output, dependency
   changes, generated distribution folders, credential handling, public hosting,
   ads, or PR #1001 file leakage.
@@ -165,22 +169,90 @@ Definition:
 
 - Work that approaches real generation or real implementation but can still be
   kept as a prototype or limited implementation.
+- Codex may implement, verify, create a PR, and mark the PR ready for review
+  when the task explicitly approves the high-mid scope.
+- Auto merge is prohibited.
+- Merge is allowed only after human confirmation.
 
 Examples:
 
 - Real distribution folder generation script.
 - `NOTICE.txt` or `LICENSES` real generation script.
 - Package manifest real generation script.
-- Tauri or Electron scaffold.
+- Tauri, Electron, or WebView2 scaffold.
 - Local launcher wrapper prototype.
-- Stop/exit UI implementation.
+- Backend sidecar lifecycle prototype.
 - Save-folder or open-folder UI implementation.
+- Stop/exit UI implementation.
+- Close confirmation or safe-close UI implementation.
+- Package output staging logic.
+- Generated artifact cleanup script.
+- OS-specific launcher-adjacent script.
 
 Automation result:
 
-- Codex may work and create a PR when the task explicitly approves the scope.
+- Codex may work, verify, create a PR, and mark it ready for review when the
+  task explicitly approves the scope.
 - Auto merge is prohibited.
+- PRs must clearly state `human-review-required`.
+- PR bodies must explain why the work is High-mid, what was not performed,
+  rollback/cleanup candidates, and remaining risk.
 - Human review is required before merge.
+
+High-mid mandatory conditions:
+
+- Auto merge is prohibited.
+- Package or lockfile changes must be treated as High-high-leaning and stopped
+  unless a later explicit human approval changes the scope.
+- Dependency install/update requirements must stop the task.
+- Docker pull/build is prohibited and must stop the task.
+- Backend download, queue, subscription, extractor, or yt-dlp logic changes must
+  stop the task.
+- Cookie/token/secret handling must stop the task.
+- Public hosting or ads must stop the task.
+- Even when adding a real generation script, the PR must not generate a real
+  distribution folder, ZIP, package, or installer.
+- Verification that creates generated artifacts is prohibited by default. If it
+  is necessary, move it to a separate human-approved step.
+- Checker, dry-run, tests, `py_compile`, or equivalent task-appropriate
+  verification are required.
+
+High-mid PR body template:
+
+```md
+## Risk tier
+High-mid
+
+## Automation decision
+PR-ready only. Auto merge is disabled. Human review is required before merge.
+
+## Why High-mid
+- <reason>
+
+## Explicitly not performed
+- no generated distribution folder
+- no zip/installer/package output
+- no dependency install/update
+- no package/lockfile changes
+- no Docker pull/build
+- no backend download/yt-dlp/extractor changes
+- no cookie/token/secret handling
+- no public hosting or ads
+
+## Verification
+- `git diff --check`
+- `python scripts/check_repo_safety.py`
+- `python scripts/check_repo_safety.py --base fork/master`
+- `python scripts/clean_package_dry_run.py`
+- additional tests/checks as applicable
+
+## Human review checklist
+- scope is acceptable
+- no generated artifacts are committed
+- rollback/cleanup path is clear
+- license/notice implications are understood
+- merge is intentionally approved
+```
 
 ### 5. High-high
 
@@ -233,6 +305,8 @@ Before auto merge:
 - Confirm the PR changed-file list still matches the approved risk level.
 - Confirm the PR body or final report includes a sanitized safety summary.
 - For high-low work, re-confirm all high-low mandatory conditions.
+- For high-mid work, do not auto merge. Stop after PR-ready handoff and wait for
+  human review.
 
 ## Stop Conditions
 

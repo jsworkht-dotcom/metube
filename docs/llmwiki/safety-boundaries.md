@@ -133,8 +133,17 @@ in high-low auto-merge work. Backend download or queue logic changes, yt-dlp
 logic changes, cookie/token/secret handling, public hosting, and ads are also
 prohibited.
 
-High-mid work may be done and opened as a PR only after an explicit task
-approves the scope. Auto merge is prohibited and human review is required.
+High-mid work may be implemented, verified, opened as a PR, and marked ready for
+review only after an explicit task approves the scope. Auto merge is prohibited,
+the PR must state `human-review-required`, and merge is allowed only after human
+confirmation.
+
+High-mid work must stop instead of proceeding if it requires package/lockfile
+changes or dependency install/update. Docker pull/build is prohibited and must
+stop the task. Backend download or queue logic changes, yt-dlp or extractor
+changes, cookie/token/secret handling, public hosting, ads, real distribution
+output, ZIP/package/installer output, or generated artifacts created during
+verification without separate human approval must also stop the task.
 
 High-high work is automatic-execution prohibited. Codex must stop before
 implementation and request explicit human confirmation.
