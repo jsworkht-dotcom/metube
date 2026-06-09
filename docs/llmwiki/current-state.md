@@ -1050,6 +1050,36 @@
   - public hosting or ads
   - 更新適用機能
 
+### Y-AUTO-03 High-mid PR-ready automation policy
+
+- Scope: docs-only policy expansion for High-mid Codex work.
+- Policy document:
+  `docs/llmwiki/codex-automation-policy.md`
+- Outcome:
+  - Clarified that Low, Medium, and qualifying High-low work may still use auto
+    PR / auto merge when gates pass.
+  - Clarified that High-mid work may proceed through Codex implementation,
+    verification, PR creation, and Ready-for-review handoff when the task
+    explicitly approves the High-mid scope.
+  - Kept High-mid auto merge prohibited.
+  - Required High-mid PRs to state `human-review-required`.
+  - Required High-mid PR bodies to explain why the work is High-mid, what was
+    not performed, rollback/cleanup candidates, and remaining risk.
+  - Added a High-mid PR body template.
+  - Reconfirmed that High-high work must stop before implementation without
+    explicit human confirmation.
+- Not implemented:
+  - generated distribution folder
+  - generated guide, notice, manifest, ZIP, package, or installer output
+  - build/package/install commands
+  - dependency changes
+  - package/lockfile changes
+  - backend/frontend/Docker/CI changes
+  - cookie/token/secret handling
+  - PR #1001 file changes
+  - public hosting or ads
+  - 更新適用機能
+
 ## Current Next Step
 
 Use the `Risk classification` section from `scripts/check_repo_safety.py` as the

@@ -420,11 +420,21 @@ The section contains `tier`, `automation`, and `reason` so PR summaries can
 distinguish auto-merge-eligible work from human-merge or stop-before-PR work.
 This does not change the existing `Status: OK` / `Status: BLOCKED` gate.
 
-High-mid and high-high work remain outside auto merge. If a diff includes real
-generation, implementation, or dependency install/update, auto merge is
-prohibited. Docker pull/build is prohibited for auto merge. Package/lockfile
-changes, backend risky behavior, credential handling, public hosting, or ads
-also require human review or a stop before implementation.
+High-mid and high-high work remain outside auto merge. High-mid work may proceed
+through implementation, verification, PR creation, and Ready-for-review handoff
+when the task explicitly approves the scope, but the PR must state
+`human-review-required` and wait for human merge approval.
+
+If a high-mid candidate requires package/lockfile changes, dependency
+install/update, backend download or queue logic changes, yt-dlp or extractor
+changes, credential handling, public hosting, ads, real distribution output,
+ZIP/package/installer output, or generated artifacts created during verification
+without separate human approval, the task must stop or be treated as
+High-high-leaning. Docker pull/build is prohibited and must stop the task.
+
+High-mid PR summaries should explain why the work is High-mid, what was not
+performed, rollback/cleanup candidates, and remaining risk. The checker remains
+report-only; it does not grant merge approval.
 
 ## Suggested Implementation Sequence
 

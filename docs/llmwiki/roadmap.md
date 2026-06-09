@@ -2,7 +2,7 @@
 
 ## Immediate Next
 
-### Use Y-AUTO-02 risk classification summary
+### Use Y-AUTO-03 High-mid PR-ready policy
 
 - Read the `Risk classification` section from
   `scripts/check_repo_safety.py` before auto PR or auto merge.
@@ -14,6 +14,10 @@
 - Run `scripts/clean_package_dry_run.py` for package-adjacent high-low work and
   for this local-only package planning stream.
 - Keep the scripts report-only / dry-run-only.
+- For High-mid work, allow Codex implementation, verification, PR creation, and
+  Ready-for-review handoff only when the task explicitly approves that scope.
+- For High-mid work, keep auto merge disabled and require human review before
+  merge.
 - Keep any automation wrapper, CI integration, PR comment automation, or JSON
   report mode as a later explicitly approved task.
 - Keep package generation, update execution, dependency install/update, Docker
@@ -33,6 +37,34 @@
 - Do not create `動画保存ツール_ローカル専用/`, copy files, build packages, install
   dependencies, add Tauri/Electron/WebView2, change backend/frontend/Docker/CI,
   or change package/lockfile files.
+
+## Y-AUTO-03 High-mid PR-Ready Policy Outcome
+
+- Policy document:
+  `docs/llmwiki/codex-automation-policy.md`
+- Clarified High-mid as PR-ready work:
+  - Codex may implement, verify, create a PR, and mark it ready for review when
+    the task explicitly approves the High-mid scope.
+  - Auto merge is prohibited.
+  - Merge is limited to human confirmation after review.
+  - High-mid PRs must state `human-review-required`.
+  - High-mid PR bodies must include why the work is High-mid, what was not
+    performed, rollback/cleanup candidates, remaining risk, and verification.
+- Added High-mid examples covering generation scripts, desktop scaffolds,
+  launcher prototypes, backend sidecar lifecycle prototypes, save/open folder
+  UI, stop/exit UI, close confirmation UI, package output staging logic,
+  generated artifact cleanup scripts, and OS-specific launcher-adjacent scripts.
+- Kept package/lockfile changes and dependency install/update as stop
+  conditions. Docker pull/build is prohibited and remains a stop condition.
+- Backend download/queue/yt-dlp/extractor changes, cookie/token/secret
+  handling, public hosting, ads, real distribution output, ZIP/package/installer
+  output, and generated artifacts from verification also remain stop conditions
+  unless separately human-approved.
+- This Y-AUTO-03 PR itself is docs-only and did not add generated distribution
+  folders, generated notice bundles, generated guide output, package output,
+  build/package/install commands, dependency changes, package/lockfile changes,
+  backend/frontend/Docker/CI changes, cookie/token/secret handling, public
+  hosting, ads, PR #1001 file changes, or 更新適用機能.
 
 ## Y-AUTO-02 Repo Safety Risk Classification Outcome
 

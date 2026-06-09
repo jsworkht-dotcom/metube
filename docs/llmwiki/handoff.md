@@ -41,8 +41,11 @@ MeTube. The canonical branch is fork `master`, and local `master` tracks
   and safety gates pass.
 - High-low work may use auto PR / auto merge only when it remains docs-only,
   report-only, or dry-run-only and all mandatory gates pass.
-- High-mid work may get a PR but auto merge is prohibited and human review is
-  required.
+- High-mid work may proceed through Codex implementation, verification, PR
+  creation, and Ready-for-review handoff only when the task explicitly approves
+  that scope.
+- High-mid auto merge is prohibited. High-mid PRs must state
+  `human-review-required`, and merge is allowed only after human confirmation.
 - High-high work must stop before implementation and request explicit human
   confirmation.
 - Y-AUTO-02 adds `Risk classification` to `scripts/check_repo_safety.py`.
@@ -414,6 +417,10 @@ MeTube. The canonical branch is fork `master`, and local `master` tracks
 - Y-AUTO-02 extends Y-CHECK-02 with report-only risk classification. For the
   checker enhancement itself, the report shows `tier: Medium` and
   `automation: auto-merge-ok`.
+- Y-AUTO-03 expands Codex execution scope to High-mid PR-ready work. It does not
+  allow High-mid auto merge.
+- High-mid PR bodies must explain why the work is High-mid, what was not
+  performed, rollback/cleanup candidates, remaining risk, and verification.
 - GitHub CLI auth note: in this Windows Codex desktop environment, sandboxed
   `gh auth status` may report an invalid `default` token while escalated
   `gh auth status` succeeds through `keyring`. Root cause is sandbox access to
@@ -427,6 +434,9 @@ Use the `Risk classification` section from `scripts/check_repo_safety.py`
 before auto PR or auto merge, then cross-check
 `docs/llmwiki/codex-automation-policy.md` for High-low, High-mid, High-high, or
 Unknown outcomes.
+
+For High-mid outcomes, stop after PR-ready handoff and wait for human review
+before merge.
 
 Run `scripts/check_repo_safety.py`,
 `scripts/check_repo_safety.py --base fork/master`, and
