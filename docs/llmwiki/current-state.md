@@ -851,6 +851,42 @@
   - backend/frontend/Docker/CI/package/lockfile changes
   - 更新適用機能
 
+### Y-06U bundled Python dependency inventory source draft
+
+- Scope: source-only bundled Python/backend dependency inventory draft and
+  minimal LLMwiki sync.
+- Source draft:
+  `docs/llmwiki/package-notices/bundled-python-dependency-inventory.source.md`
+- Outcome:
+  - Added the bundled Python dependency inventory source candidate for future
+    `動画保存ツール_ローカル専用/開発者向け/inventory/bundled-python-dependency-inventory.json`
+    and related developer-facing notice / license review material.
+  - Recorded read-only dependency source files checked: `pyproject.toml` and
+    `uv.lock` present; `poetry.lock`, `requirements*.txt`, `setup.py`,
+    `setup.cfg`, Pipenv, Conda environment, constraints, tox, and nox
+    dependency source files not present.
+  - Recorded runtime dependency candidates, developer-only candidates,
+    optional / indirect candidates, manifest candidate fields, license review
+    checklist items, notice bundle review checklist items, and generated
+    inventory requirements.
+  - Kept all license values except the existing yt-dlp source draft candidate
+    as `needs_verification` until a later selected package artifact review.
+  - Kept the draft as Markdown source material only, not generated inventory,
+    not a notice bundle, not a package output, and not a legal conclusion.
+- Not implemented:
+  - generated distribution folder
+  - generated dependency inventory files
+  - actual notice files
+  - actual license bundle
+  - package generation
+  - backend/frontend/Docker/CI/package/lockfile changes
+  - package manager operations
+  - dependency install, update, audit, build, or package commands
+  - HTML/TXT package guide output
+  - cookie/token/secret handling
+  - PR #1001 file changes
+  - 更新適用機能
+
 ### Y-CHECK-01 safety gate checker design
 
 - Scope: docs-only design for a future repository safety checker and automation
@@ -920,11 +956,10 @@
 Use `scripts/check_repo_safety.py` as a local report-only check before the next
 low- or medium-risk fork PR.
 
-The previous package-material next step is complete through Y-06T.
+The previous package-material next step is complete through Y-06U.
 
 The next package-material candidate is a separate source-only notice or
-inventory draft for bundled Python dependencies or another explicitly selected
-package notice gap.
+inventory draft for another explicitly selected package notice gap.
 
 Next scope:
 

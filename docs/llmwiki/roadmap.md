@@ -16,16 +16,46 @@
 
 ### Next package-material candidate
 
-- Y-06T completes the current desktop shell notice source draft.
+- Y-06U completes the current bundled Python dependency inventory source draft.
 - The next package-material candidate should be selected explicitly from
-  remaining source-only notice or inventory work, such as bundled Python
-  dependency inventory or another explicitly selected package notice gap.
+  remaining source-only notice or inventory work for another explicitly
+  selected package notice gap.
 - Keep the next PR source-material only unless explicitly approved otherwise.
 - Do not create guide outputs, copy license text, generate notice bundles, or
   create package files.
 - Do not create `動画保存ツール_ローカル専用/`, copy files, build packages, install
   dependencies, add Tauri/Electron/WebView2, change backend/frontend/Docker/CI,
   or change package/lockfile files.
+
+## Y-06U Bundled Python Dependency Inventory Source Outcome
+
+- Inventory source draft:
+  `docs/llmwiki/package-notices/bundled-python-dependency-inventory.source.md`
+- Added source material for future
+  `動画保存ツール_ローカル専用/開発者向け/inventory/bundled-python-dependency-inventory.json`
+  and related Python dependency notice / license review output.
+- The draft is source-only and review-oriented, with:
+  - future package role and placement candidates
+  - read-only dependency source files inspected
+  - runtime dependency candidates
+  - developer-only dependency candidates
+  - optional / indirect dependency candidates
+  - manifest candidate fields
+  - license review checklist
+  - notice bundle review checklist
+  - legal-not-final boundary
+  - future generated inventory requirements
+- Recorded `pyproject.toml` and `uv.lock` as present local dependency sources;
+  recorded Poetry, requirements, setup, Pipenv, Conda environment, constraints,
+  tox, and nox dependency files as not present.
+- Kept exact bundled inclusion, final license names, source artifacts, native
+  code review, certificate/data-file review, notice bundle generation, and
+  developer-only exclusion confirmation as future package-generation /
+  license-review work.
+- No actual notice output, license bundle, generated package folder, generated
+  inventory output, dependency audit, build artifact, package/lockfile change,
+  dependency change, package manager operation, backend/frontend/Docker/CI
+  change, or package/lockfile change was added.
 
 ## Y-06T Desktop Shell Notice Source Outcome
 

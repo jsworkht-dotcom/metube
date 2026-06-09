@@ -989,6 +989,40 @@ Rules:
   approval, guide generation, package generation, backend/frontend/Docker/CI
   changes, package/lockfile changes, dependency changes, or 更新適用機能.
 
+## Y-06U Bundled Python Dependency Inventory Source
+
+Y-06U adds the bundled Python dependency inventory source candidate:
+
+```text
+docs/llmwiki/package-notices/bundled-python-dependency-inventory.source.md
+```
+
+This source is intended for future generated package paths:
+
+```text
+動画保存ツール_ローカル専用/開発者向け/inventory/bundled-python-dependency-inventory.json
+動画保存ツール_ローカル専用/開発者向け/inventory/bundled-python-dependency-inventory.md
+動画保存ツール_ローカル専用/開発者向け/notices/python-deps-notice.txt
+動画保存ツール_ローカル専用/開発者向け/licenses/third-party/python-dependencies/
+```
+
+Rules:
+
+- The source remains Markdown planning/source material only.
+- The dry-run may treat this file as satisfying a planned future bundled
+  Python dependency inventory source candidate warning.
+- This does not copy full license text.
+- This does not create generated dependency inventory files.
+- This does not create actual notice files.
+- This does not create `動画保存ツール_ローカル専用/`.
+- This does not install, update, audit, build, package, or bundle Python
+  dependencies.
+- This does not change package or lock files.
+- This does not approve notice bundle generation, selected dependency
+  inventory approval, guide generation, package generation,
+  backend/frontend/Docker/CI changes, package/lockfile changes, dependency
+  changes, or 更新適用機能.
+
 ## Y-CHECK-01 Repository Safety Gate Relationship
 
 Y-CHECK-01 is documented in:
@@ -1016,7 +1050,7 @@ cookie/token/secret values.
 ## Next Implementation Candidate
 
 Review the existing report-only safety checker before low- or medium-risk fork
-PRs.
+PRs, then select the next source-only package notice gap explicitly.
 
 The next package-material candidate should be selected explicitly from
 remaining source-only notice or inventory work after reviewing the updated
