@@ -347,8 +347,32 @@ Warning behavior:
   notice bundle generation, build/package output, or
   backend/frontend/Docker/CI/package/lockfile changes were added.
 
+## Current Notice Source Drafts
+
+Y-06O added the first notice source candidate:
+
+- Source: `docs/llmwiki/package-notices/metube-notice.source.md`
+- Future notice output:
+  `動画保存ツール_ローカル専用/開発者向け/notices/MeTube-notice.txt`
+- Future license output candidate:
+  `動画保存ツール_ローカル専用/開発者向け/licenses/MeTube-LICENSE.txt`
+- Status: draft source material only.
+
+Coverage:
+
+- MeTube component summary and local source candidates.
+- AGPLv3 license candidate from root `LICENSE`.
+- Fork and upstream source URL candidates.
+- Beginner-facing short notice pointer.
+- Developer-facing notice draft.
+- Manifest candidate fields for future `license-notice-manifest.json`.
+- Future review checklist for license text, copyright attribution, source
+  reference, fork changes, and no-private-data hygiene.
+
+The source does not copy full license text, generate notice files, generate a
+license bundle, create package files, or approve a notice generator.
+
 ## Next PR Candidate
 
-Draft one approved beginner guide source candidate first. License/notice source
-drafting should wait until exact bundled runtime inputs are selected or a later
-task explicitly approves notice source drafting.
+Draft `docs/llmwiki/package-notices/yt-dlp-notice.source.md` as the next notice
+source candidate, while keeping it source-only and review-oriented.

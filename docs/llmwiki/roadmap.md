@@ -2,9 +2,9 @@
 
 ## Immediate Next
 
-### Draft MeTube notice source
+### Draft yt-dlp notice source
 
-- Draft `docs/llmwiki/package-notices/metube-notice.source.md` as the first
+- Draft `docs/llmwiki/package-notices/yt-dlp-notice.source.md` as the next
   notice source candidate for future clean-package notice review.
 - Keep the next PR source-material only unless explicitly approved otherwise.
 - Do not create guide outputs, copy license text, generate notice bundles, or
@@ -12,6 +12,26 @@
 - Do not create `動画保存ツール_ローカル専用/`, copy files, build packages, install
   dependencies, add Tauri/Electron/WebView2, change backend/frontend/Docker/CI,
   or change package/lockfile files.
+
+## Y-06O MeTube Notice Source Outcome
+
+- Notice source draft:
+  `docs/llmwiki/package-notices/metube-notice.source.md`
+- Added source material for future
+  `動画保存ツール_ローカル専用/開発者向け/notices/MeTube-notice.txt`.
+- The draft is source-only and review-oriented, with:
+  - future notice / license placement candidates
+  - MeTube component summary
+  - short beginner-facing license pointer
+  - developer-facing notice draft
+  - future manifest candidate fields
+  - required future review checklist
+- Covered local source candidates, AGPLv3 license candidate from root
+  `LICENSE`, fork/upstream source URL candidates, source commit placeholder,
+  and no-private-data notice hygiene.
+- No actual notice output, license bundle, generated package folder,
+  package build/copy behavior, Tauri/Electron implementation,
+  backend/frontend/Docker/CI change, or package/lockfile change was added.
 
 ## Y-06N Safe-Use HTML Source Outcome
 
