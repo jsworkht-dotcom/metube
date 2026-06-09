@@ -2,15 +2,17 @@
 
 ## Immediate Next
 
-### Review Y-CHECK-01 safety gate checker design
+### Use Y-CHECK-02 repo safety script
 
-- Review `docs/llmwiki/safety-gate-checker-design.md`.
-- Decide whether the next approved task should implement a local report-only
-  repository safety checker.
-- Keep any implementation separate from package generation, update execution,
-  dependency install/update, Docker pull, backend/frontend/Docker/CI changes,
-  package/lockfile changes, generated distribution folders, and
-  cookie/token/secret handling.
+- Run `scripts/check_repo_safety.py` before the next low- or medium-risk fork
+  PR.
+- Keep the script report-only.
+- Keep any automation wrapper, CI integration, PR comment automation, or JSON
+  report mode as a later explicitly approved task.
+- Keep package generation, update execution, dependency install/update, Docker
+  pull, backend/frontend/Docker/CI changes, package/lockfile changes,
+  generated distribution folders, and cookie/token/secret handling out of
+  scope unless explicitly approved.
 
 ### Draft yt-dlp notice source
 
@@ -43,6 +45,29 @@
 - The design is docs-only and does not add scripts, CI, package generation,
   update execution, generated distribution folders, backend/frontend/Docker/CI
   changes, package/lockfile changes, or credential handling.
+
+## Y-CHECK-02 Repo Safety Check Script Outcome
+
+- Script:
+  `scripts/check_repo_safety.py`
+- Added the first stdlib-only report-only implementation of the repository
+  safety gate.
+- Default mode checks the current working tree diff against `HEAD`, including
+  untracked files.
+- Optional `--base` can include committed branch diff context such as
+  `fork/master`.
+- Implemented checks for changed-file scope, forbidden paths, generated
+  distribution folder presence, upstream PR #1001 leakage, secret-like changed
+  content, dangerous behavior patterns, required LLMwiki basics, and package
+  guide/notice source warnings.
+- Reports are sanitized: secret-like findings show path, line, and pattern
+  family only.
+- Exit codes are `0` for OK or warning-only, `1` for blocked, and `2` for
+  usage errors.
+- No automation gate, CI integration, PR bot/comment automation, package
+  generation, generated distribution folder, backend/frontend/Docker/CI change,
+  package/lockfile change, update execution, or cookie/token/secret value
+  output was added.
 
 ## Y-06O MeTube Notice Source Outcome
 
