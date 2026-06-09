@@ -57,6 +57,7 @@ Repository sources checked:
 - `docs/llmwiki/desktop-package-manifest.md`
 - `docs/llmwiki/beginner-guide-skeleton.md`
 - `docs/llmwiki/dry-run-update-contract.md`
+- `docs/llmwiki/codex-automation-policy.md`
 
 No external references are required for this docs-only contract.
 
@@ -1084,6 +1085,33 @@ Y-CHECK-01 does not implement a checker, add scripts, change CI, generate a
 package, create `動画保存ツール_ローカル専用/`, change backend/frontend/Docker/CI
 files, change package/lockfile files, implement update execution, or handle
 cookie/token/secret values.
+
+## Codex Automation Policy Relationship
+
+The Codex automation policy is documented in:
+
+```text
+docs/llmwiki/codex-automation-policy.md
+```
+
+Relationship:
+
+- Low-risk and medium-risk work may use auto PR and auto merge only when the
+  current task scope and required safety gates pass.
+- High-low work may use auto PR and auto merge only when it remains docs-only,
+  report-only, or dry-run-only.
+- High-low auto merge requires both `scripts/check_repo_safety.py` and
+  `scripts/clean_package_dry_run.py` to return OK.
+- The dry-run is especially important for package-adjacent high-low work such
+  as manifest preview design, notice bundle dry-run design, generated output
+  preview design, desktop shell scaffold planning, backup/rollback design docs,
+  package preflight checks, and output diff prediction reports.
+- Actual package generation, generated distribution folders, ZIP/package/
+  installer creation, and dependency install/update are prohibited.
+- Docker pull/build is prohibited for high-low auto merge.
+- Package/lockfile changes, backend download or queue logic changes, yt-dlp
+  logic changes, cookie/token/secret handling, public hosting, ads, and
+  更新適用機能 remain prohibited.
 
 ## Next Implementation Candidate
 

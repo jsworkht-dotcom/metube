@@ -2,11 +2,16 @@
 
 ## Immediate Next
 
-### Use Y-CHECK-02 repo safety script
+### Use Y-AUTO-01 Codex automation policy
 
-- Run `scripts/check_repo_safety.py` before the next low- or medium-risk fork
-  PR.
-- Keep the script report-only.
+- Classify the next Codex task with
+  `docs/llmwiki/codex-automation-policy.md` before auto PR or auto merge.
+- Run `scripts/check_repo_safety.py` and
+  `scripts/check_repo_safety.py --base fork/master` before the next low-,
+  medium-, or qualifying high-low-risk fork PR.
+- Run `scripts/clean_package_dry_run.py` for package-adjacent high-low work and
+  for this local-only package planning stream.
+- Keep the scripts report-only / dry-run-only.
 - Keep any automation wrapper, CI integration, PR comment automation, or JSON
   report mode as a later explicitly approved task.
 - Keep package generation, update execution, dependency install/update, Docker
@@ -26,6 +31,33 @@
 - Do not create `動画保存ツール_ローカル専用/`, copy files, build packages, install
   dependencies, add Tauri/Electron/WebView2, change backend/frontend/Docker/CI,
   or change package/lockfile files.
+
+## Y-AUTO-01 Codex Automation Policy Outcome
+
+- Policy document:
+  `docs/llmwiki/codex-automation-policy.md`
+- Added five Codex automation risk levels:
+  - Low: docs/LLMwiki, notice source, guide source, inventory source, and
+    roadmap/handoff/current-state synchronization.
+  - Medium: report-only scripts, dry-run scripts, checker warning logic,
+    read-only inspection, and small safe UX copy/display.
+  - High-low: package- or desktop-adjacent design, preview, contract, preflight,
+    backup/rollback docs, and output prediction work that remains docs-only,
+    report-only, or dry-run-only.
+  - High-mid: real generation or implementation-adjacent prototypes that may
+    get a PR but require human review before merge.
+  - High-high: automatic-execution prohibited work that must stop before
+    implementation.
+- Low and Medium may use auto PR / auto merge when their gates pass.
+- High-low may use auto PR / auto merge only when all mandatory gates pass,
+  including repo safety, clean-package dry-run, `git diff --check`, GitHub clean
+  merge state, and no failed checks.
+- High-mid and High-high remain outside auto merge.
+- No generated distribution folder, generated notice bundle, generated guide
+  output, package output, build/package/install command, dependency change,
+  package/lockfile change, backend/frontend/Docker/CI change,
+  cookie/token/secret handling, public hosting, ads, PR #1001 file change, or
+  更新適用機能 was added.
 
 ## Y-06V Notice Source Index Outcome
 

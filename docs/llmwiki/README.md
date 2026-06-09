@@ -13,9 +13,10 @@ RAG pipeline, MCP server, daemon, external sync, or public publishing workflow.
 
 1. `current-state.md` - current source of truth, branch/remotes, completed work, next step
 2. `safety-boundaries.md` - non-negotiable safety and scope limits
-3. `roadmap.md` - near-term verification and future candidate work
-4. `pr-history.md` - compressed PR and merge history
-5. `handoff.md` - short startup note for the next chat
+3. `codex-automation-policy.md` - Codex risk levels and auto PR / merge gates
+4. `roadmap.md` - near-term verification and future candidate work
+5. `pr-history.md` - compressed PR and merge history
+6. `handoff.md` - short startup note for the next chat
 
 Operational notes:
 

@@ -10,19 +10,20 @@ MeTube. The canonical branch is fork `master`, and local `master` tracks
 
 1. `docs/llmwiki/current-state.md`
 2. `docs/llmwiki/safety-boundaries.md`
-3. `docs/llmwiki/roadmap.md`
-4. `docs/llmwiki/update-rollback-plan.md`
-5. `docs/llmwiki/manual-update-apply-design.md`
-6. `docs/llmwiki/dry-run-update-contract.md`
-7. `docs/llmwiki/dockerless-desktop-distribution-feasibility.md`
-8. `docs/llmwiki/desktop-sidecar-lifecycle-contract.md`
-9. `docs/llmwiki/desktop-package-manifest.md`
-10. `docs/llmwiki/beginner-guide-skeleton.md`
-11. `docs/llmwiki/clean-package-dry-run-contract.md`
-12. `docs/llmwiki/safety-gate-checker-design.md`
-13. `docs/llmwiki/beginner-guide-source-plan.md`
-14. `docs/llmwiki/license-notice-plan.md`
-15. `docs/llmwiki/codex-gh-auth-runbook.md` if GitHub CLI auth, PR creation,
+3. `docs/llmwiki/codex-automation-policy.md`
+4. `docs/llmwiki/roadmap.md`
+5. `docs/llmwiki/update-rollback-plan.md`
+6. `docs/llmwiki/manual-update-apply-design.md`
+7. `docs/llmwiki/dry-run-update-contract.md`
+8. `docs/llmwiki/dockerless-desktop-distribution-feasibility.md`
+9. `docs/llmwiki/desktop-sidecar-lifecycle-contract.md`
+10. `docs/llmwiki/desktop-package-manifest.md`
+11. `docs/llmwiki/beginner-guide-skeleton.md`
+12. `docs/llmwiki/clean-package-dry-run-contract.md`
+13. `docs/llmwiki/safety-gate-checker-design.md`
+14. `docs/llmwiki/beginner-guide-source-plan.md`
+15. `docs/llmwiki/license-notice-plan.md`
+16. `docs/llmwiki/codex-gh-auth-runbook.md` if GitHub CLI auth, PR creation,
    checks, or merge commands fail inside Codex
 
 ## Key Points For Codex
@@ -32,6 +33,18 @@ MeTube. The canonical branch is fork `master`, and local `master` tracks
 - Do not mix `docker-compose.local.yml` or `docs/local-only.md` into fork-only work.
 - Do not handle real cookies, tokens, secrets, DRM bypass, authentication bypass, or
   restriction circumvention.
+- Y-AUTO-01 Codex automation policy is documented at
+  `docs/llmwiki/codex-automation-policy.md`.
+- Y-AUTO-01 defines Low, Medium, High-low, High-mid, and High-high automation
+  levels.
+- Low and Medium work may use auto PR / auto merge when the current task scope
+  and safety gates pass.
+- High-low work may use auto PR / auto merge only when it remains docs-only,
+  report-only, or dry-run-only and all mandatory gates pass.
+- High-mid work may get a PR but auto merge is prohibited and human review is
+  required.
+- High-high work must stop before implementation and request explicit human
+  confirmation.
 - `update-status` is readonly. It must not apply updates, pull Docker images,
   run git updates, restart the app, or install packages.
 - Backup and rollback requirements must be satisfied before any update-apply
@@ -402,7 +415,12 @@ MeTube. The canonical branch is fork `master`, and local `master` tracks
 
 ## Next Step
 
-Use `scripts/check_repo_safety.py` before the next low- or medium-risk fork PR.
+Use `docs/llmwiki/codex-automation-policy.md` before auto PR or auto merge.
+
+Run `scripts/check_repo_safety.py`,
+`scripts/check_repo_safety.py --base fork/master`, and
+`scripts/clean_package_dry_run.py` before the next low-, medium-, or qualifying
+high-low-risk fork PR.
 
 The next package-material candidate should be selected explicitly from
 remaining source-only notice or inventory work for another package notice gap.

@@ -5,9 +5,10 @@
 Y-CHECK-01 defines a docs-only design for a future repository safety checker and
 automation gate.
 
-The goal is to let low- and medium-risk Codex work continue more smoothly when
-the repository diff is clearly inside the approved scope, while still stopping on
-paths, content, or behavior that require human review.
+The goal is to let low-, medium-, and qualifying high-low-risk Codex work
+continue more smoothly when the repository diff is clearly inside the approved
+scope, while still stopping on paths, content, or behavior that require human
+review.
 
 This document does not implement a checker, add scripts, change CI, change
 packages, generate distribution files, or approve automatic update execution.
@@ -20,6 +21,7 @@ Repository sources checked:
 - `docs/llmwiki/roadmap.md`
 - `docs/llmwiki/handoff.md`
 - `docs/llmwiki/safety-boundaries.md`
+- `docs/llmwiki/codex-automation-policy.md`
 - `docs/llmwiki/clean-package-dry-run-contract.md`
 - `docs/llmwiki/beginner-guide-source-plan.md`
 - `docs/llmwiki/license-notice-plan.md`
@@ -330,6 +332,8 @@ Candidate consistency rules:
 - Completed design outcomes should be summarized in `current-state.md`.
 - The next step should be updated in `roadmap.md`.
 - New safety boundaries should be reflected in `safety-boundaries.md`.
+- Automation policy changes should be reflected in
+  `codex-automation-policy.md`.
 - Package-adjacent checker behavior should cross-reference
   `clean-package-dry-run-contract.md`.
 - "Not implemented" lists must remain accurate.
@@ -397,6 +401,22 @@ LLMwiki consistency.
 Future implementation should avoid duplicating policy prose by referencing the
 same path families and warning categories where practical, but it should keep the
 gate report separate from package generation reports.
+
+## Relationship To Codex Automation Policy
+
+The automation policy is documented in
+`docs/llmwiki/codex-automation-policy.md`.
+
+The checker remains a report-only repository diff gate. It does not decide by
+itself that high-low auto merge is safe. For high-low work, the automation
+policy requires this checker, the clean-package dry-run, `git diff --check`,
+GitHub clean merge state, and successful checks to agree before auto merge.
+
+High-mid and high-high work remain outside auto merge. If a diff includes real
+generation, implementation, or dependency install/update, auto merge is
+prohibited. Docker pull/build is prohibited for auto merge. Package/lockfile
+changes, backend risky behavior, credential handling, public hosting, or ads
+also require human review or a stop before implementation.
 
 ## Suggested Implementation Sequence
 
