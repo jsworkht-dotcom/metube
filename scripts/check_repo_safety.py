@@ -57,6 +57,21 @@ PR_1001_LEAKAGE_PATHS = {
     "docs/local-only.md",
 }
 
+REPORT_ONLY_SCRIPT_PATHS = {
+    "scripts/check_repo_safety.py",
+    "scripts/clean_package_dry_run.py",
+}
+
+HIGH_LOW_DOC_PATHS = {
+    "docs/llmwiki/clean-package-dry-run-contract.md",
+    "docs/llmwiki/desktop-package-manifest.md",
+    "docs/llmwiki/desktop-sidecar-lifecycle-contract.md",
+    "docs/llmwiki/dockerless-desktop-distribution-feasibility.md",
+    "docs/llmwiki/dry-run-update-contract.md",
+    "docs/llmwiki/manual-update-apply-design.md",
+    "docs/llmwiki/update-rollback-plan.md",
+}
+
 BLOCKED_SCOPE_RULES = [
     ("docker", re.compile(r"(^|/)Dockerfile$|(^|/)docker-compose[^/]*\.ya?ml$")),
     ("ci", re.compile(r"^\.github/")),
@@ -161,6 +176,13 @@ class GitResult:
     returncode: int
     stdout: str
     stderr: str
+
+
+@dataclass(frozen=True)
+class RiskClassification:
+    tier: str
+    automation: str
+    reason: str
 
 
 def parse_args(argv: list[str]) -> argparse.Namespace:
@@ -571,6 +593,120 @@ def warning_status(findings: list[Finding]) -> str:
     return "warning" if findings else "OK"
 
 
+def blocked_automation(blocked: list[Finding]) -> str | None:
+    return "stop-before-pr" if blocked else None
+
+
+def only_report_script_and_llmwiki(paths: list[str]) -> bool:
+    return all(
+        path in REPORT_ONLY_SCRIPT_PATHS or path.startswith("docs/llmwiki/")
+        for path in paths
+    ) and any(path in REPORT_ONLY_SCRIPT_PATHS for path in paths)
+
+
+def has_high_low_doc_path(paths: list[str]) -> bool:
+    return any(path in HIGH_LOW_DOC_PATHS for path in paths)
+
+
+def is_known_llmwiki_docs_scope(paths: list[str]) -> bool:
+    return all(path.startswith("docs/llmwiki/") for path in paths)
+
+
+def has_blocked_scope_family(paths: list[str], families: set[str]) -> bool:
+    for path in paths:
+        for family, pattern in BLOCKED_SCOPE_RULES:
+            if family in families and pattern.search(path):
+                return True
+    return False
+
+
+def has_high_high_path(paths: list[str]) -> bool:
+    return (
+        has_blocked_scope_family(paths, {"docker", "ci", "package_or_lockfile"})
+        or any(path.startswith("app/") for path in paths)
+        or any(path.startswith(GENERATED_PACKAGE_ROOT) for path in paths)
+        or any(path in PR_1001_LEAKAGE_PATHS for path in paths)
+    )
+
+
+def has_high_mid_path(paths: list[str]) -> bool:
+    if any(path.startswith("ui/") for path in paths):
+        return True
+    return any(
+        path.startswith("scripts/") and path not in REPORT_ONLY_SCRIPT_PATHS
+        for path in paths
+    )
+
+
+def classify_risk(
+    paths: list[str],
+    blocked: list[Finding],
+    generated_blocked: list[Finding],
+    pr_1001_blocked: list[Finding],
+    secret_blocked: list[Finding],
+    dangerous_blocked: list[Finding],
+) -> RiskClassification:
+    blocked_result = blocked_automation(blocked)
+    if not paths:
+        if blocked_result:
+            return RiskClassification(
+                tier="Unknown",
+                automation=blocked_result,
+                reason="Blocked findings are present with no safe changed-file list.",
+            )
+        return RiskClassification(
+            tier="Unknown",
+            automation="unknown",
+            reason="No changed files to classify.",
+        )
+
+    if (
+        has_high_high_path(paths)
+        or generated_blocked
+        or pr_1001_blocked
+        or secret_blocked
+        or dangerous_blocked
+    ):
+        return RiskClassification(
+            tier="High-high",
+            automation=blocked_result or "stop-before-pr",
+            reason="High-high path or safety finding requires stopping before PR.",
+        )
+
+    if has_high_mid_path(paths):
+        return RiskClassification(
+            tier="High-mid",
+            automation=blocked_result or "pr-only-human-merge",
+            reason="Implementation-adjacent path requires human merge review.",
+        )
+
+    if only_report_script_and_llmwiki(paths):
+        return RiskClassification(
+            tier="Medium",
+            automation=blocked_result or "auto-merge-ok",
+            reason="Known report-only checker or dry-run script scope.",
+        )
+
+    if is_known_llmwiki_docs_scope(paths):
+        tier = "High-low" if has_high_low_doc_path(paths) else "Low"
+        reason = (
+            "Package or desktop planning docs remain docs-only."
+            if tier == "High-low"
+            else "LLMwiki docs-only source scope."
+        )
+        return RiskClassification(
+            tier=tier,
+            automation=blocked_result or "auto-merge-ok",
+            reason=reason,
+        )
+
+    return RiskClassification(
+        tier="Unknown",
+        automation=blocked_result or "unknown",
+        reason="Changed files do not match a known auto-merge-safe scope.",
+    )
+
+
 def git_value(root: Path, args: list[str]) -> str:
     result = run_git(root, args)
     if result.returncode != 0:
@@ -603,6 +739,14 @@ def build_report(root: Path, base: str | None) -> tuple[int, str]:
         + llmwiki_blocked
     )
     warnings = scope_warnings + package_warnings
+    risk = classify_risk(
+        paths,
+        blocked,
+        generated_blocked,
+        pr_1001_blocked,
+        secret_blocked,
+        dangerous_blocked,
+    )
 
     checks = [
         ("changed files scope", check_status(scope_blocked)),
@@ -627,6 +771,11 @@ def build_report(root: Path, base: str | None) -> tuple[int, str]:
     lines.append("")
     lines.append("Scope:")
     lines.append(f"  {scope}")
+    lines.append("")
+    lines.append("Risk classification:")
+    lines.append(f"  tier: {risk.tier}")
+    lines.append(f"  automation: {risk.automation}")
+    lines.append(f"  reason: {risk.reason}")
     lines.append("")
     lines.append("Changed files:")
     if paths:

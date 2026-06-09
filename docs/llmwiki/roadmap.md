@@ -2,10 +2,12 @@
 
 ## Immediate Next
 
-### Use Y-AUTO-01 Codex automation policy
+### Use Y-AUTO-02 risk classification summary
 
-- Classify the next Codex task with
-  `docs/llmwiki/codex-automation-policy.md` before auto PR or auto merge.
+- Read the `Risk classification` section from
+  `scripts/check_repo_safety.py` before auto PR or auto merge.
+- Cross-check the tier against `docs/llmwiki/codex-automation-policy.md` when
+  the report says `High-low`, `High-mid`, `High-high`, or `Unknown`.
 - Run `scripts/check_repo_safety.py` and
   `scripts/check_repo_safety.py --base fork/master` before the next low-,
   medium-, or qualifying high-low-risk fork PR.
@@ -31,6 +33,26 @@
 - Do not create `動画保存ツール_ローカル専用/`, copy files, build packages, install
   dependencies, add Tauri/Electron/WebView2, change backend/frontend/Docker/CI,
   or change package/lockfile files.
+
+## Y-AUTO-02 Repo Safety Risk Classification Outcome
+
+- Script:
+  `scripts/check_repo_safety.py`
+- Added report-only risk classification output:
+  - `tier`
+  - `automation`
+  - `reason`
+- Preserved existing `Status: OK` / `Status: BLOCKED` behavior.
+- Preserved existing blocker behavior for forbidden paths, generated
+  distribution folders, PR #1001 leakage, secret-like content, dangerous
+  behavior, and required LLMwiki basics.
+- Current checker task classifies as `Medium` with
+  `automation: auto-merge-ok`.
+- No generated distribution folder, generated notice bundle, generated guide
+  output, package output, build/package/install command, dependency change,
+  package/lockfile change, backend/frontend/Docker/CI change,
+  cookie/token/secret handling, public hosting, ads, PR #1001 file change, or
+  更新適用機能 was added.
 
 ## Y-AUTO-01 Codex Automation Policy Outcome
 
