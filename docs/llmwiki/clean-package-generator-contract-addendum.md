@@ -347,6 +347,13 @@ Rules:
 - Manifest preview must include enough context for human review without
   exposing private values.
 
+Y-06X implementation note:
+
+- `scripts/clean_package_dry_run.py` now prints this as a text-only
+  `Package manifest preview` section.
+- The preview reports source counts and candidate future outputs only.
+- It does not create `manifest.json` or any package file.
+
 ## Cleanup / Rollback Candidate
 
 Future implementation planning should include cleanup and rollback candidates

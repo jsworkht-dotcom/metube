@@ -1096,6 +1096,47 @@ Rules:
   handle cookie/token/secret values.
 - Actual generation remains a later human-reviewed task.
 
+## Y-06X Package Manifest Preview
+
+Y-06X adds a report-only package manifest preview to:
+
+```text
+scripts/clean_package_dry_run.py
+```
+
+The dry-run text report now includes:
+
+```text
+Package manifest preview
+```
+
+Preview fields:
+
+- `package_name candidate`
+- `package_type candidate`
+- `local_only: true`
+- `generated_artifacts: false`
+- notice source count and source list
+- guide source count and source list
+- excluded path rule count and currently-present excluded path count
+- future output candidates for `NOTICE.txt`, `LICENSES/`, `manifest.json`, and
+  beginner guide notice section
+- `human_review_required_before_generation: true`
+- `legal_final: false`
+- non-disclosure flags for secret/token/cookie values
+- no-generation boundary note
+
+Rules:
+
+- The preview is text-only and report-only.
+- The script does not create `manifest.json`.
+- The script does not create `動画保存ツール_ローカル専用/`.
+- The script does not generate notice bundles, license bundles, inventories,
+  manifest files, or HTML/TXT guide output.
+- Existing `Status: OK`, warnings, blockers, and exit-code behavior remain
+  unchanged.
+- Existing blockers must not be weakened.
+
 ## Y-CHECK-01 Repository Safety Gate Relationship
 
 Y-CHECK-01 is documented in:

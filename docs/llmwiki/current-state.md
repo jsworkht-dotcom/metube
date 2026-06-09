@@ -964,6 +964,46 @@
   - PR #1001 file changes
   - 更新適用機能
 
+### Y-06X package manifest preview in clean package dry-run
+
+- Scope: High-low / report-only dry-run preview enhancement.
+- Script:
+  `scripts/clean_package_dry_run.py`
+- Read-only sources checked:
+  - `docs/llmwiki/clean-package-generator-contract-addendum.md`
+  - `docs/llmwiki/package-notices/notice-source-index.source.md`
+  - `docs/llmwiki/clean-package-dry-run-contract.md`
+  - `scripts/clean_package_dry_run.py`
+  - `scripts/check_repo_safety.py`
+- Outcome:
+  - Added a `Package manifest preview` section to the text dry-run report.
+  - Reports package name/type candidates, `local_only: true`,
+    `generated_artifacts: false`, notice source count/list, guide source
+    count/list, excluded path summary, and future output candidates for
+    `NOTICE.txt`, `LICENSES/`, `manifest.json`, and beginner guide notice
+    section.
+  - Reports `human_review_required_before_generation: true`,
+    `legal_final: false`, non-disclosure flags for secret/token/cookie values,
+    and a no-generation boundary note.
+  - Preserves existing `Status: OK`, warnings, blockers, and exit-code
+    behavior.
+- Not implemented:
+  - real `manifest.json` generation
+  - generated distribution folder
+  - generated notice bundle
+  - generated license bundle
+  - generated dependency inventory files
+  - generated manifest files
+  - HTML/TXT package guide output
+  - package generation
+  - build/package/install commands
+  - dependency changes
+  - package/lockfile changes
+  - backend/frontend/Docker/CI changes
+  - cookie/token/secret handling
+  - PR #1001 file changes
+  - 更新適用機能
+
 ### Y-CHECK-01 safety gate checker design
 
 - Scope: docs-only design for a future repository safety checker and automation
@@ -1165,13 +1205,12 @@ Use `scripts/check_repo_safety.py` and `scripts/clean_package_dry_run.py` as
 local report-only gates before the next low-, medium-, or qualifying
 high-low-risk fork PR.
 
-The previous package-material next step is complete through Y-06W.
+The previous package-material next step is complete through Y-06X.
 
 The next package-material candidate should be selected explicitly. A good next
-candidate is a report-only clean-package dry-run preview enhancement for notice
-source index presence, package manifest preview, or package output diff
-prediction. Another source-only notice or inventory draft is also acceptable if
-a remaining package notice gap is selected first.
+candidate is a report-only package output diff prediction enhancement, or
+another source-only notice / inventory draft if a remaining package notice gap
+is selected first.
 
 Next scope:
 

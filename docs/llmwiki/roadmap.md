@@ -50,11 +50,10 @@
 
 ### Next package-material candidate
 
-- Y-06W completes the clean package generator contract addendum for using the
-  notice source index as a future dry-run / preview input candidate.
+- Y-06X completes the package manifest preview section in the clean-package
+  dry-run report.
 - The next package-material candidate should be selected explicitly. A good
-  next candidate is a report-only dry-run preview enhancement for notice source
-  index presence, package manifest preview, or package output diff prediction.
+  next candidate is a report-only package output diff prediction enhancement.
 - Keep the next PR report-only, dry-run-only, or source-material only unless
   explicitly approved otherwise.
 - Do not create guide outputs, copy license text, generate notice bundles,
@@ -62,6 +61,26 @@
 - Do not create `動画保存ツール_ローカル専用/`, copy files, build packages, install
   dependencies, add Tauri/Electron/WebView2, change backend/frontend/Docker/CI,
   or change package/lockfile files.
+
+## Y-06X Package Manifest Preview Outcome
+
+- Script:
+  `scripts/clean_package_dry_run.py`
+- Added a report-only `Package manifest preview` section to the clean-package
+  dry-run text output.
+- The preview reports package name/type candidates, `local_only: true`,
+  `generated_artifacts: false`, notice source count/list, guide source
+  count/list, excluded path summary, future output candidates, human review
+  requirement before generation, legal-final status, non-disclosure flags, and
+  a no-generation boundary note.
+- Existing dry-run status, blockers, warnings, and no-files-generated behavior
+  remain unchanged.
+- This Y-06X PR does not create `manifest.json`, generated distribution
+  folders, notice bundles, license bundles, inventory files, manifest files,
+  HTML/TXT guide output, build/package/install commands, dependency changes,
+  package/lockfile changes, backend/frontend/Docker/CI changes,
+  cookie/token/secret handling, public hosting, ads, PR #1001 file changes, or
+  更新適用機能.
 
 ## Y-06W Clean Package Generator Contract Addendum Outcome
 

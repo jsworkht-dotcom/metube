@@ -408,6 +408,21 @@ MeTube. The canonical branch is fork `master`, and local `master` tracks
   package / install behavior, dependency changes, package/lockfile changes,
   backend/frontend/Docker/CI changes, cookie/token/secret handling, PR #1001
   file changes, or 更新適用機能.
+- Y-06X package manifest preview is implemented in
+  `scripts/clean_package_dry_run.py`.
+- Y-06X outcome: the clean-package dry-run text report now includes a
+  `Package manifest preview` section with package name/type candidates,
+  `local_only: true`, `generated_artifacts: false`, notice source count/list,
+  guide source count/list, excluded path summary, future output candidates,
+  human review requirement before generation, legal-final status,
+  non-disclosure flags, and a no-generation boundary note.
+- Y-06X preserves existing dry-run `Status: OK`, warnings, blockers, exit-code
+  behavior, and no-files-generated behavior.
+- Y-06X does not create `manifest.json`, generated package folders, notice
+  bundles, license bundles, inventory files, manifest files, HTML/TXT guide
+  output, build / package / install behavior, dependency changes,
+  package/lockfile changes, backend/frontend/Docker/CI changes,
+  cookie/token/secret handling, PR #1001 file changes, or 更新適用機能.
 - Y-CHECK-01 safety gate checker design is documented at
   `docs/llmwiki/safety-gate-checker-design.md`.
 - Y-CHECK-01 outcome: the future checker should evaluate repository diffs for
@@ -476,8 +491,8 @@ Run `scripts/check_repo_safety.py`,
 high-low-risk fork PR.
 
 The next package-material candidate should be selected explicitly. A good next
-candidate is a report-only dry-run preview enhancement based on the Y-06W
-addendum, or another source-only notice / inventory gap if one is selected.
+candidate is a report-only package output diff prediction enhancement, or
+another source-only notice / inventory gap if one is selected.
 
 Do not create generated guide outputs, copy license text, create the generated
 package folder, copy package files, implement actual package generation, add
