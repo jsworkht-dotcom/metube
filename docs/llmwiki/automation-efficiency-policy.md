@@ -408,3 +408,10 @@ The aggregator remains a future implementation candidate. It would orchestrate t
 - The manual gate baseline remains required until Y-AUTO-09 or later implements the aggregator.
 
 Recommended next step: Y-AUTO-09 may implement a stdlib-only, read-only `scripts/run_local_safety_gates.py` with text output only.
+## Y-AUTO-09 Local Safety Gate Aggregator Implementation Note
+
+Y-AUTO-09 adds `scripts/run_local_safety_gates.py` as a stdlib-only, read-only, text-output-only local gate aggregator.
+
+The aggregator runs existing repo safety, dry-run report regression, and clean-package dry-run gates in a deterministic order. It also checks generated package folder absence, PR #1001 leakage absence, local helper exclusion, and changed-file summary.
+
+Future PR body generator work may consume the aggregator output, but that remains a later explicit task. Y-AUTO-10 is the next recommended candidate.

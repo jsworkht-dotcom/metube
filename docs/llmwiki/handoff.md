@@ -778,3 +778,22 @@ Carry forward these constraints:
 - Do not change scripts, app, UI, Docker, CI, package files, lockfiles, or `.gitignore` during docs-only work.
 - Keep `export_context_updated.py` local-only through `.git/info/exclude`; do not add it to commits.
 - Actual package generation remains blocked until a later explicit human-reviewed task.
+## Y-AUTO-09 Handoff Update
+
+Latest work: Y-AUTO-09 safety gate aggregator implementation.
+
+New command:
+
+```powershell
+python scripts/run_local_safety_gates.py --base fork/master
+```
+
+Use the bundled Codex Python executable if `python` is not available on PATH.
+
+Next recommended candidate: Y-AUTO-10 PR body generator design.
+
+Carry forward:
+
+- `export_context_updated.py` remains locally excluded and uncommitted.
+- Actual package generation remains blocked.
+- The aggregator does not replace underlying gates or authorize higher-risk work.

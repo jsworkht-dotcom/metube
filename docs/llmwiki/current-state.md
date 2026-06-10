@@ -1775,3 +1775,29 @@ Y-AUTO-08 adds a docs-only design for a future local safety gate aggregator:
 The future aggregator is expected to cover repository safety checks, dry-run report regression, clean-package dry-run modes, generated package folder absence, changed-file scope checks, PR #1001 leakage checks, and untracked helper exclusion checks.
 
 Current next candidate: Y-AUTO-09 may implement the read-only local safety gate aggregator as a stdlib-only script with text output only.
+## Y-AUTO-09 Local Safety Gate Aggregator State
+
+Y-AUTO-09 implements `scripts/run_local_safety_gates.py`.
+
+Behavior:
+
+- Runs repository safety gates.
+- Runs the dry-run report regression checker.
+- Runs clean-package dry-run in default, text, markdown, and JSON modes.
+- Checks that `動画保存ツール_ローカル専用/` is absent.
+- Checks PR #1001 leakage absence for `docker-compose.local.yml` and `docs/local-only.md`.
+- Checks that `export_context_updated.py` remains excluded from untracked files.
+- Prints a concise text summary.
+
+Not implemented:
+
+- No CI integration.
+- No PR body generator.
+- No report file writing.
+- No package generation.
+- No backend/frontend/Docker/CI/package/lockfile changes.
+- No PR #1001 files.
+- No cookie/token/secret handling.
+- No 更新適用機能.
+
+Next candidate: Y-AUTO-10 PR body generator design.

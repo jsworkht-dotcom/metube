@@ -540,3 +540,21 @@ Current recommended auto lane after Y-AUTO-08:
 - Y-AUTO-10: add PR-body integration guidance for aggregator output after Y-AUTO-09 is merged.
 - Y-AUTO-11: refine lane-specific scope presets if Y-AUTO-09 output proves stable.
 - Y-AUTO-12: revisit package-readiness workflow only after gate aggregation is stable.
+## Y-AUTO-09 Aggregator Use In Auto Lanes
+
+Lane verification may now use `scripts/run_local_safety_gates.py --base fork/master` as a local convenience wrapper.
+
+The underlying gate scripts remain authoritative:
+
+- `scripts/check_repo_safety.py`
+- `scripts/check_clean_package_dry_run_reports.py`
+- `scripts/clean_package_dry_run.py`
+
+The aggregator does not authorize higher risk by itself. It does not change lane boundaries, does not approve generated output, and does not turn High-mid work into auto-merge work.
+
+Current recommended auto lane after Y-AUTO-09:
+
+- Y-AUTO-10: PR body generator design.
+- Y-AUTO-11: PR body generator stdout-only implementation.
+- Y-AUTO-12: Codex run prompt templates.
+- Y-08F: readiness checklist preview implementation, if explicitly approved.
