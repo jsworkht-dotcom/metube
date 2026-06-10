@@ -1084,3 +1084,15 @@ Next candidates:
 - Y-08F readiness checklist preview implementation, if explicitly approved.
 
 Actual package generation remains blocked.
+## Y-AUTO-10A Outcome: Safety Wording Checker Design
+
+Y-AUTO-10A adds `docs/llmwiki/safety-wording-checker-design.md` as a docs-only design for future docs wording preflight.
+
+Next candidates:
+
+- Y-AUTO-10B safety wording checker implementation.
+- Y-AUTO-11 PR body generator design.
+- Y-AUTO-12 PR body generator stdout-only implementation.
+- Y-AUTO-13 Codex prompt templates.
+
+Actual package generation remains blocked.

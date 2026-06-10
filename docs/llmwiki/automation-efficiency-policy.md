@@ -415,3 +415,10 @@ Y-AUTO-09 adds `scripts/run_local_safety_gates.py` as a stdlib-only, read-only, 
 The aggregator runs existing repo safety, dry-run report regression, and clean-package dry-run gates in a deterministic order. It also checks generated package folder absence, PR #1001 leakage absence, local helper exclusion, and changed-file summary.
 
 Future PR body generator work may consume the aggregator output, but that remains a later explicit task. Y-AUTO-10 is the next recommended candidate.
+## Y-AUTO-10A Safety Wording Checker Design Note
+
+Y-AUTO-10A adds `docs/llmwiki/safety-wording-checker-design.md` as a docs-only design for a future safety wording checker.
+
+Purpose: prevent documentation wording false positives by preferring safe abstract vocabulary for prohibited operation families. The future checker must not weaken `scripts/check_repo_safety.py` or any existing safety gate.
+
+Recommended next candidate: Y-AUTO-10B safety wording checker implementation as a standalone read-only checker.

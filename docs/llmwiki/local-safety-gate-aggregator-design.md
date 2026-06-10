@@ -263,3 +263,8 @@ The implementation follows the Y-AUTO-08 design boundaries:
 - It does not perform GitHub API usage, PR creation, merge actions, CI integration, dependency changes, or container image operations.
 
 The underlying gates remain authoritative. The aggregator only reduces repeated local command overhead.
+## Y-AUTO-10A Safety Wording Checker Relationship
+
+A future local safety gate aggregator may call `scripts/check_safety_wording.py` after a later implementation task adds it.
+
+Y-AUTO-10A does not implement that checker and does not change the aggregator. The aggregator remains read-only, text-output-only, and no-output-generation.

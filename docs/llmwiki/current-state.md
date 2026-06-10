@@ -1801,3 +1801,14 @@ Not implemented:
 - No 更新適用機能.
 
 Next candidate: Y-AUTO-10 PR body generator design.
+## Y-AUTO-10A Safety Wording Checker Design State
+
+Y-AUTO-10A adds a docs-only design for a future safety wording checker.
+
+- New design doc: `docs/llmwiki/safety-wording-checker-design.md`.
+- It explains the Y-AUTO-07 wording issue and a repeatable safe wording policy.
+- It defines a future standalone checker candidate without implementing it.
+- It keeps the existing repo safety gate authoritative.
+- No script implementation, script change, CI change, generated package output, backend/frontend/Docker/CI/package/lockfile change, PR #1001 file change, or secret-like value handling is included.
+
+Next candidate: Y-AUTO-10B safety wording checker implementation.

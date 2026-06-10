@@ -558,3 +558,15 @@ Current recommended auto lane after Y-AUTO-09:
 - Y-AUTO-11: PR body generator stdout-only implementation.
 - Y-AUTO-12: Codex run prompt templates.
 - Y-08F: readiness checklist preview implementation, if explicitly approved.
+## Y-AUTO-10A Safe Wording Relation
+
+Lane A docs-only tasks should use the safe wording policy from `docs/llmwiki/safety-wording-checker-design.md` when listing prohibited operation families.
+
+A future wording checker may become part of lane preflight. It does not authorize higher risk, does not approve generated output, and does not weaken the underlying repo safety gate.
+
+Current recommended auto lane after Y-AUTO-10A:
+
+- Y-AUTO-10B: safety wording checker implementation.
+- Y-AUTO-11: PR body generator design.
+- Y-AUTO-12: PR body generator stdout-only implementation.
+- Y-AUTO-13: Codex prompt templates.
