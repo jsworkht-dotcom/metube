@@ -570,3 +570,15 @@ Current recommended auto lane after Y-AUTO-10A:
 - Y-AUTO-11: PR body generator design.
 - Y-AUTO-12: PR body generator stdout-only implementation.
 - Y-AUTO-13: Codex prompt templates.
+## Y-AUTO-10B Wording Checker Use In Lane A
+
+Lane A docs-only tasks may run `scripts/check_safety_wording.py --base fork/master` before the normal safety gate sequence.
+
+The wording checker is a preflight helper, not a replacement for repo safety. It does not authorize higher risk, does not approve generated output, and does not change auto-merge boundaries.
+
+Current recommended auto lane after Y-AUTO-10B:
+
+- Y-AUTO-11: PR body generator design.
+- Y-AUTO-12: PR body generator stdout-only implementation.
+- Y-AUTO-13: Codex prompt templates.
+- APP-BOOT-01: new app bootstrap template design.

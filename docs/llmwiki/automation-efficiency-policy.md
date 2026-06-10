@@ -422,3 +422,10 @@ Y-AUTO-10A adds `docs/llmwiki/safety-wording-checker-design.md` as a docs-only d
 Purpose: prevent documentation wording false positives by preferring safe abstract vocabulary for prohibited operation families. The future checker must not weaken `scripts/check_repo_safety.py` or any existing safety gate.
 
 Recommended next candidate: Y-AUTO-10B safety wording checker implementation as a standalone read-only checker.
+## Y-AUTO-10B Safety Wording Checker Implementation Note
+
+Y-AUTO-10B adds `scripts/check_safety_wording.py` as a standalone read-only safety wording checker.
+
+The checker reduces docs wording false positives by scanning changed docs before stronger safety gates surface wording-only issues. It does not weaken repo safety gates.
+
+Future aggregator integration remains separate. PR body generator design remains the next recommended candidate.

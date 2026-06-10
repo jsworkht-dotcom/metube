@@ -1812,3 +1812,28 @@ Y-AUTO-10A adds a docs-only design for a future safety wording checker.
 - No script implementation, script change, CI change, generated package output, backend/frontend/Docker/CI/package/lockfile change, PR #1001 file change, or secret-like value handling is included.
 
 Next candidate: Y-AUTO-10B safety wording checker implementation.
+## Y-AUTO-10B Safety Wording Checker State
+
+Y-AUTO-10B implements `scripts/check_safety_wording.py`.
+
+Behavior:
+
+- scans changed docs by default;
+- supports `--base`;
+- supports `--all`;
+- supports explicit paths;
+- outputs a sanitized text summary;
+- writes no files.
+
+Not implemented:
+
+- no aggregator integration;
+- no PR body generator;
+- no report file writing;
+- no package generation;
+- no backend/frontend/Docker/CI/package/lockfile changes;
+- no PR #1001 files;
+- no cookie/token/secret handling;
+- no 更新適用機能.
+
+Next candidate: Y-AUTO-11 PR body generator design.

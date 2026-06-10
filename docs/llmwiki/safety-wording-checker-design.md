@@ -276,3 +276,18 @@ For future Y-AUTO-10B:
 
 - revert the checker script and docs;
 - no generated output should exist.
+
+## Y-AUTO-10B Implementation Note
+
+Y-AUTO-10B implements `scripts/check_safety_wording.py` as a standalone safety wording checker.
+
+The implementation follows this design boundary:
+
+- stdlib-only;
+- read-only;
+- text-output-only;
+- scans changed docs by default;
+- supports `--base`, `--all`, and explicit paths;
+- prints sanitized category, severity, and suggestion fields without printing raw matched phrases;
+- does not weaken `scripts/check_repo_safety.py`;
+- is not yet integrated into `scripts/run_local_safety_gates.py`.
