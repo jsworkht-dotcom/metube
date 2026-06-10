@@ -211,7 +211,16 @@ Y-AUTO-09 can implement `scripts/run_local_safety_gates.py` if approved. The rec
 
 ## Future PR Body Integration Candidate
 
-Y-AUTO-10 or Y-AUTO-11 may consume aggregator output in PR body templates after Y-AUTO-09 lands. That integration should still preserve human review notes and explicit non-performed sections.
+Y-AUTO-11 documents a future PR body generator in
+`docs/llmwiki/pr-body-generator-design.md`.
+
+The PR body generator may consume the aggregator summary in the future. The
+aggregator remains the verification orchestrator, and its underlying gates
+remain authoritative.
+
+The PR body generator must not run gates by default unless a separate design
+explicitly adds that behavior. Its default role should be Markdown text
+generation from provided facts, not verification execution.
 
 ## High-low / High-mid / High-high Boundary
 

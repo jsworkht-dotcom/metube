@@ -483,13 +483,13 @@ Y-AUTO-08:
 Y-AUTO-09:
   safety gate aggregator implementation
 
-Y-AUTO-10:
+Y-AUTO-11:
   PR body generator design
 
-Y-AUTO-11:
+Y-AUTO-12:
   PR body generator stdout-only implementation
 
-Y-AUTO-12:
+Y-AUTO-13:
   Codex run prompt templates
 ```
 
@@ -537,9 +537,10 @@ The aggregator does not authorize higher-risk work by itself. Lane risk still de
 Current recommended auto lane after Y-AUTO-08:
 
 - Y-AUTO-09: implement a read-only local safety gate aggregator with stdlib-only text output.
-- Y-AUTO-10: add PR-body integration guidance for aggregator output after Y-AUTO-09 is merged.
-- Y-AUTO-11: refine lane-specific scope presets if Y-AUTO-09 output proves stable.
-- Y-AUTO-12: revisit package-readiness workflow only after gate aggregation is stable.
+- Y-AUTO-11: add PR-body integration guidance for aggregator output after Y-AUTO-09 is merged.
+- Y-AUTO-12: PR body generator stdout-only implementation.
+- Y-AUTO-13: Codex prompt templates.
+- APP-BOOT-01: new app bootstrap template design.
 ## Y-AUTO-09 Aggregator Use In Auto Lanes
 
 Lane verification may now use `scripts/run_local_safety_gates.py --base fork/master` as a local convenience wrapper.
@@ -554,9 +555,9 @@ The aggregator does not authorize higher risk by itself. It does not change lane
 
 Current recommended auto lane after Y-AUTO-09:
 
-- Y-AUTO-10: PR body generator design.
-- Y-AUTO-11: PR body generator stdout-only implementation.
-- Y-AUTO-12: Codex run prompt templates.
+- Y-AUTO-11: PR body generator design.
+- Y-AUTO-12: PR body generator stdout-only implementation.
+- Y-AUTO-13: Codex prompt templates.
 - Y-08F: readiness checklist preview implementation, if explicitly approved.
 ## Y-AUTO-10A Safe Wording Relation
 
@@ -582,3 +583,29 @@ Current recommended auto lane after Y-AUTO-10B:
 - Y-AUTO-12: PR body generator stdout-only implementation.
 - Y-AUTO-13: Codex prompt templates.
 - APP-BOOT-01: new app bootstrap template design.
+
+## Y-AUTO-11 PR Body Generator Relationship
+
+Y-AUTO-11 adds a docs-only design for a future PR body generator at
+`docs/llmwiki/pr-body-generator-design.md`.
+
+Auto lane PRs may use future generator output as draftable PR body text after a
+later implementation task lands. That output does not replace safety gates,
+does not approve merge, and does not change the lane risk boundary.
+
+High-mid work still requires human review before merge. A future generator must
+preserve the required High-mid wording:
+
+```text
+Risk tier: High-mid
+Automation decision: PR-ready only
+automation: pr-only-human-merge
+human-review-required
+```
+
+Current recommended auto lane after Y-AUTO-11:
+
+- Y-AUTO-12: PR body generator stdout-only implementation.
+- Y-AUTO-13: Codex prompt templates.
+- APP-BOOT-01: new app bootstrap template design.
+- APP-BOOT-02: bootstrap skeleton.

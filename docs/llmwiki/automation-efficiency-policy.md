@@ -161,8 +161,8 @@ task explicitly approves a narrower implementation.
 Future candidates:
 
 ```text
-Y-AUTO-10: PR body generator design
-Y-AUTO-11: PR body generator stdout-only implementation
+Y-AUTO-11: PR body generator design
+Y-AUTO-12: PR body generator stdout-only implementation
 ```
 
 Candidate script:
@@ -184,7 +184,7 @@ Initial mode:
 Future candidate:
 
 ```text
-Y-AUTO-12: Codex run prompt templates
+Y-AUTO-13: Codex run prompt templates
 ```
 
 Candidate doc:
@@ -346,13 +346,13 @@ Y-AUTO-08:
 Y-AUTO-09:
   safety gate aggregator implementation
 
-Y-AUTO-10:
+Y-AUTO-11:
   PR body generator design
 
-Y-AUTO-11:
+Y-AUTO-12:
   PR body generator stdout-only implementation
 
-Y-AUTO-12:
+Y-AUTO-13:
   Codex run prompt templates
 
 Y-08F:
@@ -414,7 +414,7 @@ Y-AUTO-09 adds `scripts/run_local_safety_gates.py` as a stdlib-only, read-only, 
 
 The aggregator runs existing repo safety, dry-run report regression, and clean-package dry-run gates in a deterministic order. It also checks generated package folder absence, PR #1001 leakage absence, local helper exclusion, and changed-file summary.
 
-Future PR body generator work may consume the aggregator output, but that remains a later explicit task. Y-AUTO-10 is the next recommended candidate.
+Future PR body generator work may consume the aggregator output, but that remains a later explicit task. The current design is recorded in Y-AUTO-11.
 ## Y-AUTO-10A Safety Wording Checker Design Note
 
 Y-AUTO-10A adds `docs/llmwiki/safety-wording-checker-design.md` as a docs-only design for a future safety wording checker.
@@ -428,4 +428,20 @@ Y-AUTO-10B adds `scripts/check_safety_wording.py` as a standalone read-only safe
 
 The checker reduces docs wording false positives by scanning changed docs before stronger safety gates surface wording-only issues. It does not weaken repo safety gates.
 
-Future aggregator integration remains separate. PR body generator design remains the next recommended candidate.
+Future aggregator integration remains separate. PR body generator design is recorded in Y-AUTO-11.
+
+## Y-AUTO-11 PR Body Generator Design Note
+
+Y-AUTO-11 adds `docs/llmwiki/pr-body-generator-design.md` as a docs-only design
+for a future stdout-only PR body generator.
+
+Purpose:
+
+- reduce repeated PR body writing;
+- preserve explicit safety evidence;
+- standardize risk, verification, not-performed, local helper, cleanup, and
+  human review sections.
+
+The future Y-AUTO-12 implementation remains a separate candidate and must stay
+read-only and stdout-only at first. The generator must not replace safety gates,
+must not approve merge, and must not weaken human review boundaries.
