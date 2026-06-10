@@ -412,6 +412,16 @@ PRs, keep minimal handoff current, avoid High-mid / High-high risk, and do not
 perform actual generation. Do not use closeout deferral for generation-adjacent
 risk increases.
 
+## Y-AUTO-07 Codex Auto Lanes Relationship
+
+Y-AUTO-07 adds `docs/llmwiki/codex-auto-lanes.md`, which makes lane execution
+conditions concrete for docs-only, report-only, checker-only, combined, and
+High-mid PR-ready tasks.
+
+This practical lane document does not weaken any existing risk tier rules.
+High-mid auto merge remains prohibited.
+High-high remains a stop-before-implementation state.
+
 ## Y-AUTO-01 Boundary
 
 Y-AUTO-01 is docs-only. It may add this policy and synchronize related
