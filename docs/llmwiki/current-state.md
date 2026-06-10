@@ -1259,6 +1259,43 @@
   - Or pause package-material work and move to the next report-only package
     preview/planning task.
 
+### Y-07E clean package dry-run report regression checker
+
+- Scope: stdlib-only lightweight report regression checker.
+- Script:
+  `scripts/check_clean_package_dry_run_reports.py`
+- Behavior:
+  - Runs `scripts/clean_package_dry_run.py` in default, `--format text`,
+    `--format markdown`, and `--format json` modes.
+  - Verifies default output and `--format text` remain text.
+  - Verifies default output and `--format text` are currently identical.
+  - Verifies Markdown output includes the required sections from the Y-07D
+    contract.
+  - Verifies JSON output parses as one object and includes the required
+    top-level fields from the Y-07D contract.
+  - Verifies simple cross-format status, warnings, and blockers consistency.
+  - Verifies `動画保存ツール_ローカル専用/` is absent.
+  - Prints a sanitized human-readable checker report.
+  - Does not write files, create temp files, or create package output.
+- Not implemented:
+  - changes to `scripts/clean_package_dry_run.py`
+  - changes to `scripts/check_repo_safety.py`
+  - CI integration
+  - report file writing
+  - generated distribution folder
+  - package generation
+  - real `manifest.json`, `NOTICE.txt`, or `LICENSES/` generation
+  - generated notice/license/inventory/guide output
+  - backend/frontend/Docker/CI/package/lockfile changes
+  - cookie/token/secret handling
+  - PR #1001 file changes
+  - 更新適用機能
+- Next candidate:
+  - Decide whether to add CI wiring for the checker later, if explicitly
+    approved.
+  - Or move to the next package preview/report-only planning task.
+  - Actual package generation remains blocked.
+
 ### Y-CHECK-01 safety gate checker design
 
 - Scope: docs-only design for a future repository safety checker and automation
@@ -1460,11 +1497,11 @@ Use `scripts/check_repo_safety.py` and `scripts/clean_package_dry_run.py` as
 local report-only gates before the next low-, medium-, or qualifying
 high-low-risk fork PR.
 
-The previous package-material next step is complete through Y-07D.
+The previous package-material next step is complete through Y-07E.
 
 The next package-material candidate should be selected explicitly. Good next
-candidates are Y-07E lightweight regression checks for report modes, or the
-next docs/report-only package preview task.
+candidates are Y-08A next package preview/report-only planning, or optional
+later CI wiring for the Y-07E checker if explicitly approved.
 
 Next scope:
 

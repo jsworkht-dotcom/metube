@@ -448,6 +448,17 @@ Future generator, preview, or report work must preserve:
 Y-07D is docs-only. It does not implement tests, change scripts, write report
 files, create package output, or weaken existing blockers.
 
+Y-07E implementation note:
+
+- `scripts/check_clean_package_dry_run_reports.py` now provides stdlib-only
+  checker coverage for the clean-package dry-run report modes.
+- Future generator, preview, or report work should run this checker before PR
+  creation and before merge when report modes are in scope.
+- The checker validates text, Markdown, JSON, cross-format, and no-generation
+  report invariants.
+- The checker does not write report files, create package output, add CI
+  wiring, or weaken existing blockers.
+
 Actual clean-package generation remains a later human-reviewed task.
 
 ## Cleanup / Rollback Candidate
@@ -525,6 +536,8 @@ Candidate phases, each requiring a separate explicit task:
    implemented by Y-07C.
 4a. Add docs-only report regression contract hardening for the current text,
     Markdown, and JSON modes. Completed by Y-07D.
+4b. Add a lightweight stdlib-only checker for the current text, Markdown, and
+    JSON report modes. Completed by Y-07E.
 5. Add a human-reviewed generator prototype that can be inspected but does not
    run actual generation in automated checks.
 6. Add actual generation only after human approval, clean dry-runs, reviewed
