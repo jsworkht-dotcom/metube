@@ -1436,6 +1436,45 @@ Required JSON top-level fields:
 The Y-07D contract is not a test implementation. Future lightweight regression
 checks remain a separate explicit task.
 
+## Y-07E Report Regression Checker
+
+Y-07E implements the first lightweight checker for the Y-07D report regression
+contract:
+
+```text
+scripts/check_clean_package_dry_run_reports.py
+```
+
+Implemented command:
+
+```text
+python scripts/check_clean_package_dry_run_reports.py
+```
+
+Rules:
+
+- The checker is stdlib-only.
+- The checker is report-only and reads stdout from
+  `scripts/clean_package_dry_run.py`.
+- The checker runs default text, `--format text`, `--format markdown`, and
+  `--format json`.
+- The checker validates that default output and `--format text` remain text.
+- The checker validates the required Markdown sections.
+- The checker validates JSON parseability, required JSON top-level fields, and
+  key JSON values.
+- The checker validates simple cross-format status, warning, and blocker
+  consistency.
+- The checker validates that `動画保存ツール_ローカル専用/` is absent.
+- The checker prints a sanitized human-readable report.
+- The checker exits `0` when all checks pass, `1` when report regressions are
+  detected, and `2` for checker usage errors.
+
+Y-07E does not change `scripts/clean_package_dry_run.py`, change
+`scripts/check_repo_safety.py`, add CI wiring, write report files, create
+package output, or approve package generation.
+
+Future CI integration remains a separate explicit task.
+
 ## Y-CHECK-01 Repository Safety Gate Relationship
 
 Y-CHECK-01 is documented in:

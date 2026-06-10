@@ -306,11 +306,58 @@ Possible future test forms:
 
 Y-07D does not implement these tests.
 
+## Y-07E Lightweight Checker Implementation
+
+Y-07E implements the first lightweight checker for this contract:
+
+```text
+scripts/check_clean_package_dry_run_reports.py
+```
+
+The checker is stdlib-only and report-only.
+
+It runs:
+
+```text
+python scripts/clean_package_dry_run.py
+python scripts/clean_package_dry_run.py --format text
+python scripts/clean_package_dry_run.py --format markdown
+python scripts/clean_package_dry_run.py --format json
+```
+
+It validates:
+
+- default output remains text;
+- `--format text` remains text;
+- current default and `--format text` output are identical;
+- Markdown includes the required sections;
+- JSON parses as one object over the full stdout;
+- JSON includes the required top-level fields;
+- key JSON values match the dry-run clean-repo expectation;
+- simple cross-format status, warning, and blocker consistency holds;
+- `動画保存ツール_ローカル専用/` is absent.
+
+The checker prints a sanitized human-readable report and does not print full
+mode stdout on failure.
+
+Y-07E does not:
+
+- write output files;
+- create temp files;
+- create package folders;
+- create package output;
+- change `scripts/clean_package_dry_run.py`;
+- change `scripts/check_repo_safety.py`;
+- add CI wiring;
+- approve actual package generation.
+
 ## PR Review Checklist
 
 Before merging future report-mode changes, confirm:
 
 - changed files are inside the approved task scope;
+- `scripts/check_clean_package_dry_run_reports.py` passes when report modes are
+  in scope;
 - `scripts/check_repo_safety.py` has no blockers;
 - `scripts/check_repo_safety.py --base fork/master` has no blockers;
 - `scripts/clean_package_dry_run.py` has no blockers;

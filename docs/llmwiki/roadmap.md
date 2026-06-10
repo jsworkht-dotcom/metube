@@ -50,12 +50,11 @@
 
 ### Next package-material candidate
 
-- Y-07D completes the docs-only report regression contract for the
-  clean-package dry-run report modes.
+- Y-07E completes the lightweight stdlib-only checker for clean-package
+  dry-run report modes.
 - The next package-material candidate should be selected explicitly. Good next
-  candidates are Y-07E lightweight regression checks for report modes, or
-  pausing package-material work and moving to the next report-only package
-  preview/planning task.
+  candidates are Y-08A next package preview/report-only planning task, or
+  optional later CI wiring for the Y-07E checker if explicitly approved.
 - Keep the next PR report-only, dry-run-only, or source-material only unless
   explicitly approved otherwise.
 - Do not create guide outputs, copy license text, generate notice bundles,
@@ -63,6 +62,30 @@
 - Do not create `動画保存ツール_ローカル専用/`, copy files, build packages, install
   dependencies, add Tauri/Electron/WebView2, change backend/frontend/Docker/CI,
   or change package/lockfile files.
+
+## Y-07E Report Regression Checker Outcome
+
+- Script:
+  `scripts/check_clean_package_dry_run_reports.py`
+- Added a stdlib-only checker for clean-package dry-run report modes.
+- The checker runs default text, `--format text`, `--format markdown`, and
+  `--format json`.
+- It validates text mode remains text, Markdown required sections are present,
+  JSON parses as one object, JSON required top-level fields are present, simple
+  cross-format status/warnings/blockers consistency holds, and no generated
+  package folder exists.
+- The checker prints a sanitized human-readable report and exits `0` when all
+  checks pass, `1` when regressions are found, and `2` for usage errors.
+- Future recommended candidates: Y-08A next package preview/report-only
+  planning task, or optional later CI wiring for the checker if explicitly
+  approved.
+- Actual package generation remains blocked.
+- This Y-07E PR does not change `scripts/clean_package_dry_run.py`, change
+  `scripts/check_repo_safety.py`, add CI wiring, write report files, create
+  generated distribution folders, create package output, run
+  ビルド/パッケージ/インストール操作, change dependencies, change
+  package/lockfile files, change backend/frontend/Docker/CI files, handle
+  cookie/token/secret values, touch PR #1001 files, or implement 更新適用機能.
 
 ## Y-07D Report Regression Contract Outcome
 
