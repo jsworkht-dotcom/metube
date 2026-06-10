@@ -518,6 +518,25 @@ MeTube. The canonical branch is fork `master`, and local `master` tracks
   package output, change backend/frontend/Docker/CI files, change
   package/lockfile files, handle cookie/token/secret values, touch PR #1001
   files, or implement 更新適用機能.
+- Y-07D clean-package dry-run report regression contract is documented at
+  `docs/llmwiki/clean-package-dry-run-report-regression-contract.md`.
+- Y-07D outcome: the contract records the current default text,
+  `--format text`, `--format markdown`, and `--format json` report modes.
+- Y-07D fixes the required Markdown sections, required JSON top-level fields,
+  cross-format consistency rules, exit-code behavior, warning/blocker
+  invariants, sanitization rules, no-generation boundary, verification matrix,
+  PR review checklist, stop conditions, rollback note, and High-low /
+  High-mid boundary.
+- Y-07D is docs-only. It does not change scripts, implement tests, add CI,
+  write report files, create generated package folders, create package output,
+  change backend/frontend/Docker/CI files, change package/lockfile files,
+  handle cookie/token/secret values, touch PR #1001 files, or implement
+  更新適用機能.
+- Future recommended candidate: Y-07E lightweight regression checks for report
+  modes, if explicitly approved, or pause and move to the next report-only
+  package preview/planning task.
+- `export_context_updated.py` is a known local-only WebGPT handoff/context
+  export helper. It remains untracked and outside Y-07D scope.
 - Y-CHECK-01 safety gate checker design is documented at
   `docs/llmwiki/safety-gate-checker-design.md`.
 - Y-CHECK-01 outcome: the future checker should evaluate repository diffs for
@@ -586,8 +605,8 @@ Run `scripts/check_repo_safety.py`,
 high-low-risk fork PR.
 
 The next package-material candidate should be selected explicitly. Good next
-candidates are optional JSON report structure hardening / test fixture docs or
-the next docs/report-only package preview task.
+candidates are Y-07E lightweight regression checks for report modes, or the
+next docs/report-only package preview/planning task.
 
 Do not create generated guide outputs, copy license text, create the generated
 package folder, copy package files, implement actual package generation, add

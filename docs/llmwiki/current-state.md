@@ -1220,6 +1220,45 @@
     move toward the next docs/report-only package preview task.
   - Actual package generation remains blocked.
 
+### Y-07D clean package dry-run report regression contract
+
+- Scope: docs-only report regression / contract hardening design.
+- Contract:
+  `docs/llmwiki/clean-package-dry-run-report-regression-contract.md`
+- Outcome:
+  - Records the current report modes:
+    `scripts/clean_package_dry_run.py`,
+    `scripts/clean_package_dry_run.py --format text`,
+    `scripts/clean_package_dry_run.py --format markdown`, and
+    `scripts/clean_package_dry_run.py --format json`.
+  - Defines regression invariants for default text, explicit text, Markdown,
+    and JSON output.
+  - Records the required Markdown sections and JSON top-level fields.
+  - Defines cross-format consistency rules for status, warning count, blocker
+    count, package root candidate, notice source coverage, guide source
+    coverage, generated artifact state, and human review requirement.
+  - Records exit-code, warning/blocker, sanitization, no-generation, and stop
+    condition contracts.
+  - Adds a verification matrix as commands/checklists only.
+- Not implemented:
+  - script changes
+  - test implementation
+  - CI integration
+  - report file writing
+  - generated distribution folder
+  - package generation
+  - real `manifest.json`, `NOTICE.txt`, or `LICENSES/` generation
+  - generated notice/license/inventory/guide output
+  - backend/frontend/Docker/CI/package/lockfile changes
+  - cookie/token/secret handling
+  - PR #1001 file changes
+  - 更新適用機能
+- Next candidate:
+  - Y-07E optional lightweight regression test implementation, if explicitly
+    approved.
+  - Or pause package-material work and move to the next report-only package
+    preview/planning task.
+
 ### Y-CHECK-01 safety gate checker design
 
 - Scope: docs-only design for a future repository safety checker and automation
@@ -1421,11 +1460,11 @@ Use `scripts/check_repo_safety.py` and `scripts/clean_package_dry_run.py` as
 local report-only gates before the next low-, medium-, or qualifying
 high-low-risk fork PR.
 
-The previous package-material next step is complete through Y-07C.
+The previous package-material next step is complete through Y-07D.
 
 The next package-material candidate should be selected explicitly. Good next
-candidates are optional JSON report structure hardening / test fixture docs or
-the next docs/report-only package preview task.
+candidates are Y-07E lightweight regression checks for report modes, or the
+next docs/report-only package preview task.
 
 Next scope:
 

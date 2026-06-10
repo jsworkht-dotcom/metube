@@ -1364,6 +1364,78 @@ Implemented JSON top-level keys:
 - human_review
 - next_step
 
+## Y-07D Report Regression Contract
+
+Y-07D adds a docs-only regression contract for the current clean-package dry-run
+report modes:
+
+```text
+docs/llmwiki/clean-package-dry-run-report-regression-contract.md
+```
+
+Contracted commands:
+
+```text
+python scripts/clean_package_dry_run.py
+python scripts/clean_package_dry_run.py --format text
+python scripts/clean_package_dry_run.py --format markdown
+python scripts/clean_package_dry_run.py --format json
+```
+
+Rules:
+
+- Default output remains text.
+- `--format text` remains text.
+- `--format markdown` remains stdout-only Markdown.
+- `--format json` remains stdout-only one-object JSON.
+- Exit-code behavior remains `0` for OK, `1` for blocked, and `2` for CLI
+  usage errors.
+- Warning and blocker classification must stay consistent across formats.
+- Secret-like findings must remain sanitized and must not print matched values.
+- No format may create package output, generated artifacts, or report files
+  without a later explicit task.
+
+Required Markdown sections:
+
+- `# Clean Package Dry-Run Report`
+- `## Summary`
+- `## Status`
+- `## Risk Classification`
+- `## Package Manifest Preview`
+- `## Package Output Diff Prediction`
+- `## Notice / Guide Source Coverage`
+- `## Excluded Paths Summary`
+- `## Blockers`
+- `## Warnings`
+- `## Human Review Checklist`
+- `## No-Generation Boundary`
+
+Required JSON top-level fields:
+
+- schema_version
+- report_type
+- report_format
+- mode
+- status
+- exit_code
+- generated_artifacts
+- checked_at
+- repository
+- package
+- package_manifest_preview
+- package_output_diff_prediction
+- source_coverage
+- excluded_paths_summary
+- validation
+- warnings
+- blockers
+- safety_flags
+- human_review
+- next_step
+
+The Y-07D contract is not a test implementation. Future lightweight regression
+checks remain a separate explicit task.
+
 ## Y-CHECK-01 Repository Safety Gate Relationship
 
 Y-CHECK-01 is documented in:

@@ -50,11 +50,12 @@
 
 ### Next package-material candidate
 
-- Y-07C completes the report-only JSON report mode implementation for the
-  clean-package dry-run report.
+- Y-07D completes the docs-only report regression contract for the
+  clean-package dry-run report modes.
 - The next package-material candidate should be selected explicitly. Good next
-  candidates are Y-07D optional JSON report structure hardening / test fixture
-  docs, or Y-08A next report-only package preflight/design task.
+  candidates are Y-07E lightweight regression checks for report modes, or
+  pausing package-material work and moving to the next report-only package
+  preview/planning task.
 - Keep the next PR report-only, dry-run-only, or source-material only unless
   explicitly approved otherwise.
 - Do not create guide outputs, copy license text, generate notice bundles,
@@ -62,6 +63,28 @@
 - Do not create `動画保存ツール_ローカル専用/`, copy files, build packages, install
   dependencies, add Tauri/Electron/WebView2, change backend/frontend/Docker/CI,
   or change package/lockfile files.
+
+## Y-07D Report Regression Contract Outcome
+
+- Contract:
+  `docs/llmwiki/clean-package-dry-run-report-regression-contract.md`
+- Added a docs-only regression contract for clean-package dry-run report modes.
+- Records the current default text, `--format text`, `--format markdown`, and
+  `--format json` behavior.
+- Documents required Markdown sections and JSON top-level fields.
+- Defines cross-format consistency rules, exit-code behavior,
+  warning/blocker invariants, sanitization rules, no-generation boundaries,
+  verification matrix, stop conditions, rollback note, and High-low /
+  High-mid boundary.
+- Future recommended candidate: Y-07E lightweight regression checks for report
+  modes, if explicitly approved, or pause and move to the next package
+  preview/report-only planning task.
+- Actual package generation remains blocked.
+- This Y-07D PR does not change scripts, implement tests, add CI, write report
+  files, create generated distribution folders, create package output, run
+  ビルド/パッケージ/インストール操作, change dependencies, change
+  package/lockfile files, change backend/frontend/Docker/CI files, handle
+  cookie/token/secret values, touch PR #1001 files, or implement 更新適用機能.
 
 ## Y-07C JSON Report Mode Outcome
 
