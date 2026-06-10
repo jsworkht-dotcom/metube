@@ -299,3 +299,12 @@ The implementation follows this design boundary:
 - prints sanitized category, severity, and suggestion fields without printing raw matched phrases;
 - does not weaken `scripts/check_repo_safety.py`;
 - is not yet integrated into `scripts/run_local_safety_gates.py`.
+
+## Y-AUTO-12 PR Body Generator Relationship
+
+`scripts/generate_pr_body.py` should emit PR body text using this safe wording
+policy.
+
+Generated PR body Markdown should be checked through the same safe vocabulary
+expectations before use. Future stdin integration for checking generated PR
+body text remains separate; Y-AUTO-12 does not add stdin mode.

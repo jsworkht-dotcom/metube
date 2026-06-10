@@ -2,23 +2,23 @@
 
 ## Immediate Next
 
-### Y-AUTO-11 PR body generator design outcome
+### Y-AUTO-12 PR body generator stdout-only implementation outcome
 
+- Script:
+  `scripts/generate_pr_body.py`
 - Design document:
   `docs/llmwiki/pr-body-generator-design.md`
-- Added docs-only design for a future stdout-only PR body generator.
-- Defined required PR body sections, risk templates, explicitly not-performed
-  presets, verification templates, local helper note rules, human review rules,
-  safety wording rules, CLI shape, output format, exit code contract,
-  sanitization rules, integration boundaries, stop conditions, and rollback
-  notes.
-- The generator remains a future task and must not replace safety gates,
-  approve merge, call the GitHub API, create PRs, edit PRs, write PR body
-  files by default, or create package output.
+- Added a stdout-only PR body generator.
+- Supports title, risk, scope, automation validation, repeated summary lines,
+  local helper note control, human review marker, optional changed-file summary,
+  and verification presets.
+- Uses Python stdlib only and resolves the repository root from the script path.
+- The generator remains a review aid. It does not replace safety gates, approve
+  merge, call the GitHub API, create PRs, edit PRs, write PR body files by
+  default, or create package output.
 
 ### Next automation candidates
 
-- Y-AUTO-12 PR body generator stdout-only implementation.
 - Y-AUTO-13 Codex prompt templates.
 - APP-BOOT-01 new app bootstrap template design.
 - APP-BOOT-02 bootstrap skeleton.
@@ -1120,5 +1120,25 @@ Next candidates:
 - Y-AUTO-13 Codex prompt templates.
 - APP-BOOT-01 new app bootstrap template design.
 - APP-BOOT-02 bootstrap skeleton.
+
+Actual package generation remains blocked.
+
+## Y-AUTO-12 Outcome: PR Body Generator Implementation
+
+Y-AUTO-12 adds `scripts/generate_pr_body.py` as a stdout-only PR body
+generator.
+
+The generator emits standard Markdown sections for Summary, Risk / automation,
+Local helper note, Explicitly not performed, Verification, Cleanup / rollback,
+and Human review note. It supports safe risk and scope templates, optional
+sanitized changed-file summaries, verification presets, automation validation,
+and human review markers.
+
+Next candidates:
+
+- Y-AUTO-13 Codex prompt templates.
+- APP-BOOT-01 new app bootstrap template design.
+- APP-BOOT-02 bootstrap skeleton.
+- Y-CI-01 lightweight CI design.
 
 Actual package generation remains blocked.

@@ -282,3 +282,12 @@ Y-AUTO-10A does not implement that checker and does not change the aggregator. T
 `scripts/check_safety_wording.py` is now available as a standalone checker.
 
 A later integration task may call it from `scripts/run_local_safety_gates.py`. Y-AUTO-10B does not integrate it, and the aggregator command remains unchanged for this PR.
+
+## Y-AUTO-12 PR Body Generator Relationship
+
+`scripts/generate_pr_body.py` may reference the aggregator command in its
+verification presets.
+
+The generator does not run gates by default. It prints reviewable Markdown and
+leaves `scripts/run_local_safety_gates.py` as the verification orchestrator.
+The underlying gate scripts remain authoritative.

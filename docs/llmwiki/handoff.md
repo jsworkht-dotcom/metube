@@ -868,3 +868,28 @@ Carry forward:
 - `export_context_updated.py` remains locally excluded and uncommitted.
 - Actual generation remains blocked.
 - The future PR body generator must not replace safety gates or approve merge.
+
+## Y-AUTO-12 Handoff Update
+
+Latest work: Y-AUTO-12 PR body generator stdout-only implementation.
+
+New command:
+
+```powershell
+python scripts/generate_pr_body.py --title "..." --risk high-low --scope docs-only
+```
+
+Available commands:
+
+```powershell
+python scripts/run_local_safety_gates.py --base fork/master
+python scripts/check_safety_wording.py --base fork/master
+```
+
+Next recommended candidate: Y-AUTO-13 Codex prompt templates.
+
+Carry forward:
+
+- `export_context_updated.py` remains locally excluded and uncommitted.
+- Actual generation remains blocked.
+- The PR body generator does not replace safety gates or approve merge.

@@ -609,3 +609,21 @@ Current recommended auto lane after Y-AUTO-11:
 - Y-AUTO-13: Codex prompt templates.
 - APP-BOOT-01: new app bootstrap template design.
 - APP-BOOT-02: bootstrap skeleton.
+
+## Y-AUTO-12 PR Body Generator Use In Auto Lanes
+
+Auto lane PRs may use `scripts/generate_pr_body.py` to draft the standard PR
+body sections.
+
+The generated PR body is a review aid only. It does not replace local safety
+gates, does not approve merge, does not call the GitHub API, and does not
+create or edit PRs.
+
+High-mid work still requires human review before merge, even when the PR body
+is generated from the `high-mid-pr-ready` scope template.
+
+Current recommended auto lane after Y-AUTO-12:
+
+- Y-AUTO-13: Codex prompt templates.
+- APP-BOOT-01: new app bootstrap template design.
+- APP-BOOT-02: bootstrap skeleton.
