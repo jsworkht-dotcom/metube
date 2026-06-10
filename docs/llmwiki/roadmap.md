@@ -25,8 +25,8 @@
   Ready-for-review handoff only when the task explicitly approves that scope.
 - For High-mid work, keep auto merge disabled and require human review before
   merge.
-- Keep any automation wrapper, CI integration, PR comment automation, or JSON
-  report mode as a later explicitly approved task.
+- Keep any automation wrapper, CI integration, PR comment automation, or
+  JSON/Markdown report implementation as a later explicitly approved task.
 - Keep package generation, update execution, dependency install/update, Docker
   pull, backend/frontend/Docker/CI changes, package/lockfile changes,
   generated distribution folders, and cookie/token/secret handling out of
@@ -50,10 +50,10 @@
 
 ### Next package-material candidate
 
-- Y-06Z completes the docs-only Markdown report mode design for the
-  clean-package dry-run report.
-- The next package-material candidate should be selected explicitly. A good
-  next candidate is a docs-only JSON report mode design, or a future
+- Y-07A completes the docs-only JSON report mode design for the clean-package
+  dry-run report.
+- The next package-material candidate should be selected explicitly. Good next
+  candidates are a future report-only JSON implementation or a future
   report-only Markdown implementation if explicitly approved.
 - Keep the next PR report-only, dry-run-only, or source-material only unless
   explicitly approved otherwise.
@@ -62,6 +62,30 @@
 - Do not create `動画保存ツール_ローカル専用/`, copy files, build packages, install
   dependencies, add Tauri/Electron/WebView2, change backend/frontend/Docker/CI,
   or change package/lockfile files.
+
+## Y-07A JSON Report Mode Design Outcome
+
+- Design:
+  `docs/llmwiki/clean-package-dry-run-json-report-mode-design.md`
+- Added a docs-only design for a future JSON report mode in
+  `scripts/clean_package_dry_run.py`.
+- Recommends `--format json` as the first future selector and keeps current
+  text output as the default.
+- Defines a one-object stdout JSON shape with top-level keys for repository,
+  package, planned entries, package manifest preview, package output diff
+  prediction, excluded paths, checks, warnings, blocked reasons, safety flags,
+  risk classification relationship, no-generation boundary, and next step.
+- Defines schema compatibility guidance, PR/handoff reuse guidance, safety
+  boundaries, future implementation checklist, future verification checklist,
+  cleanup / rollback note, and High-low / High-mid boundary.
+- This Y-07A PR does not change scripts, implement JSON or Markdown output,
+  write report files, create `manifest.json`, `NOTICE.txt`, `LICENSES/`,
+  generated distribution folders, notice bundles, license bundles, inventory
+  files, manifest files, HTML/TXT guide output,
+  ビルド/パッケージ/インストール操作, dependency changes, package/lockfile
+  changes, backend/frontend/Docker/CI changes, cookie/token/secret handling,
+  public hosting, ads, PR #1001 file changes, automation wrapper / CI /
+  PR-comment integration, or 更新適用機能.
 
 ## Y-06Z Markdown Report Mode Design Outcome
 

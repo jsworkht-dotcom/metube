@@ -364,6 +364,25 @@ Y-06X implementation note:
 - The preview reports source counts and candidate future outputs only.
 - It does not create `manifest.json` or any package file.
 
+## JSON Report Mode Design Candidate
+
+Future dry-run / preview may include JSON output for local review tooling,
+structured handoff data, and machine-readable package planning summaries.
+
+Y-07A design note:
+
+- `docs/llmwiki/clean-package-dry-run-json-report-mode-design.md` defines the
+  JSON report mode design.
+- The design keeps text output as the default.
+- The design prefers `--format json` for the first future selector.
+- The design requires one valid JSON object on stdout and no report-file
+  writing in the first implementation.
+- The design keeps repository-diff risk classification owned by
+  `scripts/check_repo_safety.py` unless a later wrapper task explicitly
+  combines reports.
+- The design does not implement JSON output, write report files, create package
+  output, or weaken existing blockers.
+
 ## Markdown Report Mode Design Candidate
 
 Future dry-run / preview may include Markdown output for PR body reuse,
@@ -453,8 +472,9 @@ Candidate phases, each requiring a separate explicit task:
 3. Add a package output diff prediction report that writes nothing. Completed
    by Y-06Y.
 4. Add JSON or Markdown report output, still without writing package files.
-   Markdown report mode design is documented by Y-06Z; implementation remains a
-   future explicit task.
+   JSON report mode design is documented by Y-07A and Markdown report mode
+   design is documented by Y-06Z; implementation remains a future explicit
+   task.
 5. Add a human-reviewed generator prototype that can be inspected but does not
    run actual generation in automated checks.
 6. Add actual generation only after human approval, clean dry-runs, reviewed

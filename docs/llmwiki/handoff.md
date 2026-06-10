@@ -457,6 +457,26 @@ MeTube. The canonical branch is fork `master`, and local `master` tracks
   guide output, ビルド/パッケージ/インストール操作, dependency changes,
   package/lockfile changes, backend/frontend/Docker/CI changes,
   cookie/token/secret handling, PR #1001 file changes, or 更新適用機能.
+- Y-07A clean package dry-run JSON report mode design is documented at
+  `docs/llmwiki/clean-package-dry-run-json-report-mode-design.md`.
+- Y-07A outcome: future JSON report mode should keep text output as the
+  default, prefer `--format json` as the first future selector, and write one
+  valid JSON object to stdout only in its first implementation.
+- Y-07A defines structured top-level data for repository, package, planned
+  entries, package manifest preview, package output diff prediction, excluded
+  paths, checks, warnings, blocked reasons, safety flags, risk classification
+  relationship, no-generation boundary, and next step.
+- Y-07A also defines schema compatibility guidance, PR/handoff reuse guidance,
+  safety boundaries, future implementation checklist, future verification
+  checklist, cleanup / rollback note, and High-low / High-mid boundary.
+- Y-07A is docs-only. It does not change `scripts/clean_package_dry_run.py` or
+  `scripts/check_repo_safety.py`, implement JSON or Markdown output, write
+  report files, create `manifest.json`, `NOTICE.txt`, `LICENSES/`, generated
+  package folders, notice bundles, license bundles, inventory files, manifest
+  files, HTML/TXT guide output, ビルド/パッケージ/インストール操作,
+  dependency changes, package/lockfile changes, backend/frontend/Docker/CI
+  changes, cookie/token/secret handling, PR #1001 file changes, automation
+  wrapper / CI / PR-comment integration, or 更新適用機能.
 - Y-CHECK-01 safety gate checker design is documented at
   `docs/llmwiki/safety-gate-checker-design.md`.
 - Y-CHECK-01 outcome: the future checker should evaluate repository diffs for
@@ -524,9 +544,9 @@ Run `scripts/check_repo_safety.py`,
 `scripts/clean_package_dry_run.py` before the next low-, medium-, or qualifying
 high-low-risk fork PR.
 
-The next package-material candidate should be selected explicitly. A good next
-candidate is a docs-only JSON report mode design, or a future report-only
-Markdown implementation if explicitly approved.
+The next package-material candidate should be selected explicitly. Good next
+candidates are a future report-only JSON implementation or a future
+report-only Markdown implementation if explicitly approved.
 
 Do not create generated guide outputs, copy license text, create the generated
 package folder, copy package files, implement actual package generation, add
