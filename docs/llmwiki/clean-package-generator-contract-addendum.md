@@ -424,6 +424,32 @@ Y-07B implementation note:
 - The implementation does not write report files, create package output, or
   weaken existing blockers.
 
+## Report Regression Contract
+
+Y-07D fixes the regression contract for the current clean-package dry-run
+report modes:
+
+```text
+docs/llmwiki/clean-package-dry-run-report-regression-contract.md
+```
+
+Future generator, preview, or report work must preserve:
+
+- default text output;
+- `--format text` output;
+- `--format markdown` required sections;
+- `--format json` one-object parseability and required top-level fields;
+- shared warning/blocker classification;
+- shared exit-code behavior;
+- sanitized findings with no cookie/token/secret/credential values;
+- no-generation behavior unless a later explicit human-reviewed task approves
+  actual generation.
+
+Y-07D is docs-only. It does not implement tests, change scripts, write report
+files, create package output, or weaken existing blockers.
+
+Actual clean-package generation remains a later human-reviewed task.
+
 ## Cleanup / Rollback Candidate
 
 Future implementation planning should include cleanup and rollback candidates
@@ -497,6 +523,8 @@ Candidate phases, each requiring a separate explicit task:
 4. Add JSON or Markdown report output, still without writing package files.
    Markdown report mode is implemented by Y-07B. JSON report mode is
    implemented by Y-07C.
+4a. Add docs-only report regression contract hardening for the current text,
+    Markdown, and JSON modes. Completed by Y-07D.
 5. Add a human-reviewed generator prototype that can be inspected but does not
    run actual generation in automated checks.
 6. Add actual generation only after human approval, clean dry-runs, reviewed
