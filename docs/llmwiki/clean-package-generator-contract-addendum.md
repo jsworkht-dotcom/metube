@@ -502,6 +502,19 @@ Y-08B implementation note:
 - Actual manifest, notice, license, inventory, guide, and package generation
   remain later human-reviewed tasks.
 
+Y-08C implementation note:
+
+- `scripts/clean_package_dry_run.py` now reports richer package output diff
+  prediction groups in text, Markdown, and JSON output.
+- JSON includes `package_output_diff_prediction.output_groups` and
+  `package_output_diff_prediction.output_group_summary`.
+- The output groups are report-only preview candidates and keep
+  `generated_now: false`.
+- A future generator may reuse the structure only after later package-time and
+  legal review.
+- Actual manifest, notice, license, inventory, guide, runtime, and package
+  generation remain later human-reviewed tasks.
+
 ## Cleanup / Rollback Candidate
 
 Future implementation planning should include cleanup and rollback candidates
@@ -583,8 +596,10 @@ Candidate phases, each requiring a separate explicit task:
     diff grouping, and source coverage status vocabulary. Completed by Y-08A.
 4d. Add richer manifest preview entries in report-only mode. Completed by
     Y-08B.
-4e. Add richer output diff prediction grouping in report-only mode, if
-    explicitly approved.
+4e. Add richer output diff prediction grouping in report-only mode. Completed
+    by Y-08C.
+4f. Add source coverage status hardening in report-only mode, if explicitly
+    approved.
 5. Add a human-reviewed generator prototype that can be inspected but does not
    run actual generation in automated checks.
 6. Add actual generation only after human approval, clean dry-runs, reviewed
