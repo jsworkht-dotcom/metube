@@ -502,8 +502,9 @@ scope and passes gates.
 Y-08F to Y-08Z preview readiness lane
 Y-CI-01 to Y-CI-04 CI design/implementation lane
 Y-GH-01 to Y-GH-02 GitHub governance design lane
-Y-AUTO-13 worktree design lane
-Y-AUTO-14 stop condition checker design lane
+Y-AUTO-14 preflight environment checker design lane
+Y-AUTO-later worktree design lane
+Y-AUTO-later stop condition checker design lane
 ```
 
 ## Rollback / Cleanup Note
@@ -627,3 +628,31 @@ Current recommended auto lane after Y-AUTO-12:
 - Y-AUTO-13: Codex prompt templates.
 - APP-BOOT-01: new app bootstrap template design.
 - APP-BOOT-02: bootstrap skeleton.
+
+## Y-AUTO-13 Prompt Template Use In Auto Lanes
+
+Lane execution may reference
+`docs/llmwiki/codex-run-prompt-templates.md` when preparing a Codex run.
+
+The templates help standardize lane prompts for:
+
+- docs-only PRs;
+- report-only script PRs;
+- checker-only PRs;
+- combined report / checker / docs PRs;
+- High-mid PR-ready-only handoff;
+- human-reviewed merge;
+- recovery / finalize;
+- closeout / handoff sync;
+- new app bootstrap planning.
+
+The templates do not authorize higher-risk work, replace
+`docs/llmwiki/codex-automation-policy.md`, replace local safety gates, or remove
+human review requirements.
+
+Current recommended auto lane after Y-AUTO-13:
+
+- APP-BOOT-01: new app bootstrap template design.
+- APP-BOOT-02: bootstrap skeleton.
+- Y-AUTO-14: preflight environment checker design.
+- Y-CI-01: lightweight CI design.

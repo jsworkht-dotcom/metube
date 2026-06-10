@@ -523,3 +523,17 @@ Implementation boundaries:
 
 The generator does not replace safety gates, does not approve merge, and does
 not authorize higher-risk work.
+
+## Y-AUTO-13 Codex Prompt Template Relationship
+
+`docs/llmwiki/codex-run-prompt-templates.md` may reference
+`scripts/generate_pr_body.py` for PR body drafting patterns.
+
+The generator output remains a reviewable draft only. Prompt templates must
+still instruct Codex to review generated Markdown before PR use, run local
+safety gates, keep safe abstract vocabulary, and preserve human review
+requirements.
+
+Prompt templates do not turn PR body generation into GitHub API integration, PR
+creation/editing automation, merge approval, report file writing, or generated
+package output.

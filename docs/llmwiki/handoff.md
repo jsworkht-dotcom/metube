@@ -893,3 +893,35 @@ Carry forward:
 - `export_context_updated.py` remains locally excluded and uncommitted.
 - Actual generation remains blocked.
 - The PR body generator does not replace safety gates or approve merge.
+
+## Y-AUTO-13 Handoff Update
+
+Latest work: Y-AUTO-13 Codex prompt templates.
+
+Added:
+
+```text
+docs/llmwiki/codex-run-prompt-templates.md
+```
+
+The new doc provides reusable Codex prompt templates for docs-only,
+report-only, checker-only, combined, High-mid PR-ready-only, human-reviewed
+merge, recovery, closeout, and new app bootstrap workflows.
+
+Available commands:
+
+```powershell
+python scripts/run_local_safety_gates.py --base fork/master
+python scripts/check_safety_wording.py --base fork/master
+python scripts/generate_pr_body.py --title "..." --risk high-low --scope docs-only
+```
+
+Next recommended candidate: APP-BOOT-01 new app bootstrap template design if
+starting a new app workflow, or Y-AUTO-14 preflight environment checker design
+if continuing tooling hardening.
+
+Carry forward:
+
+- `export_context_updated.py` remains locally excluded and uncommitted.
+- Actual generation remains blocked.
+- Prompt templates do not replace safety gates or authorize higher risk.

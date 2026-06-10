@@ -181,7 +181,7 @@ Initial mode:
 
 ## Codex Prompt Template Candidate
 
-Future candidate:
+Implemented candidate:
 
 ```text
 Y-AUTO-13: Codex run prompt templates
@@ -198,10 +198,27 @@ Initial templates:
 - docs-only PR template;
 - report-only script PR template;
 - checker update PR template;
+- combined report / checker / docs PR template;
 - High-mid PR-ready-only template;
-- CI design template;
-- CI implementation template;
+- human-reviewed merge template;
+- recovery / finalize template;
 - closeout PR template.
+- new app bootstrap template.
+
+The templates reduce repeated Codex prompt writing. They do not replace safety
+gates, authorize higher risk, or replace human review.
+
+Next candidate after Y-AUTO-13:
+
+```text
+APP-BOOT-01: new app bootstrap template design
+```
+
+If continuing tooling hardening in this repository instead:
+
+```text
+Y-AUTO-14: preflight environment checker design
+```
 
 ## Future CI / Branch Protection / CODEOWNERS Candidates
 
@@ -223,7 +240,7 @@ Y-AUTO-06 does not implement CI, branch protection, or CODEOWNERS.
 Later phase:
 
 ```text
-Y-AUTO-13 worktree operation design
+Y-AUTO-later worktree operation design
 ```
 
 Candidate layout:
@@ -246,7 +263,7 @@ Y-AUTO-06 does not implement worktree operation.
 Later phase:
 
 ```text
-Y-AUTO-14 stop condition checker design
+Y-AUTO-later stop condition checker design
 ```
 
 Candidate script:
@@ -355,17 +372,17 @@ Y-AUTO-12:
 Y-AUTO-13:
   Codex run prompt templates
 
-Y-08F:
-  readiness checklist preview implementation
+APP-BOOT-01:
+  new app bootstrap template design
 
-Y-08G:
-  readiness unresolved item summary
+APP-BOOT-02:
+  bootstrap skeleton
 
-Y-08H:
-  readiness score / summary polish
+Y-AUTO-14:
+  preflight environment checker design
 
-Y-08Z:
-  preview hardening closeout
+Y-CI-01:
+  lightweight CI design
 ```
 
 CI, branch protection, CODEOWNERS, worktree, and stop condition checker work
@@ -450,4 +467,26 @@ sections for risk, verification, not-performed scope, local helper status,
 cleanup, and human review notes. It does not replace safety gates, approve
 merge, edit PRs, or call the GitHub API.
 
-Future Codex prompt templates remain the next automation candidate.
+Y-AUTO-13 records the Codex prompt templates as the next automation aid.
+
+## Y-AUTO-13 Codex Prompt Templates Note
+
+Y-AUTO-13 adds `docs/llmwiki/codex-run-prompt-templates.md` as a docs-only
+template library for future Codex runs.
+
+Purpose:
+
+- reduce repeated Codex prompt writing;
+- standardize reusable prompt blocks for docs-only, report-only, checker-only,
+  combined, High-mid PR-ready, human-reviewed merge, recovery, closeout, and new
+  app bootstrap workflows;
+- preserve safety gates and human review.
+
+The templates do not replace `scripts/run_local_safety_gates.py`,
+`scripts/check_safety_wording.py`, `scripts/generate_pr_body.py`,
+`docs/llmwiki/codex-automation-policy.md`, or
+`docs/llmwiki/codex-auto-lanes.md`.
+
+Next candidate: APP-BOOT-01 new app bootstrap template design if moving to a new
+app workflow, or Y-AUTO-14 preflight environment checker design if continuing
+tooling hardening in this repository.
