@@ -515,6 +515,19 @@ Y-08C implementation note:
 - Actual manifest, notice, license, inventory, guide, runtime, and package
   generation remain later human-reviewed tasks.
 
+Y-08D implementation note:
+
+- `scripts/clean_package_dry_run.py` now reports source coverage status items
+  in text, Markdown, and JSON output.
+- JSON includes `source_coverage.coverage_items` and
+  `source_coverage.coverage_summary`.
+- Coverage statuses are report-only preview data for guide, notice, license,
+  inventory, runtime selection, desktop shell, and manifest source categories.
+- A future generator may reuse the status vocabulary only after later
+  package-time and legal review.
+- Actual manifest, notice, license, inventory, guide, runtime, desktop shell,
+  and package generation remain later human-reviewed tasks.
+
 ## Cleanup / Rollback Candidate
 
 Future implementation planning should include cleanup and rollback candidates
@@ -598,8 +611,10 @@ Candidate phases, each requiring a separate explicit task:
     Y-08B.
 4e. Add richer output diff prediction grouping in report-only mode. Completed
     by Y-08C.
-4f. Add source coverage status hardening in report-only mode, if explicitly
-    approved.
+4f. Add source coverage status hardening in report-only mode. Completed by
+    Y-08D.
+4g. Add a package generation readiness checklist in docs-only or report-only
+    mode, if explicitly approved.
 5. Add a human-reviewed generator prototype that can be inspected but does not
    run actual generation in automated checks.
 6. Add actual generation only after human approval, clean dry-runs, reviewed

@@ -403,6 +403,37 @@ The checker now validates:
 Y-08C remains report-only and does not write report files, create package
 output, add CI wiring, or approve actual package generation.
 
+## Y-08D Source Coverage Status Regression Additions
+
+Y-08D extends the checker for source coverage status hardening.
+
+The checker now validates:
+
+- JSON has `source_coverage.coverage_items`.
+- `coverage_items` is a non-empty list.
+- JSON has `source_coverage.coverage_summary`.
+- `coverage_summary` is an object.
+- `coverage_summary.total` matches the number of coverage items.
+- `coverage_summary.generated_now` is `false`.
+- `coverage_summary.human_review_required` is `true`.
+- `coverage_summary.by_category` is an object.
+- `coverage_summary.by_status` is an object.
+- Every coverage item has the required Y-08D fields.
+- Every coverage item uses an approved status value.
+- Every coverage item has list-shaped `expected_package_outputs` and
+  `safety_notes` fields.
+- Required coverage categories are present for guide sources, notice sources,
+  license sources, inventory sources, runtime selection, desktop shell, and
+  manifest sources.
+- At least one item has `package_time_review_required: true`.
+- At least one guide source item is present.
+- At least one notice source item is present.
+- Markdown output contains `Source Coverage Status`.
+- Text output contains `Source coverage status`.
+
+Y-08D remains report-only and does not write report files, create package
+output, add CI wiring, or approve actual package generation.
+
 ## PR Review Checklist
 
 Before merging future report-mode changes, confirm:

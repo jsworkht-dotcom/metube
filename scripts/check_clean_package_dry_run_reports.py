@@ -127,19 +127,57 @@ OUTPUT_GROUP_REVIEW_STATUSES = {
     "not_applicable_this_phase",
 }
 
+REQUIRED_COVERAGE_ITEM_FIELDS = {
+    "coverage_key",
+    "category",
+    "label",
+    "source_path",
+    "expected_package_outputs",
+    "status",
+    "present",
+    "required_for_generation",
+    "legal_final",
+    "package_time_review_required",
+    "human_review_required",
+    "safety_notes",
+}
+
+COVERAGE_STATUSES = {
+    "present",
+    "missing",
+    "candidate_only",
+    "source_draft",
+    "legal_not_final",
+    "package_time_review_required",
+    "not_applicable_this_phase",
+}
+
+REQUIRED_COVERAGE_CATEGORIES = {
+    "guide_source",
+    "notice_source",
+    "license_source",
+    "inventory_source",
+    "runtime_selection",
+    "desktop_shell",
+    "manifest_source",
+}
+
 CHECK_NAMES = (
     "all modes exit 0",
     "default text output",
     "--format text output",
     "text manifest entries",
     "text output groups",
+    "text source coverage status",
     "--format markdown required sections",
     "--format markdown manifest entries",
     "--format markdown output groups",
+    "--format markdown source coverage status",
     "--format json parse",
     "--format json required fields",
     "--format json manifest entries",
     "--format json output groups",
+    "--format json source coverage status",
     "cross-format status consistency",
     "generated package folder absent",
 )
@@ -322,6 +360,21 @@ def check_text_outputs(
             "--format text output missing output_groups",
         )
 
+    if "Source coverage status" not in default:
+        add_failure(
+            failures,
+            check_status,
+            "text source coverage status",
+            "default text output missing Source coverage status",
+        )
+    if "Source coverage status" not in text:
+        add_failure(
+            failures,
+            check_status,
+            "text source coverage status",
+            "--format text output missing Source coverage status",
+        )
+
 
 def check_markdown_output(
     result: ModeResult,
@@ -360,6 +413,14 @@ def check_markdown_output(
             check_status,
             "--format markdown output groups",
             "Markdown output missing Output Groups",
+        )
+
+    if "Source Coverage Status" not in output:
+        add_failure(
+            failures,
+            check_status,
+            "--format markdown source coverage status",
+            "Markdown output missing Source Coverage Status",
         )
 
 
@@ -701,6 +762,189 @@ def check_json_output_groups(
         )
 
 
+def check_json_source_coverage(
+    json_data: dict[str, object] | None,
+    failures: list[str],
+    check_status: dict[str, bool],
+) -> None:
+    check_name = "--format json source coverage status"
+    if json_data is None:
+        add_failure(
+            failures,
+            check_status,
+            check_name,
+            "JSON data unavailable for source coverage checks",
+        )
+        return
+
+    source_coverage = json_data.get("source_coverage")
+    if not isinstance(source_coverage, dict):
+        add_failure(
+            failures,
+            check_status,
+            check_name,
+            "source_coverage is not an object",
+        )
+        return
+
+    items = source_coverage.get("coverage_items")
+    if not isinstance(items, list) or not items:
+        add_failure(
+            failures,
+            check_status,
+            check_name,
+            "coverage_items is not a non-empty list",
+        )
+        return
+
+    summary = source_coverage.get("coverage_summary")
+    if not isinstance(summary, dict):
+        add_failure(
+            failures,
+            check_status,
+            check_name,
+            "coverage_summary is not an object",
+        )
+    else:
+        if summary.get("total") != len(items):
+            add_failure(
+                failures,
+                check_status,
+                check_name,
+                "coverage_summary total does not match coverage_items length",
+            )
+        if summary.get("generated_now") is not False:
+            add_failure(
+                failures,
+                check_status,
+                check_name,
+                "coverage_summary generated_now is not false",
+            )
+        if summary.get("human_review_required") is not True:
+            add_failure(
+                failures,
+                check_status,
+                check_name,
+                "coverage_summary human_review_required is not true",
+            )
+        if not isinstance(summary.get("by_category"), dict):
+            add_failure(
+                failures,
+                check_status,
+                check_name,
+                "coverage_summary by_category is not an object",
+            )
+        if not isinstance(summary.get("by_status"), dict):
+            add_failure(
+                failures,
+                check_status,
+                check_name,
+                "coverage_summary by_status is not an object",
+            )
+
+    seen_categories: set[str] = set()
+    package_time_review_present = False
+    present_guide_source = False
+    present_notice_source = False
+    for index, item in enumerate(items):
+        if not isinstance(item, dict):
+            add_failure(
+                failures,
+                check_status,
+                check_name,
+                f"coverage item {index} is not an object",
+            )
+            continue
+
+        missing = REQUIRED_COVERAGE_ITEM_FIELDS - set(item)
+        if missing:
+            add_failure(
+                failures,
+                check_status,
+                check_name,
+                f"coverage item {index} missing fields: {', '.join(sorted(missing))}",
+            )
+
+        category = item.get("category")
+        if isinstance(category, str):
+            seen_categories.add(category)
+        else:
+            add_failure(
+                failures,
+                check_status,
+                check_name,
+                f"coverage item {index} category is not a string",
+            )
+
+        if item.get("status") not in COVERAGE_STATUSES:
+            add_failure(
+                failures,
+                check_status,
+                check_name,
+                f"coverage item {index} status is not recognized",
+            )
+        source_path = item.get("source_path")
+        if source_path is not None and not isinstance(source_path, str):
+            add_failure(
+                failures,
+                check_status,
+                check_name,
+                f"coverage item {index} source_path is not a string or null",
+            )
+        if not isinstance(item.get("expected_package_outputs"), list):
+            add_failure(
+                failures,
+                check_status,
+                check_name,
+                f"coverage item {index} expected_package_outputs is not a list",
+            )
+        if not isinstance(item.get("safety_notes"), list):
+            add_failure(
+                failures,
+                check_status,
+                check_name,
+                f"coverage item {index} safety_notes is not a list",
+            )
+
+        if item.get("package_time_review_required") is True:
+            package_time_review_present = True
+        if category == "guide_source" and item.get("present") is True:
+            present_guide_source = True
+        if category == "notice_source" and item.get("present") is True:
+            present_notice_source = True
+
+    missing_categories = REQUIRED_COVERAGE_CATEGORIES - seen_categories
+    if missing_categories:
+        add_failure(
+            failures,
+            check_status,
+            check_name,
+            "missing coverage categories: "
+            + ", ".join(sorted(missing_categories)),
+        )
+    if not package_time_review_present:
+        add_failure(
+            failures,
+            check_status,
+            check_name,
+            "missing package_time_review_required coverage item",
+        )
+    if not present_guide_source:
+        add_failure(
+            failures,
+            check_status,
+            check_name,
+            "missing present guide source coverage item",
+        )
+    if not present_notice_source:
+        add_failure(
+            failures,
+            check_status,
+            check_name,
+            "missing present notice source coverage item",
+        )
+
+
 def check_cross_format_consistency(
     results: dict[str, ModeResult],
     json_data: dict[str, object] | None,
@@ -845,6 +1089,7 @@ def main(argv: list[str]) -> int:
     json_data = check_json_output(results["json"], failures, check_status)
     check_json_manifest_entries(json_data, failures, check_status)
     check_json_output_groups(json_data, failures, check_status)
+    check_json_source_coverage(json_data, failures, check_status)
     check_cross_format_consistency(results, json_data, failures, check_status)
     check_generated_package_absent(root, failures, check_status)
 

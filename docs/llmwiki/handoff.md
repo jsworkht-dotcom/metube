@@ -605,11 +605,31 @@ MeTube. The canonical branch is fork `master`, and local `master` tracks
   package output, change backend/frontend/Docker/CI files, change
   package/lockfile files, handle cookie/token/secret values, touch PR #1001
   files, or implement 更新適用機能.
-- Future recommended candidate: Y-08D source coverage status hardening in
-  report-only / stdout-only mode, if explicitly approved. Optional later CI
-  wiring for the Y-07E checker remains separate.
+- Recommended candidate after Y-08C: Y-08D source coverage status hardening in
+  report-only / stdout-only mode. Optional later CI wiring for the Y-07E
+  checker remains separate.
 - `export_context_updated.py` is a known local-only WebGPT handoff/context
   export helper. It remains untracked and outside Y-08C scope.
+- Y-08D source coverage status hardening is implemented in
+  `scripts/clean_package_dry_run.py`.
+- Y-08D outcome: text, Markdown, and JSON source coverage output now includes
+  coverage item candidates and a coverage summary.
+- Y-08D JSON output includes `coverage_items` and `coverage_summary` under
+  `source_coverage`.
+- Y-08D checker coverage is implemented in
+  `scripts/check_clean_package_dry_run_reports.py`.
+- Verify Y-08D with `scripts/check_clean_package_dry_run_reports.py`, normal
+  repo safety gates, and the clean-package dry-run text, Markdown, and JSON
+  modes.
+- Y-08D does not write report files, create generated package folders, create
+  package output, change backend/frontend/Docker/CI files, change
+  package/lockfile files, handle cookie/token/secret values, touch PR #1001
+  files, or implement 更新適用機能.
+- Future recommended candidate: Y-08E package generation readiness checklist in
+  docs-only or report-only mode, if explicitly approved. Optional later CI
+  wiring for the Y-07E checker remains separate.
+- `export_context_updated.py` is a known local-only WebGPT handoff/context
+  export helper. It remains untracked and outside Y-08D scope.
 - Y-CHECK-01 safety gate checker design is documented at
   `docs/llmwiki/safety-gate-checker-design.md`.
 - Y-CHECK-01 outcome: the future checker should evaluate repository diffs for
@@ -678,9 +698,9 @@ Run `scripts/check_repo_safety.py`,
 high-low-risk fork PR.
 
 The next package-material candidate should be selected explicitly. The
-recommended next candidate is Y-08D source coverage status hardening in
-report-only / stdout-only mode, if explicitly approved. Optional later CI
-wiring for the Y-07E checker remains separate.
+recommended next candidate is Y-08E package generation readiness checklist in
+docs-only or report-only mode, if explicitly approved. Optional later CI wiring
+for the Y-07E checker remains separate.
 
 Do not create generated guide outputs, copy license text, create the generated
 package folder, copy package files, implement actual package generation, add

@@ -705,6 +705,467 @@ PLATFORM_SECTION_SOURCE_CANDIDATES = [
     ),
 ]
 
+COVERAGE_ITEM_SPECS: list[dict[str, object]] = [
+    {
+        "coverage_key": "first_open_html",
+        "category": "guide_source",
+        "label": "First-open HTML guide source",
+        "source_path": "docs/llmwiki/package-guides/00-first-open.html.source.md",
+        "expected_package_outputs": ["00_最初に開いてください.html"],
+        "status": "source_draft",
+        "required_for_generation": True,
+        "legal_final": False,
+        "package_time_review_required": True,
+        "safety_notes": ["Markdown source only; no package guide generated."],
+    },
+    {
+        "coverage_key": "first_open_txt",
+        "category": "guide_source",
+        "label": "First-open text guide source",
+        "source_path": "docs/llmwiki/package-guides/00-first-open.txt.source.md",
+        "expected_package_outputs": ["00_最初に開いてください.txt"],
+        "status": "source_draft",
+        "required_for_generation": True,
+        "legal_final": False,
+        "package_time_review_required": True,
+        "safety_notes": ["Markdown source only; no package guide generated."],
+    },
+    {
+        "coverage_key": "how_to_use_html",
+        "category": "guide_source",
+        "label": "How-to-use HTML guide source",
+        "source_path": "docs/llmwiki/package-guides/03-how-to-use.html.source.md",
+        "expected_package_outputs": ["03_使い方.html"],
+        "status": "source_draft",
+        "required_for_generation": True,
+        "legal_final": False,
+        "package_time_review_required": True,
+        "safety_notes": ["Markdown source only; no package guide generated."],
+    },
+    {
+        "coverage_key": "how_to_use_txt",
+        "category": "guide_source",
+        "label": "How-to-use text guide source",
+        "source_path": "docs/llmwiki/package-guides/03-how-to-use.txt.source.md",
+        "expected_package_outputs": ["03_使い方.txt"],
+        "status": "source_draft",
+        "required_for_generation": True,
+        "legal_final": False,
+        "package_time_review_required": True,
+        "safety_notes": ["Markdown source only; no package guide generated."],
+    },
+    {
+        "coverage_key": "troubleshooting_html",
+        "category": "guide_source",
+        "label": "Troubleshooting HTML guide source",
+        "source_path": (
+            "docs/llmwiki/package-guides/04-troubleshooting.html.source.md"
+        ),
+        "expected_package_outputs": ["04_困ったとき.html"],
+        "status": "source_draft",
+        "required_for_generation": True,
+        "legal_final": False,
+        "package_time_review_required": True,
+        "safety_notes": ["Markdown source only; no package guide generated."],
+    },
+    {
+        "coverage_key": "troubleshooting_txt",
+        "category": "guide_source",
+        "label": "Troubleshooting text guide source",
+        "source_path": (
+            "docs/llmwiki/package-guides/04-troubleshooting.txt.source.md"
+        ),
+        "expected_package_outputs": ["04_困ったとき.txt"],
+        "status": "source_draft",
+        "required_for_generation": True,
+        "legal_final": False,
+        "package_time_review_required": True,
+        "safety_notes": ["Markdown source only; no package guide generated."],
+    },
+    {
+        "coverage_key": "safe_use_html",
+        "category": "guide_source",
+        "label": "Safe-use HTML guide source",
+        "source_path": "docs/llmwiki/package-guides/05-safe-use.html.source.md",
+        "expected_package_outputs": ["05_安全な使い方.html"],
+        "status": "source_draft",
+        "required_for_generation": True,
+        "legal_final": False,
+        "package_time_review_required": True,
+        "safety_notes": ["Markdown source only; no package guide generated."],
+    },
+    {
+        "coverage_key": "metube_notice",
+        "category": "notice_source",
+        "label": "MeTube notice source",
+        "source_path": "docs/llmwiki/package-notices/metube-notice.source.md",
+        "expected_package_outputs": [
+            "開発者向け/notices/NOTICE.txt",
+            "開発者向け/notices/third-party-notices.txt",
+        ],
+        "status": "legal_not_final",
+        "required_for_generation": True,
+        "legal_final": False,
+        "package_time_review_required": True,
+        "safety_notes": ["Notice source exists for preview; legal review is not final."],
+    },
+    {
+        "coverage_key": "yt_dlp_notice",
+        "category": "notice_source",
+        "label": "yt-dlp notice source",
+        "source_path": "docs/llmwiki/package-notices/yt-dlp-notice.source.md",
+        "expected_package_outputs": [
+            "開発者向け/notices/third-party-notices.txt",
+        ],
+        "status": "legal_not_final",
+        "required_for_generation": True,
+        "legal_final": False,
+        "package_time_review_required": True,
+        "safety_notes": ["Notice source exists for preview; legal review is not final."],
+    },
+    {
+        "coverage_key": "ffmpeg_notice",
+        "category": "notice_source",
+        "label": "FFmpeg notice source",
+        "source_path": "docs/llmwiki/package-notices/ffmpeg-notice.source.md",
+        "expected_package_outputs": [
+            "開発者向け/notices/third-party-notices.txt",
+            "Windows用/notices/runtime-notices.txt",
+            "Mac用/notices/runtime-notices.txt",
+        ],
+        "status": "legal_not_final",
+        "required_for_generation": True,
+        "legal_final": False,
+        "package_time_review_required": True,
+        "safety_notes": ["Notice source exists for preview; legal review is not final."],
+    },
+    {
+        "coverage_key": "python_runtime_notice",
+        "category": "notice_source",
+        "label": "Python runtime notice source",
+        "source_path": (
+            "docs/llmwiki/package-notices/python-runtime-notice.source.md"
+        ),
+        "expected_package_outputs": [
+            "開発者向け/notices/third-party-notices.txt",
+            "Windows用/notices/runtime-notices.txt",
+            "Mac用/notices/runtime-notices.txt",
+        ],
+        "status": "legal_not_final",
+        "required_for_generation": True,
+        "legal_final": False,
+        "package_time_review_required": True,
+        "safety_notes": ["Notice source exists for preview; legal review is not final."],
+    },
+    {
+        "coverage_key": "frontend_deps_notice",
+        "category": "notice_source",
+        "label": "Frontend dependency notice source",
+        "source_path": "docs/llmwiki/package-notices/frontend-deps-notice.source.md",
+        "expected_package_outputs": [
+            "開発者向け/notices/third-party-notices.txt",
+        ],
+        "status": "legal_not_final",
+        "required_for_generation": True,
+        "legal_final": False,
+        "package_time_review_required": True,
+        "safety_notes": ["Notice source exists for preview; legal review is not final."],
+    },
+    {
+        "coverage_key": "desktop_shell_notice",
+        "category": "notice_source",
+        "label": "Desktop shell notice source",
+        "source_path": "docs/llmwiki/package-notices/desktop-shell-notice.source.md",
+        "expected_package_outputs": [
+            "開発者向け/notices/third-party-notices.txt",
+            "Windows用/notices/runtime-notices.txt",
+            "Mac用/notices/runtime-notices.txt",
+        ],
+        "status": "legal_not_final",
+        "required_for_generation": True,
+        "legal_final": False,
+        "package_time_review_required": True,
+        "safety_notes": ["Notice source exists for preview; legal review is not final."],
+    },
+    {
+        "coverage_key": "bundled_python_dependency_inventory_source",
+        "category": "notice_source",
+        "label": "Bundled Python dependency inventory source",
+        "source_path": (
+            "docs/llmwiki/package-notices/"
+            "bundled-python-dependency-inventory.source.md"
+        ),
+        "expected_package_outputs": [
+            "開発者向け/inventory/bundled-python-dependency-inventory.json",
+            "開発者向け/inventory/bundled-python-dependency-inventory.md",
+        ],
+        "status": "legal_not_final",
+        "required_for_generation": True,
+        "legal_final": False,
+        "package_time_review_required": True,
+        "safety_notes": ["Inventory source exists for preview; legal review is not final."],
+    },
+    {
+        "coverage_key": "notice_source_index",
+        "category": "notice_source",
+        "label": "Notice source index",
+        "source_path": "docs/llmwiki/package-notices/notice-source-index.source.md",
+        "expected_package_outputs": [
+            "開発者向け/notices/NOTICE.txt",
+            "開発者向け/notices/third-party-notices.txt",
+            "開発者向け/manifest/license-notice-manifest.json",
+        ],
+        "status": "package_time_review_required",
+        "required_for_generation": True,
+        "legal_final": False,
+        "package_time_review_required": True,
+        "safety_notes": ["Source index is a preview map, not legal approval."],
+    },
+    {
+        "coverage_key": "metube_license",
+        "category": "license_source",
+        "label": "MeTube license source selection",
+        "source_path": None,
+        "expected_package_outputs": [
+            "開発者向け/licenses/",
+            "開発者向け/licenses/MeTube-LICENSE.txt",
+        ],
+        "status": "candidate_only",
+        "required_for_generation": True,
+        "legal_final": False,
+        "package_time_review_required": True,
+        "safety_notes": ["Exact license source is not selected in this phase."],
+    },
+    {
+        "coverage_key": "yt_dlp_license",
+        "category": "license_source",
+        "label": "yt-dlp license source selection",
+        "source_path": None,
+        "expected_package_outputs": [
+            "開発者向け/licenses/third-party/",
+            "開発者向け/licenses/third-party/yt-dlp-LICENSE.txt",
+        ],
+        "status": "candidate_only",
+        "required_for_generation": True,
+        "legal_final": False,
+        "package_time_review_required": True,
+        "safety_notes": ["Exact license source is not selected in this phase."],
+    },
+    {
+        "coverage_key": "ffmpeg_license",
+        "category": "license_source",
+        "label": "FFmpeg license source selection",
+        "source_path": None,
+        "expected_package_outputs": [
+            "開発者向け/licenses/third-party/ffmpeg-LICENSE.txt",
+        ],
+        "status": "candidate_only",
+        "required_for_generation": True,
+        "legal_final": False,
+        "package_time_review_required": True,
+        "safety_notes": ["Exact license source is not selected in this phase."],
+    },
+    {
+        "coverage_key": "python_runtime_license",
+        "category": "license_source",
+        "label": "Python runtime license source selection",
+        "source_path": None,
+        "expected_package_outputs": [
+            "開発者向け/licenses/third-party/python-runtime-LICENSE.txt",
+        ],
+        "status": "candidate_only",
+        "required_for_generation": True,
+        "legal_final": False,
+        "package_time_review_required": True,
+        "safety_notes": ["Exact license source is not selected in this phase."],
+    },
+    {
+        "coverage_key": "frontend_dependency_licenses",
+        "category": "license_source",
+        "label": "Frontend dependency license source selection",
+        "source_path": None,
+        "expected_package_outputs": [
+            "開発者向け/licenses/third-party/frontend/",
+        ],
+        "status": "candidate_only",
+        "required_for_generation": True,
+        "legal_final": False,
+        "package_time_review_required": True,
+        "safety_notes": ["Exact dependency license sources are not selected."],
+    },
+    {
+        "coverage_key": "desktop_shell_licenses",
+        "category": "license_source",
+        "label": "Desktop shell license source selection",
+        "source_path": None,
+        "expected_package_outputs": [
+            "開発者向け/licenses/third-party/desktop-shell/",
+        ],
+        "status": "candidate_only",
+        "required_for_generation": True,
+        "legal_final": False,
+        "package_time_review_required": True,
+        "safety_notes": ["Desktop shell has no selected artifact in this phase."],
+    },
+    {
+        "coverage_key": "bundled_python_dependency_inventory",
+        "category": "inventory_source",
+        "label": "Bundled Python dependency inventory",
+        "source_path": (
+            "docs/llmwiki/package-notices/"
+            "bundled-python-dependency-inventory.source.md"
+        ),
+        "expected_package_outputs": [
+            "開発者向け/inventory/bundled-python-dependency-inventory.json",
+            "開発者向け/inventory/bundled-python-dependency-inventory.md",
+        ],
+        "status": "legal_not_final",
+        "required_for_generation": True,
+        "legal_final": False,
+        "package_time_review_required": True,
+        "safety_notes": ["Inventory source exists for preview; versions need review."],
+    },
+    {
+        "coverage_key": "frontend_dependency_inventory",
+        "category": "inventory_source",
+        "label": "Frontend dependency inventory",
+        "source_path": None,
+        "expected_package_outputs": [
+            "開発者向け/licenses/third-party/frontend/",
+        ],
+        "status": "candidate_only",
+        "required_for_generation": True,
+        "legal_final": False,
+        "package_time_review_required": True,
+        "safety_notes": ["Frontend dependency inventory is not selected yet."],
+    },
+    {
+        "coverage_key": "license_notice_manifest",
+        "category": "inventory_source",
+        "label": "License notice manifest source",
+        "source_path": "docs/llmwiki/package-notices/notice-source-index.source.md",
+        "expected_package_outputs": [
+            "開発者向け/manifest/license-notice-manifest.json",
+        ],
+        "status": "package_time_review_required",
+        "required_for_generation": True,
+        "legal_final": False,
+        "package_time_review_required": True,
+        "safety_notes": ["Manifest source map is preview-only and not legal final."],
+    },
+    {
+        "coverage_key": "windows_runtime_selection",
+        "category": "runtime_selection",
+        "label": "Windows runtime selection",
+        "source_path": None,
+        "expected_package_outputs": ["Windows用/"],
+        "status": "candidate_only",
+        "required_for_generation": True,
+        "legal_final": False,
+        "package_time_review_required": True,
+        "safety_notes": ["No .exe or Windows runtime artifact is selected."],
+    },
+    {
+        "coverage_key": "mac_runtime_selection",
+        "category": "runtime_selection",
+        "label": "macOS runtime selection",
+        "source_path": None,
+        "expected_package_outputs": ["Mac用/"],
+        "status": "candidate_only",
+        "required_for_generation": True,
+        "legal_final": False,
+        "package_time_review_required": True,
+        "safety_notes": ["No .app or macOS runtime artifact is selected."],
+    },
+    {
+        "coverage_key": "ffmpeg_runtime_selection",
+        "category": "runtime_selection",
+        "label": "FFmpeg runtime selection",
+        "source_path": None,
+        "expected_package_outputs": [
+            "Windows用/notices/runtime-notices.txt",
+            "Mac用/notices/runtime-notices.txt",
+        ],
+        "status": "candidate_only",
+        "required_for_generation": True,
+        "legal_final": False,
+        "package_time_review_required": True,
+        "safety_notes": ["No FFmpeg binary artifact is selected in this phase."],
+    },
+    {
+        "coverage_key": "python_runtime_selection",
+        "category": "runtime_selection",
+        "label": "Python runtime selection",
+        "source_path": None,
+        "expected_package_outputs": [
+            "Windows用/notices/runtime-notices.txt",
+            "Mac用/notices/runtime-notices.txt",
+        ],
+        "status": "candidate_only",
+        "required_for_generation": True,
+        "legal_final": False,
+        "package_time_review_required": True,
+        "safety_notes": ["No Python runtime artifact is selected in this phase."],
+    },
+    {
+        "coverage_key": "desktop_shell_selection",
+        "category": "desktop_shell",
+        "label": "Desktop shell selection",
+        "source_path": None,
+        "expected_package_outputs": [
+            "Windows用/",
+            "Mac用/",
+        ],
+        "status": "candidate_only",
+        "required_for_generation": True,
+        "legal_final": False,
+        "package_time_review_required": True,
+        "safety_notes": ["No Tauri, Electron, or WebView2 artifact is selected."],
+    },
+    {
+        "coverage_key": "package_manifest_preview",
+        "category": "manifest_source",
+        "label": "Package manifest preview source",
+        "source_path": "docs/llmwiki/desktop-package-manifest.md",
+        "expected_package_outputs": [
+            "開発者向け/manifest/package-manifest.json",
+        ],
+        "status": "package_time_review_required",
+        "required_for_generation": True,
+        "legal_final": False,
+        "package_time_review_required": True,
+        "safety_notes": ["Manifest source is preview-only; no JSON generated."],
+    },
+    {
+        "coverage_key": "planned_output_manifest",
+        "category": "manifest_source",
+        "label": "Planned output manifest source",
+        "source_path": "docs/llmwiki/clean-package-dry-run-contract.md",
+        "expected_package_outputs": [
+            "開発者向け/manifest/planned-output-manifest.json",
+        ],
+        "status": "package_time_review_required",
+        "required_for_generation": True,
+        "legal_final": False,
+        "package_time_review_required": True,
+        "safety_notes": ["Manifest source is preview-only; no JSON generated."],
+    },
+    {
+        "coverage_key": "checksums_manifest",
+        "category": "manifest_source",
+        "label": "Checksums manifest source selection",
+        "source_path": None,
+        "expected_package_outputs": [
+            "開発者向け/manifest/checksums.json",
+        ],
+        "status": "candidate_only",
+        "required_for_generation": True,
+        "legal_final": False,
+        "package_time_review_required": True,
+        "safety_notes": ["Checksum inputs are not selected in this phase."],
+    },
+]
+
 REQUIRED_CONTRACT_DOCS = [
     "docs/llmwiki/current-state.md",
     "docs/llmwiki/roadmap.md",
@@ -1436,6 +1897,62 @@ def summarize_output_groups(
     }
 
 
+def build_coverage_items(root: Path) -> list[dict[str, object]]:
+    items: list[dict[str, object]] = []
+    for spec in COVERAGE_ITEM_SPECS:
+        source_path = spec["source_path"]
+        present = isinstance(source_path, str) and (root / source_path).is_file()
+        status = str(spec["status"])
+        if isinstance(source_path, str) and not present:
+            status = "missing"
+
+        items.append(
+            {
+                "coverage_key": spec["coverage_key"],
+                "category": spec["category"],
+                "label": spec["label"],
+                "source_path": source_path,
+                "expected_package_outputs": spec["expected_package_outputs"],
+                "status": status,
+                "present": present,
+                "required_for_generation": spec["required_for_generation"],
+                "legal_final": spec["legal_final"],
+                "package_time_review_required": spec[
+                    "package_time_review_required"
+                ],
+                "human_review_required": True,
+                "safety_notes": spec["safety_notes"],
+            }
+        )
+    return items
+
+
+def summarize_coverage_items(
+    items: list[dict[str, object]],
+) -> dict[str, object]:
+    by_category: dict[str, int] = {}
+    by_status: dict[str, int] = {}
+    package_time_review_required = 0
+    for item in items:
+        category = str(item["category"])
+        status = str(item["status"])
+        by_category[category] = by_category.get(category, 0) + 1
+        by_status[status] = by_status.get(status, 0) + 1
+        if bool(item["package_time_review_required"]):
+            package_time_review_required += 1
+
+    return {
+        "total": len(items),
+        "by_category": by_category,
+        "by_status": by_status,
+        "package_time_review_required": package_time_review_required,
+        "human_review_required": any(
+            bool(item["human_review_required"]) for item in items
+        ),
+        "generated_now": False,
+    }
+
+
 def print_package_manifest_preview(root: Path, excluded_found: list[str]) -> None:
     notice_present, notice_lines = present_candidate_lines(
         root, MANIFEST_PREVIEW_NOTICE_SOURCES
@@ -1546,6 +2063,39 @@ def print_package_output_diff_prediction(excluded_found: list[str]) -> None:
     )
 
 
+def print_source_coverage_status(root: Path) -> None:
+    coverage_items = build_coverage_items(root)
+    coverage_summary = summarize_coverage_items(coverage_items)
+
+    print("Source coverage status:")
+    print(f"  total: {coverage_summary['total']}")
+    print("  by_category:")
+    for category, count in coverage_summary["by_category"].items():
+        print(f"    {category}: {count}")
+    print("  by_status:")
+    for status, count in coverage_summary["by_status"].items():
+        print(f"    {status}: {count}")
+    print(
+        "  package_time_review_required: "
+        f"{coverage_summary['package_time_review_required']}"
+    )
+    print(
+        "  human_review_required: "
+        f"{str(coverage_summary['human_review_required']).lower()}"
+    )
+    print("  generated_now: false")
+    print("  coverage_items:")
+    for item in coverage_items:
+        print(f"    - key: {item['coverage_key']}")
+        print(f"      category: {item['category']}")
+        print(f"      status: {item['status']}")
+        print(f"      present: {str(item['present']).lower()}")
+        print(
+            "      package_time_review_required: "
+            f"{str(item['package_time_review_required']).lower()}"
+        )
+
+
 def print_markdown_item_list(
     items: Iterable[str],
     *,
@@ -1630,6 +2180,8 @@ def print_markdown_report(
     manifest_entry_summary = summarize_manifest_entries(manifest_entries)
     output_groups = build_output_groups()
     output_group_summary = summarize_output_groups(output_groups)
+    coverage_items = build_coverage_items(root)
+    coverage_summary = summarize_coverage_items(coverage_items)
 
     print("# Clean Package Dry-Run Report")
     print()
@@ -1787,6 +2339,41 @@ def print_markdown_report(
     print("Windows/macOS section source details:")
     print_markdown_item_list(platform_lines, code=False, indent="  ")
     print()
+    print("### Source Coverage Status")
+    print()
+    print(f"- Total items: `{coverage_summary['total']}`")
+    print(
+        "- Package-time review required: "
+        f"`{coverage_summary['package_time_review_required']}`"
+    )
+    print(
+        "- Human review required: "
+        f"`{str(coverage_summary['human_review_required']).lower()}`"
+    )
+    print("- Generated now: `false`")
+    print()
+    print("#### By Category")
+    print()
+    for category, count in coverage_summary["by_category"].items():
+        print(f"- {category}: `{count}`")
+    print()
+    print("#### By Status")
+    print()
+    for coverage_status, count in coverage_summary["by_status"].items():
+        print(f"- {coverage_status}: `{count}`")
+    print()
+    print("#### Coverage Items")
+    print()
+    for item in coverage_items:
+        print(f"- `{item['coverage_key']}`")
+        print(f"  - category: {item['category']}")
+        print(f"  - status: {item['status']}")
+        print(f"  - present: {str(item['present']).lower()}")
+        print(
+            "  - package_time_review_required: "
+            f"{str(item['package_time_review_required']).lower()}"
+        )
+    print()
     print("## Excluded Paths Summary")
     print()
     print(f"- excluded_rule_count: `{len(EXCLUDED_PATHS)}`")
@@ -1878,6 +2465,8 @@ def build_json_report(
     manifest_entry_summary = summarize_manifest_entries(manifest_entries)
     output_groups = build_output_groups()
     output_group_summary = summarize_output_groups(output_groups)
+    coverage_items = build_coverage_items(root)
+    coverage_summary = summarize_coverage_items(coverage_items)
 
     generated_package_root_present = any(
         b.kind == "generated_package_folder_present" for b in blocked
@@ -1972,6 +2561,8 @@ def build_json_report(
                 "items": platform_items,
                 "missing": missing_platform,
             },
+            "coverage_items": coverage_items,
+            "coverage_summary": coverage_summary,
         },
         "excluded_paths_summary": {
             "excluded_rule_count": len(EXCLUDED_PATHS),
@@ -2077,6 +2668,8 @@ def print_report(
     print_package_manifest_preview(root, excluded_found)
     print()
     print_package_output_diff_prediction(excluded_found)
+    print()
+    print_source_coverage_status(root)
     print()
     print_list("Excluded rules", EXCLUDED_PATHS)
     print()
