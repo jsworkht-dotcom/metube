@@ -63,11 +63,24 @@
 
 ### Next automation candidates
 
-- APP-BOOT-01 new app bootstrap template design.
-- APP-BOOT-02 bootstrap skeleton.
+- APP-BOOT-02 bootstrap skeleton design / packet.
+- APP-00A actual new app purpose / user / MVP definition.
 - Y-CI-01 lightweight CI design.
 
 Actual package generation remains blocked.
+
+### APP-BOOT-01 new app bootstrap template design outcome
+
+- Document:
+  `docs/llmwiki/new-app-bootstrap-template-design.md`
+- Added a docs-only reusable bootstrap design for future app projects.
+- Documents how to reuse the current LLMwiki, risk-tier, Codex lane,
+  preflight, wording checker, safety gate, PR body, and prompt-template
+  workflow.
+- Keeps APP-BOOT-02 separate for any future skeleton design or document packet.
+- No new app directory, scripts, CI, backend/frontend/Docker/package/lockfile
+  changes, generated package output, dependency installation operations, or
+  container image operations are included.
 
 ### Existing gate policy reminders
 

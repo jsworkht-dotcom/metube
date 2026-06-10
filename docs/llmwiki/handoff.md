@@ -986,3 +986,33 @@ Carry forward:
 - `export_context_updated.py` remains locally excluded and uncommitted.
 - Actual generation remains blocked.
 - The preflight checker is readiness-only and does not replace safety gates.
+
+## APP-BOOT-01 Handoff Update
+
+Latest work: APP-BOOT-01 new app bootstrap template design.
+
+New design doc:
+
+```text
+docs/llmwiki/new-app-bootstrap-template-design.md
+```
+
+Available commands:
+
+```powershell
+python scripts/check_local_dev_environment.py --base fork/master --expected-branch master
+python scripts/run_local_safety_gates.py --base fork/master
+python scripts/check_safety_wording.py --base fork/master
+python scripts/generate_pr_body.py --title "..." --risk high-low --scope docs-only
+```
+
+Next recommended candidate:
+
+- APP-BOOT-02 if building a reusable skeleton packet.
+- APP-00A if starting the actual new app's purpose/MVP definition.
+
+Carry forward:
+
+- `export_context_updated.py` remains locally excluded and uncommitted.
+- Actual generation remains blocked.
+- APP-BOOT-01 does not create a new app or authorize implementation.
