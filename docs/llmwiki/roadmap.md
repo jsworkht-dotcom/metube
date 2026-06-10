@@ -2,6 +2,20 @@
 
 ## Immediate Next
 
+### Y-AUTO-13 Codex prompt templates outcome
+
+- Document:
+  `docs/llmwiki/codex-run-prompt-templates.md`
+- Added reusable Codex prompt templates for docs-only, report-only,
+  checker-only, combined report / checker / docs, High-mid PR-ready-only,
+  human-reviewed merge, recovery / finalize, closeout / handoff sync, and new
+  app bootstrap workflows.
+- The templates reduce repeated Codex prompt writing while preserving safety
+  gates and human review.
+- No script implementation, checker change, CI integration, GitHub API
+  integration, PR creation/editing automation, report file writing, or generated
+  package output is included.
+
 ### Y-AUTO-12 PR body generator stdout-only implementation outcome
 
 - Script:
@@ -19,9 +33,10 @@
 
 ### Next automation candidates
 
-- Y-AUTO-13 Codex prompt templates.
 - APP-BOOT-01 new app bootstrap template design.
 - APP-BOOT-02 bootstrap skeleton.
+- Y-AUTO-14 preflight environment checker design.
+- Y-CI-01 lightweight CI design.
 
 Actual package generation remains blocked.
 
@@ -99,9 +114,9 @@ Actual package generation remains blocked.
   - Y-AUTO-09 safety gate aggregator implementation
   - Y-AUTO-10 PR body generator design
   - Y-AUTO-11 PR body generator stdout-only implementation
-  - Y-AUTO-12 Codex run prompt templates
-  - Y-AUTO-13 worktree operation design
-  - Y-AUTO-14 stop condition checker design
+  - Y-AUTO-13 Codex run prompt templates
+  - Y-AUTO-later worktree operation design
+  - Y-AUTO-later stop condition checker design
 - Actual package generation remains blocked.
 - This Y-AUTO-06 PR does not change scripts, add tests, add CI, write report
   files, create generated distribution folders, create package output, run
@@ -1069,7 +1084,7 @@ Next candidates:
 
 - Y-AUTO-10 PR body generator design.
 - Y-AUTO-11 PR body generator stdout-only implementation.
-- Y-AUTO-12 Codex run prompt templates.
+- Y-AUTO-13 Codex run prompt templates.
 - Y-08F readiness checklist preview implementation, if explicitly approved.
 
 Actual package generation remains blocked.
@@ -1136,9 +1151,38 @@ and human review markers.
 
 Next candidates:
 
-- Y-AUTO-13 Codex prompt templates.
 - APP-BOOT-01 new app bootstrap template design.
 - APP-BOOT-02 bootstrap skeleton.
+- Y-AUTO-14 preflight environment checker design.
+- Y-CI-01 lightweight CI design.
+
+Actual package generation remains blocked.
+
+## Y-AUTO-13 Outcome: Codex Prompt Templates
+
+Y-AUTO-13 adds `docs/llmwiki/codex-run-prompt-templates.md` as a docs-only
+template source for future Codex prompts.
+
+The document covers:
+
+- docs-only PR;
+- report-only script PR;
+- checker-only PR;
+- combined report / checker / docs PR;
+- High-mid PR-ready-only;
+- human-reviewed merge;
+- recovery / finalize;
+- closeout / handoff sync;
+- new app bootstrap.
+
+It also records PR body generation, verification, safety wording, local helper,
+risk boundary, maintenance, stop condition, and rollback patterns.
+
+Next candidates:
+
+- APP-BOOT-01 new app bootstrap template design.
+- APP-BOOT-02 bootstrap skeleton.
+- Y-AUTO-14 preflight environment checker design.
 - Y-CI-01 lightweight CI design.
 
 Actual package generation remains blocked.

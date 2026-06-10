@@ -1728,15 +1728,19 @@
 
 ## Current Next Step
 
-Y-AUTO-12 implements the PR body generator described by the Y-AUTO-11 design.
-Use `scripts/generate_pr_body.py` as the next PR body drafting aid for the
-automation stream.
+Y-AUTO-13 adds docs-only Codex prompt templates at
+`docs/llmwiki/codex-run-prompt-templates.md`.
+
+Use `docs/llmwiki/codex-run-prompt-templates.md` as the reusable prompt
+template source for future Codex runs, and use `scripts/generate_pr_body.py` as
+the PR body drafting aid for the automation stream.
 
 The next recommended automation candidates are:
 
-- Y-AUTO-13 Codex prompt templates
 - APP-BOOT-01 new app bootstrap template design
 - APP-BOOT-02 bootstrap skeleton
+- Y-AUTO-14 preflight environment checker design
+- Y-CI-01 lightweight CI design
 
 Use the `Risk classification` section from `scripts/check_repo_safety.py` as the
 first local summary before auto PR or auto merge.
@@ -1891,6 +1895,39 @@ Not implemented:
 - no cookie/token/secret handling;
 - no update application operations.
 
+Follow-up implemented by Y-AUTO-13 Codex prompt templates.
+
+## Y-AUTO-13 Codex Prompt Templates State
+
+Y-AUTO-13 adds `docs/llmwiki/codex-run-prompt-templates.md`.
+
+Scope:
+
+- docs-only Codex prompt templates;
+- source-of-truth sync for automation efficiency, auto lanes, PR body generator
+  design, current state, roadmap, and handoff;
+- no script implementation;
+- no checker implementation;
+- no CI integration;
+- no GitHub API integration;
+- no PR creation/editing automation;
+- no generated package output.
+
+The new prompt template document covers:
+
+- docs-only PR;
+- report-only script PR;
+- checker-only PR;
+- combined report / checker / docs PR;
+- High-mid PR-ready-only;
+- human-reviewed merge;
+- recovery / finalize;
+- closeout / handoff sync;
+- new app bootstrap.
+
 Next candidate:
 
-- Y-AUTO-13 Codex prompt templates.
+- APP-BOOT-01 new app bootstrap template design, if moving to a new app
+  workflow.
+- Y-AUTO-14 preflight environment checker design, if continuing tooling
+  hardening in this repository.
