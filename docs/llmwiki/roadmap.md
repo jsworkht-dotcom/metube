@@ -50,9 +50,9 @@
 
 ### Next package-material candidate
 
-- Y-08D completes source coverage status hardening in this PR.
-- The next recommended package-material candidate is Y-08E package generation
-  readiness checklist in docs-only or report-only mode, if explicitly approved.
+- Y-08E completes generation readiness checklist design in this PR.
+- The next recommended package-material candidate is Y-08F generation readiness
+  checklist preview in report-only mode, if explicitly approved.
 - Optional later CI wiring for the Y-07E checker remains separate.
 - Keep the next PR report-only, dry-run-only, or source-material only unless
   explicitly approved otherwise.
@@ -61,6 +61,25 @@
 - Do not create `動画保存ツール_ローカル専用/`, copy files, build packages, install
   dependencies, add Tauri/Electron/WebView2, change backend/frontend/Docker/CI,
   or change package/lockfile files.
+
+## Y-08E Generation Readiness Checklist Design Outcome
+
+- Document:
+  `docs/llmwiki/clean-package-generation-readiness-checklist.md`
+- Added a docs-only readiness checklist for future clean-package generation
+  work.
+- The checklist defines gates for reports, source coverage, manifest preview,
+  output diff prediction, notices/licenses/inventory, beginner guides,
+  runtime/desktop shell, security/privacy, cleanup/rollback, and human review.
+- It clarifies that passing dry-run previews does not approve generation.
+- Future recommended candidate: Y-08F generation readiness checklist preview
+  in report-only mode, if explicitly approved.
+- Actual package generation remains blocked.
+- This Y-08E PR does not change scripts, add tests, add CI, write report files,
+  create generated distribution folders, create package output, run
+  ビルド/パッケージ/インストール操作, change dependencies, change
+  package/lockfile files, change backend/frontend/Docker/CI files, handle
+  cookie/token/secret values, touch PR #1001 files, or implement 更新適用機能.
 
 ## Y-08D Source Coverage Status Hardening Outcome
 
@@ -76,8 +95,8 @@
   shell, and manifest source categories.
 - The regression checker validates coverage item fields, statuses, required
   categories, text marker, Markdown section, and JSON summary.
-- Future recommended candidate: Y-08E package generation readiness checklist
-  in docs-only or report-only mode, if explicitly approved.
+- Future recommended candidate after Y-08D: Y-08E package generation readiness
+  checklist in docs-only or report-only mode.
 - Actual package generation remains blocked.
 - This Y-08D PR does not create package output, write report files, create
   generated distribution folders, run ビルド/パッケージ/インストール操作,

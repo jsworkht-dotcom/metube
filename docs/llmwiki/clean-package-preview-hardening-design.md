@@ -375,6 +375,8 @@ High-high:
 - Y-08D: implement source coverage status hardening.
   Completed in report-only / stdout-only mode.
 - Y-08E: docs-only generation readiness checklist.
+  Completed in docs-only mode.
+- Y-08F: implement generation readiness checklist preview in dry-run reports.
 
 ## Recommended Next Step
 
@@ -385,8 +387,10 @@ Y-08C implemented richer output diff prediction grouping in report-only mode.
 
 Y-08D implemented source coverage status hardening in report-only mode.
 
-Y-08E should add a package generation readiness checklist in docs-only or
-report-only mode, if explicitly approved.
+Y-08E added a package generation readiness checklist in docs-only mode.
+
+Y-08F should implement generation readiness checklist preview in report-only
+mode, if explicitly approved.
 
 ## Verification Checklist
 
@@ -405,6 +409,6 @@ For this docs-only task:
 
 ## Rollback / Cleanup Note
 
-Rollback is a docs-only revert of the Y-08A design commit.
+Rollback is a docs-only revert of the Y-08E checklist commit.
 
 No generated package output exists to clean up.
