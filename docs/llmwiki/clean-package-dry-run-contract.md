@@ -1687,7 +1687,45 @@ Rules:
   license bundles, inventory output, guide output, or
   `動画保存ツール_ローカル専用/`.
 - Passing dry-run previews does not approve actual generation.
-- A future report-only readiness implementation remains separate.
+- Follow-up report-only readiness implementation is completed by Y-08F.
+- Actual clean-package generation remains blocked until a later
+  human-reviewed task explicitly approves it.
+
+## Y-08F Generation Readiness Checklist Preview
+
+Y-08F implements a report-only readiness checklist preview in:
+
+```text
+scripts/clean_package_dry_run.py
+```
+
+It also extends the regression checker:
+
+```text
+scripts/check_clean_package_dry_run_reports.py
+```
+
+Implemented behavior:
+
+- Text and Markdown dry-run reports include `Generation Readiness Preview`.
+- JSON dry-run output includes top-level `generation_readiness`.
+- JSON `generation_readiness.overall` remains `blocked`.
+- JSON `generation_readiness.actual_generation_approved` remains `false`.
+- JSON `generation_readiness.score_basis` is `advisory_only`.
+- The preview includes checklist items, summary counts, unresolved count, and a
+  next required action.
+- The checker validates text and Markdown markers, JSON readiness fields,
+  summary presence, approval false, generated folder absence, and cross-format
+  readiness consistency.
+
+Rules:
+
+- Y-08F is report-only, stdout-only, and no-generation.
+- Y-08F does not write report files.
+- Y-08F does not create package files, actual runtime launchers, `NOTICE.txt`,
+  license bundles, inventory output, guide output, or
+  `動画保存ツール_ローカル専用/`.
+- Passing readiness preview does not approve actual generation.
 - Actual clean-package generation remains blocked until a later
   human-reviewed task explicitly approves it.
 
@@ -1748,8 +1786,8 @@ Review the existing report-only safety checker before low-, medium-, or
 qualifying high-low-risk fork PRs.
 
 The next package-material candidate should be selected explicitly. The
-recommended next candidate is Y-08F generation readiness checklist preview in
-report-only mode, if explicitly approved.
+recommended next candidate is Y-08G readiness summary polish / advisory score
+refinement, if explicitly approved.
 
 Actual clean-package generation should wait until after repeated successful
 dry-run reports and a later explicit generation task.

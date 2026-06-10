@@ -1453,8 +1453,42 @@
   - cookie/token/secret handling
   - 更新適用機能
 - Next candidate:
-  - Y-08F generation readiness checklist preview in report-only mode, if
-    explicitly approved.
+  - Implemented by Y-08F generation readiness checklist preview in report-only
+    mode.
+  - Next package-material candidate: Y-08G readiness summary polish / advisory
+    score refinement, if explicitly approved.
+  - Actual package generation remains blocked.
+
+### Y-08F generation readiness checklist preview implementation
+
+- Scope: report-only readiness checklist preview and checker/docs sync.
+- Changed scripts:
+  - `scripts/clean_package_dry_run.py`
+  - `scripts/check_clean_package_dry_run_reports.py`
+- Behavior:
+  - Adds a `Generation Readiness Preview` section to default text,
+    `--format text`, and `--format markdown` dry-run reports.
+  - Adds JSON top-level `generation_readiness`.
+  - Keeps `generation_readiness.overall: blocked`.
+  - Keeps `generation_readiness.actual_generation_approved: false`.
+  - Includes checklist items, advisory-only score basis, summary counts,
+    unresolved count, and next required action.
+  - Extends the report regression checker for text, Markdown, JSON, summary,
+    approval false, generated folder absence, and cross-format readiness
+    consistency.
+- Not implemented:
+  - actual package generation
+  - generated package folder
+  - report file writing
+  - actual `manifest.json`
+  - generated notice/license/inventory/guide output
+  - backend/frontend/Docker/CI/package/lockfile changes
+  - PR #1001 file changes
+  - cookie/token/secret handling
+  - 更新適用機能
+- Next candidate:
+  - Y-08G readiness summary polish / advisory score refinement, if explicitly
+    approved.
   - Actual package generation remains blocked.
 
 ### Y-CHECK-01 safety gate checker design
@@ -1748,12 +1782,12 @@ Use `scripts/check_repo_safety.py` and `scripts/clean_package_dry_run.py` as
 local report-only gates before the next low-, medium-, or qualifying
 high-low-risk fork PR.
 
-The previous package-material next step is complete through Y-08E.
+The previous package-material next step is complete through Y-08F.
 
 The next package-material candidate should be selected explicitly. The
-recommended next candidate is Y-08F generation readiness checklist preview in
-report-only mode, if explicitly approved. Optional later CI wiring for the
-Y-07E checker remains separate.
+recommended next candidate is Y-08G readiness summary polish / advisory score
+refinement, if explicitly approved. Optional later CI wiring for the Y-07E
+checker remains separate.
 
 Next scope:
 

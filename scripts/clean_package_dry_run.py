@@ -1166,6 +1166,128 @@ COVERAGE_ITEM_SPECS: list[dict[str, object]] = [
     },
 ]
 
+READINESS_CHECKLIST_SPECS: list[dict[str, object]] = [
+    {
+        "id": "report_modes",
+        "category": "report_modes",
+        "label": "Text, Markdown, and JSON dry-run reports are available",
+        "status": "ready",
+        "evidence_source": "scripts/clean_package_dry_run.py",
+        "notes": (
+            "Default text, --format text, --format markdown, and --format json "
+            "remain stdout-only report modes."
+        ),
+    },
+    {
+        "id": "dry_run_blocker_state",
+        "category": "report_modes",
+        "label": "Clean-package dry-run has no current blockers",
+        "status": "dynamic_blockers",
+        "evidence_source": "current dry-run blocker collection",
+        "notes": "Existing blocker behavior is preserved and still controls exit code.",
+    },
+    {
+        "id": "generated_package_root_absent",
+        "category": "generated_artifacts",
+        "label": "Generated package root is absent",
+        "status": "dynamic_generated_root",
+        "evidence_source": PACKAGE_ROOT,
+        "notes": "The future package root must remain absent before actual generation.",
+    },
+    {
+        "id": "repo_safety_gate",
+        "category": "report_modes",
+        "label": "Repository safety gates are reviewed",
+        "status": "unresolved",
+        "evidence_source": "scripts/check_repo_safety.py --base fork/master",
+        "notes": "Dry-run output does not replace the repository safety gate.",
+    },
+    {
+        "id": "manifest_preview_review",
+        "category": "manifest_preview",
+        "label": "Package manifest preview is reviewed",
+        "status": "needs_human_review",
+        "evidence_source": "package_manifest_preview.manifest_entries",
+        "notes": "Preview entries are advisory and no manifest file is generated.",
+    },
+    {
+        "id": "output_diff_review",
+        "category": "output_diff_prediction",
+        "label": "Package output diff prediction is reviewed",
+        "status": "needs_human_review",
+        "evidence_source": "package_output_diff_prediction.output_groups",
+        "notes": "Prediction data does not create, copy, or stage files.",
+    },
+    {
+        "id": "source_coverage_review",
+        "category": "source_coverage",
+        "label": "Source coverage status is reviewed",
+        "status": "needs_human_review",
+        "evidence_source": "source_coverage.coverage_items",
+        "notes": "Source drafts remain review inputs, not generated package output.",
+    },
+    {
+        "id": "notice_license_inventory_review",
+        "category": "notice_license_inventory",
+        "label": "Notice, license, and inventory review is complete",
+        "status": "unresolved",
+        "evidence_source": "docs/llmwiki/package-notices/",
+        "notes": (
+            "Exact versions, license text, notices, and inventories need "
+            "package-time review."
+        ),
+    },
+    {
+        "id": "beginner_guide_review",
+        "category": "beginner_guides",
+        "label": "Beginner guide sources are reviewed for generation",
+        "status": "needs_human_review",
+        "evidence_source": "docs/llmwiki/package-guides/",
+        "notes": (
+            "Markdown sources exist as candidates; no HTML or TXT guide output "
+            "is generated."
+        ),
+    },
+    {
+        "id": "runtime_desktop_shell_selection",
+        "category": "runtime_desktop_shell",
+        "label": "Runtime and desktop shell selections are explicit",
+        "status": "unresolved",
+        "evidence_source": "source_coverage runtime and desktop shell items",
+        "notes": "No runtime binary, desktop shell, .exe, or .app artifact is selected.",
+    },
+    {
+        "id": "security_privacy_boundary",
+        "category": "security_privacy",
+        "label": "Security and privacy boundary is reviewed",
+        "status": "needs_human_review",
+        "evidence_source": "safety flags and blocker scans",
+        "notes": (
+            "Reports must not print cookie, token, secret, credential, or "
+            "submitted URL values."
+        ),
+    },
+    {
+        "id": "cleanup_rollback_boundary",
+        "category": "cleanup_rollback",
+        "label": "Generated-root-only cleanup boundary is reviewed",
+        "status": "unresolved",
+        "evidence_source": "package_output_diff_prediction.cleanup_rollback_note",
+        "notes": (
+            "No cleanup command is approved; any later cleanup must be scoped "
+            "to generated output."
+        ),
+    },
+    {
+        "id": "actual_generation_approval",
+        "category": "human_review",
+        "label": "Actual package generation is explicitly approved",
+        "status": "blocked",
+        "evidence_source": "human review gate",
+        "notes": "Actual generation remains blocked until a later explicit human-reviewed task.",
+    },
+]
+
 REQUIRED_CONTRACT_DOCS = [
     "docs/llmwiki/current-state.md",
     "docs/llmwiki/roadmap.md",
@@ -1953,6 +2075,74 @@ def summarize_coverage_items(
     }
 
 
+def has_blocker_kind(blocked: list[Finding], kind: str) -> bool:
+    return any(finding.kind == kind for finding in blocked)
+
+
+def readiness_status(
+    spec: dict[str, object],
+    blocked: list[Finding],
+) -> str:
+    status = str(spec["status"])
+    if status == "dynamic_blockers":
+        return "blocked" if blocked else "ready"
+    if status == "dynamic_generated_root":
+        return (
+            "blocked"
+            if has_blocker_kind(blocked, "generated_package_folder_present")
+            else "ready"
+        )
+    return status
+
+
+def build_generation_readiness(
+    blocked: list[Finding],
+) -> dict[str, object]:
+    items: list[dict[str, object]] = []
+    for spec in READINESS_CHECKLIST_SPECS:
+        items.append(
+            {
+                "id": spec["id"],
+                "category": spec["category"],
+                "label": spec["label"],
+                "status": readiness_status(spec, blocked),
+                "required_before_generation": True,
+                "human_review_required": True,
+                "evidence_source": spec["evidence_source"],
+                "notes": spec["notes"],
+            }
+        )
+
+    return {
+        "overall": "blocked",
+        "actual_generation_approved": False,
+        "score_basis": "advisory_only",
+        "checklist_items": items,
+        "summary": summarize_generation_readiness(items),
+        "next_required_action": (
+            "Resolve unresolved checklist items and complete explicit human "
+            "review before any actual generation task."
+        ),
+    }
+
+
+def summarize_generation_readiness(
+    items: list[dict[str, object]],
+) -> dict[str, int]:
+    counts = {
+        "total": len(items),
+        "ready": 0,
+        "blocked": 0,
+        "needs_human_review": 0,
+        "unresolved": 0,
+    }
+    for item in items:
+        status = str(item["status"])
+        if status in counts:
+            counts[status] += 1
+    return counts
+
+
 def print_package_manifest_preview(root: Path, excluded_found: list[str]) -> None:
     notice_present, notice_lines = present_candidate_lines(
         root, MANIFEST_PREVIEW_NOTICE_SOURCES
@@ -2096,6 +2286,45 @@ def print_source_coverage_status(root: Path) -> None:
         )
 
 
+def print_generation_readiness_preview(blocked: list[Finding]) -> None:
+    readiness = build_generation_readiness(blocked)
+    summary = readiness["summary"]
+    assert isinstance(summary, dict)
+
+    print("Generation Readiness Preview:")
+    print(f"  overall: {readiness['overall']}")
+    print(
+        "  actual_generation_approved: "
+        f"{str(readiness['actual_generation_approved']).lower()}"
+    )
+    print(f"  score_basis: {readiness['score_basis']}")
+    print("  summary:")
+    print(f"    total: {summary['total']}")
+    print(f"    ready: {summary['ready']}")
+    print(f"    blocked: {summary['blocked']}")
+    print(f"    needs_human_review: {summary['needs_human_review']}")
+    print(f"    unresolved: {summary['unresolved']}")
+    print("  checklist_items:")
+    checklist_items = readiness["checklist_items"]
+    assert isinstance(checklist_items, list)
+    for item in checklist_items:
+        print(f"    - id: {item['id']}")
+        print(f"      category: {item['category']}")
+        print(f"      label: {item['label']}")
+        print(f"      status: {item['status']}")
+        print(
+            "      required_before_generation: "
+            f"{str(item['required_before_generation']).lower()}"
+        )
+        print(
+            "      human_review_required: "
+            f"{str(item['human_review_required']).lower()}"
+        )
+        print(f"      evidence_source: {item['evidence_source']}")
+        print(f"      notes: {item['notes']}")
+    print(f"  next_required_action: {readiness['next_required_action']}")
+
+
 def print_markdown_item_list(
     items: Iterable[str],
     *,
@@ -2182,6 +2411,11 @@ def print_markdown_report(
     output_group_summary = summarize_output_groups(output_groups)
     coverage_items = build_coverage_items(root)
     coverage_summary = summarize_coverage_items(coverage_items)
+    generation_readiness = build_generation_readiness(blocked)
+    readiness_summary = generation_readiness["summary"]
+    assert isinstance(readiness_summary, dict)
+    readiness_items = generation_readiness["checklist_items"]
+    assert isinstance(readiness_items, list)
 
     print("# Clean Package Dry-Run Report")
     print()
@@ -2374,6 +2608,44 @@ def print_markdown_report(
             f"{str(item['package_time_review_required']).lower()}"
         )
     print()
+    print("## Generation Readiness Preview")
+    print()
+    print(f"- overall: `{generation_readiness['overall']}`")
+    print(
+        "- actual_generation_approved: "
+        f"`{str(generation_readiness['actual_generation_approved']).lower()}`"
+    )
+    print(f"- score_basis: `{generation_readiness['score_basis']}`")
+    print("- summary:")
+    print(f"  - total: `{readiness_summary['total']}`")
+    print(f"  - ready: `{readiness_summary['ready']}`")
+    print(f"  - blocked: `{readiness_summary['blocked']}`")
+    print(
+        "  - needs_human_review: "
+        f"`{readiness_summary['needs_human_review']}`"
+    )
+    print(f"  - unresolved: `{readiness_summary['unresolved']}`")
+    print("- next_required_action:")
+    print(f"  - {generation_readiness['next_required_action']}")
+    print()
+    print("### Readiness Checklist Items")
+    print()
+    for item in readiness_items:
+        print(f"- `{item['id']}`")
+        print(f"  - category: {item['category']}")
+        print(f"  - label: {item['label']}")
+        print(f"  - status: {item['status']}")
+        print(
+            "  - required_before_generation: "
+            f"{str(item['required_before_generation']).lower()}"
+        )
+        print(
+            "  - human_review_required: "
+            f"{str(item['human_review_required']).lower()}"
+        )
+        print(f"  - evidence_source: {item['evidence_source']}")
+        print(f"  - notes: {item['notes']}")
+    print()
     print("## Excluded Paths Summary")
     print()
     print(f"- excluded_rule_count: `{len(EXCLUDED_PATHS)}`")
@@ -2402,6 +2674,7 @@ def print_markdown_report(
     print("- [ ] Package manifest preview is acceptable.")
     print("- [ ] Package output diff prediction is acceptable.")
     print("- [ ] Notice and guide source coverage is acceptable for this phase.")
+    print("- [ ] Generation readiness preview is advisory and not approval.")
     print("- [ ] Excluded paths summary is acceptable.")
     print("- [ ] No generated package folder exists.")
     print("- [ ] No cookie/token/secret values are printed.")
@@ -2467,6 +2740,7 @@ def build_json_report(
     output_group_summary = summarize_output_groups(output_groups)
     coverage_items = build_coverage_items(root)
     coverage_summary = summarize_coverage_items(coverage_items)
+    generation_readiness = build_generation_readiness(blocked)
 
     generated_package_root_present = any(
         b.kind == "generated_package_folder_present" for b in blocked
@@ -2564,6 +2838,7 @@ def build_json_report(
             "coverage_items": coverage_items,
             "coverage_summary": coverage_summary,
         },
+        "generation_readiness": generation_readiness,
         "excluded_paths_summary": {
             "excluded_rule_count": len(EXCLUDED_PATHS),
             "currently_present_excluded_path_count": len(excluded_found),
@@ -2611,6 +2886,7 @@ def build_json_report(
                 "Clean-package dry-run has no blockers.",
                 "Package manifest preview is acceptable.",
                 "Package output diff prediction is acceptable.",
+                "Generation readiness preview is advisory and not approval.",
                 "No generated package folder exists.",
                 "No cookie/token/secret values are printed.",
                 "PR #1001 files are absent.",
@@ -2670,6 +2946,8 @@ def print_report(
     print_package_output_diff_prediction(excluded_found)
     print()
     print_source_coverage_status(root)
+    print()
+    print_generation_readiness_preview(blocked)
     print()
     print_list("Excluded rules", EXCLUDED_PATHS)
     print()

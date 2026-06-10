@@ -2,13 +2,15 @@
 
 ## Purpose
 
-Y-08E fixes the readiness checklist that must be reviewed before any later clean
-package generation task.
+Y-08E fixed the readiness checklist that must be reviewed before any later
+clean package generation task.
 
 Passing dry-run previews do not approve generation. Actual generation remains a
-later explicit human-reviewed task. This PR is docs-only and does not implement
-generation, generation previews, script changes, checker changes, CI wiring, or
-package output.
+later explicit human-reviewed task.
+
+Y-08F implements a report-only / stdout-only generation readiness preview in the
+clean-package dry-run reports. It does not implement actual generation, CI
+wiring, report file writing, or package output.
 
 ## Current Preview Baseline
 
@@ -19,6 +21,7 @@ The current report-only baseline includes:
 - manifest entry preview data;
 - output group preview data;
 - source coverage status preview data;
+- generation readiness checklist preview data;
 - generated package folder absence checks;
 - no actual package generation implementation.
 
@@ -32,10 +35,8 @@ It must stay absent until a later explicitly approved generation task.
 
 ## Non-Goals
 
-Y-08E does not:
+Y-08F does not:
 
-- change scripts;
-- add tests;
 - add CI;
 - write report files;
 - generate package files;
@@ -56,6 +57,9 @@ Y-08E does not:
 - handle cookie/token/secret values;
 - add public hosting or ads;
 - add 更新適用機能.
+
+Y-08F changes only the report-only dry-run script, its report regression
+checker, and LLMwiki documentation.
 
 ## Readiness Gate Summary
 
@@ -254,18 +258,30 @@ Stop if any of these occur:
 - container image retrieval or Docker build is required;
 - any future generation task lacks explicit human approval.
 
-## Future Report-Only Implementation Candidate
+## Report-Only Preview Implementation
 
-Do not implement now.
-
-Future candidate:
+Implemented in Y-08F:
 
 ```text
-Y-08F:
-  add generation readiness checklist preview to clean_package_dry_run.py
+scripts/clean_package_dry_run.py
+scripts/check_clean_package_dry_run_reports.py
 ```
 
-Y-08F should be report-only, stdout-only, no-generation, and checker-backed.
+Y-08F behavior:
+
+- Text and Markdown dry-run reports include `Generation Readiness Preview`.
+- JSON dry-run output includes top-level `generation_readiness`.
+- `generation_readiness.overall` remains `blocked`.
+- `generation_readiness.actual_generation_approved` remains `false`.
+- `generation_readiness.score_basis` is `advisory_only`.
+- `generation_readiness.summary` includes total, ready, blocked,
+  needs-human-review, and unresolved counts.
+- `checklist_items` include id, category, label, status,
+  required-before-generation, human-review-required, evidence source, and notes.
+- The regression checker validates the preview across text, Markdown, and JSON
+  formats.
+
+Y-08F remains report-only, stdout-only, no-generation, and checker-backed.
 
 ## High-low / High-mid / High-high Boundary
 
@@ -306,16 +322,18 @@ High-high:
 Recommended next candidate:
 
 ```text
-Y-08F implement generation readiness checklist preview in report-only mode
+Y-08G readiness summary polish / advisory score refinement
 ```
 
 Actual package generation remains blocked.
 
 ## Verification Checklist
 
-For this docs-only task:
+For this report-only task:
 
 - `git diff --check`
+- `python -m py_compile scripts/clean_package_dry_run.py`
+- `python -m py_compile scripts/check_clean_package_dry_run_reports.py`
 - `python scripts/check_repo_safety.py`
 - `python scripts/check_repo_safety.py --base fork/master`
 - `python scripts/check_clean_package_dry_run_reports.py`
@@ -324,10 +342,10 @@ For this docs-only task:
 - `python scripts/clean_package_dry_run.py --format markdown`
 - `python scripts/clean_package_dry_run.py --format json`
 - Confirm `動画保存ツール_ローカル専用/` is absent.
-- Confirm changed files are approved docs only.
+- Confirm changed files are approved report/checker/docs scope only.
 
 ## Rollback / Cleanup Note
 
-Rollback is a docs-only revert of the Y-08E checklist commit.
+Rollback is a revert of the Y-08F script, checker, and docs commit.
 
 No generated package output exists to clean up.

@@ -90,6 +90,7 @@ Required sections:
 ## Package Manifest Preview
 ## Package Output Diff Prediction
 ## Notice / Guide Source Coverage
+## Generation Readiness Preview
 ## Excluded Paths Summary
 ## Blockers
 ## Warnings
@@ -127,6 +128,7 @@ package
 package_manifest_preview
 package_output_diff_prediction
 source_coverage
+generation_readiness
 excluded_paths_summary
 validation
 warnings
@@ -146,6 +148,7 @@ These values should stay consistent across text, Markdown, and JSON:
 - package root candidate;
 - notice source coverage;
 - guide source coverage;
+- generation_readiness overall and approval state;
 - generated_artifacts / no_files_generated;
 - human_review_required_before_generation.
 
@@ -432,6 +435,34 @@ The checker now validates:
 - Text output contains `Source coverage status`.
 
 Y-08D remains report-only and does not write report files, create package
+output, add CI wiring, or approve actual package generation.
+
+## Y-08F Generation Readiness Regression Additions
+
+Y-08F extends the checker for generation readiness checklist preview output.
+
+The checker now validates:
+
+- Text output contains `Generation Readiness Preview`.
+- Text output keeps readiness `overall: blocked`.
+- Text output keeps `actual_generation_approved: false`.
+- Markdown output contains `## Generation Readiness Preview`.
+- Markdown output keeps readiness `overall: blocked`.
+- Markdown output keeps `actual_generation_approved: false`.
+- JSON has top-level `generation_readiness`.
+- JSON `generation_readiness` is an object.
+- JSON `generation_readiness.overall` is `blocked`.
+- JSON `generation_readiness.actual_generation_approved` is `false`.
+- JSON `generation_readiness.score_basis` is `advisory_only`.
+- JSON `generation_readiness.summary` is an object.
+- JSON `generation_readiness.checklist_items` is a non-empty list.
+- Every checklist item has the required Y-08F fields.
+- Every checklist item uses an approved status value.
+- The `actual_generation_approval` item remains blocked.
+- Cross-format readiness status remains consistent.
+- Generated package folder absence is still checked.
+
+Y-08F remains report-only and does not write report files, create package
 output, add CI wiring, or approve actual package generation.
 
 ## PR Review Checklist

@@ -130,9 +130,9 @@ Actual package generation remains blocked.
 
 ### Next package-material candidate
 
-- Y-08E completes generation readiness checklist design in this PR.
-- The next recommended package-material candidate is Y-08F generation readiness
-  checklist preview in report-only mode, if explicitly approved.
+- Y-08F implements the generation readiness checklist preview in this PR.
+- The next recommended package-material candidate is Y-08G readiness summary
+  polish / advisory score refinement, if explicitly approved.
 - Optional later CI wiring for the Y-07E checker remains separate.
 - Keep the next PR report-only, dry-run-only, or source-material only unless
   explicitly approved otherwise.
@@ -177,13 +177,38 @@ Actual package generation remains blocked.
   runtime/desktop shell, security/privacy, cleanup/rollback, and human review.
 - It clarifies that passing dry-run previews does not approve generation.
 - Future recommended candidate: Y-08F generation readiness checklist preview
-  in report-only mode, if explicitly approved.
+  in report-only mode. Implemented by Y-08F.
 - Actual package generation remains blocked.
 - This Y-08E PR does not change scripts, add tests, add CI, write report files,
   create generated distribution folders, create package output, run
   ビルド/パッケージ/インストール操作, change dependencies, change
   package/lockfile files, change backend/frontend/Docker/CI files, handle
   cookie/token/secret values, touch PR #1001 files, or implement 更新適用機能.
+
+## Y-08F Generation Readiness Checklist Preview Outcome
+
+- Scripts:
+  - `scripts/clean_package_dry_run.py`
+  - `scripts/check_clean_package_dry_run_reports.py`
+- Added a report-only generation readiness checklist preview to clean-package
+  dry-run output.
+- Text and Markdown output now include `Generation Readiness Preview`.
+- JSON output now includes top-level `generation_readiness`.
+- The readiness preview keeps `overall: blocked`,
+  `actual_generation_approved: false`, and `score_basis: advisory_only`.
+- The preview includes checklist items, summary counts, unresolved count, and a
+  next required action for later human review.
+- The regression checker validates the text/Markdown markers, JSON readiness
+  object, approval false, summary object, generated folder absence, and
+  cross-format readiness status consistency.
+- Future recommended candidate after Y-08F: Y-08G readiness summary polish /
+  advisory score refinement in report-only / stdout-only mode.
+- Actual package generation remains blocked.
+- This Y-08F PR does not create package output, write report files, create
+  generated distribution folders, run ビルド/パッケージ/インストール操作,
+  change dependencies, change package/lockfile files, change
+  backend/frontend/Docker/CI files, handle cookie/token/secret values, touch PR
+  #1001 files, or implement 更新適用機能.
 
 ## Y-08D Source Coverage Status Hardening Outcome
 
@@ -1127,7 +1152,8 @@ Next candidates:
 - Y-AUTO-10 PR body generator design.
 - Y-AUTO-11 PR body generator stdout-only implementation.
 - Y-AUTO-13 Codex run prompt templates.
-- Y-08F readiness checklist preview implementation, if explicitly approved.
+- Y-08G readiness summary polish / advisory score refinement, if explicitly
+  approved.
 
 Actual package generation remains blocked.
 ## Y-AUTO-10A Outcome: Safety Wording Checker Design
