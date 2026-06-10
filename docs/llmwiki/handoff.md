@@ -758,3 +758,23 @@ update execution, handle cookie/token/secret values, or add Y-CHECK automation /
 CI / PR bot behavior yet.
 
 Actual package generation remains blocked.
+
+## Y-AUTO-08 Handoff Update
+
+Latest completed work: Y-AUTO-08 added the docs-only local safety gate aggregator design at `docs/llmwiki/local-safety-gate-aggregator-design.md`.
+
+Read this design before starting Y-AUTO-09. It defines the manual gate baseline, future command candidate, execution model, Python runtime notes, scope checks, PR #1001 leakage checks, sanitization rules, exit-code contract, and stop conditions.
+
+Next recommended work:
+
+- Y-AUTO-09: implement `scripts/run_local_safety_gates.py` as a stdlib-only, read-only text-output wrapper for existing gates.
+- Y-AUTO-10: add PR-body usage guidance for aggregator output after Y-AUTO-09.
+- Y-AUTO-11: refine scope presets only after the aggregator is stable.
+
+Carry forward these constraints:
+
+- Do not create `動画保存ツール_ローカル専用/`.
+- Do not touch PR #1001 files unless the task explicitly targets that PR.
+- Do not change scripts, app, UI, Docker, CI, package files, lockfiles, or `.gitignore` during docs-only work.
+- Keep `export_context_updated.py` local-only through `.git/info/exclude`; do not add it to commits.
+- Actual package generation remains blocked until a later explicit human-reviewed task.

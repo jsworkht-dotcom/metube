@@ -525,3 +525,18 @@ no generated output should exist
 
 Actual generated package cleanup remains outside auto lane unless explicitly
 approved.
+
+## Y-AUTO-08 Local Safety Gate Aggregator Relationship
+
+Y-AUTO-08 documents a future local safety gate aggregator. The design is docs-only and does not add implementation or generated output.
+
+After a later Y-AUTO-09 implementation, Lane B, Lane C, and Lane D tasks may use the aggregator as a convenience wrapper for existing local gates. Until that implementation lands, the manual gate sequence remains required.
+
+The aggregator does not authorize higher-risk work by itself. Lane risk still depends on changed file scope, generated output, dependency scope, container image operations, credential handling, and whether a human review boundary is crossed.
+
+Current recommended auto lane after Y-AUTO-08:
+
+- Y-AUTO-09: implement a read-only local safety gate aggregator with stdlib-only text output.
+- Y-AUTO-10: add PR-body integration guidance for aggregator output after Y-AUTO-09 is merged.
+- Y-AUTO-11: refine lane-specific scope presets if Y-AUTO-09 output proves stable.
+- Y-AUTO-12: revisit package-readiness workflow only after gate aggregation is stable.
