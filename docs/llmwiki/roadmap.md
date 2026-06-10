@@ -50,10 +50,10 @@
 
 ### Next package-material candidate
 
-- Y-08A completes the docs-only clean package preview hardening design in this
-  PR.
-- The next recommended package-material candidate is Y-08B richer manifest
-  preview entries in report-only / stdout-only mode, if explicitly approved.
+- Y-08B completes richer manifest preview entries in this PR.
+- The next recommended package-material candidate is Y-08C richer output diff
+  prediction grouping in report-only / stdout-only mode, if explicitly
+  approved.
 - Optional later CI wiring for the Y-07E checker remains separate.
 - Keep the next PR report-only, dry-run-only, or source-material only unless
   explicitly approved otherwise.
@@ -62,6 +62,27 @@
 - Do not create `動画保存ツール_ローカル専用/`, copy files, build packages, install
   dependencies, add Tauri/Electron/WebView2, change backend/frontend/Docker/CI,
   or change package/lockfile files.
+
+## Y-08B Richer Manifest Preview Entries Outcome
+
+- Scripts:
+  - `scripts/clean_package_dry_run.py`
+  - `scripts/check_clean_package_dry_run_reports.py`
+- Added report-only manifest entry candidates to the clean-package dry-run
+  package manifest preview.
+- Text, Markdown, and JSON output now expose the richer candidate set.
+- JSON includes `package_manifest_preview.manifest_entries` and
+  `package_manifest_preview.manifest_entry_summary`.
+- The regression checker validates the manifest entry fields and the new
+  text/Markdown markers.
+- Future recommended candidate: Y-08C implement richer output diff prediction
+  grouping in report-only / stdout-only mode, if explicitly approved.
+- Actual package generation remains blocked.
+- This Y-08B PR does not create an actual `manifest.json`, write report files,
+  create generated distribution folders, create package output, run
+  ビルド/パッケージ/インストール操作, change dependencies, change
+  package/lockfile files, change backend/frontend/Docker/CI files, handle
+  cookie/token/secret values, touch PR #1001 files, or implement 更新適用機能.
 
 ## Y-08A Package Preview Hardening Design Outcome
 

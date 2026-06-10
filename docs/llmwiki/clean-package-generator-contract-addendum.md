@@ -491,6 +491,17 @@ Rules:
   before actual generation.
 - Actual generation remains a later human-reviewed task.
 
+Y-08B implementation note:
+
+- `scripts/clean_package_dry_run.py` now reports richer manifest entry
+  candidates in text, Markdown, and JSON output.
+- JSON includes `package_manifest_preview.manifest_entries` and
+  `package_manifest_preview.manifest_entry_summary`.
+- The manifest entries are report-only preview candidates.
+- A future generator may reuse the structure only after later review.
+- Actual manifest, notice, license, inventory, guide, and package generation
+  remain later human-reviewed tasks.
+
 ## Cleanup / Rollback Candidate
 
 Future implementation planning should include cleanup and rollback candidates
@@ -570,8 +581,10 @@ Candidate phases, each requiring a separate explicit task:
     JSON report modes. Completed by Y-07E.
 4c. Add docs-only package preview hardening design for manifest entries, output
     diff grouping, and source coverage status vocabulary. Completed by Y-08A.
-4d. Add richer manifest preview entries in report-only mode, if explicitly
-    approved.
+4d. Add richer manifest preview entries in report-only mode. Completed by
+    Y-08B.
+4e. Add richer output diff prediction grouping in report-only mode, if
+    explicitly approved.
 5. Add a human-reviewed generator prototype that can be inspected but does not
    run actual generation in automated checks.
 6. Add actual generation only after human approval, clean dry-runs, reviewed

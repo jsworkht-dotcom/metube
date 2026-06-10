@@ -351,6 +351,28 @@ Y-07E does not:
 - add CI wiring;
 - approve actual package generation.
 
+## Y-08B Manifest Entry Regression Additions
+
+Y-08B extends the checker for richer manifest preview entries.
+
+The checker now validates:
+
+- JSON has `package_manifest_preview.manifest_entries`.
+- `manifest_entries` is a non-empty list.
+- JSON has `package_manifest_preview.manifest_entry_summary`.
+- `manifest_entry_summary` is an object.
+- Every manifest entry has the required Y-08B fields.
+- Every manifest entry has `generated` set to `false`.
+- Every manifest entry has `human_review_required` set to `true`.
+- At least one beginner guide entry is present.
+- At least one notice, license, inventory, or developer manifest entry is
+  present.
+- Markdown output contains `Manifest Entry Candidates`.
+- Text output contains `manifest_entries`.
+
+Y-08B remains report-only and does not write report files, create package
+output, add CI wiring, or approve actual package generation.
+
 ## PR Review Checklist
 
 Before merging future report-mode changes, confirm:
