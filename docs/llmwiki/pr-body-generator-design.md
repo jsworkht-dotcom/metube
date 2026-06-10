@@ -68,7 +68,7 @@ Candidate future script:
 scripts/generate_pr_body.py
 ```
 
-Y-AUTO-12 should implement this later.
+Y-AUTO-12 implements this script as the first stdout-only generator.
 
 Initial implementation requirements:
 
@@ -498,9 +498,28 @@ revert docs-only commit
 no generated output to clean up
 ```
 
-For future Y-AUTO-12:
+For Y-AUTO-12:
 
 ```text
 revert generator script and docs
 no generated output should exist
 ```
+
+## Y-AUTO-12 Implementation Note
+
+Y-AUTO-12 implements `scripts/generate_pr_body.py`.
+
+Implementation boundaries:
+
+- stdout-only Markdown output;
+- read-only behavior;
+- Python stdlib only;
+- no GitHub API;
+- no PR creation or editing;
+- no file writes by default;
+- risk and scope templates;
+- safe wording compatible with the safety wording checker;
+- optional sanitized changed-file summary from read-only Git commands.
+
+The generator does not replace safety gates, does not approve merge, and does
+not authorize higher-risk work.

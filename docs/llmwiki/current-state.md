@@ -1728,12 +1728,12 @@
 
 ## Current Next Step
 
-Use the Y-AUTO-11 PR body generator design as the next execution guide for the
+Y-AUTO-12 implements the PR body generator described by the Y-AUTO-11 design.
+Use `scripts/generate_pr_body.py` as the next PR body drafting aid for the
 automation stream.
 
 The next recommended automation candidates are:
 
-- Y-AUTO-12 PR body generator stdout-only implementation
 - Y-AUTO-13 Codex prompt templates
 - APP-BOOT-01 new app bootstrap template design
 - APP-BOOT-02 bootstrap skeleton
@@ -1860,4 +1860,37 @@ Y-AUTO-11 adds a docs-only design for a future PR body generator:
   change, package/lockfile change, PR #1001 file change, or secret-like value
   handling is included.
 
-Next candidate: Y-AUTO-12 PR body generator stdout-only implementation.
+Follow-up implemented by Y-AUTO-12 PR body generator stdout-only implementation.
+
+## Y-AUTO-12 PR Body Generator State
+
+Y-AUTO-12 implements `scripts/generate_pr_body.py`.
+
+Behavior:
+
+- stdout-only Markdown PR body output;
+- risk and scope templates;
+- explicitly not-performed presets;
+- verification presets;
+- local helper note;
+- optional sanitized changed-file summary;
+- no file writes;
+- no GitHub API;
+- no PR creation or editing.
+
+Not implemented:
+
+- no GitHub API integration;
+- no file output by default;
+- no PR creation/editing;
+- no aggregator parsing;
+- no stdin wording-check integration;
+- no package generation;
+- no backend/frontend/Docker/CI/package/lockfile changes;
+- no PR #1001 files;
+- no cookie/token/secret handling;
+- no update application operations.
+
+Next candidate:
+
+- Y-AUTO-13 Codex prompt templates.

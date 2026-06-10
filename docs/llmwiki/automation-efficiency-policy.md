@@ -442,6 +442,12 @@ Purpose:
 - standardize risk, verification, not-performed, local helper, cleanup, and
   human review sections.
 
-The future Y-AUTO-12 implementation remains a separate candidate and must stay
-read-only and stdout-only at first. The generator must not replace safety gates,
-must not approve merge, and must not weaken human review boundaries.
+Y-AUTO-12 implements `scripts/generate_pr_body.py` as a read-only,
+stdout-only PR body generator.
+
+The generator reduces repeated PR body drafting by emitting standard Markdown
+sections for risk, verification, not-performed scope, local helper status,
+cleanup, and human review notes. It does not replace safety gates, approve
+merge, edit PRs, or call the GitHub API.
+
+Future Codex prompt templates remain the next automation candidate.
