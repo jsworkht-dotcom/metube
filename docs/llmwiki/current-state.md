@@ -1427,6 +1427,36 @@
     mode, if explicitly approved.
   - Actual package generation remains blocked.
 
+### Y-08E generation readiness checklist design
+
+- Scope: docs-only generation readiness checklist design.
+- New document:
+  `docs/llmwiki/clean-package-generation-readiness-checklist.md`
+- Behavior:
+  - Defines readiness gates for report modes, source coverage, manifest
+    preview, output diff prediction, notice/license/inventory readiness,
+    beginner guide readiness, runtime/desktop shell readiness, security/privacy
+    readiness, cleanup/rollback readiness, and human review.
+  - Clarifies that passing dry-run previews do not approve actual generation.
+  - Keeps actual package generation blocked until a later explicit
+    human-reviewed task.
+- Not implemented:
+  - script changes
+  - test implementation
+  - CI integration
+  - report file writing
+  - package generation
+  - generated package folder
+  - generated notice/license/inventory/guide output
+  - backend/frontend/Docker/CI/package/lockfile changes
+  - PR #1001 file changes
+  - cookie/token/secret handling
+  - 更新適用機能
+- Next candidate:
+  - Y-08F generation readiness checklist preview in report-only mode, if
+    explicitly approved.
+  - Actual package generation remains blocked.
+
 ### Y-CHECK-01 safety gate checker design
 
 - Scope: docs-only design for a future repository safety checker and automation
@@ -1628,12 +1658,12 @@ Use `scripts/check_repo_safety.py` and `scripts/clean_package_dry_run.py` as
 local report-only gates before the next low-, medium-, or qualifying
 high-low-risk fork PR.
 
-The previous package-material next step is complete through Y-08D.
+The previous package-material next step is complete through Y-08E.
 
 The next package-material candidate should be selected explicitly. The
-recommended next candidate is Y-08E package generation readiness checklist in
-docs-only or report-only mode, if explicitly approved. Optional later CI wiring
-for the Y-07E checker remains separate.
+recommended next candidate is Y-08F generation readiness checklist preview in
+report-only mode, if explicitly approved. Optional later CI wiring for the
+Y-07E checker remains separate.
 
 Next scope:
 

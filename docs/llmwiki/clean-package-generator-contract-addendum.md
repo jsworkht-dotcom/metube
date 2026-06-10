@@ -528,6 +528,20 @@ Y-08D implementation note:
 - Actual manifest, notice, license, inventory, guide, runtime, desktop shell,
   and package generation remain later human-reviewed tasks.
 
+Y-08E implementation note:
+
+- `docs/llmwiki/clean-package-generation-readiness-checklist.md` now defines a
+  docs-only readiness checklist before any actual generation task.
+- The checklist covers report mode gates, source coverage, manifest preview,
+  output diff prediction, notice/license/inventory readiness, beginner guides,
+  runtime/desktop shell readiness, security/privacy, cleanup/rollback, and
+  explicit human review.
+- Passing dry-run previews does not approve actual generation.
+- A future readiness preview may be implemented as report-only output only
+  after a later explicit task.
+- Actual manifest, notice, license, inventory, guide, runtime, desktop shell,
+  and package generation remain later human-reviewed tasks.
+
 ## Cleanup / Rollback Candidate
 
 Future implementation planning should include cleanup and rollback candidates
@@ -613,8 +627,10 @@ Candidate phases, each requiring a separate explicit task:
     by Y-08C.
 4f. Add source coverage status hardening in report-only mode. Completed by
     Y-08D.
-4g. Add a package generation readiness checklist in docs-only or report-only
-    mode, if explicitly approved.
+4g. Add a package generation readiness checklist in docs-only mode. Completed
+    by Y-08E.
+4h. Add generation readiness checklist preview in report-only mode, if
+    explicitly approved.
 5. Add a human-reviewed generator prototype that can be inspected but does not
    run actual generation in automated checks.
 6. Add actual generation only after human approval, clean dry-runs, reviewed

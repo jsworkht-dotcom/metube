@@ -1654,6 +1654,43 @@ Rules:
 - Actual clean-package generation remains blocked until a later
   human-reviewed task explicitly approves it.
 
+## Y-08E Generation Readiness Checklist Design
+
+Y-08E adds a docs-only readiness checklist:
+
+```text
+docs/llmwiki/clean-package-generation-readiness-checklist.md
+```
+
+The checklist defines readiness gates for:
+
+- report modes;
+- source coverage;
+- manifest preview;
+- output diff prediction;
+- notice, license, and inventory readiness;
+- beginner guide readiness;
+- runtime and desktop shell readiness;
+- security and privacy readiness;
+- generated artifact readiness;
+- cleanup and rollback readiness;
+- explicit human review.
+
+Rules:
+
+- Y-08E is docs-only and no-generation.
+- Y-08E does not change `scripts/clean_package_dry_run.py`.
+- Y-08E does not change `scripts/check_clean_package_dry_run_reports.py`.
+- Y-08E does not add tests or CI.
+- Y-08E does not write report files.
+- Y-08E does not create package files, actual runtime launchers, `NOTICE.txt`,
+  license bundles, inventory output, guide output, or
+  `動画保存ツール_ローカル専用/`.
+- Passing dry-run previews does not approve actual generation.
+- A future report-only readiness implementation remains separate.
+- Actual clean-package generation remains blocked until a later
+  human-reviewed task explicitly approves it.
+
 ## Y-CHECK-01 Repository Safety Gate Relationship
 
 Y-CHECK-01 is documented in:
@@ -1711,8 +1748,8 @@ Review the existing report-only safety checker before low-, medium-, or
 qualifying high-low-risk fork PRs.
 
 The next package-material candidate should be selected explicitly. The
-recommended next candidate is Y-08E package generation readiness checklist in
-docs-only or report-only mode, if explicitly approved.
+recommended next candidate is Y-08F generation readiness checklist preview in
+report-only mode, if explicitly approved.
 
 Actual clean-package generation should wait until after repeated successful
 dry-run reports and a later explicit generation task.
