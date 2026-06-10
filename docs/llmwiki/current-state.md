@@ -1691,18 +1691,47 @@
   - public hosting or ads
   - 更新適用機能
 - Next candidates:
-  - Y-AUTO-07 codex auto lanes
   - Y-AUTO-08 safety gate aggregator design
   - Y-AUTO-09 safety gate aggregator implementation
   - Actual package generation remains blocked.
 
+### Y-AUTO-07 codex auto lanes
+
+- Scope: docs-only / High-low lane execution policy docs.
+- New document:
+  `docs/llmwiki/codex-auto-lanes.md`
+- Outcome:
+  - Converted lane concepts into concrete auto execution rules.
+  - Added practical lane execution permissions, gates, and stop conditions.
+  - Added docs-only, report-only, checker-only, combined, and High-mid
+    PR-ready-only lane definitions.
+  - Added continuous execution rules, auto PR/merge gate requirements, and closeout
+    PR restrictions.
+  - Reconfirmed no scripts, backend/frontend/Docker/CI, generation, or package
+    output changes.
+- Not implemented:
+  - script changes
+  - checker changes
+  - CI implementation
+  - report file writing
+  - package generation
+  - generated package folder
+  - generated notice/license/inventory/guide output
+  - backend/frontend/Docker/CI/package/lockfile changes
+  - PR #1001 file changes
+  - cookie/token/secret handling
+  - public hosting or ads
+  - 更新適用機能
+- Next candidate:
+  - Y-AUTO-08 safety gate aggregator design
+  - Actual package generation remains blocked.
+
 ## Current Next Step
 
-Use the Y-AUTO-06 automation efficiency policy as the next execution guide.
+Use the Y-AUTO-07 codex auto lane documentation as the next execution guide.
 
 The next recommended automation candidates are:
 
-- Y-AUTO-07 codex auto lanes
 - Y-AUTO-08 safety gate aggregator design
 - Y-AUTO-09 safety gate aggregator implementation
 

@@ -2,16 +2,23 @@
 
 ## Immediate Next
 
-### Y-AUTO-07 codex auto lanes
+### Y-AUTO-07 codex auto lanes Outcome
 
-- Use `docs/llmwiki/automation-efficiency-policy.md` as the current automation
-  execution guide.
-- Turn the Y-AUTO-06 lane definitions into a compact operating reference for
-  future Codex runs.
-- Keep the lane work docs-only unless a later task explicitly approves
-  report-only implementation.
-- Keep High-mid auto merge prohibited and High-high stopped before
-  implementation.
+- Completed:
+  - Added `docs/llmwiki/codex-auto-lanes.md` to define concrete, practical
+    Codex auto lane execution for docs-only, report-only, checker-only, combined,
+    and High-mid PR-ready-only work.
+  - Added concrete permissions, one-PR bundles, continuous execution rules, stop
+    conditions, auto PR/merge gates, and closeout PR restrictions.
+- Not implemented:
+  - script changes
+  - checker changes
+  - CI / automation wrapper implementation
+  - report file writing
+  - package generation
+  - generated package folder
+  - backend/frontend/Docker/CI/package/lockfile changes
+  - dependency/install/update changes
 
 ### Y-AUTO-08 safety gate aggregator design
 
@@ -99,7 +106,6 @@
 - Documented `export_context_updated.py` as a local-only WebGPT
   handoff/context export helper tracked through `.git/info/exclude`.
 - Recorded future candidates:
-  - Y-AUTO-07 codex auto lanes
   - Y-AUTO-08 safety gate aggregator design
   - Y-AUTO-09 safety gate aggregator implementation
   - Y-AUTO-10 PR body generator design

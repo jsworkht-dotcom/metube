@@ -41,6 +41,8 @@ MeTube. The canonical branch is fork `master`, and local `master` tracks
   `docs/llmwiki/automation-efficiency-policy.md`.
 - Y-AUTO-06 allows same-risk, same-purpose one-PR scope expansion only when the
   lane scope and safety gates pass.
+- Y-AUTO-07 adds codex lane execution rules in
+  `docs/llmwiki/codex-auto-lanes.md`.
 - Y-AUTO-06 defines Codex auto lanes A through E. Lane E is High-mid
   PR-ready-only and must not auto merge.
 - Y-LOCAL-01 added `export_context_updated.py` to local `.git/info/exclude`.
@@ -699,9 +701,9 @@ MeTube. The canonical branch is fork `master`, and local `master` tracks
   `Human review checklist`.
 - Y-AUTO-04 makes the checker surface High-mid PR-only guidance directly in the
   `Risk classification` section.
-- Latest work: Y-LOCAL-01 local helper exclude and Y-AUTO-06 docs-only
-  automation efficiency policy.
-- Next recommended automation candidate: Y-AUTO-07 codex auto lanes.
+- Latest work: Y-LOCAL-01 local helper exclude, Y-AUTO-06 docs-only automation
+  efficiency policy, and Y-AUTO-07 codex auto lanes docs.
+- Next recommended automation candidate: Y-AUTO-08 safety gate aggregator design.
 - GitHub CLI auth note: in this Windows Codex desktop environment, sandboxed
   `gh auth status` may report an invalid `default` token while escalated
   `gh auth status` succeeds through `keyring`. Root cause is sandbox access to
@@ -711,19 +713,17 @@ MeTube. The canonical branch is fork `master`, and local `master` tracks
 
 ## Next Step
 
-Use `docs/llmwiki/automation-efficiency-policy.md` for the next automation
-sequence.
+Use `docs/llmwiki/codex-auto-lanes.md` for the next automation sequence.
 
 Recommended next candidate:
 
 ```text
-Y-AUTO-07 codex auto lanes
+Y-AUTO-08 safety gate aggregator design
 ```
 
 Then continue with:
 
 ```text
-Y-AUTO-08 safety gate aggregator design
 Y-AUTO-09 safety gate aggregator implementation
 ```
 

@@ -318,6 +318,16 @@ Stop and report facts if any of these occur:
 - dependency install/update is required;
 - Docker pull/build is prohibited when required.
 
+## Y-AUTO-07 implementation
+
+`docs/llmwiki/codex-auto-lanes.md` was added to make lane execution concrete.
+
+- Y-AUTO-07 ties abstract lane ideas to practical auto lane rules.
+- It adds concrete lane permissions, gates, stop conditions, closeout rules, and PR
+  body requirements for docs-only/report-only/checker workflow.
+- Y-AUTO-08 and Y-AUTO-09 remain the next high-level candidates in this
+  stream.
+
 ## Recommended Execution Order
 
 ```text
@@ -328,7 +338,7 @@ Y-AUTO-06:
   automation efficiency policy
 
 Y-AUTO-07:
-  codex auto lanes
+  codex auto lanes (implemented)
 
 Y-AUTO-08:
   safety gate aggregator design
