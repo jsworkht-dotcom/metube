@@ -14,6 +14,8 @@ risk classification, replace local verification, or authorize higher-risk work.
 - `scripts/run_local_safety_gates.py` is the local verification orchestrator.
 - `scripts/check_safety_wording.py` is the docs and PR wording preflight helper.
 - `scripts/generate_pr_body.py` can generate a reviewable PR body draft.
+- A future preflight environment checker may verify local readiness before task
+  edits begin.
 - `docs/llmwiki/codex-automation-policy.md` remains the risk policy.
 - `docs/llmwiki/codex-auto-lanes.md` remains the lane execution policy.
 - Prompt templates do not authorize higher risk.
@@ -91,6 +93,18 @@ Expected state:
 ```
 
 Stop if modified or untracked files remain after the start block.
+
+## Future Preflight Block
+
+Use this block only after the future preflight environment checker exists:
+
+```text
+Run preflight environment checker first.
+If it fails, stop before modifying files.
+```
+
+Until Y-AUTO-15 or a later implementation exists, templates keep the manual
+start checks.
 
 ## Common Read-First Block
 
@@ -398,6 +412,17 @@ Rules:
   Use an external patch backup path outside the repository when needed.
   Detect the available Python runtime before gate reruns.
   Check lock files before deciding that the repository is stuck.
+  Identify preflight failure categories before resuming:
+    python_runtime
+    git_repository
+    git_branch
+    git_permissions
+    github_cli_session
+    remote_configuration
+    local_helper_exclusion
+    generated_output_absence
+    pr1001_leakage_precheck
+    tooling_availability
   Recover the intended branch before continuing commits or PR work.
   Rerun gates after recovery.
   Continue commit or PR work only when the diff is understood and in scope.
@@ -483,13 +508,14 @@ or approve merge.
 
 ## Verification Pattern
 
-For Y-AUTO-13 docs-only work:
+For Y-AUTO-14 docs-only work:
 
 ```powershell
 git diff --check
 python scripts/check_safety_wording.py --base fork/master
 python scripts/check_safety_wording.py --all
 python scripts/run_local_safety_gates.py --base fork/master --scope docs-only
+python scripts/generate_pr_body.py --title "docs: design preflight environment checker" --risk high-low --scope docs-only --changed-files
 python scripts/check_repo_safety.py
 python scripts/check_repo_safety.py --base fork/master
 python scripts/check_clean_package_dry_run_reports.py
@@ -539,12 +565,14 @@ High-low:
 
 ```text
 docs-only prompt template design
+docs-only preflight checker design
 ```
 
 Medium / High-low:
 
 ```text
 future script that prints prompt text to stdout only
+standalone read-only preflight checker implementation
 ```
 
 High-mid:
@@ -621,6 +649,6 @@ Stop and report if:
 
 ## Rollback / Cleanup Note
 
-Rollback for Y-AUTO-13 is a docs-only revert.
+Rollback for Y-AUTO-14 is a docs-only revert.
 
 No generated package output exists to clean up.

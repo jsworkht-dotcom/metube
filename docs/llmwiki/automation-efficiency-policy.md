@@ -208,17 +208,33 @@ Initial templates:
 The templates reduce repeated Codex prompt writing. They do not replace safety
 gates, authorize higher risk, or replace human review.
 
-Next candidate after Y-AUTO-13:
+Follow-up candidate after Y-AUTO-13:
+
+```text
+Y-AUTO-14: preflight environment checker design
+```
+
+New app bootstrap work remains available as a separate lane:
 
 ```text
 APP-BOOT-01: new app bootstrap template design
 ```
 
-If continuing tooling hardening in this repository instead:
+## Preflight Environment Checker Candidate
 
-```text
-Y-AUTO-14: preflight environment checker design
-```
+Y-AUTO-14 adds a docs-only preflight environment checker design.
+
+Purpose:
+
+- catch environment readiness issues before work starts;
+- cover Python runtime discovery, Git write-permission checks, GitHub CLI session
+  state, local helper exclusion, generated package folder absence, branch
+  baseline checks, and local safety tool availability;
+- keep safety gates authoritative after changes.
+
+Future Y-AUTO-15 may implement a standalone read-only
+`scripts/check_local_dev_environment.py`. That implementation remains a
+candidate only and must not replace existing safety gates.
 
 ## Future CI / Branch Protection / CODEOWNERS Candidates
 
@@ -372,14 +388,14 @@ Y-AUTO-12:
 Y-AUTO-13:
   Codex run prompt templates
 
+Y-AUTO-14:
+  preflight environment checker design
+
 APP-BOOT-01:
   new app bootstrap template design
 
 APP-BOOT-02:
   bootstrap skeleton
-
-Y-AUTO-14:
-  preflight environment checker design
 
 Y-CI-01:
   lightweight CI design
@@ -487,6 +503,23 @@ The templates do not replace `scripts/run_local_safety_gates.py`,
 `docs/llmwiki/codex-automation-policy.md`, or
 `docs/llmwiki/codex-auto-lanes.md`.
 
-Next candidate: APP-BOOT-01 new app bootstrap template design if moving to a new
-app workflow, or Y-AUTO-14 preflight environment checker design if continuing
-tooling hardening in this repository.
+Next candidate: Y-AUTO-15 preflight environment checker implementation if
+continuing tooling hardening, or APP-BOOT-01 new app bootstrap template design
+if moving to a new app workflow.
+
+## Y-AUTO-14 Preflight Environment Checker Design Note
+
+Y-AUTO-14 adds `docs/llmwiki/preflight-environment-checker-design.md` as a
+docs-only design for a future task-start readiness checker.
+
+Purpose:
+
+- catch environment readiness issues before Codex edits files;
+- document future checks for Python runtime discovery, Git metadata access,
+  GitHub CLI session state, remote and branch baseline, local helper exclusion,
+  generated package folder absence, PR #1001 leakage precheck, and local safety
+  tool availability;
+- clarify that preflight is readiness-only and does not replace safety gates.
+
+Future Y-AUTO-15 may implement the checker as a stdlib-only, read-only,
+text-output-only script candidate. The implementation remains separate.

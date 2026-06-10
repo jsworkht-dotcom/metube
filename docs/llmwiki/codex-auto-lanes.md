@@ -52,6 +52,10 @@ no secret/token/cookie values appear
 required safety gates pass
 ```
 
+After a future Y-AUTO-15 implementation, lanes may start with the preflight
+environment checker. That checker is readiness-only; lane verification still
+uses the existing safety gates.
+
 ## Lane Summary
 
 Codex execution lanes are:
@@ -502,7 +506,7 @@ scope and passes gates.
 Y-08F to Y-08Z preview readiness lane
 Y-CI-01 to Y-CI-04 CI design/implementation lane
 Y-GH-01 to Y-GH-02 GitHub governance design lane
-Y-AUTO-14 preflight environment checker design lane
+Y-AUTO-15 preflight environment checker implementation lane
 Y-AUTO-later worktree design lane
 Y-AUTO-later stop condition checker design lane
 ```
@@ -652,7 +656,37 @@ human review requirements.
 
 Current recommended auto lane after Y-AUTO-13:
 
+- Y-AUTO-14: preflight environment checker design.
 - APP-BOOT-01: new app bootstrap template design.
 - APP-BOOT-02: bootstrap skeleton.
-- Y-AUTO-14: preflight environment checker design.
+- Y-CI-01: lightweight CI design.
+
+## Y-AUTO-14 Preflight Environment Checker Relation
+
+Y-AUTO-14 adds a docs-only design for a future preflight environment checker at
+`docs/llmwiki/preflight-environment-checker-design.md`.
+
+Future lanes may start with this checker after implementation. Its role is
+readiness-only:
+
+- Python runtime discovery;
+- Git repository and branch baseline checks;
+- Git write-permission checks;
+- GitHub CLI session state checks;
+- remote configuration checks;
+- local helper exclusion checks;
+- generated package folder absence checks;
+- PR #1001 leakage precheck;
+- local safety tool availability checks.
+
+The checker does not replace lane verification, does not approve merge, and does
+not authorize higher risk. Lane verification still uses `git diff --check`,
+`scripts/check_safety_wording.py`, `scripts/run_local_safety_gates.py`, and the
+underlying local safety gates.
+
+Current recommended auto lane after Y-AUTO-14:
+
+- Y-AUTO-15: preflight environment checker implementation.
+- APP-BOOT-01: new app bootstrap template design.
+- APP-BOOT-02: bootstrap skeleton.
 - Y-CI-01: lightweight CI design.
