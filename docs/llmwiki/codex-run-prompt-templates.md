@@ -464,6 +464,12 @@ Rules:
 
 This generic template can be reused beyond this repository.
 
+APP-BOOT-01 records the detailed reusable design in
+`docs/llmwiki/new-app-bootstrap-template-design.md`. It is design-only: it does
+not create a new app, copy files, add scripts, add CI, create generated package
+output, or authorize MVP implementation. APP-BOOT-02 may define skeleton
+creation or a bootstrap document packet separately after approval.
+
 ```text
 APP-00A:
   Define purpose, user, local safety needs, and MVP.
@@ -483,7 +489,13 @@ APP-00E:
 APP-00F:
   Design local safety gates.
 
+APP-00G:
+  Set up PR body and prompt template policy.
+
 APP-01A:
+  Confirm MVP skeleton readiness.
+
+APP-01B:
   Add MVP skeleton only after the docs foundation exists and the scope is
   approved.
 ```

@@ -2002,3 +2002,30 @@ Not implemented:
 Next candidate:
 
 - APP-BOOT-01 new app bootstrap template design.
+
+## APP-BOOT-01 New App Bootstrap Template Design State
+
+APP-BOOT-01 adds a docs-only reusable bootstrap design for future app projects.
+
+- New design doc:
+  `docs/llmwiki/new-app-bootstrap-template-design.md`.
+- Reusable method summarized:
+  - LLMwiki;
+  - risk tiers;
+  - auto lanes;
+  - preflight checker;
+  - safety wording checker;
+  - safety gate aggregator;
+  - PR body generator;
+  - Codex prompt templates.
+- No new app files were created.
+- No scripts were changed.
+- No backend/frontend/Docker/CI/package/lockfile files were changed.
+- No generated package output was created.
+
+Next candidates:
+
+- APP-BOOT-02 bootstrap skeleton design / packet.
+- APP-00A actual new app purpose / user / MVP definition once the app idea is
+  provided.
+- Y-CI-01 lightweight CI design.

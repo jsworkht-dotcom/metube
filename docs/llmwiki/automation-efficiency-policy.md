@@ -220,6 +220,17 @@ New app bootstrap work remains available as a separate lane:
 APP-BOOT-01: new app bootstrap template design
 ```
 
+APP-BOOT-01 adds `docs/llmwiki/new-app-bootstrap-template-design.md` as a
+docs-only reusable bootstrap design. Its purpose is to reuse this project's
+safe development method in future apps: repo-local LLMwiki, risk tiers, Codex
+auto lanes, preflight, wording check, safety gate aggregation, PR body
+generation, and prompt templates.
+
+APP-BOOT-01 does not create a new app, create a new app directory, copy files
+into another repo, add scripts, add CI, create generated package output, or
+perform dependency installation operations or container image operations.
+Future APP-BOOT-02 remains separate and requires explicit approval.
+
 ## Preflight Environment Checker Candidate
 
 Y-AUTO-14 adds a docs-only preflight environment checker design.
@@ -393,10 +404,10 @@ Y-AUTO-14:
   preflight environment checker design
 
 APP-BOOT-01:
-  new app bootstrap template design
+  new app bootstrap template design (implemented docs-only)
 
 APP-BOOT-02:
-  bootstrap skeleton
+  bootstrap skeleton design / packet
 
 Y-CI-01:
   lightweight CI design
