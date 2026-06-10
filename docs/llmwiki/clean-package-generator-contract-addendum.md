@@ -383,6 +383,17 @@ Y-07A design note:
 - The design does not implement JSON output, write report files, create package
   output, or weaken existing blockers.
 
+Y-07C implementation note:
+
+- `scripts/clean_package_dry_run.py --format json` now prints one valid JSON
+  object to stdout.
+- The JSON report is machine-readable dry-run output only, not generated
+  package output.
+- Default text output, `--format text`, and `--format markdown` remain
+  supported.
+- The implementation does not write report files, create package output, or
+  weaken existing blockers.
+
 ## Markdown Report Mode Design Candidate
 
 Future dry-run / preview may include Markdown output for PR body reuse,
@@ -484,8 +495,8 @@ Candidate phases, each requiring a separate explicit task:
 3. Add a package output diff prediction report that writes nothing. Completed
    by Y-06Y.
 4. Add JSON or Markdown report output, still without writing package files.
-   Markdown report mode is implemented by Y-07B. JSON report mode design is
-   documented by Y-07A; JSON implementation remains a future explicit task.
+   Markdown report mode is implemented by Y-07B. JSON report mode is
+   implemented by Y-07C.
 5. Add a human-reviewed generator prototype that can be inspected but does not
    run actual generation in automated checks.
 6. Add actual generation only after human approval, clean dry-runs, reviewed
