@@ -1057,3 +1057,16 @@ Any automatic update stage must respect the safety boundaries in
 - Update apply implementation
 - Desktop installer or packaging implementation
 - Tauri/Electron implementation
+
+## Y-AUTO-08 Outcome: Local Safety Gate Aggregator Design
+
+Y-AUTO-08 completed the docs-only design for a local safety gate aggregator. It added `docs/llmwiki/local-safety-gate-aggregator-design.md` and updated the automation roadmap context without implementing scripts or generating package output.
+
+Immediate next candidates:
+
+- Y-AUTO-09: implement `scripts/run_local_safety_gates.py` as a stdlib-only, read-only text-output aggregator.
+- Y-AUTO-10: document PR body integration guidance for aggregator output after Y-AUTO-09.
+- Y-AUTO-11: add or refine lane-specific scope presets after aggregator behavior is stable.
+- Y-AUTO-12: revisit package-readiness workflow only after local gate aggregation is stable.
+
+Actual package generation remains blocked until a later explicit human-reviewed task approves it.

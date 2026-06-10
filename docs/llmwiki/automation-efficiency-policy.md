@@ -395,3 +395,16 @@ The local helper setup can be undone by removing the `export_context_updated.py`
 entry from `.git/info/exclude`.
 
 No generated package output exists to clean up.
+
+## Y-AUTO-08 Local Safety Gate Aggregator Design Note
+
+Y-AUTO-08 adds the docs-only design for a future local safety gate aggregator in `docs/llmwiki/local-safety-gate-aggregator-design.md`.
+
+The aggregator remains a future implementation candidate. It would orchestrate the existing local gates, not replace them:
+
+- `scripts/check_repo_safety.py` remains the repo-diff safety gate.
+- `scripts/check_clean_package_dry_run_reports.py` remains the report regression gate.
+- `scripts/clean_package_dry_run.py` remains the clean-package preview dry-run gate.
+- The manual gate baseline remains required until Y-AUTO-09 or later implements the aggregator.
+
+Recommended next step: Y-AUTO-09 may implement a stdlib-only, read-only `scripts/run_local_safety_gates.py` with text output only.

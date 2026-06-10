@@ -1761,3 +1761,17 @@ Next scope:
 - Keep Tauri/Electron implementation, packaging, installer, signing, updater,
   backend changes, frontend changes, Docker changes, CI changes, package
   changes, and lockfile changes out of scope unless explicitly approved later.
+
+## Y-AUTO-08 Local Safety Gate Aggregator Design State
+
+Y-AUTO-08 adds a docs-only design for a future local safety gate aggregator:
+
+- New design doc: `docs/llmwiki/local-safety-gate-aggregator-design.md`.
+- Future candidate script path: `scripts/run_local_safety_gates.py`.
+- Intended purpose: orchestrate the existing local manual gates and print a concise summary.
+- Existing gates remain authoritative until a later implementation lands.
+- No script, app, UI, Docker, CI, package, lockfile, `.gitignore`, or generated-output change is included in Y-AUTO-08.
+
+The future aggregator is expected to cover repository safety checks, dry-run report regression, clean-package dry-run modes, generated package folder absence, changed-file scope checks, PR #1001 leakage checks, and untracked helper exclusion checks.
+
+Current next candidate: Y-AUTO-09 may implement the read-only local safety gate aggregator as a stdlib-only script with text output only.
