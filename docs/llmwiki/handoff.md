@@ -552,11 +552,24 @@ MeTube. The canonical branch is fork `master`, and local `master` tracks
   generated package folders, create package output, change
   backend/frontend/Docker/CI files, change package/lockfile files, handle
   cookie/token/secret values, touch PR #1001 files, or implement 更新適用機能.
-- Future recommended candidate: Y-08A next package preview/report-only
-  planning, or optional later CI wiring for the checker if explicitly
-  approved.
+- Y-08A clean package preview hardening design is documented at
+  `docs/llmwiki/clean-package-preview-hardening-design.md`.
+- Y-08A outcome: docs-only package preview hardening design for the existing
+  clean-package dry-run reports after text, Markdown, JSON, and regression
+  checker stabilization.
+- Y-08A defines richer manifest preview field candidates, package output diff
+  prediction grouping candidates, source coverage statuses, notice/license/
+  inventory mappings, beginner guide output mappings, and developer review
+  checklist mappings.
+- Y-08A does not change scripts, add tests, add CI, write report files, create
+  generated package folders, create package output, change
+  backend/frontend/Docker/CI files, change package/lockfile files, handle
+  cookie/token/secret values, touch PR #1001 files, or implement 更新適用機能.
+- Future recommended candidate: Y-08B richer manifest preview entries in
+  report-only / stdout-only mode, if explicitly approved. Optional later CI
+  wiring for the Y-07E checker remains separate.
 - `export_context_updated.py` is a known local-only WebGPT handoff/context
-  export helper. It remains untracked and outside Y-07E scope.
+  export helper. It remains untracked and outside Y-08A scope.
 - Y-CHECK-01 safety gate checker design is documented at
   `docs/llmwiki/safety-gate-checker-design.md`.
 - Y-CHECK-01 outcome: the future checker should evaluate repository diffs for
@@ -624,9 +637,10 @@ Run `scripts/check_repo_safety.py`,
 `scripts/clean_package_dry_run.py` before the next low-, medium-, or qualifying
 high-low-risk fork PR.
 
-The next package-material candidate should be selected explicitly. Good next
-candidates are Y-08A next package preview/report-only planning, or optional
-later CI wiring for the Y-07E checker if explicitly approved.
+The next package-material candidate should be selected explicitly. The
+recommended next candidate is Y-08B richer manifest preview entries in
+report-only / stdout-only mode, if explicitly approved. Optional later CI
+wiring for the Y-07E checker remains separate.
 
 Do not create generated guide outputs, copy license text, create the generated
 package folder, copy package files, implement actual package generation, add
