@@ -1534,6 +1534,41 @@ Rules:
   stdout-only, and no-generation unless a later explicit human-reviewed task
   changes that scope.
 
+## Y-08B Richer Manifest Preview Entries
+
+Y-08B implements richer manifest preview entries in:
+
+```text
+scripts/clean_package_dry_run.py
+```
+
+It also extends the regression checker:
+
+```text
+scripts/check_clean_package_dry_run_reports.py
+```
+
+Implemented behavior:
+
+- Text, Markdown, and JSON package manifest preview output include manifest
+  entry candidates.
+- JSON includes `package_manifest_preview.manifest_entries`.
+- JSON includes `package_manifest_preview.manifest_entry_summary`.
+- The checker validates the required manifest entry fields, `generated: false`,
+  `human_review_required: true`, at least one beginner guide entry, at least
+  one notice/license/inventory/developer manifest entry, the Markdown manifest
+  entry section, and the text manifest entry marker.
+
+Rules:
+
+- Y-08B is report-only, stdout-only, and no-generation.
+- Y-08B does not create actual `manifest.json`, `NOTICE.txt`, `LICENSES/`,
+  inventory output, guide output, or `動画保存ツール_ローカル専用/`.
+- Y-08B does not write report files.
+- Y-08B does not add CI wiring.
+- Actual clean-package generation remains blocked until a later
+  human-reviewed task explicitly approves it.
+
 ## Y-CHECK-01 Repository Safety Gate Relationship
 
 Y-CHECK-01 is documented in:
@@ -1591,7 +1626,7 @@ Review the existing report-only safety checker before low-, medium-, or
 qualifying high-low-risk fork PRs.
 
 The next package-material candidate should be selected explicitly. The
-recommended next candidate is Y-08B richer manifest preview entries in
+recommended next candidate is Y-08C richer output diff prediction grouping in
 report-only / stdout-only mode, if explicitly approved.
 
 Actual clean-package generation should wait until after repeated successful

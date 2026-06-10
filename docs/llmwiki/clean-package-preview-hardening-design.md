@@ -369,17 +369,18 @@ High-high:
 ## Future Implementation Candidates
 
 - Y-08B: implement richer manifest preview entries in dry-run reports.
+  Completed in report-only / stdout-only mode.
 - Y-08C: implement richer output diff prediction grouping.
 - Y-08D: extend regression checker for hardening fields.
 - Y-08E: docs-only generation readiness checklist.
 
 ## Recommended Next Step
 
-Y-08B should implement richer manifest preview entries in report-only mode.
+Y-08B implemented the first richer manifest preview entry candidate set in
+report-only mode.
 
-Y-08B should remain report-only, stdout-only, and no-generation. It should not
-write report files, create `manifest.json`, create `NOTICE.txt`, create
-`LICENSES/`, create guide output, or create `動画保存ツール_ローカル専用/`.
+Y-08C should implement richer output diff prediction grouping in report-only
+mode, if explicitly approved.
 
 ## Verification Checklist
 

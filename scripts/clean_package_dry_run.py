@@ -129,6 +129,287 @@ MANIFEST_PREVIEW_FUTURE_OUTPUTS = [
     "beginner guide notice section",
 ]
 
+MANIFEST_ENTRY_SPECS: list[dict[str, object]] = [
+    {
+        "package_relative_path": "00_最初に開いてください.html",
+        "source_candidate": "docs/llmwiki/package-guides/00-first-open.html.source.md",
+        "kind": "beginner_guide",
+        "target_os": "all",
+        "target_arch": "all",
+        "required": True,
+        "include_reason": "Primary first-open beginner guide candidate.",
+        "license_notice_required": False,
+        "safety_notes": ["Markdown source only; no package output generated."],
+    },
+    {
+        "package_relative_path": "00_最初に開いてください.txt",
+        "source_candidate": "docs/llmwiki/package-guides/00-first-open.txt.source.md",
+        "kind": "beginner_guide",
+        "target_os": "all",
+        "target_arch": "all",
+        "required": True,
+        "include_reason": "Plain-text first-open fallback guide candidate.",
+        "license_notice_required": False,
+        "safety_notes": ["Markdown source only; no package output generated."],
+    },
+    {
+        "package_relative_path": "03_使い方.html",
+        "source_candidate": "docs/llmwiki/package-guides/03-how-to-use.html.source.md",
+        "kind": "beginner_guide",
+        "target_os": "all",
+        "target_arch": "all",
+        "required": True,
+        "include_reason": "Everyday-use HTML guide candidate.",
+        "license_notice_required": False,
+        "safety_notes": ["Markdown source only; no package output generated."],
+    },
+    {
+        "package_relative_path": "03_使い方.txt",
+        "source_candidate": "docs/llmwiki/package-guides/03-how-to-use.txt.source.md",
+        "kind": "beginner_guide",
+        "target_os": "all",
+        "target_arch": "all",
+        "required": True,
+        "include_reason": "Everyday-use text fallback guide candidate.",
+        "license_notice_required": False,
+        "safety_notes": ["Markdown source only; no package output generated."],
+    },
+    {
+        "package_relative_path": "04_困ったとき.html",
+        "source_candidate": "docs/llmwiki/package-guides/04-troubleshooting.html.source.md",
+        "kind": "beginner_guide",
+        "target_os": "all",
+        "target_arch": "all",
+        "required": True,
+        "include_reason": "Troubleshooting HTML guide candidate.",
+        "license_notice_required": False,
+        "safety_notes": ["Markdown source only; no package output generated."],
+    },
+    {
+        "package_relative_path": "04_困ったとき.txt",
+        "source_candidate": "docs/llmwiki/package-guides/04-troubleshooting.txt.source.md",
+        "kind": "beginner_guide",
+        "target_os": "all",
+        "target_arch": "all",
+        "required": True,
+        "include_reason": "Troubleshooting text fallback guide candidate.",
+        "license_notice_required": False,
+        "safety_notes": ["Markdown source only; no package output generated."],
+    },
+    {
+        "package_relative_path": "05_安全な使い方.html",
+        "source_candidate": "docs/llmwiki/package-guides/05-safe-use.html.source.md",
+        "kind": "beginner_guide",
+        "target_os": "all",
+        "target_arch": "all",
+        "required": True,
+        "include_reason": "Safe-use guide candidate for local-only boundaries.",
+        "license_notice_required": False,
+        "safety_notes": ["Markdown source only; no package output generated."],
+    },
+    {
+        "package_relative_path": "開発者向け/manifest/package-manifest.json",
+        "source_candidate": "docs/llmwiki/desktop-package-manifest.md",
+        "kind": "developer_manifest",
+        "target_os": "all",
+        "target_arch": "all",
+        "required": True,
+        "include_reason": "Future package manifest review output candidate.",
+        "license_notice_required": True,
+        "review_status": "package_time_review_required",
+        "safety_notes": ["Manifest is preview-only; no JSON file generated."],
+    },
+    {
+        "package_relative_path": "開発者向け/manifest/planned-output-manifest.json",
+        "source_candidate": "docs/llmwiki/clean-package-dry-run-contract.md",
+        "kind": "developer_manifest",
+        "target_os": "all",
+        "target_arch": "all",
+        "required": True,
+        "include_reason": "Future planned output manifest candidate.",
+        "license_notice_required": True,
+        "review_status": "package_time_review_required",
+        "safety_notes": ["Manifest is preview-only; no JSON file generated."],
+    },
+    {
+        "package_relative_path": "開発者向け/manifest/license-notice-manifest.json",
+        "source_candidate": "docs/llmwiki/package-notices/notice-source-index.source.md",
+        "kind": "developer_manifest",
+        "target_os": "all",
+        "target_arch": "all",
+        "required": True,
+        "include_reason": "Future license and notice manifest candidate.",
+        "license_notice_required": True,
+        "review_status": "legal_not_final",
+        "safety_notes": ["Legal review is not final; no manifest file generated."],
+    },
+    {
+        "package_relative_path": "開発者向け/manifest/checksums.json",
+        "source_candidate": None,
+        "kind": "developer_manifest",
+        "target_os": "all",
+        "target_arch": "all",
+        "required": True,
+        "include_reason": "Future checksum manifest candidate.",
+        "license_notice_required": False,
+        "source_status": "candidate_only",
+        "review_status": "package_time_review_required",
+        "safety_notes": ["Checksum inputs are not selected in this phase."],
+    },
+    {
+        "package_relative_path": "開発者向け/notices/NOTICE.txt",
+        "source_candidate": "docs/llmwiki/package-notices/notice-source-index.source.md",
+        "kind": "notice",
+        "target_os": "all",
+        "target_arch": "all",
+        "required": True,
+        "include_reason": "Aggregate notice output candidate.",
+        "license_notice_required": True,
+        "review_status": "legal_not_final",
+        "safety_notes": ["Notice text is not generated; legal review remains open."],
+    },
+    {
+        "package_relative_path": "開発者向け/notices/third-party-notices.txt",
+        "source_candidate": "docs/llmwiki/package-notices/notice-source-index.source.md",
+        "kind": "notice",
+        "target_os": "all",
+        "target_arch": "all",
+        "required": True,
+        "include_reason": "Third-party notice output candidate.",
+        "license_notice_required": True,
+        "review_status": "legal_not_final",
+        "safety_notes": ["Notice text is not generated; legal review remains open."],
+    },
+    {
+        "package_relative_path": "開発者向け/licenses/",
+        "source_candidate": "docs/llmwiki/package-notices/notice-source-index.source.md",
+        "kind": "license",
+        "target_os": "all",
+        "target_arch": "all",
+        "required": True,
+        "include_reason": "Future license bundle directory candidate.",
+        "license_notice_required": True,
+        "review_status": "legal_not_final",
+        "safety_notes": ["License files are not copied in this phase."],
+    },
+    {
+        "package_relative_path": "開発者向け/licenses/third-party/",
+        "source_candidate": "docs/llmwiki/package-notices/notice-source-index.source.md",
+        "kind": "license",
+        "target_os": "all",
+        "target_arch": "all",
+        "required": True,
+        "include_reason": "Future third-party license directory candidate.",
+        "license_notice_required": True,
+        "review_status": "legal_not_final",
+        "safety_notes": ["License files are not copied in this phase."],
+    },
+    {
+        "package_relative_path": "開発者向け/inventory/bundled-python-dependency-inventory.json",
+        "source_candidate": (
+            "docs/llmwiki/package-notices/"
+            "bundled-python-dependency-inventory.source.md"
+        ),
+        "kind": "inventory",
+        "target_os": "all",
+        "target_arch": "all",
+        "required": True,
+        "include_reason": "Future bundled Python dependency inventory candidate.",
+        "license_notice_required": True,
+        "review_status": "legal_not_final",
+        "safety_notes": ["Inventory is not generated; exact package versions need review."],
+    },
+    {
+        "package_relative_path": "Windows用/notices/runtime-notices.txt",
+        "source_candidate": "docs/llmwiki/package-notices/notice-source-index.source.md",
+        "kind": "runtime_placeholder",
+        "target_os": "windows",
+        "target_arch": "all",
+        "required": True,
+        "include_reason": "Windows runtime notice placeholder candidate.",
+        "license_notice_required": True,
+        "review_status": "legal_not_final",
+        "safety_notes": ["Windows runtime artifacts are not selected in this phase."],
+    },
+    {
+        "package_relative_path": "Mac用/notices/runtime-notices.txt",
+        "source_candidate": "docs/llmwiki/package-notices/notice-source-index.source.md",
+        "kind": "runtime_placeholder",
+        "target_os": "macos",
+        "target_arch": "all",
+        "required": True,
+        "include_reason": "macOS runtime notice placeholder candidate.",
+        "license_notice_required": True,
+        "review_status": "legal_not_final",
+        "safety_notes": ["macOS runtime artifacts are not selected in this phase."],
+    },
+    {
+        "package_relative_path": "Windows用/",
+        "source_candidate": None,
+        "kind": "directory",
+        "target_os": "windows",
+        "target_arch": "all",
+        "required": True,
+        "include_reason": "Future Windows package directory candidate.",
+        "license_notice_required": False,
+        "source_status": "not_applicable_this_phase",
+        "review_status": "package_time_review_required",
+        "safety_notes": ["Directory is not created in dry-run mode."],
+    },
+    {
+        "package_relative_path": "Mac用/",
+        "source_candidate": None,
+        "kind": "directory",
+        "target_os": "macos",
+        "target_arch": "all",
+        "required": True,
+        "include_reason": "Future macOS package directory candidate.",
+        "license_notice_required": False,
+        "source_status": "not_applicable_this_phase",
+        "review_status": "package_time_review_required",
+        "safety_notes": ["Directory is not created in dry-run mode."],
+    },
+    {
+        "package_relative_path": "保存先/",
+        "source_candidate": None,
+        "kind": "directory",
+        "target_os": "all",
+        "target_arch": "all",
+        "required": True,
+        "include_reason": "Future save-folder placeholder candidate.",
+        "license_notice_required": False,
+        "source_status": "not_applicable_this_phase",
+        "review_status": "package_time_review_required",
+        "safety_notes": ["Directory is not created in dry-run mode."],
+    },
+    {
+        "package_relative_path": "困ったとき/",
+        "source_candidate": None,
+        "kind": "directory",
+        "target_os": "all",
+        "target_arch": "all",
+        "required": True,
+        "include_reason": "Future troubleshooting directory candidate.",
+        "license_notice_required": False,
+        "source_status": "not_applicable_this_phase",
+        "review_status": "package_time_review_required",
+        "safety_notes": ["Directory is not created in dry-run mode."],
+    },
+    {
+        "package_relative_path": "開発者向け/",
+        "source_candidate": None,
+        "kind": "directory",
+        "target_os": "all",
+        "target_arch": "all",
+        "required": True,
+        "include_reason": "Future developer review directory candidate.",
+        "license_notice_required": True,
+        "source_status": "not_applicable_this_phase",
+        "review_status": "package_time_review_required",
+        "safety_notes": ["Directory is not created in dry-run mode."],
+    },
+]
+
 DIFF_PREDICTION_CREATE_DIRECTORIES = [
     "Windows用/",
     "Mac用/",
@@ -783,11 +1064,77 @@ def candidate_source_items(
     return present, len(values), items, missing
 
 
+def source_status_for_manifest_entry(root: Path, spec: dict[str, object]) -> str:
+    explicit = spec.get("source_status")
+    if isinstance(explicit, str):
+        return explicit
+
+    source_candidate = spec.get("source_candidate")
+    if isinstance(source_candidate, str):
+        return "source_draft" if (root / source_candidate).is_file() else "missing"
+    return "candidate_only"
+
+
+def build_manifest_entries(root: Path) -> list[dict[str, object]]:
+    entries: list[dict[str, object]] = []
+    for spec in MANIFEST_ENTRY_SPECS:
+        source_status = source_status_for_manifest_entry(root, spec)
+        review_status = spec.get("review_status")
+        if not isinstance(review_status, str):
+            review_status = source_status
+        output_status = spec.get("output_status")
+        if not isinstance(output_status, str):
+            output_status = "package_time_review_required"
+
+        safety_notes = spec.get("safety_notes")
+        if not isinstance(safety_notes, list):
+            safety_notes = ["Report-only candidate; no package output generated."]
+
+        entries.append(
+            {
+                "package_relative_path": spec["package_relative_path"],
+                "source_candidate": spec["source_candidate"],
+                "kind": spec["kind"],
+                "target_os": spec["target_os"],
+                "target_arch": spec["target_arch"],
+                "generated": False,
+                "required": spec["required"],
+                "include_reason": spec["include_reason"],
+                "license_notice_required": spec["license_notice_required"],
+                "review_status": review_status,
+                "safety_notes": safety_notes,
+                "source_status": source_status,
+                "output_status": output_status,
+                "human_review_required": True,
+            }
+        )
+    return entries
+
+
+def summarize_manifest_entries(
+    entries: list[dict[str, object]],
+) -> dict[str, object]:
+    by_kind: dict[str, int] = {}
+    for entry in entries:
+        kind = str(entry["kind"])
+        by_kind[kind] = by_kind.get(kind, 0) + 1
+    return {
+        "total": len(entries),
+        "by_kind": by_kind,
+        "human_review_required": any(
+            bool(entry["human_review_required"]) for entry in entries
+        ),
+        "generated_now": any(bool(entry["generated"]) for entry in entries),
+    }
+
+
 def print_package_manifest_preview(root: Path, excluded_found: list[str]) -> None:
     notice_present, notice_lines = present_candidate_lines(
         root, MANIFEST_PREVIEW_NOTICE_SOURCES
     )
     guide_present, guide_lines = present_candidate_lines(root, GUIDE_SOURCE_CANDIDATES)
+    manifest_entries = build_manifest_entries(root)
+    manifest_entry_summary = summarize_manifest_entries(manifest_entries)
 
     print("Package manifest preview:")
     print("  package_name candidate: 動画保存ツール_ローカル専用")
@@ -809,6 +1156,22 @@ def print_package_manifest_preview(root: Path, excluded_found: list[str]) -> Non
     print("  future_outputs candidate:")
     for output in MANIFEST_PREVIEW_FUTURE_OUTPUTS:
         print(f"    {output}")
+    print("  manifest_entries:")
+    print(f"    total: {manifest_entry_summary['total']}")
+    print("    by_kind:")
+    for kind, count in manifest_entry_summary["by_kind"].items():
+        print(f"      {kind}: {count}")
+    print("    entries:")
+    for entry in manifest_entries:
+        print(f"      - path: {entry['package_relative_path']}")
+        print(f"        kind: {entry['kind']}")
+        print(f"        source_status: {entry['source_status']}")
+        print(f"        output_status: {entry['output_status']}")
+        print(f"        generated: {str(entry['generated']).lower()}")
+        print(
+            "        human_review_required: "
+            f"{str(entry['human_review_required']).lower()}"
+        )
     print("  human_review_required_before_generation: true")
     print("  legal_final: false")
     print("  secret_values_printed: false")
@@ -927,6 +1290,8 @@ def print_markdown_report(
     platform_present, platform_total, platform_lines, missing_platform = (
         candidate_coverage(root, PLATFORM_SECTION_SOURCE_CANDIDATES)
     )
+    manifest_entries = build_manifest_entries(root)
+    manifest_entry_summary = summarize_manifest_entries(manifest_entries)
 
     print("# Clean Package Dry-Run Report")
     print()
@@ -971,6 +1336,34 @@ def print_markdown_report(
     print("- secret_values_printed: `false`")
     print("- token_values_printed: `false`")
     print("- cookie_values_printed: `false`")
+    print()
+    print("### Manifest Entry Candidates")
+    print()
+    print(f"- Total entries: `{manifest_entry_summary['total']}`")
+    print(
+        "- Generated now: "
+        f"`{str(manifest_entry_summary['generated_now']).lower()}`"
+    )
+    print(
+        "- Human review required before generation: "
+        f"`{str(manifest_entry_summary['human_review_required']).lower()}`"
+    )
+    print()
+    print("#### Entries")
+    print()
+    for entry in manifest_entries:
+        source_candidate = entry["source_candidate"]
+        source_display = (
+            f"`{source_candidate}`"
+            if isinstance(source_candidate, str)
+            else "`not selected yet`"
+        )
+        print(f"- `{entry['package_relative_path']}`")
+        print(f"  - kind: {entry['kind']}")
+        print(f"  - source: {source_display}")
+        print(f"  - source_status: {entry['source_status']}")
+        print(f"  - output_status: {entry['output_status']}")
+        print(f"  - human_review_required: {str(entry['human_review_required']).lower()}")
     print()
     print("Notice source details:")
     print_markdown_item_list(notice_lines, code=False, indent="  ")
@@ -1106,6 +1499,8 @@ def build_json_report(
     platform_present, platform_total, platform_items, missing_platform = (
         candidate_source_items(root, PLATFORM_SECTION_SOURCE_CANDIDATES)
     )
+    manifest_entries = build_manifest_entries(root)
+    manifest_entry_summary = summarize_manifest_entries(manifest_entries)
 
     generated_package_root_present = any(
         b.kind == "generated_package_folder_present" for b in blocked
@@ -1151,6 +1546,8 @@ def build_json_report(
                 "items": guide_items,
             },
             "future_outputs": MANIFEST_PREVIEW_FUTURE_OUTPUTS,
+            "manifest_entries": manifest_entries,
+            "manifest_entry_summary": manifest_entry_summary,
             "human_review_required_before_generation": True,
             "legal_final": False,
             "non_disclosure": {

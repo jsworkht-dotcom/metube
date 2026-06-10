@@ -1330,6 +1330,38 @@
     approved.
   - Actual package generation remains blocked.
 
+### Y-08B richer manifest preview entries
+
+- Scope: report-only richer manifest preview entries.
+- Changed script:
+  `scripts/clean_package_dry_run.py`
+- Checker updated:
+  `scripts/check_clean_package_dry_run_reports.py`
+- Behavior:
+  - Adds manifest entry candidates to text, Markdown, and JSON package
+    manifest preview output.
+  - JSON includes `manifest_entries` and `manifest_entry_summary` under
+    `package_manifest_preview`.
+  - The checker validates the new manifest entry fields, text marker, and
+    Markdown section.
+  - Default text, `--format text`, `--format markdown`, and `--format json`
+    modes remain supported.
+- Not implemented:
+  - actual `manifest.json`
+  - package generation
+  - generated package folder
+  - generated notice/license/inventory/guide output
+  - report file writing
+  - CI integration
+  - backend/frontend/Docker/CI/package/lockfile changes
+  - PR #1001 file changes
+  - cookie/token/secret handling
+  - 更新適用機能
+- Next candidate:
+  - Y-08C richer output diff prediction grouping in report-only mode, if
+    explicitly approved.
+  - Actual package generation remains blocked.
+
 ### Y-CHECK-01 safety gate checker design
 
 - Scope: docs-only design for a future repository safety checker and automation
@@ -1531,10 +1563,10 @@ Use `scripts/check_repo_safety.py` and `scripts/clean_package_dry_run.py` as
 local report-only gates before the next low-, medium-, or qualifying
 high-low-risk fork PR.
 
-The previous package-material next step is complete through Y-08A.
+The previous package-material next step is complete through Y-08B.
 
 The next package-material candidate should be selected explicitly. The
-recommended next candidate is Y-08B richer manifest preview entries in
+recommended next candidate is Y-08C richer output diff prediction grouping in
 report-only / stdout-only mode, if explicitly approved. Optional later CI
 wiring for the Y-07E checker remains separate.
 

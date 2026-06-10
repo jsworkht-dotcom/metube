@@ -570,6 +570,26 @@ MeTube. The canonical branch is fork `master`, and local `master` tracks
   wiring for the Y-07E checker remains separate.
 - `export_context_updated.py` is a known local-only WebGPT handoff/context
   export helper. It remains untracked and outside Y-08A scope.
+- Y-08B richer manifest preview entries are implemented in
+  `scripts/clean_package_dry_run.py`.
+- Y-08B outcome: text, Markdown, and JSON package manifest preview output now
+  includes manifest entry candidates.
+- Y-08B JSON output includes `manifest_entries` and
+  `manifest_entry_summary` under `package_manifest_preview`.
+- Y-08B checker coverage is implemented in
+  `scripts/check_clean_package_dry_run_reports.py`.
+- Verify Y-08B with `scripts/check_clean_package_dry_run_reports.py`, normal
+  repo safety gates, and the clean-package dry-run text, Markdown, and JSON
+  modes.
+- Y-08B does not create an actual `manifest.json`, write report files, create
+  generated package folders, create package output, change
+  backend/frontend/Docker/CI files, change package/lockfile files, handle
+  cookie/token/secret values, touch PR #1001 files, or implement 更新適用機能.
+- Future recommended candidate: Y-08C richer output diff prediction grouping
+  in report-only / stdout-only mode, if explicitly approved. Optional later CI
+  wiring for the Y-07E checker remains separate.
+- `export_context_updated.py` is a known local-only WebGPT handoff/context
+  export helper. It remains untracked and outside Y-08B scope.
 - Y-CHECK-01 safety gate checker design is documented at
   `docs/llmwiki/safety-gate-checker-design.md`.
 - Y-CHECK-01 outcome: the future checker should evaluate repository diffs for
@@ -638,7 +658,7 @@ Run `scripts/check_repo_safety.py`,
 high-low-risk fork PR.
 
 The next package-material candidate should be selected explicitly. The
-recommended next candidate is Y-08B richer manifest preview entries in
+recommended next candidate is Y-08C richer output diff prediction grouping in
 report-only / stdout-only mode, if explicitly approved. Optional later CI
 wiring for the Y-07E checker remains separate.
 

@@ -62,13 +62,40 @@ REQUIRED_JSON_FIELDS = (
     "next_step",
 )
 
+REQUIRED_MANIFEST_ENTRY_FIELDS = {
+    "package_relative_path",
+    "source_candidate",
+    "kind",
+    "target_os",
+    "target_arch",
+    "generated",
+    "required",
+    "include_reason",
+    "license_notice_required",
+    "review_status",
+    "safety_notes",
+    "source_status",
+    "output_status",
+    "human_review_required",
+}
+
+REVIEW_RELATED_MANIFEST_KINDS = {
+    "notice",
+    "license",
+    "inventory",
+    "developer_manifest",
+}
+
 CHECK_NAMES = (
     "all modes exit 0",
     "default text output",
     "--format text output",
+    "text manifest entries",
     "--format markdown required sections",
+    "--format markdown manifest entries",
     "--format json parse",
     "--format json required fields",
+    "--format json manifest entries",
     "cross-format status consistency",
     "generated package folder absent",
 )
@@ -221,6 +248,21 @@ def check_text_outputs(
         )
         check_status["--format text output"] = False
 
+    if "manifest_entries" not in default:
+        add_failure(
+            failures,
+            check_status,
+            "text manifest entries",
+            "default text output missing manifest_entries",
+        )
+    if "manifest_entries" not in text:
+        add_failure(
+            failures,
+            check_status,
+            "text manifest entries",
+            "--format text output missing manifest_entries",
+        )
+
 
 def check_markdown_output(
     result: ModeResult,
@@ -244,6 +286,14 @@ def check_markdown_output(
                 "--format markdown required sections",
                 f"missing Markdown section: {heading}",
             )
+
+    if "Manifest Entry Candidates" not in output:
+        add_failure(
+            failures,
+            check_status,
+            "--format markdown manifest entries",
+            "Markdown output missing Manifest Entry Candidates",
+        )
 
 
 def check_json_output(
@@ -321,6 +371,115 @@ def check_json_output(
         )
 
     return data
+
+
+def check_json_manifest_entries(
+    json_data: dict[str, object] | None,
+    failures: list[str],
+    check_status: dict[str, bool],
+) -> None:
+    check_name = "--format json manifest entries"
+    if json_data is None:
+        add_failure(
+            failures,
+            check_status,
+            check_name,
+            "JSON data unavailable for manifest entry checks",
+        )
+        return
+
+    preview = json_data.get("package_manifest_preview")
+    if not isinstance(preview, dict):
+        add_failure(
+            failures,
+            check_status,
+            check_name,
+            "package_manifest_preview is not an object",
+        )
+        return
+
+    entries = preview.get("manifest_entries")
+    if not isinstance(entries, list) or not entries:
+        add_failure(
+            failures,
+            check_status,
+            check_name,
+            "manifest_entries is not a non-empty list",
+        )
+        return
+
+    summary = preview.get("manifest_entry_summary")
+    if not isinstance(summary, dict):
+        add_failure(
+            failures,
+            check_status,
+            check_name,
+            "manifest_entry_summary is not an object",
+        )
+
+    beginner_present = False
+    review_related_present = False
+    for index, entry in enumerate(entries):
+        if not isinstance(entry, dict):
+            add_failure(
+                failures,
+                check_status,
+                check_name,
+                f"manifest entry {index} is not an object",
+            )
+            continue
+
+        missing = REQUIRED_MANIFEST_ENTRY_FIELDS - set(entry)
+        if missing:
+            add_failure(
+                failures,
+                check_status,
+                check_name,
+                f"manifest entry {index} missing fields: {', '.join(sorted(missing))}",
+            )
+
+        if entry.get("generated") is not False:
+            add_failure(
+                failures,
+                check_status,
+                check_name,
+                f"manifest entry {index} generated is not false",
+            )
+        if entry.get("human_review_required") is not True:
+            add_failure(
+                failures,
+                check_status,
+                check_name,
+                f"manifest entry {index} human_review_required is not true",
+            )
+        if not isinstance(entry.get("safety_notes"), list):
+            add_failure(
+                failures,
+                check_status,
+                check_name,
+                f"manifest entry {index} safety_notes is not a list",
+            )
+
+        kind = entry.get("kind")
+        if kind == "beginner_guide":
+            beginner_present = True
+        if kind in REVIEW_RELATED_MANIFEST_KINDS:
+            review_related_present = True
+
+    if not beginner_present:
+        add_failure(
+            failures,
+            check_status,
+            check_name,
+            "missing beginner guide manifest entry",
+        )
+    if not review_related_present:
+        add_failure(
+            failures,
+            check_status,
+            check_name,
+            "missing notice/license/inventory/developer manifest entry",
+        )
 
 
 def check_cross_format_consistency(
@@ -465,6 +624,7 @@ def main(argv: list[str]) -> int:
     check_text_outputs(results, failures, check_status)
     check_markdown_output(results["markdown"], failures, check_status)
     json_data = check_json_output(results["json"], failures, check_status)
+    check_json_manifest_entries(json_data, failures, check_status)
     check_cross_format_consistency(results, json_data, failures, check_status)
     check_generated_package_absent(root, failures, check_status)
 
