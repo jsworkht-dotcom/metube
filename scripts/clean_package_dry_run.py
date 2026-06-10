@@ -7,11 +7,13 @@ This script intentionally does not create, copy, move, zip, or package files.
 from __future__ import annotations
 
 import argparse
+import json
 import os
 import re
 import subprocess
 import sys
 from dataclasses import dataclass
+from datetime import datetime, timezone
 from pathlib import Path, PurePosixPath
 from typing import Iterable
 
@@ -320,9 +322,12 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
     )
     parser.add_argument(
         "--format",
-        choices=["text", "markdown"],
+        choices=["text", "markdown", "json"],
         default="text",
-        help="Report format. Text is the default; markdown writes a report-only Markdown summary.",
+        help=(
+            "Report format. Text is the default; markdown and json write "
+            "report-only stdout summaries."
+        ),
     )
     return parser.parse_args(argv)
 
@@ -755,6 +760,29 @@ def candidate_coverage(
     return present, len(values), entries, missing
 
 
+def candidate_source_items(
+    root: Path,
+    candidates: Iterable[tuple[str, str]],
+) -> tuple[int, int, list[dict[str, object]], list[dict[str, str]]]:
+    items: list[dict[str, object]] = []
+    missing: list[dict[str, str]] = []
+    values = list(candidates)
+    present = 0
+    for label, rel in values:
+        exists = (root / rel).is_file()
+        if exists:
+            present += 1
+        item = {
+            "label": label,
+            "path": rel,
+            "present": exists,
+        }
+        items.append(item)
+        if not exists:
+            missing.append({"label": label, "path": rel})
+    return present, len(values), items, missing
+
+
 def print_package_manifest_preview(root: Path, excluded_found: list[str]) -> None:
     notice_present, notice_lines = present_candidate_lines(
         root, MANIFEST_PREVIEW_NOTICE_SOURCES
@@ -1036,6 +1064,210 @@ def print_markdown_report(
     print("- Default text output remains supported.")
 
 
+def finding_to_dict(finding: Finding) -> dict[str, object]:
+    return {
+        "kind": finding.kind,
+        "path": finding.path,
+        "line": finding.line,
+        "pattern_family": finding.pattern_family,
+        "message": finding.message,
+    }
+
+
+def utc_timestamp() -> str:
+    return datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace(
+        "+00:00", "Z"
+    )
+
+
+def build_json_report(
+    root: Path,
+    blocked: list[Finding],
+    warnings: list[Finding],
+    excluded_found: list[str],
+) -> dict[str, object]:
+    status = "blocked" if blocked else "ok"
+    exit_code = 1 if blocked else 0
+    branch = git_value(root, "branch", "--show-current")
+    commit = git_value(root, "rev-parse", "--short", "HEAD")
+
+    manifest_notice_present, manifest_notice_total, manifest_notice_items, _ = (
+        candidate_source_items(root, MANIFEST_PREVIEW_NOTICE_SOURCES)
+    )
+    guide_present, guide_total, guide_items, missing_guides = candidate_source_items(
+        root, GUIDE_SOURCE_CANDIDATES
+    )
+    notice_present, notice_total, notice_items, missing_notices = candidate_source_items(
+        root, NOTICE_SOURCE_CANDIDATES
+    )
+    safety_present, safety_total, safety_items, missing_safety = (
+        candidate_source_items(root, SAFETY_NOTICE_SOURCE_CANDIDATES)
+    )
+    platform_present, platform_total, platform_items, missing_platform = (
+        candidate_source_items(root, PLATFORM_SECTION_SOURCE_CANDIDATES)
+    )
+
+    generated_package_root_present = any(
+        b.kind == "generated_package_folder_present" for b in blocked
+    )
+    pr_1001_files_present = any(b.kind == "upstream_pr_1001_leakage" for b in blocked)
+    invalid_planned_paths = any(b.kind == "invalid_planned_path" for b in blocked)
+    forbidden_filenames = any(b.kind == "forbidden_filename" for b in blocked)
+    secret_like_content = any(b.kind == "forbidden_content_pattern" for b in blocked)
+
+    return {
+        "schema_version": "0.1",
+        "report_type": "clean_package_dry_run",
+        "report_format": "json",
+        "mode": "dry_run",
+        "status": status,
+        "exit_code": exit_code,
+        "generated_artifacts": False,
+        "checked_at": utc_timestamp(),
+        "repository": {
+            "branch": branch,
+            "commit": commit,
+            "root": ".",
+        },
+        "package": {
+            "package_root": PACKAGE_ROOT,
+            "package_name_candidate": "動画保存ツール_ローカル専用",
+            "package_type_candidate": "local-only beginner package",
+            "local_only": True,
+        },
+        "package_manifest_preview": {
+            "package_name_candidate": "動画保存ツール_ローカル専用",
+            "package_type_candidate": "local-only beginner package",
+            "local_only": True,
+            "generated_artifacts": False,
+            "notice_sources": {
+                "present": manifest_notice_present,
+                "total": manifest_notice_total,
+                "items": manifest_notice_items,
+            },
+            "guide_sources": {
+                "present": guide_present,
+                "total": guide_total,
+                "items": guide_items,
+            },
+            "future_outputs": MANIFEST_PREVIEW_FUTURE_OUTPUTS,
+            "human_review_required_before_generation": True,
+            "legal_final": False,
+            "non_disclosure": {
+                "secret_values_printed": False,
+                "token_values_printed": False,
+                "cookie_values_printed": False,
+            },
+        },
+        "package_output_diff_prediction": {
+            "future_package_root": PACKAGE_ROOT,
+            "would_create_directories": DIFF_PREDICTION_CREATE_DIRECTORIES,
+            "would_create_files": DIFF_PREDICTION_CREATE_FILES,
+            "would_copy_source_groups": DIFF_PREDICTION_COPY_SOURCE_GROUPS,
+            "would_generate_future_outputs": MANIFEST_PREVIEW_FUTURE_OUTPUTS,
+            "no_files_generated": True,
+            "human_review_required_before_generation": True,
+            "cleanup_rollback_note": (
+                "Future package root only; human review required before any action."
+            ),
+        },
+        "source_coverage": {
+            "notice_sources": {
+                "present": notice_present,
+                "total": notice_total,
+                "items": notice_items,
+            },
+            "guide_sources": {
+                "present": guide_present,
+                "total": guide_total,
+                "items": guide_items,
+            },
+            "missing_notice_sources": missing_notices,
+            "missing_guide_sources": missing_guides,
+            "local_only_safety_source": {
+                "present": safety_present,
+                "total": safety_total,
+                "items": safety_items,
+                "missing": missing_safety,
+            },
+            "platform_section_sources": {
+                "present": platform_present,
+                "total": platform_total,
+                "items": platform_items,
+                "missing": missing_platform,
+            },
+        },
+        "excluded_paths_summary": {
+            "excluded_rule_count": len(EXCLUDED_PATHS),
+            "currently_present_excluded_path_count": len(excluded_found),
+            "currently_present_excluded_paths": excluded_found,
+            "generated_package_root_present": generated_package_root_present,
+            "pr_1001_files_present": pr_1001_files_present,
+        },
+        "validation": {
+            "status": status,
+            "generated_package_root_present": generated_package_root_present,
+            "pr_1001_leakage": pr_1001_files_present,
+            "forbidden_paths": generated_package_root_present or invalid_planned_paths,
+            "forbidden_filenames": forbidden_filenames,
+            "secret_like_content": secret_like_content,
+            "warnings_count": len(warnings),
+            "blockers_count": len(blocked),
+        },
+        "warnings": [finding_to_dict(warning) for warning in warnings],
+        "blockers": [finding_to_dict(blocker) for blocker in blocked],
+        "safety_flags": {
+            "local_only": True,
+            "public_hosting": False,
+            "ads": False,
+            "update_apply": False,
+            "docker_pull": False,
+            "docker_build": False,
+            "git_update": False,
+            "package_install": False,
+            "credential_handling": False,
+            "generated_folder_created": False,
+            "implementation_changes": False,
+            "backend_changes": False,
+            "frontend_changes": False,
+            "docker_changes": False,
+            "ci_changes": False,
+            "package_lockfile_changes": False,
+            "pr_1001_files_present": pr_1001_files_present,
+        },
+        "human_review": {
+            "required_before_generation": True,
+            "actual_generation_approved": False,
+            "checklist": [
+                "Status is OK.",
+                "Repo safety gate has no blockers.",
+                "Clean-package dry-run has no blockers.",
+                "Package manifest preview is acceptable.",
+                "Package output diff prediction is acceptable.",
+                "No generated package folder exists.",
+                "No cookie/token/secret values are printed.",
+                "PR #1001 files are absent.",
+                "No backend/frontend/Docker/CI/package/lockfile changes are mixed in.",
+                "Human review is complete before any actual generation task.",
+            ],
+        },
+        "next_step": (
+            "Review this report; do not generate package files without a later "
+            "explicit human-reviewed task."
+        ),
+    }
+
+
+def print_json_report(
+    root: Path,
+    blocked: list[Finding],
+    warnings: list[Finding],
+    excluded_found: list[str],
+) -> None:
+    report = build_json_report(root, blocked, warnings, excluded_found)
+    print(json.dumps(report, ensure_ascii=False, indent=2))
+
+
 def print_report(
     root: Path,
     blocked: list[Finding],
@@ -1151,6 +1383,8 @@ def main(argv: list[str]) -> int:
     blocked, warnings, excluded_found = collect_blockers(root)
     if args.format == "markdown":
         print_markdown_report(root, blocked, warnings, excluded_found)
+    elif args.format == "json":
+        print_json_report(root, blocked, warnings, excluded_found)
     else:
         print_report(root, blocked, warnings, excluded_found)
     return 1 if blocked else 0

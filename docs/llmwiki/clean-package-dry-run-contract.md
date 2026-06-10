@@ -1310,6 +1310,60 @@ Required future JSON top-level keys:
 - no_generation_boundary
 - next_step
 
+## Y-07C JSON Report Mode Implementation
+
+Y-07C implements report-only JSON output in:
+
+```text
+scripts/clean_package_dry_run.py
+```
+
+Implemented command:
+
+```text
+python scripts/clean_package_dry_run.py --format json
+```
+
+Rules:
+
+- Current text output remains the default.
+- `--format text` remains supported.
+- `--format markdown` remains supported.
+- `--format json` writes one valid JSON object to stdout only.
+- JSON mode does not write report files.
+- JSON mode does not create `manifest.json`, `NOTICE.txt`, `LICENSES/`, or
+  `動画保存ツール_ローカル専用/`.
+- JSON mode reuses existing dry-run data.
+- Existing blockers and warnings are not changed.
+- Existing exit-code behavior is preserved: `0` for OK, `1` for blocked, and
+  `2` for CLI usage errors.
+- Warning and blocker arrays use sanitized objects only.
+- Secret-like findings remain sanitized and do not print matched values.
+- A passing JSON report is not approval to generate package output.
+
+Implemented JSON top-level keys:
+
+- schema_version
+- report_type
+- report_format
+- mode
+- status
+- exit_code
+- generated_artifacts
+- checked_at
+- repository
+- package
+- package_manifest_preview
+- package_output_diff_prediction
+- source_coverage
+- excluded_paths_summary
+- validation
+- warnings
+- blockers
+- safety_flags
+- human_review
+- next_step
+
 ## Y-CHECK-01 Repository Safety Gate Relationship
 
 Y-CHECK-01 is documented in:

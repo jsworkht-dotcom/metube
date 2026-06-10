@@ -1180,6 +1180,46 @@
 - Next candidate:
   - Y-07C implement `--format json` report-only, if explicitly approved.
 
+### Y-07C clean package dry-run JSON report mode
+
+- Scope: report-only `--format json` implementation.
+- Script:
+  `scripts/clean_package_dry_run.py`
+- Behavior:
+  - Preserves the default text report.
+  - Preserves `--format text` as text output.
+  - Preserves `--format markdown` as stdout-only Markdown output.
+  - Adds `--format json` as stdout-only valid JSON object output.
+  - Existing blockers, warnings, and exit codes are preserved.
+  - JSON output uses sanitized machine-readable fields for repository, package,
+    package manifest preview, package output diff prediction, source coverage,
+    excluded path summary, validation, warnings, blockers, safety flags, human
+    review, and next step.
+  - JSON mode reuses existing dry-run data and does not write files.
+- Not implemented:
+  - report file writing
+  - real `manifest.json` generation
+  - real `NOTICE.txt` generation
+  - real `LICENSES/` generation
+  - generated distribution folder
+  - generated notice bundle
+  - generated license bundle
+  - generated dependency inventory files
+  - generated manifest files
+  - HTML/TXT package guide output
+  - package generation
+  - ビルド/パッケージ/インストール操作
+  - dependency changes
+  - package/lockfile changes
+  - backend/frontend/Docker/CI changes
+  - cookie/token/secret handling
+  - PR #1001 file changes
+  - 更新適用機能
+- Next candidate:
+  - Decide whether to add JSON contract tests / snapshot-like check docs, or
+    move toward the next docs/report-only package preview task.
+  - Actual package generation remains blocked.
+
 ### Y-CHECK-01 safety gate checker design
 
 - Scope: docs-only design for a future repository safety checker and automation
@@ -1381,11 +1421,11 @@ Use `scripts/check_repo_safety.py` and `scripts/clean_package_dry_run.py` as
 local report-only gates before the next low-, medium-, or qualifying
 high-low-risk fork PR.
 
-The previous package-material next step is complete through Y-07B.
+The previous package-material next step is complete through Y-07C.
 
-The next package-material candidate should be selected explicitly. A good next
-candidate is Y-07C `--format json` report-only implementation if explicitly
-approved.
+The next package-material candidate should be selected explicitly. Good next
+candidates are optional JSON report structure hardening / test fixture docs or
+the next docs/report-only package preview task.
 
 Next scope:
 

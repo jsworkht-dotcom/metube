@@ -496,6 +496,28 @@ MeTube. The canonical branch is fork `master`, and local `master` tracks
   package folders, create package output, change backend/frontend/Docker/CI
   files, change package/lockfile files, handle cookie/token/secret values,
   touch PR #1001 files, or implement 更新適用機能.
+- Y-07C clean package dry-run JSON report mode is implemented in
+  `scripts/clean_package_dry_run.py`.
+- Y-07C outcome: default text output, `--format text`, and `--format markdown`
+  remain available, and `--format json` now prints one valid JSON object to
+  stdout.
+- Y-07C JSON output is report-only, machine-readable, sanitized, and includes
+  repository, package, package manifest preview, package output diff
+  prediction, source coverage, excluded path summary, validation, warnings,
+  blockers, safety flags, human review, and next-step fields.
+- Y-07C preserves existing blockers, warnings, exit codes, and sanitized
+  finding output.
+- Verify Y-07C with `scripts/clean_package_dry_run.py`,
+  `scripts/clean_package_dry_run.py --format text`,
+  `scripts/clean_package_dry_run.py --format markdown`,
+  `scripts/clean_package_dry_run.py --format json`, and a `json.loads()` parse
+  check over the full JSON stdout.
+- `export_context_updated.py` is a known local-only WebGPT handoff/context
+  export helper. It remains untracked and outside Y-07C scope.
+- Y-07C does not write report files, create generated package folders, create
+  package output, change backend/frontend/Docker/CI files, change
+  package/lockfile files, handle cookie/token/secret values, touch PR #1001
+  files, or implement 更新適用機能.
 - Y-CHECK-01 safety gate checker design is documented at
   `docs/llmwiki/safety-gate-checker-design.md`.
 - Y-CHECK-01 outcome: the future checker should evaluate repository diffs for
@@ -563,9 +585,9 @@ Run `scripts/check_repo_safety.py`,
 `scripts/clean_package_dry_run.py` before the next low-, medium-, or qualifying
 high-low-risk fork PR.
 
-The next package-material candidate should be selected explicitly. A good next
-candidate is Y-07C `--format json` report-only implementation if explicitly
-approved.
+The next package-material candidate should be selected explicitly. Good next
+candidates are optional JSON report structure hardening / test fixture docs or
+the next docs/report-only package preview task.
 
 Do not create generated guide outputs, copy license text, create the generated
 package folder, copy package files, implement actual package generation, add
