@@ -1216,6 +1216,58 @@ Required future Markdown sections:
 - Human Review Checklist
 - No-Generation Boundary
 
+## Y-07A JSON Report Mode Design
+
+Y-07A adds a docs-only design for a future JSON report mode:
+
+```text
+docs/llmwiki/clean-package-dry-run-json-report-mode-design.md
+```
+
+The design recommends a future selector:
+
+```text
+python scripts/clean_package_dry_run.py --format json
+```
+
+Rules:
+
+- Current text output remains the default.
+- Y-07A does not implement JSON output.
+- Y-07A does not change `scripts/clean_package_dry_run.py`.
+- Y-07A does not change `scripts/check_repo_safety.py`.
+- A future JSON mode should write one valid JSON object to stdout only in its
+  first implementation.
+- A future JSON mode should preserve existing `Status: OK`,
+  `Status: BLOCKED`, warnings, blockers, and exit-code behavior.
+- A future JSON mode should not create package files, generated artifacts, or
+  report files.
+- Repository-diff risk classification should remain owned by
+  `scripts/check_repo_safety.py` unless a later wrapper task explicitly
+  combines reports.
+
+Required future JSON top-level keys:
+
+- schema_version
+- report_kind
+- report_format
+- mode
+- status
+- exit_code
+- repository
+- package
+- planned_entries
+- package_manifest_preview
+- package_output_diff_prediction
+- excluded_paths
+- checks
+- warnings
+- blocked_reasons
+- safety_flags
+- risk_classification
+- no_generation_boundary
+- next_step
+
 ## Y-CHECK-01 Repository Safety Gate Relationship
 
 Y-CHECK-01 is documented in:
@@ -1272,8 +1324,8 @@ Relationship:
 Review the existing report-only safety checker before low- or medium-risk fork
 PRs, then select the next source-only package notice gap explicitly.
 
-The next package-material candidate should be selected explicitly. A good next
-candidate is a docs-only JSON report mode design, or a future report-only
+The next package-material candidate should be selected explicitly. Good next
+candidates are a future report-only JSON implementation or a future report-only
 Markdown implementation if explicitly approved.
 
 Actual clean-package generation should wait until after repeated successful

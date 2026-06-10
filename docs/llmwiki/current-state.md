@@ -1091,6 +1091,57 @@
   - PR #1001 file changes
   - 更新適用機能
 
+### Y-07A clean package dry-run JSON report mode design
+
+- Scope: docs-only / High-low report mode design.
+- Design document:
+  `docs/llmwiki/clean-package-dry-run-json-report-mode-design.md`
+- Read-only sources checked:
+  - `scripts/clean_package_dry_run.py`
+  - `scripts/check_repo_safety.py`
+  - `docs/llmwiki/clean-package-dry-run-contract.md`
+  - `docs/llmwiki/clean-package-generator-contract-addendum.md`
+  - `docs/llmwiki/clean-package-dry-run-markdown-report-mode-design.md`
+  - `docs/llmwiki/codex-automation-policy.md`
+  - `docs/llmwiki/handoff.md`
+  - `docs/llmwiki/roadmap.md`
+- Outcome:
+  - Designed a future JSON report mode for clean-package dry-run output.
+  - Recommends `--format json` as the first future selector and keeps text
+    output as the default.
+  - Defines one stdout JSON object with structured repository, package,
+    planned entries, package manifest preview, package output diff prediction,
+    excluded paths, checks, warnings, blocked reasons, safety flags,
+    risk-classification relationship, no-generation boundary, and next-step
+    fields.
+  - Defines schema compatibility guidance, PR/handoff reuse guidance, safety
+    boundaries, future implementation checklist, future verification checklist,
+    cleanup / rollback note, and High-low / High-mid boundary.
+- Not implemented:
+  - `scripts/clean_package_dry_run.py` changes
+  - `scripts/check_repo_safety.py` changes
+  - JSON output
+  - Markdown output
+  - report-file output
+  - real `manifest.json` generation
+  - real `NOTICE.txt` generation
+  - real `LICENSES/` generation
+  - generated distribution folder
+  - generated notice bundle
+  - generated license bundle
+  - generated dependency inventory files
+  - generated manifest files
+  - HTML/TXT package guide output
+  - package generation
+  - ビルド/パッケージ/インストール操作
+  - dependency changes
+  - package/lockfile changes
+  - backend/frontend/Docker/CI changes
+  - cookie/token/secret handling
+  - PR #1001 file changes
+  - automation wrapper / CI / PR-comment integration
+  - 更新適用機能
+
 ### Y-CHECK-01 safety gate checker design
 
 - Scope: docs-only design for a future repository safety checker and automation
@@ -1292,10 +1343,10 @@ Use `scripts/check_repo_safety.py` and `scripts/clean_package_dry_run.py` as
 local report-only gates before the next low-, medium-, or qualifying
 high-low-risk fork PR.
 
-The previous package-material next step is complete through Y-06Z.
+The previous package-material next step is complete through Y-07A.
 
-The next package-material candidate should be selected explicitly. A good next
-candidate is a docs-only JSON report mode design, or a future report-only
+The next package-material candidate should be selected explicitly. Good next
+candidates are a future report-only JSON implementation or a future report-only
 Markdown implementation if explicitly approved.
 
 Next scope:
