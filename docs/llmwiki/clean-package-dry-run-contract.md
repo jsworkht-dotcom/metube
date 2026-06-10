@@ -1611,6 +1611,49 @@ Rules:
 - Actual clean-package generation remains blocked until a later
   human-reviewed task explicitly approves it.
 
+## Y-08D Source Coverage Status Hardening
+
+Y-08D implements source coverage status hardening in:
+
+```text
+scripts/clean_package_dry_run.py
+```
+
+It also extends the regression checker:
+
+```text
+scripts/check_clean_package_dry_run_reports.py
+```
+
+Implemented behavior:
+
+- Text, Markdown, and JSON source coverage output include coverage status
+  summaries and coverage item candidates.
+- JSON includes `source_coverage.coverage_items`.
+- JSON includes `source_coverage.coverage_summary`.
+- Coverage categories include guide sources, notice sources, license sources,
+  inventory sources, runtime selection, desktop shell selection, and manifest
+  sources.
+- Coverage statuses use the approved Y-08A vocabulary: `present`, `missing`,
+  `candidate_only`, `source_draft`, `legal_not_final`,
+  `package_time_review_required`, and `not_applicable_this_phase`.
+- Every coverage item reports `human_review_required: true`.
+- The checker validates required coverage item fields, required categories,
+  approved statuses, package-time review presence, present guide/notice source
+  coverage, the Markdown source coverage section, and the text source coverage
+  marker.
+
+Rules:
+
+- Y-08D is report-only, stdout-only, and no-generation.
+- Y-08D does not create package files, actual runtime launchers, `NOTICE.txt`,
+  license bundles, inventory output, guide output, or
+  `動画保存ツール_ローカル専用/`.
+- Y-08D does not write report files.
+- Y-08D does not add CI wiring.
+- Actual clean-package generation remains blocked until a later
+  human-reviewed task explicitly approves it.
+
 ## Y-CHECK-01 Repository Safety Gate Relationship
 
 Y-CHECK-01 is documented in:
@@ -1668,8 +1711,8 @@ Review the existing report-only safety checker before low-, medium-, or
 qualifying high-low-risk fork PRs.
 
 The next package-material candidate should be selected explicitly. The
-recommended next candidate is Y-08D source coverage status hardening in
-report-only / stdout-only mode, if explicitly approved.
+recommended next candidate is Y-08E package generation readiness checklist in
+docs-only or report-only mode, if explicitly approved.
 
 Actual clean-package generation should wait until after repeated successful
 dry-run reports and a later explicit generation task.

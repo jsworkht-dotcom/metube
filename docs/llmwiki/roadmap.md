@@ -50,9 +50,9 @@
 
 ### Next package-material candidate
 
-- Y-08C completes richer output diff prediction grouping in this PR.
-- The next recommended package-material candidate is Y-08D source coverage
-  status hardening in report-only / stdout-only mode, if explicitly approved.
+- Y-08D completes source coverage status hardening in this PR.
+- The next recommended package-material candidate is Y-08E package generation
+  readiness checklist in docs-only or report-only mode, if explicitly approved.
 - Optional later CI wiring for the Y-07E checker remains separate.
 - Keep the next PR report-only, dry-run-only, or source-material only unless
   explicitly approved otherwise.
@@ -61,6 +61,29 @@
 - Do not create `動画保存ツール_ローカル専用/`, copy files, build packages, install
   dependencies, add Tauri/Electron/WebView2, change backend/frontend/Docker/CI,
   or change package/lockfile files.
+
+## Y-08D Source Coverage Status Hardening Outcome
+
+- Scripts:
+  - `scripts/clean_package_dry_run.py`
+  - `scripts/check_clean_package_dry_run_reports.py`
+- Added report-only source coverage status preview to the clean-package dry-run
+  source coverage section.
+- Text, Markdown, and JSON output now expose coverage items and summary data.
+- JSON includes `source_coverage.coverage_items` and
+  `source_coverage.coverage_summary`.
+- Coverage covers guide, notice, license, inventory, runtime selection, desktop
+  shell, and manifest source categories.
+- The regression checker validates coverage item fields, statuses, required
+  categories, text marker, Markdown section, and JSON summary.
+- Future recommended candidate: Y-08E package generation readiness checklist
+  in docs-only or report-only mode, if explicitly approved.
+- Actual package generation remains blocked.
+- This Y-08D PR does not create package output, write report files, create
+  generated distribution folders, run ビルド/パッケージ/インストール操作,
+  change dependencies, change package/lockfile files, change
+  backend/frontend/Docker/CI files, handle cookie/token/secret values, touch PR
+  #1001 files, or implement 更新適用機能.
 
 ## Y-08C Richer Output Diff Prediction Grouping Outcome
 
@@ -74,8 +97,8 @@
   `package_output_diff_prediction.output_group_summary`.
 - The regression checker validates the output group fields, required group
   keys, text marker, Markdown section, and JSON summary.
-- Future recommended candidate: Y-08D source coverage status hardening in
-  report-only / stdout-only mode, if explicitly approved.
+- Future recommended candidate after Y-08C: Y-08D source coverage status
+  hardening in report-only / stdout-only mode.
 - Actual package generation remains blocked.
 - This Y-08C PR does not create package output, write report files, create
   generated distribution folders, run ビルド/パッケージ/インストール操作,
