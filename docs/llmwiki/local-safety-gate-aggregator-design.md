@@ -248,3 +248,18 @@ Stop and report if:
 ## Rollback / Cleanup Note
 
 Rollback for this docs-only task is limited to removing the Y-AUTO-08 documentation additions. No generated folder, report file, package output, dependency change, or runtime change should exist from this task.
+
+## Y-AUTO-09 Implementation Note
+
+Y-AUTO-09 implements `scripts/run_local_safety_gates.py` as the first local safety gate aggregator.
+
+The implementation follows the Y-AUTO-08 design boundaries:
+
+- It orchestrates existing gates and does not replace them.
+- It is Python stdlib-only.
+- It is read-only and text-output-only.
+- It writes no report files and creates no package output.
+- It checks generated package folder absence, PR #1001 leakage absence, local helper exclusion, and changed-file summary.
+- It does not perform GitHub API usage, PR creation, merge actions, CI integration, dependency changes, or container image operations.
+
+The underlying gates remain authoritative. The aggregator only reduces repeated local command overhead.
