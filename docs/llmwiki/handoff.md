@@ -820,3 +820,26 @@ Carry forward:
 - `export_context_updated.py` remains locally excluded and uncommitted.
 - Actual package generation remains blocked.
 - The wording checker must not weaken repo safety gates or authorize higher-risk work.
+## Y-AUTO-10B Handoff Update
+
+Latest work: Y-AUTO-10B safety wording checker implementation.
+
+New command:
+
+```powershell
+python scripts/check_safety_wording.py --base fork/master
+```
+
+Aggregator command remains:
+
+```powershell
+python scripts/run_local_safety_gates.py --base fork/master
+```
+
+Next recommended candidate: Y-AUTO-11 PR body generator design.
+
+Carry forward:
+
+- `export_context_updated.py` remains locally excluded and uncommitted.
+- Actual package generation remains blocked.
+- The wording checker does not replace repo safety gates or authorize higher-risk work.

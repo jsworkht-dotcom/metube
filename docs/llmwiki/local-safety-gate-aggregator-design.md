@@ -268,3 +268,8 @@ The underlying gates remain authoritative. The aggregator only reduces repeated 
 A future local safety gate aggregator may call `scripts/check_safety_wording.py` after a later implementation task adds it.
 
 Y-AUTO-10A does not implement that checker and does not change the aggregator. The aggregator remains read-only, text-output-only, and no-output-generation.
+## Y-AUTO-10B Wording Checker Integration Candidate
+
+`scripts/check_safety_wording.py` is now available as a standalone checker.
+
+A later integration task may call it from `scripts/run_local_safety_gates.py`. Y-AUTO-10B does not integrate it, and the aggregator command remains unchanged for this PR.
