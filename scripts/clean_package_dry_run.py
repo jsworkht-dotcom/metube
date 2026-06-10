@@ -320,9 +320,9 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
     )
     parser.add_argument(
         "--format",
-        choices=["text"],
+        choices=["text", "markdown"],
         default="text",
-        help="Report format. Only text is implemented in this initial dry-run.",
+        help="Report format. Text is the default; markdown writes a report-only Markdown summary.",
     )
     return parser.parse_args(argv)
 
@@ -736,6 +736,25 @@ def present_candidate_lines(
     return present, lines
 
 
+def candidate_coverage(
+    root: Path,
+    candidates: Iterable[tuple[str, str]],
+) -> tuple[int, int, list[str], list[str]]:
+    present = 0
+    entries: list[str] = []
+    missing: list[str] = []
+    values = list(candidates)
+    for label, rel in values:
+        exists = (root / rel).is_file()
+        state = "present" if exists else "missing"
+        entries.append(f"{state}: {label} -> {rel}")
+        if exists:
+            present += 1
+        else:
+            missing.append(f"{label} -> {rel}")
+    return present, len(values), entries, missing
+
+
 def print_package_manifest_preview(root: Path, excluded_found: list[str]) -> None:
     notice_present, notice_lines = present_candidate_lines(
         root, MANIFEST_PREVIEW_NOTICE_SOURCES
@@ -798,6 +817,223 @@ def print_package_output_diff_prediction(excluded_found: list[str]) -> None:
         "  cleanup_rollback_candidate: future package root only; "
         "human review required before any action."
     )
+
+
+def print_markdown_item_list(
+    items: Iterable[str],
+    *,
+    code: bool = True,
+    indent: str = "",
+) -> None:
+    values = list(items)
+    if not values:
+        print(f"{indent}- none")
+        return
+    for item in values:
+        if code:
+            print(f"{indent}- `{item}`")
+        else:
+            print(f"{indent}- {item}")
+
+
+def format_markdown_finding(finding: Finding) -> str:
+    parts = [f"`{finding.path}`"]
+    if finding.line is not None:
+        parts.append(f"line {finding.line}")
+    if finding.pattern_family:
+        parts.append(f"family={finding.pattern_family}")
+    return f"- {' | '.join(parts)}: {finding.message}"
+
+
+def print_markdown_findings(findings: list[Finding]) -> None:
+    if not findings:
+        print("- none")
+        return
+    for finding in findings:
+        print(format_markdown_finding(finding))
+
+
+def print_markdown_report(
+    root: Path,
+    blocked: list[Finding],
+    warnings: list[Finding],
+    excluded_found: list[str],
+) -> None:
+    status = "BLOCKED" if blocked else "OK"
+    branch = git_value(root, "branch", "--show-current")
+    commit = git_value(root, "rev-parse", "--short", "HEAD")
+
+    forbidden_paths_status = (
+        "BLOCKED"
+        if any(b.kind == "generated_package_folder_present" for b in blocked)
+        else "OK"
+    )
+    forbidden_filenames_status = (
+        "BLOCKED" if any(b.kind == "forbidden_filename" for b in blocked) else "OK"
+    )
+    secret_content_status = (
+        "BLOCKED"
+        if any(b.kind == "forbidden_content_pattern" for b in blocked)
+        else "OK"
+    )
+    generated_state = (
+        "present"
+        if any(b.kind == "generated_package_folder_present" for b in blocked)
+        else "not present"
+    )
+    pr_1001_status = (
+        "BLOCKED"
+        if any(b.kind == "upstream_pr_1001_leakage" for b in blocked)
+        else "OK"
+    )
+
+    notice_present, notice_total, notice_lines, missing_notices = candidate_coverage(
+        root, MANIFEST_PREVIEW_NOTICE_SOURCES
+    )
+    guide_present, guide_total, guide_lines, missing_guides = candidate_coverage(
+        root, GUIDE_SOURCE_CANDIDATES
+    )
+    safety_present, safety_total, safety_lines, missing_safety = candidate_coverage(
+        root, SAFETY_NOTICE_SOURCE_CANDIDATES
+    )
+    platform_present, platform_total, platform_lines, missing_platform = (
+        candidate_coverage(root, PLATFORM_SECTION_SOURCE_CANDIDATES)
+    )
+
+    print("# Clean Package Dry-Run Report")
+    print()
+    print("## Summary")
+    print()
+    print(f"- repository_branch: `{branch}`")
+    print(f"- repository_commit: `{commit}`")
+    print(f"- package_root_candidate: `{PACKAGE_ROOT}`")
+    print("- report_mode: `markdown`")
+    print(f"- status: `{status}`")
+    print("- no_files_generated: `true`")
+    print()
+    print("## Status")
+    print()
+    print(f"- Status: {status}")
+    print(f"- Blockers: {len(blocked)}")
+    print(f"- Warnings: {len(warnings)}")
+    print()
+    print("## Risk Classification")
+    print()
+    print(
+        "- Risk classification is provided by `scripts/check_repo_safety.py`, "
+        "not by this clean-package dry-run report."
+    )
+    print("- source: `scripts/check_repo_safety.py --base fork/master`")
+    print("- tier: not included by dry-run alone")
+    print()
+    print("## Package Manifest Preview")
+    print()
+    print("- package_name candidate: `動画保存ツール_ローカル専用`")
+    print("- package_type candidate: `local-only beginner package`")
+    print("- local_only: `true`")
+    print("- generated_artifacts: `false`")
+    print(f"- notice_sources: `{notice_present}/{notice_total} present`")
+    print(f"- guide_sources: `{guide_present}/{guide_total} present`")
+    print(f"- excluded_path_rules: `{len(EXCLUDED_PATHS)}`")
+    print(f"- excluded_paths_currently_present: `{len(excluded_found)}`")
+    print("- future_outputs candidate:")
+    print_markdown_item_list(MANIFEST_PREVIEW_FUTURE_OUTPUTS, indent="  ")
+    print("- human_review_required_before_generation: `true`")
+    print("- legal_final: `false`")
+    print("- secret_values_printed: `false`")
+    print("- token_values_printed: `false`")
+    print("- cookie_values_printed: `false`")
+    print()
+    print("Notice source details:")
+    print_markdown_item_list(notice_lines, code=False, indent="  ")
+    print()
+    print("Guide source details:")
+    print_markdown_item_list(guide_lines, code=False, indent="  ")
+    print()
+    print("## Package Output Diff Prediction")
+    print()
+    print(f"- future_package_root: `{PACKAGE_ROOT}`")
+    print("- would_create_directories:")
+    print_markdown_item_list(DIFF_PREDICTION_CREATE_DIRECTORIES, indent="  ")
+    print("- would_create_files:")
+    print_markdown_item_list(DIFF_PREDICTION_CREATE_FILES, indent="  ")
+    print("- would_copy_source_groups:")
+    print_markdown_item_list(DIFF_PREDICTION_COPY_SOURCE_GROUPS, indent="  ")
+    print("- would_generate_future_outputs:")
+    print_markdown_item_list(MANIFEST_PREVIEW_FUTURE_OUTPUTS, indent="  ")
+    print(f"- would_exclude_path_rules: `{len(EXCLUDED_PATHS)}`")
+    print(f"- would_exclude_paths_currently_present: `{len(excluded_found)}`")
+    print("- no_files_generated: `true`")
+    print("- human_review_required_before_generation: `true`")
+    print(
+        "- cleanup_rollback_candidate: future package root only; human review "
+        "required before any action."
+    )
+    print()
+    print("## Notice / Guide Source Coverage")
+    print()
+    print(f"- notice_sources_present: `{notice_present}/{notice_total}`")
+    print(f"- guide_sources_present: `{guide_present}/{guide_total}`")
+    print(f"- local_only_safe_use_sources_present: `{safety_present}/{safety_total}`")
+    print(f"- windows_macos_section_sources_present: `{platform_present}/{platform_total}`")
+    print("- missing_notice_sources:")
+    print_markdown_item_list(missing_notices, code=False, indent="  ")
+    print("- missing_guide_sources:")
+    print_markdown_item_list(missing_guides, code=False, indent="  ")
+    print("- missing_local_only_safe_use_sources:")
+    print_markdown_item_list(missing_safety, code=False, indent="  ")
+    print("- missing_windows_macos_section_sources:")
+    print_markdown_item_list(missing_platform, code=False, indent="  ")
+    print()
+    print("Local-only / safe-use source details:")
+    print_markdown_item_list(safety_lines, code=False, indent="  ")
+    print()
+    print("Windows/macOS section source details:")
+    print_markdown_item_list(platform_lines, code=False, indent="  ")
+    print()
+    print("## Excluded Paths Summary")
+    print()
+    print(f"- excluded_rule_count: `{len(EXCLUDED_PATHS)}`")
+    print(f"- currently_present_excluded_path_count: `{len(excluded_found)}`")
+    print(f"- generated_package_root: `{generated_state}`")
+    print(f"- PR #1001 leakage: `{pr_1001_status}`")
+    print(f"- forbidden paths: `{forbidden_paths_status}`")
+    print(f"- forbidden filenames: `{forbidden_filenames_status}`")
+    print(f"- secret-like content: `{secret_content_status}`")
+    print("- excluded_paths_currently_present:")
+    print_markdown_item_list(excluded_found, indent="  ")
+    print()
+    print("## Blockers")
+    print()
+    print_markdown_findings(blocked)
+    print()
+    print("## Warnings")
+    print()
+    print_markdown_findings(warnings)
+    print()
+    print("## Human Review Checklist")
+    print()
+    print("- [ ] Status is OK.")
+    print("- [ ] Repo safety gate has no blockers.")
+    print("- [ ] Clean-package dry-run has no blockers.")
+    print("- [ ] Package manifest preview is acceptable.")
+    print("- [ ] Package output diff prediction is acceptable.")
+    print("- [ ] Notice and guide source coverage is acceptable for this phase.")
+    print("- [ ] Excluded paths summary is acceptable.")
+    print("- [ ] No generated package folder exists.")
+    print("- [ ] No cookie/token/secret values are printed.")
+    print("- [ ] PR #1001 files are absent.")
+    print("- [ ] No backend/frontend/Docker/CI/package/lockfile changes are mixed in.")
+    print("- [ ] Human review is complete before any actual generation task.")
+    print()
+    print("## No-Generation Boundary")
+    print()
+    print("- This is a report-only dry-run.")
+    print("- No package files were generated.")
+    print("- No package files were copied.")
+    print("- No generated artifact was created.")
+    print("- Markdown mode is not permission to generate package output.")
+    print("- Default text output remains supported.")
 
 
 def print_report(
@@ -910,10 +1146,13 @@ def print_report(
 
 
 def main(argv: list[str]) -> int:
-    parse_args(argv)
+    args = parse_args(argv)
     root = repo_root()
     blocked, warnings, excluded_found = collect_blockers(root)
-    print_report(root, blocked, warnings, excluded_found)
+    if args.format == "markdown":
+        print_markdown_report(root, blocked, warnings, excluded_found)
+    else:
+        print_report(root, blocked, warnings, excluded_found)
     return 1 if blocked else 0
 
 

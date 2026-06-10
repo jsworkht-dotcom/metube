@@ -401,6 +401,18 @@ Y-06Z design note:
 - The design does not implement Markdown output, write report files, create
   package output, or weaken existing blockers.
 
+Y-07B implementation note:
+
+- `scripts/clean_package_dry_run.py --format markdown` now prints a
+  stdout-only Markdown report.
+- Default text output and `--format text` remain supported.
+- The Markdown report includes Summary, Status, Risk Classification, Package
+  Manifest Preview, Package Output Diff Prediction, Notice / Guide Source
+  Coverage, Excluded Paths Summary, Blockers, Warnings, Human Review
+  Checklist, and No-Generation Boundary sections.
+- The implementation does not write report files, create package output, or
+  weaken existing blockers.
+
 ## Cleanup / Rollback Candidate
 
 Future implementation planning should include cleanup and rollback candidates
@@ -472,9 +484,8 @@ Candidate phases, each requiring a separate explicit task:
 3. Add a package output diff prediction report that writes nothing. Completed
    by Y-06Y.
 4. Add JSON or Markdown report output, still without writing package files.
-   JSON report mode design is documented by Y-07A and Markdown report mode
-   design is documented by Y-06Z; implementation remains a future explicit
-   task.
+   Markdown report mode is implemented by Y-07B. JSON report mode design is
+   documented by Y-07A; JSON implementation remains a future explicit task.
 5. Add a human-reviewed generator prototype that can be inspected but does not
    run actual generation in automated checks.
 6. Add actual generation only after human approval, clean dry-runs, reviewed
