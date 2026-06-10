@@ -477,6 +477,25 @@ MeTube. The canonical branch is fork `master`, and local `master` tracks
   dependency changes, package/lockfile changes, backend/frontend/Docker/CI
   changes, cookie/token/secret handling, PR #1001 file changes, automation
   wrapper / CI / PR-comment integration, or 更新適用機能.
+- Y-07B clean package dry-run Markdown report mode is implemented in
+  `scripts/clean_package_dry_run.py`.
+- Y-07B outcome: default text output and `--format text` remain available, and
+  `--format markdown` now prints a stdout-only Markdown report.
+- Y-07B Markdown output includes Summary, Status, Risk Classification, Package
+  Manifest Preview, Package Output Diff Prediction, Notice / Guide Source
+  Coverage, Excluded Paths Summary, Blockers, Warnings, Human Review
+  Checklist, and No-Generation Boundary sections.
+- Y-07B preserves existing blockers, warnings, exit codes, and sanitized
+  finding output.
+- Verify Y-07B with `scripts/clean_package_dry_run.py`,
+  `scripts/clean_package_dry_run.py --format text`, and
+  `scripts/clean_package_dry_run.py --format markdown`.
+- `export_context_updated.py` is a known local-only WebGPT handoff/context
+  export helper. It remains untracked and outside Y-07B scope.
+- Y-07B does not implement JSON output, write report files, create generated
+  package folders, create package output, change backend/frontend/Docker/CI
+  files, change package/lockfile files, handle cookie/token/secret values,
+  touch PR #1001 files, or implement 更新適用機能.
 - Y-CHECK-01 safety gate checker design is documented at
   `docs/llmwiki/safety-gate-checker-design.md`.
 - Y-CHECK-01 outcome: the future checker should evaluate repository diffs for
@@ -544,9 +563,9 @@ Run `scripts/check_repo_safety.py`,
 `scripts/clean_package_dry_run.py` before the next low-, medium-, or qualifying
 high-low-risk fork PR.
 
-The next package-material candidate should be selected explicitly. Good next
-candidates are a future report-only JSON implementation or a future
-report-only Markdown implementation if explicitly approved.
+The next package-material candidate should be selected explicitly. A good next
+candidate is Y-07C `--format json` report-only implementation if explicitly
+approved.
 
 Do not create generated guide outputs, copy license text, create the generated
 package folder, copy package files, implement actual package generation, add

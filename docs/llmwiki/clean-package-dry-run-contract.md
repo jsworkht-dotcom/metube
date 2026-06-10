@@ -1216,6 +1216,48 @@ Required future Markdown sections:
 - Human Review Checklist
 - No-Generation Boundary
 
+## Y-07B Markdown Report Mode Implementation
+
+Y-07B implements report-only Markdown output in:
+
+```text
+scripts/clean_package_dry_run.py
+```
+
+Implemented command:
+
+```text
+python scripts/clean_package_dry_run.py --format markdown
+```
+
+Rules:
+
+- Current text output remains the default.
+- `--format text` remains supported.
+- `--format markdown` writes a Markdown report to stdout only.
+- Markdown mode does not write report files.
+- Markdown mode does not create `manifest.json`, `NOTICE.txt`, `LICENSES/`, or
+  `動画保存ツール_ローカル専用/`.
+- Markdown mode reuses existing dry-run data.
+- Existing blockers and warnings are not changed.
+- Existing exit-code behavior is preserved: `0` for OK, `1` for blocked, and
+  `2` for CLI usage errors.
+- Secret-like findings remain sanitized and do not print matched values.
+
+Implemented Markdown sections:
+
+- Summary
+- Status
+- Risk Classification
+- Package Manifest Preview
+- Package Output Diff Prediction
+- Notice / Guide Source Coverage
+- Excluded Paths Summary
+- Blockers
+- Warnings
+- Human Review Checklist
+- No-Generation Boundary
+
 ## Y-07A JSON Report Mode Design
 
 Y-07A adds a docs-only design for a future JSON report mode:

@@ -25,8 +25,8 @@
   Ready-for-review handoff only when the task explicitly approves that scope.
 - For High-mid work, keep auto merge disabled and require human review before
   merge.
-- Keep any automation wrapper, CI integration, PR comment automation, or
-  JSON/Markdown report implementation as a later explicitly approved task.
+- Keep any automation wrapper, CI integration, PR comment automation, or JSON
+  report implementation as a later explicitly approved task.
 - Keep package generation, update execution, dependency install/update, Docker
   pull, backend/frontend/Docker/CI changes, package/lockfile changes,
   generated distribution folders, and cookie/token/secret handling out of
@@ -50,11 +50,11 @@
 
 ### Next package-material candidate
 
-- Y-07A completes the docs-only JSON report mode design for the clean-package
-  dry-run report.
-- The next package-material candidate should be selected explicitly. Good next
-  candidates are a future report-only JSON implementation or a future
-  report-only Markdown implementation if explicitly approved.
+- Y-07B completes the report-only Markdown report mode implementation for the
+  clean-package dry-run report.
+- The next package-material candidate should be selected explicitly. A good
+  next candidate is Y-07C `--format json` report-only implementation if
+  explicitly approved.
 - Keep the next PR report-only, dry-run-only, or source-material only unless
   explicitly approved otherwise.
 - Do not create guide outputs, copy license text, generate notice bundles,
@@ -62,6 +62,27 @@
 - Do not create `動画保存ツール_ローカル専用/`, copy files, build packages, install
   dependencies, add Tauri/Electron/WebView2, change backend/frontend/Docker/CI,
   or change package/lockfile files.
+
+## Y-07B Markdown Report Mode Outcome
+
+- Script:
+  `scripts/clean_package_dry_run.py`
+- Added `--format markdown` to the clean-package dry-run report.
+- Preserved the default text report and `--format text` behavior.
+- Markdown output is stdout-only, report-only, and includes Summary, Status,
+  Risk Classification, Package Manifest Preview, Package Output Diff
+  Prediction, Notice / Guide Source Coverage, Excluded Paths Summary,
+  Blockers, Warnings, Human Review Checklist, and No-Generation Boundary
+  sections.
+- Existing blockers, warnings, exit codes, generated artifact exclusion, and
+  sanitized finding output are preserved.
+- This Y-07B PR does not implement JSON output, write report files, create
+  `manifest.json`, `NOTICE.txt`, `LICENSES/`, generated distribution folders,
+  notice bundles, license bundles, inventory files, manifest files, HTML/TXT
+  guide output, ビルド/パッケージ/インストール操作, dependency changes,
+  package/lockfile changes, backend/frontend/Docker/CI changes,
+  cookie/token/secret handling, public hosting, ads, PR #1001 file changes, or
+  更新適用機能.
 
 ## Y-07A JSON Report Mode Design Outcome
 
