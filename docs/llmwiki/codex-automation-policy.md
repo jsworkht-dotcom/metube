@@ -380,6 +380,38 @@ This policy does not weaken human approval gates for destructive actions,
 credentials, production deployment, infrastructure mutation, dependency changes,
 public hosting, releases, or customer-data work.
 
+## Y-AUTO-06 Automation Efficiency Policy Relationship
+
+Y-AUTO-06 adopts the automation efficiency policy in
+`docs/llmwiki/automation-efficiency-policy.md`.
+
+The policy allows same-risk and same-purpose one-PR scope expansion only when
+the combined diff remains inside the approved lane and all required gates pass.
+Examples include docs-only plus docs-only, report-only script plus checker plus
+docs sync, and dry-run preview fields plus checker updates plus docs sync.
+
+Lane-based continuous execution is allowed under strict gates:
+
+- Lane A: docs-only planning lane.
+- Lane B: report-only dry-run implementation lane.
+- Lane C: checker-only hardening lane.
+- Lane D: docs/report/checker combined lane.
+- Lane E: High-mid PR-ready-only lane.
+
+Low, Medium, and qualifying High-low work may auto PR and auto merge only when
+the task scope, local safety gates, GitHub merge state, and checks are clean.
+High-mid remains PR-ready only when explicitly approved, and High-high still
+stops before implementation.
+
+`export_context_updated.py` is a local-only WebGPT handoff/context export
+helper. It is tracked locally through `.git/info/exclude`, remains uncommitted,
+and must not be deleted, moved, added to `.gitignore`, or added to Git.
+
+Closeout PRs are allowed only for safe short lanes that can close within 2 to 4
+PRs, keep minimal handoff current, avoid High-mid / High-high risk, and do not
+perform actual generation. Do not use closeout deferral for generation-adjacent
+risk increases.
+
 ## Y-AUTO-01 Boundary
 
 Y-AUTO-01 is docs-only. It may add this policy and synchronize related

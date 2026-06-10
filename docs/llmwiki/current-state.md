@@ -1649,7 +1649,62 @@
   - public hosting or ads
   - 更新適用機能
 
+### Y-LOCAL-01 local WebGPT handoff helper exclude
+
+- Scope: local-only setup with no repository diff and no PR.
+- Helper:
+  `export_context_updated.py`
+- Local tracking:
+  `.git/info/exclude`
+- Outcome:
+  - Added `export_context_updated.py` to local Git exclude.
+  - Kept `.gitignore` unchanged.
+  - Kept the helper uncommitted, undeleted, and unmoved.
+  - Confirmed the helper no longer appears in `git status` or
+    `git ls-files --others --exclude-standard`.
+
+### Y-AUTO-06 automation efficiency policy
+
+- Scope: docs-only / High-low automation efficiency policy.
+- New document:
+  `docs/llmwiki/automation-efficiency-policy.md`
+- Outcome:
+  - Adopted safe one-PR scope expansion rules for same-purpose, same-risk work.
+  - Defined Codex auto lanes for docs-only, report-only dry-run, checker-only,
+    docs/report/checker combined, and High-mid PR-ready-only work.
+  - Documented the `export_context_updated.py` local helper policy.
+  - Documented closeout PR policy for safe short lanes.
+  - Recorded future candidates for local safety gate aggregation, PR body
+    generation, Codex prompt templates, CI, branch protection, CODEOWNERS,
+    worktree operation, stop condition checks, and advisory readiness scoring.
+- Not implemented:
+  - script changes
+  - checker changes
+  - CI integration
+  - report file writing
+  - package generation
+  - generated package folder
+  - generated notice/license/inventory/guide output
+  - backend/frontend/Docker/CI/package/lockfile changes
+  - PR #1001 file changes
+  - cookie/token/secret handling
+  - public hosting or ads
+  - 更新適用機能
+- Next candidates:
+  - Y-AUTO-07 codex auto lanes
+  - Y-AUTO-08 safety gate aggregator design
+  - Y-AUTO-09 safety gate aggregator implementation
+  - Actual package generation remains blocked.
+
 ## Current Next Step
+
+Use the Y-AUTO-06 automation efficiency policy as the next execution guide.
+
+The next recommended automation candidates are:
+
+- Y-AUTO-07 codex auto lanes
+- Y-AUTO-08 safety gate aggregator design
+- Y-AUTO-09 safety gate aggregator implementation
 
 Use the `Risk classification` section from `scripts/check_repo_safety.py` as the
 first local summary before auto PR or auto merge.

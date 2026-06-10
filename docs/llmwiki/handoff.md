@@ -11,20 +11,21 @@ MeTube. The canonical branch is fork `master`, and local `master` tracks
 1. `docs/llmwiki/current-state.md`
 2. `docs/llmwiki/safety-boundaries.md`
 3. `docs/llmwiki/codex-automation-policy.md`
-4. `docs/llmwiki/roadmap.md`
-5. `docs/llmwiki/update-rollback-plan.md`
-6. `docs/llmwiki/manual-update-apply-design.md`
-7. `docs/llmwiki/dry-run-update-contract.md`
-8. `docs/llmwiki/dockerless-desktop-distribution-feasibility.md`
-9. `docs/llmwiki/desktop-sidecar-lifecycle-contract.md`
-10. `docs/llmwiki/desktop-package-manifest.md`
-11. `docs/llmwiki/beginner-guide-skeleton.md`
-12. `docs/llmwiki/clean-package-dry-run-contract.md`
-13. `docs/llmwiki/clean-package-generator-contract-addendum.md`
-14. `docs/llmwiki/safety-gate-checker-design.md`
-15. `docs/llmwiki/beginner-guide-source-plan.md`
-16. `docs/llmwiki/license-notice-plan.md`
-17. `docs/llmwiki/codex-gh-auth-runbook.md` if GitHub CLI auth, PR creation,
+4. `docs/llmwiki/automation-efficiency-policy.md`
+5. `docs/llmwiki/roadmap.md`
+6. `docs/llmwiki/update-rollback-plan.md`
+7. `docs/llmwiki/manual-update-apply-design.md`
+8. `docs/llmwiki/dry-run-update-contract.md`
+9. `docs/llmwiki/dockerless-desktop-distribution-feasibility.md`
+10. `docs/llmwiki/desktop-sidecar-lifecycle-contract.md`
+11. `docs/llmwiki/desktop-package-manifest.md`
+12. `docs/llmwiki/beginner-guide-skeleton.md`
+13. `docs/llmwiki/clean-package-dry-run-contract.md`
+14. `docs/llmwiki/clean-package-generator-contract-addendum.md`
+15. `docs/llmwiki/safety-gate-checker-design.md`
+16. `docs/llmwiki/beginner-guide-source-plan.md`
+17. `docs/llmwiki/license-notice-plan.md`
+18. `docs/llmwiki/codex-gh-auth-runbook.md` if GitHub CLI auth, PR creation,
    checks, or merge commands fail inside Codex
 
 ## Key Points For Codex
@@ -36,6 +37,15 @@ MeTube. The canonical branch is fork `master`, and local `master` tracks
   restriction circumvention.
 - Y-AUTO-01 Codex automation policy is documented at
   `docs/llmwiki/codex-automation-policy.md`.
+- Y-AUTO-06 automation efficiency policy is documented at
+  `docs/llmwiki/automation-efficiency-policy.md`.
+- Y-AUTO-06 allows same-risk, same-purpose one-PR scope expansion only when the
+  lane scope and safety gates pass.
+- Y-AUTO-06 defines Codex auto lanes A through E. Lane E is High-mid
+  PR-ready-only and must not auto merge.
+- Y-LOCAL-01 added `export_context_updated.py` to local `.git/info/exclude`.
+  The helper remains uncommitted, undeleted, unmoved, and not listed in
+  `.gitignore`.
 - Y-AUTO-01 defines Low, Medium, High-low, High-mid, and High-high automation
   levels.
 - Low and Medium work may use auto PR / auto merge when the current task scope
@@ -689,6 +699,9 @@ MeTube. The canonical branch is fork `master`, and local `master` tracks
   `Human review checklist`.
 - Y-AUTO-04 makes the checker surface High-mid PR-only guidance directly in the
   `Risk classification` section.
+- Latest work: Y-LOCAL-01 local helper exclude and Y-AUTO-06 docs-only
+  automation efficiency policy.
+- Next recommended automation candidate: Y-AUTO-07 codex auto lanes.
 - GitHub CLI auth note: in this Windows Codex desktop environment, sandboxed
   `gh auth status` may report an invalid `default` token while escalated
   `gh auth status` succeeds through `keyring`. Root cause is sandbox access to
@@ -698,10 +711,27 @@ MeTube. The canonical branch is fork `master`, and local `master` tracks
 
 ## Next Step
 
+Use `docs/llmwiki/automation-efficiency-policy.md` for the next automation
+sequence.
+
+Recommended next candidate:
+
+```text
+Y-AUTO-07 codex auto lanes
+```
+
+Then continue with:
+
+```text
+Y-AUTO-08 safety gate aggregator design
+Y-AUTO-09 safety gate aggregator implementation
+```
+
 Use the `Risk classification` section from `scripts/check_repo_safety.py`
 before auto PR or auto merge, then cross-check
-`docs/llmwiki/codex-automation-policy.md` for High-low, High-mid, High-high, or
-Unknown outcomes.
+`docs/llmwiki/codex-automation-policy.md` and
+`docs/llmwiki/automation-efficiency-policy.md` for High-low, High-mid,
+High-high, or Unknown outcomes.
 
 For High-mid outcomes, stop after PR-ready handoff and wait for human review
 before merge.
@@ -726,3 +756,5 @@ Tauri/Electron/WebView2, run builds, install dependencies, change
 backend/frontend/Docker/CI files, change package/lockfile files, implement
 update execution, handle cookie/token/secret values, or add Y-CHECK automation /
 CI / PR bot behavior yet.
+
+Actual package generation remains blocked.
