@@ -1475,6 +1475,65 @@ package output, or approve package generation.
 
 Future CI integration remains a separate explicit task.
 
+## Y-08A Package Preview Hardening Design
+
+Y-08A adds a docs-only package preview hardening design:
+
+```text
+docs/llmwiki/clean-package-preview-hardening-design.md
+```
+
+The design documents current preview strengths and gaps after the text,
+Markdown, JSON, and regression checker work became stable.
+
+Future richer manifest preview entry field candidates:
+
+```text
+package_relative_path
+source_candidate
+kind
+target_os
+target_arch
+generated
+required
+include_reason
+license_notice_required
+review_status
+safety_notes
+source_status
+output_status
+human_review_required
+```
+
+Future package output diff prediction candidates:
+
+```text
+beginner_guides
+developer_docs
+manifest_outputs
+notice_outputs
+license_outputs
+inventory_outputs
+windows_runtime_outputs
+mac_runtime_outputs
+save_folder_placeholders
+troubleshooting_outputs
+excluded_outputs
+```
+
+Rules:
+
+- Y-08A is docs-only.
+- Y-08A does not change `scripts/clean_package_dry_run.py`.
+- Y-08A does not change `scripts/check_clean_package_dry_run_reports.py`.
+- Y-08A does not add tests or CI.
+- Y-08A does not write report files.
+- Y-08A does not create `manifest.json`, `NOTICE.txt`, `LICENSES/`, guide
+  output, inventory output, or `動画保存ツール_ローカル専用/`.
+- Future implementation remains separate and must stay report-only,
+  stdout-only, and no-generation unless a later explicit human-reviewed task
+  changes that scope.
+
 ## Y-CHECK-01 Repository Safety Gate Relationship
 
 Y-CHECK-01 is documented in:
@@ -1528,12 +1587,12 @@ Relationship:
 
 ## Next Implementation Candidate
 
-Review the existing report-only safety checker before low- or medium-risk fork
-PRs, then select the next source-only package notice gap explicitly.
+Review the existing report-only safety checker before low-, medium-, or
+qualifying high-low-risk fork PRs.
 
-The next package-material candidate should be selected explicitly. Good next
-candidates are a future report-only JSON implementation or a future report-only
-Markdown implementation if explicitly approved.
+The next package-material candidate should be selected explicitly. The
+recommended next candidate is Y-08B richer manifest preview entries in
+report-only / stdout-only mode, if explicitly approved.
 
 Actual clean-package generation should wait until after repeated successful
 dry-run reports and a later explicit generation task.

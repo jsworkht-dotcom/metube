@@ -1296,6 +1296,40 @@
   - Or move to the next package preview/report-only planning task.
   - Actual package generation remains blocked.
 
+### Y-08A clean package preview hardening design
+
+- Scope: docs-only package preview hardening design.
+- Design document:
+  `docs/llmwiki/clean-package-preview-hardening-design.md`
+- Outcome:
+  - Documents the current preview baseline after text, Markdown, JSON, and
+    regression checker stabilization.
+  - Documents existing preview strengths and package preview gaps.
+  - Defines richer manifest preview field candidates.
+  - Defines richer package output diff prediction grouping candidates.
+  - Defines source coverage statuses for future report-only hardening.
+  - Maps notice, license, inventory, beginner guide, and developer review
+    checklist candidates to future preview output.
+  - Reconfirms cross-format, JSON, sanitization, no-generation, and risk
+    boundaries.
+- Not implemented:
+  - script changes
+  - test implementation
+  - CI integration
+  - report file writing
+  - generated distribution folder
+  - package generation
+  - real `manifest.json`, `NOTICE.txt`, or `LICENSES/` generation
+  - generated notice/license/inventory/guide output
+  - backend/frontend/Docker/CI/package/lockfile changes
+  - cookie/token/secret handling
+  - PR #1001 file changes
+  - 更新適用機能
+- Next candidate:
+  - Y-08B richer manifest preview entries in report-only mode, if explicitly
+    approved.
+  - Actual package generation remains blocked.
+
 ### Y-CHECK-01 safety gate checker design
 
 - Scope: docs-only design for a future repository safety checker and automation
@@ -1497,11 +1531,12 @@ Use `scripts/check_repo_safety.py` and `scripts/clean_package_dry_run.py` as
 local report-only gates before the next low-, medium-, or qualifying
 high-low-risk fork PR.
 
-The previous package-material next step is complete through Y-07E.
+The previous package-material next step is complete through Y-08A.
 
-The next package-material candidate should be selected explicitly. Good next
-candidates are Y-08A next package preview/report-only planning, or optional
-later CI wiring for the Y-07E checker if explicitly approved.
+The next package-material candidate should be selected explicitly. The
+recommended next candidate is Y-08B richer manifest preview entries in
+report-only / stdout-only mode, if explicitly approved. Optional later CI
+wiring for the Y-07E checker remains separate.
 
 Next scope:
 

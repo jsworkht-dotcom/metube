@@ -461,6 +461,36 @@ Y-07E implementation note:
 
 Actual clean-package generation remains a later human-reviewed task.
 
+## Package Preview Hardening Design
+
+Y-08A adds a docs-only hardening design for package preview and manifest preview:
+
+```text
+docs/llmwiki/clean-package-preview-hardening-design.md
+```
+
+The design covers:
+
+- current preview baseline after text, Markdown, JSON, and regression checker
+  stabilization;
+- package manifest preview hardening candidates;
+- package output diff prediction hardening candidates;
+- source coverage status vocabulary;
+- notice, license, inventory, beginner guide, and developer review mapping
+  candidates;
+- cross-format, JSON, sanitization, no-generation, and risk boundaries.
+
+Rules:
+
+- Future generator or report work should preserve the no-generation boundary.
+- Future preview work should keep paths package-relative or repository-relative
+  and sanitized.
+- Future preview work should keep `generated` as a planned-output flag, not a
+  claim that files were created.
+- Missing sources may remain warnings in preview and become blockers only
+  before actual generation.
+- Actual generation remains a later human-reviewed task.
+
 ## Cleanup / Rollback Candidate
 
 Future implementation planning should include cleanup and rollback candidates
@@ -538,6 +568,10 @@ Candidate phases, each requiring a separate explicit task:
     Markdown, and JSON modes. Completed by Y-07D.
 4b. Add a lightweight stdlib-only checker for the current text, Markdown, and
     JSON report modes. Completed by Y-07E.
+4c. Add docs-only package preview hardening design for manifest entries, output
+    diff grouping, and source coverage status vocabulary. Completed by Y-08A.
+4d. Add richer manifest preview entries in report-only mode, if explicitly
+    approved.
 5. Add a human-reviewed generator prototype that can be inspected but does not
    run actual generation in automated checks.
 6. Add actual generation only after human approval, clean dry-runs, reviewed
