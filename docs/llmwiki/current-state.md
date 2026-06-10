@@ -1362,6 +1362,41 @@
     explicitly approved.
   - Actual package generation remains blocked.
 
+### Y-08C richer output diff prediction grouping
+
+- Scope: report-only richer package output diff prediction grouping.
+- Changed script:
+  `scripts/clean_package_dry_run.py`
+- Checker updated:
+  `scripts/check_clean_package_dry_run_reports.py`
+- Behavior:
+  - Adds `output_groups` to text and Markdown package output diff prediction
+    output.
+  - JSON includes `package_output_diff_prediction.output_groups` and
+    `package_output_diff_prediction.output_group_summary`.
+  - Output groups cover beginner guides, developer docs, manifest outputs,
+    notices, licenses, inventory, Windows/macOS runtime placeholders, save
+    folder placeholders, troubleshooting placeholders, and excluded outputs.
+  - The checker validates the new output group fields, required group keys,
+    text marker, Markdown section, and JSON summary.
+  - Default text, `--format text`, `--format markdown`, and `--format json`
+    modes remain supported.
+- Not implemented:
+  - package generation
+  - generated package folder
+  - generated notice/license/inventory/guide output
+  - actual runtime launcher or desktop package output
+  - report file writing
+  - CI integration
+  - backend/frontend/Docker/CI/package/lockfile changes
+  - PR #1001 file changes
+  - cookie/token/secret handling
+  - 更新適用機能
+- Next candidate:
+  - Y-08D source coverage status hardening in report-only mode, if explicitly
+    approved.
+  - Actual package generation remains blocked.
+
 ### Y-CHECK-01 safety gate checker design
 
 - Scope: docs-only design for a future repository safety checker and automation
@@ -1563,10 +1598,10 @@ Use `scripts/check_repo_safety.py` and `scripts/clean_package_dry_run.py` as
 local report-only gates before the next low-, medium-, or qualifying
 high-low-risk fork PR.
 
-The previous package-material next step is complete through Y-08B.
+The previous package-material next step is complete through Y-08C.
 
 The next package-material candidate should be selected explicitly. The
-recommended next candidate is Y-08C richer output diff prediction grouping in
+recommended next candidate is Y-08D source coverage status hardening in
 report-only / stdout-only mode, if explicitly approved. Optional later CI
 wiring for the Y-07E checker remains separate.
 

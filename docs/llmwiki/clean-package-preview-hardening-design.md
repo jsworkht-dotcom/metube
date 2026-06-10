@@ -371,7 +371,8 @@ High-high:
 - Y-08B: implement richer manifest preview entries in dry-run reports.
   Completed in report-only / stdout-only mode.
 - Y-08C: implement richer output diff prediction grouping.
-- Y-08D: extend regression checker for hardening fields.
+  Completed in report-only / stdout-only mode.
+- Y-08D: implement source coverage status hardening.
 - Y-08E: docs-only generation readiness checklist.
 
 ## Recommended Next Step
@@ -379,8 +380,10 @@ High-high:
 Y-08B implemented the first richer manifest preview entry candidate set in
 report-only mode.
 
-Y-08C should implement richer output diff prediction grouping in report-only
-mode, if explicitly approved.
+Y-08C implemented richer output diff prediction grouping in report-only mode.
+
+Y-08D should implement source coverage status hardening in report-only mode, if
+explicitly approved.
 
 ## Verification Checklist
 

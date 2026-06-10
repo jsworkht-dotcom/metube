@@ -432,6 +432,253 @@ DIFF_PREDICTION_COPY_SOURCE_GROUPS = [
     "developer review checklist sources",
 ]
 
+OUTPUT_GROUP_SPECS: list[dict[str, object]] = [
+    {
+        "group_key": "beginner_guides",
+        "label": "Beginner guides",
+        "description": "Beginner-facing HTML and text guide package candidates.",
+        "package_relative_root": ".",
+        "would_create_directories": [],
+        "would_create_files": [
+            "00_最初に開いてください.html",
+            "00_最初に開いてください.txt",
+            "03_使い方.html",
+            "03_使い方.txt",
+            "04_困ったとき.html",
+            "04_困ったとき.txt",
+            "05_安全な使い方.html",
+        ],
+        "would_generate_future_outputs": [],
+        "would_copy_source_groups": ["docs/llmwiki/package-guides/"],
+        "would_skip_or_exclude": [],
+        "required": True,
+        "review_status": "source_draft",
+        "safety_notes": [
+            "Guide outputs are preview candidates only; no HTML or TXT files generated."
+        ],
+    },
+    {
+        "group_key": "developer_docs",
+        "label": "Developer docs",
+        "description": "Developer-facing review materials copied into a future package.",
+        "package_relative_root": "開発者向け/",
+        "would_create_directories": [
+            "開発者向け/",
+            "開発者向け/docs/",
+            "開発者向け/docs/llmwiki/",
+        ],
+        "would_create_files": ["開発者向け/README.md"],
+        "would_generate_future_outputs": [],
+        "would_copy_source_groups": ["docs/llmwiki/"],
+        "would_skip_or_exclude": [],
+        "required": True,
+        "review_status": "package_time_review_required",
+        "safety_notes": [
+            "Developer docs need package-time review before any copy step."
+        ],
+    },
+    {
+        "group_key": "manifest_outputs",
+        "label": "Manifest outputs",
+        "description": "Future package manifest and checksum output candidates.",
+        "package_relative_root": "開発者向け/manifest/",
+        "would_create_directories": [],
+        "would_create_files": [
+            "開発者向け/manifest/package-manifest.json",
+            "開発者向け/manifest/planned-output-manifest.json",
+            "開発者向け/manifest/license-notice-manifest.json",
+            "開発者向け/manifest/checksums.json",
+        ],
+        "would_generate_future_outputs": [
+            "package manifest",
+            "planned output manifest",
+            "license notice manifest",
+            "checksums manifest",
+        ],
+        "would_copy_source_groups": [],
+        "would_skip_or_exclude": [],
+        "required": True,
+        "review_status": "package_time_review_required",
+        "safety_notes": [
+            "Manifest files are preview candidates only; no JSON files generated."
+        ],
+    },
+    {
+        "group_key": "notice_outputs",
+        "label": "Notice outputs",
+        "description": "Future NOTICE and runtime notice output candidates.",
+        "package_relative_root": ".",
+        "would_create_directories": [],
+        "would_create_files": [
+            "開発者向け/notices/NOTICE.txt",
+            "開発者向け/notices/third-party-notices.txt",
+            "Windows用/notices/runtime-notices.txt",
+            "Mac用/notices/runtime-notices.txt",
+        ],
+        "would_generate_future_outputs": [
+            "NOTICE.txt",
+            "third-party notices",
+            "runtime notices",
+        ],
+        "would_copy_source_groups": ["docs/llmwiki/package-notices/"],
+        "would_skip_or_exclude": [],
+        "required": True,
+        "review_status": "legal_not_final",
+        "safety_notes": [
+            "Notice text requires legal review before any generated notice output."
+        ],
+    },
+    {
+        "group_key": "license_outputs",
+        "label": "License outputs",
+        "description": "Future license bundle output candidates.",
+        "package_relative_root": "開発者向け/licenses/",
+        "would_create_directories": [
+            "開発者向け/licenses/",
+            "開発者向け/licenses/third-party/",
+            "開発者向け/licenses/third-party/python-dependencies/",
+            "開発者向け/licenses/third-party/frontend/",
+            "開発者向け/licenses/third-party/desktop-shell/",
+        ],
+        "would_create_files": [
+            "開発者向け/licenses/MeTube-LICENSE.txt",
+            "開発者向け/licenses/third-party/yt-dlp-LICENSE.txt",
+            "開発者向け/licenses/third-party/ffmpeg-LICENSE.txt",
+            "開発者向け/licenses/third-party/python-runtime-LICENSE.txt",
+        ],
+        "would_generate_future_outputs": [
+            "license bundle",
+            "third-party license references",
+        ],
+        "would_copy_source_groups": ["docs/llmwiki/package-notices/"],
+        "would_skip_or_exclude": [],
+        "required": True,
+        "review_status": "legal_not_final",
+        "safety_notes": [
+            "License texts are not copied; exact license inputs need legal review."
+        ],
+    },
+    {
+        "group_key": "inventory_outputs",
+        "label": "Inventory outputs",
+        "description": "Future bundled dependency inventory output candidates.",
+        "package_relative_root": "開発者向け/inventory/",
+        "would_create_directories": [],
+        "would_create_files": [
+            "開発者向け/inventory/bundled-python-dependency-inventory.json",
+            "開発者向け/inventory/bundled-python-dependency-inventory.md",
+        ],
+        "would_generate_future_outputs": [
+            "bundled Python dependency inventory",
+        ],
+        "would_copy_source_groups": ["docs/llmwiki/package-notices/"],
+        "would_skip_or_exclude": [],
+        "required": True,
+        "review_status": "legal_not_final",
+        "safety_notes": [
+            "Inventory output is not generated; exact bundled versions need review."
+        ],
+    },
+    {
+        "group_key": "windows_runtime_outputs",
+        "label": "Windows runtime outputs",
+        "description": "Future Windows runtime directory placeholders only.",
+        "package_relative_root": "Windows用/",
+        "would_create_directories": [
+            "Windows用/",
+            "Windows用/notices/",
+        ],
+        "would_create_files": [],
+        "would_generate_future_outputs": [],
+        "would_copy_source_groups": [],
+        "would_skip_or_exclude": [],
+        "required": True,
+        "review_status": "package_time_review_required",
+        "safety_notes": [
+            "No .exe, runtime, or launcher artifact is selected in this phase."
+        ],
+    },
+    {
+        "group_key": "mac_runtime_outputs",
+        "label": "macOS runtime outputs",
+        "description": "Future macOS runtime directory placeholders only.",
+        "package_relative_root": "Mac用/",
+        "would_create_directories": [
+            "Mac用/",
+            "Mac用/notices/",
+        ],
+        "would_create_files": [],
+        "would_generate_future_outputs": [],
+        "would_copy_source_groups": [],
+        "would_skip_or_exclude": [],
+        "required": True,
+        "review_status": "package_time_review_required",
+        "safety_notes": [
+            "No .app, runtime, or launcher artifact is selected in this phase."
+        ],
+    },
+    {
+        "group_key": "save_folder_placeholders",
+        "label": "Save folder placeholders",
+        "description": "Future user save-folder placeholder candidate.",
+        "package_relative_root": "保存先/",
+        "would_create_directories": ["保存先/"],
+        "would_create_files": [],
+        "would_generate_future_outputs": [],
+        "would_copy_source_groups": [],
+        "would_skip_or_exclude": [],
+        "required": True,
+        "review_status": "package_time_review_required",
+        "safety_notes": ["Save folder placeholder is not created in dry-run mode."],
+    },
+    {
+        "group_key": "troubleshooting_outputs",
+        "label": "Troubleshooting outputs",
+        "description": "Future troubleshooting directory placeholder candidate.",
+        "package_relative_root": "困ったとき/",
+        "would_create_directories": ["困ったとき/"],
+        "would_create_files": [],
+        "would_generate_future_outputs": [],
+        "would_copy_source_groups": [],
+        "would_skip_or_exclude": [],
+        "required": True,
+        "review_status": "package_time_review_required",
+        "safety_notes": [
+            "Troubleshooting directory is preview-only; page outputs are not selected."
+        ],
+    },
+    {
+        "group_key": "excluded_outputs",
+        "label": "Excluded outputs",
+        "description": "Repository paths that future package generation must skip.",
+        "package_relative_root": ".",
+        "would_create_directories": [],
+        "would_create_files": [],
+        "would_generate_future_outputs": [],
+        "would_copy_source_groups": [],
+        "would_skip_or_exclude": [
+            ".git/",
+            ".github/",
+            ".pytest_cache/",
+            "node_modules/",
+            "ui/node_modules/",
+            "downloads/",
+            "state/",
+            "logs/",
+            ".env",
+            "cookies.txt",
+            "docker-compose.local.yml",
+            "docs/local-only.md",
+            "動画保存ツール_ローカル専用/",
+        ],
+        "required": True,
+        "review_status": "not_applicable_this_phase",
+        "safety_notes": [
+            "Exclusions are report-only guardrails; no paths are removed or created."
+        ],
+    },
+]
+
 SAFETY_NOTICE_SOURCE_CANDIDATES = [
     (
         "local-only safety notice source",
@@ -1128,6 +1375,67 @@ def summarize_manifest_entries(
     }
 
 
+def build_output_groups() -> list[dict[str, object]]:
+    groups: list[dict[str, object]] = []
+    for spec in OUTPUT_GROUP_SPECS:
+        groups.append(
+            {
+                "group_key": spec["group_key"],
+                "label": spec["label"],
+                "description": spec["description"],
+                "package_relative_root": spec["package_relative_root"],
+                "would_create_directories": spec["would_create_directories"],
+                "would_create_files": spec["would_create_files"],
+                "would_generate_future_outputs": spec[
+                    "would_generate_future_outputs"
+                ],
+                "would_copy_source_groups": spec["would_copy_source_groups"],
+                "would_skip_or_exclude": spec["would_skip_or_exclude"],
+                "required": spec["required"],
+                "generated_now": False,
+                "human_review_required": True,
+                "safety_notes": spec["safety_notes"],
+                "review_status": spec["review_status"],
+            }
+        )
+    return groups
+
+
+def count_group_items(group: dict[str, object], key: str) -> int:
+    value = group.get(key)
+    return len(value) if isinstance(value, list) else 0
+
+
+def summarize_output_groups(
+    groups: list[dict[str, object]],
+) -> dict[str, object]:
+    by_group: dict[str, dict[str, object]] = {}
+    for group in groups:
+        group_key = str(group["group_key"])
+        by_group[group_key] = {
+            "files": count_group_items(group, "would_create_files"),
+            "directories": count_group_items(group, "would_create_directories"),
+            "future_outputs": count_group_items(
+                group,
+                "would_generate_future_outputs",
+            ),
+            "copy_source_groups": count_group_items(
+                group,
+                "would_copy_source_groups",
+            ),
+            "excluded_paths": count_group_items(group, "would_skip_or_exclude"),
+            "review_status": group["review_status"],
+        }
+    return {
+        "total": len(groups),
+        "by_group": by_group,
+        "human_review_required": any(
+            bool(group["human_review_required"]) for group in groups
+        ),
+        "generated_now": any(bool(group["generated_now"]) for group in groups),
+    }
+
+
 def print_package_manifest_preview(root: Path, excluded_found: list[str]) -> None:
     notice_present, notice_lines = present_candidate_lines(
         root, MANIFEST_PREVIEW_NOTICE_SOURCES
@@ -1184,6 +1492,9 @@ def print_package_manifest_preview(root: Path, excluded_found: list[str]) -> Non
 
 
 def print_package_output_diff_prediction(excluded_found: list[str]) -> None:
+    output_groups = build_output_groups()
+    output_group_summary = summarize_output_groups(output_groups)
+
     print("Package output diff prediction:")
     print(f"  future_package_root: {PACKAGE_ROOT}")
     print_nested_list(
@@ -1199,6 +1510,31 @@ def print_package_output_diff_prediction(excluded_found: list[str]) -> None:
         "would_generate_future_outputs",
         MANIFEST_PREVIEW_FUTURE_OUTPUTS,
     )
+    print("  output_groups:")
+    print(f"    total: {output_group_summary['total']}")
+    print(f"    generated_now: {str(output_group_summary['generated_now']).lower()}")
+    print(
+        "    human_review_required_before_generation: "
+        f"{str(output_group_summary['human_review_required']).lower()}"
+    )
+    print("    groups:")
+    for group in output_groups:
+        print(f"      - group: {group['group_key']}")
+        print(f"        files: {count_group_items(group, 'would_create_files')}")
+        print(
+            "        directories: "
+            f"{count_group_items(group, 'would_create_directories')}"
+        )
+        print(
+            "        future_outputs: "
+            f"{count_group_items(group, 'would_generate_future_outputs')}"
+        )
+        print(f"        generated_now: {str(group['generated_now']).lower()}")
+        print(
+            "        human_review_required: "
+            f"{str(group['human_review_required']).lower()}"
+        )
+        print(f"        review_status: {group['review_status']}")
     print("  would_exclude_paths summary:")
     print(f"    rules: {len(EXCLUDED_PATHS)}")
     print(f"    currently_present: {len(excluded_found)}")
@@ -1292,6 +1628,8 @@ def print_markdown_report(
     )
     manifest_entries = build_manifest_entries(root)
     manifest_entry_summary = summarize_manifest_entries(manifest_entries)
+    output_groups = build_output_groups()
+    output_group_summary = summarize_output_groups(output_groups)
 
     print("# Clean Package Dry-Run Report")
     print()
@@ -1390,6 +1728,43 @@ def print_markdown_report(
         "- cleanup_rollback_candidate: future package root only; human review "
         "required before any action."
     )
+    print()
+    print("### Output Groups")
+    print()
+    print(f"- Total groups: `{output_group_summary['total']}`")
+    print(
+        "- Generated now: "
+        f"`{str(output_group_summary['generated_now']).lower()}`"
+    )
+    print(
+        "- Human review required before generation: "
+        f"`{str(output_group_summary['human_review_required']).lower()}`"
+    )
+    print()
+    print("#### Groups")
+    print()
+    for group in output_groups:
+        print(f"- `{group['group_key']}`")
+        print(f"  - label: {group['label']}")
+        print(f"  - files: `{count_group_items(group, 'would_create_files')}`")
+        print(
+            "  - directories: "
+            f"`{count_group_items(group, 'would_create_directories')}`"
+        )
+        print(
+            "  - future_outputs: "
+            f"`{count_group_items(group, 'would_generate_future_outputs')}`"
+        )
+        print(
+            "  - excluded_paths: "
+            f"`{count_group_items(group, 'would_skip_or_exclude')}`"
+        )
+        print(f"  - review_status: {group['review_status']}")
+        print(f"  - generated_now: {str(group['generated_now']).lower()}")
+        print(
+            "  - human_review_required: "
+            f"{str(group['human_review_required']).lower()}"
+        )
     print()
     print("## Notice / Guide Source Coverage")
     print()
@@ -1501,6 +1876,8 @@ def build_json_report(
     )
     manifest_entries = build_manifest_entries(root)
     manifest_entry_summary = summarize_manifest_entries(manifest_entries)
+    output_groups = build_output_groups()
+    output_group_summary = summarize_output_groups(output_groups)
 
     generated_package_root_present = any(
         b.kind == "generated_package_folder_present" for b in blocked
@@ -1562,6 +1939,8 @@ def build_json_report(
             "would_create_files": DIFF_PREDICTION_CREATE_FILES,
             "would_copy_source_groups": DIFF_PREDICTION_COPY_SOURCE_GROUPS,
             "would_generate_future_outputs": MANIFEST_PREVIEW_FUTURE_OUTPUTS,
+            "output_groups": output_groups,
+            "output_group_summary": output_group_summary,
             "no_files_generated": True,
             "human_review_required_before_generation": True,
             "cleanup_rollback_note": (

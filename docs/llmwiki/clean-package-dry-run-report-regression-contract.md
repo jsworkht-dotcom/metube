@@ -373,6 +373,36 @@ The checker now validates:
 Y-08B remains report-only and does not write report files, create package
 output, add CI wiring, or approve actual package generation.
 
+## Y-08C Output Group Regression Additions
+
+Y-08C extends the checker for richer output diff prediction grouping.
+
+The checker now validates:
+
+- JSON has `package_output_diff_prediction.output_groups`.
+- `output_groups` is a non-empty list.
+- JSON has `package_output_diff_prediction.output_group_summary`.
+- `output_group_summary` is an object.
+- `output_group_summary.total` matches the number of groups.
+- `output_group_summary.generated_now` is `false`.
+- `output_group_summary.human_review_required` is `true`.
+- `output_group_summary.by_group` is an object.
+- Every output group has the required Y-08C fields.
+- Every output group has `generated_now` set to `false`.
+- Every output group has `human_review_required` set to `true`.
+- Every output group has list-shaped create/copy/generate/exclude/safety
+  fields.
+- Every output group uses a recognized `review_status`.
+- Required output group keys are present for beginner guides, developer docs,
+  manifest outputs, notices, licenses, inventory, Windows/macOS runtime
+  placeholders, save folder placeholders, troubleshooting placeholders, and
+  excluded outputs.
+- Markdown output contains `Output Groups`.
+- Text output contains `output_groups`.
+
+Y-08C remains report-only and does not write report files, create package
+output, add CI wiring, or approve actual package generation.
+
 ## PR Review Checklist
 
 Before merging future report-mode changes, confirm:

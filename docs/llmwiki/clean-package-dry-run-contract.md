@@ -1569,6 +1569,48 @@ Rules:
 - Actual clean-package generation remains blocked until a later
   human-reviewed task explicitly approves it.
 
+## Y-08C Richer Output Diff Prediction Grouping
+
+Y-08C implements richer output diff prediction grouping in:
+
+```text
+scripts/clean_package_dry_run.py
+```
+
+It also extends the regression checker:
+
+```text
+scripts/check_clean_package_dry_run_reports.py
+```
+
+Implemented behavior:
+
+- Text, Markdown, and JSON package output diff prediction output include output
+  group candidates.
+- JSON includes `package_output_diff_prediction.output_groups`.
+- JSON includes `package_output_diff_prediction.output_group_summary`.
+- Output groups include beginner guides, developer docs, manifest outputs,
+  notice outputs, license outputs, inventory outputs, Windows/macOS runtime
+  placeholders, save folder placeholders, troubleshooting placeholders, and
+  excluded outputs.
+- Every output group reports `generated_now: false` and
+  `human_review_required: true`.
+- The checker validates the required output group fields, required group keys,
+  `generated_now: false`, `human_review_required: true`, recognized
+  `review_status` values, the Markdown output group section, and the text
+  output group marker.
+
+Rules:
+
+- Y-08C is report-only, stdout-only, and no-generation.
+- Y-08C does not create package files, actual runtime launchers, `NOTICE.txt`,
+  license bundles, inventory output, guide output, or
+  `動画保存ツール_ローカル専用/`.
+- Y-08C does not write report files.
+- Y-08C does not add CI wiring.
+- Actual clean-package generation remains blocked until a later
+  human-reviewed task explicitly approves it.
+
 ## Y-CHECK-01 Repository Safety Gate Relationship
 
 Y-CHECK-01 is documented in:
@@ -1626,7 +1668,7 @@ Review the existing report-only safety checker before low-, medium-, or
 qualifying high-low-risk fork PRs.
 
 The next package-material candidate should be selected explicitly. The
-recommended next candidate is Y-08C richer output diff prediction grouping in
+recommended next candidate is Y-08D source coverage status hardening in
 report-only / stdout-only mode, if explicitly approved.
 
 Actual clean-package generation should wait until after repeated successful

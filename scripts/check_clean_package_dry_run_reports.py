@@ -86,16 +86,60 @@ REVIEW_RELATED_MANIFEST_KINDS = {
     "developer_manifest",
 }
 
+REQUIRED_OUTPUT_GROUP_FIELDS = {
+    "group_key",
+    "label",
+    "description",
+    "package_relative_root",
+    "would_create_directories",
+    "would_create_files",
+    "would_generate_future_outputs",
+    "would_copy_source_groups",
+    "would_skip_or_exclude",
+    "required",
+    "generated_now",
+    "human_review_required",
+    "safety_notes",
+    "review_status",
+}
+
+REQUIRED_OUTPUT_GROUP_KEYS = {
+    "beginner_guides",
+    "developer_docs",
+    "manifest_outputs",
+    "notice_outputs",
+    "license_outputs",
+    "inventory_outputs",
+    "windows_runtime_outputs",
+    "mac_runtime_outputs",
+    "save_folder_placeholders",
+    "troubleshooting_outputs",
+    "excluded_outputs",
+}
+
+OUTPUT_GROUP_REVIEW_STATUSES = {
+    "present",
+    "missing",
+    "candidate_only",
+    "source_draft",
+    "legal_not_final",
+    "package_time_review_required",
+    "not_applicable_this_phase",
+}
+
 CHECK_NAMES = (
     "all modes exit 0",
     "default text output",
     "--format text output",
     "text manifest entries",
+    "text output groups",
     "--format markdown required sections",
     "--format markdown manifest entries",
+    "--format markdown output groups",
     "--format json parse",
     "--format json required fields",
     "--format json manifest entries",
+    "--format json output groups",
     "cross-format status consistency",
     "generated package folder absent",
 )
@@ -263,6 +307,21 @@ def check_text_outputs(
             "--format text output missing manifest_entries",
         )
 
+    if "output_groups" not in default:
+        add_failure(
+            failures,
+            check_status,
+            "text output groups",
+            "default text output missing output_groups",
+        )
+    if "output_groups" not in text:
+        add_failure(
+            failures,
+            check_status,
+            "text output groups",
+            "--format text output missing output_groups",
+        )
+
 
 def check_markdown_output(
     result: ModeResult,
@@ -293,6 +352,14 @@ def check_markdown_output(
             check_status,
             "--format markdown manifest entries",
             "Markdown output missing Manifest Entry Candidates",
+        )
+
+    if "Output Groups" not in output:
+        add_failure(
+            failures,
+            check_status,
+            "--format markdown output groups",
+            "Markdown output missing Output Groups",
         )
 
 
@@ -482,6 +549,158 @@ def check_json_manifest_entries(
         )
 
 
+def check_json_output_groups(
+    json_data: dict[str, object] | None,
+    failures: list[str],
+    check_status: dict[str, bool],
+) -> None:
+    check_name = "--format json output groups"
+    if json_data is None:
+        add_failure(
+            failures,
+            check_status,
+            check_name,
+            "JSON data unavailable for output group checks",
+        )
+        return
+
+    prediction = json_data.get("package_output_diff_prediction")
+    if not isinstance(prediction, dict):
+        add_failure(
+            failures,
+            check_status,
+            check_name,
+            "package_output_diff_prediction is not an object",
+        )
+        return
+
+    groups = prediction.get("output_groups")
+    if not isinstance(groups, list) or not groups:
+        add_failure(
+            failures,
+            check_status,
+            check_name,
+            "output_groups is not a non-empty list",
+        )
+        return
+
+    summary = prediction.get("output_group_summary")
+    if not isinstance(summary, dict):
+        add_failure(
+            failures,
+            check_status,
+            check_name,
+            "output_group_summary is not an object",
+        )
+    else:
+        if summary.get("total") != len(groups):
+            add_failure(
+                failures,
+                check_status,
+                check_name,
+                "output_group_summary total does not match output_groups length",
+            )
+        if summary.get("generated_now") is not False:
+            add_failure(
+                failures,
+                check_status,
+                check_name,
+                "output_group_summary generated_now is not false",
+            )
+        if summary.get("human_review_required") is not True:
+            add_failure(
+                failures,
+                check_status,
+                check_name,
+                "output_group_summary human_review_required is not true",
+            )
+        if not isinstance(summary.get("by_group"), dict):
+            add_failure(
+                failures,
+                check_status,
+                check_name,
+                "output_group_summary by_group is not an object",
+            )
+
+    seen_group_keys: set[str] = set()
+    for index, group in enumerate(groups):
+        if not isinstance(group, dict):
+            add_failure(
+                failures,
+                check_status,
+                check_name,
+                f"output group {index} is not an object",
+            )
+            continue
+
+        missing = REQUIRED_OUTPUT_GROUP_FIELDS - set(group)
+        if missing:
+            add_failure(
+                failures,
+                check_status,
+                check_name,
+                f"output group {index} missing fields: {', '.join(sorted(missing))}",
+            )
+
+        group_key = group.get("group_key")
+        if isinstance(group_key, str):
+            seen_group_keys.add(group_key)
+        else:
+            add_failure(
+                failures,
+                check_status,
+                check_name,
+                f"output group {index} group_key is not a string",
+            )
+
+        for list_field in (
+            "would_create_directories",
+            "would_create_files",
+            "would_generate_future_outputs",
+            "would_copy_source_groups",
+            "would_skip_or_exclude",
+            "safety_notes",
+        ):
+            if not isinstance(group.get(list_field), list):
+                add_failure(
+                    failures,
+                    check_status,
+                    check_name,
+                    f"output group {index} {list_field} is not a list",
+                )
+
+        if group.get("generated_now") is not False:
+            add_failure(
+                failures,
+                check_status,
+                check_name,
+                f"output group {index} generated_now is not false",
+            )
+        if group.get("human_review_required") is not True:
+            add_failure(
+                failures,
+                check_status,
+                check_name,
+                f"output group {index} human_review_required is not true",
+            )
+        if group.get("review_status") not in OUTPUT_GROUP_REVIEW_STATUSES:
+            add_failure(
+                failures,
+                check_status,
+                check_name,
+                f"output group {index} review_status is not recognized",
+            )
+
+    missing_group_keys = REQUIRED_OUTPUT_GROUP_KEYS - seen_group_keys
+    if missing_group_keys:
+        add_failure(
+            failures,
+            check_status,
+            check_name,
+            "missing output groups: " + ", ".join(sorted(missing_group_keys)),
+        )
+
+
 def check_cross_format_consistency(
     results: dict[str, ModeResult],
     json_data: dict[str, object] | None,
@@ -625,6 +844,7 @@ def main(argv: list[str]) -> int:
     check_markdown_output(results["markdown"], failures, check_status)
     json_data = check_json_output(results["json"], failures, check_status)
     check_json_manifest_entries(json_data, failures, check_status)
+    check_json_output_groups(json_data, failures, check_status)
     check_cross_format_consistency(results, json_data, failures, check_status)
     check_generated_package_absent(root, failures, check_status)
 
