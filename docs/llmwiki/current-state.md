@@ -1728,15 +1728,15 @@
 
 ## Current Next Step
 
-Y-AUTO-14 adds docs-only preflight environment checker design at
-`docs/llmwiki/preflight-environment-checker-design.md`.
+Y-AUTO-15 implements the task-start preflight environment checker at
+`scripts/check_local_dev_environment.py`.
 
-Use this design as the source for future task-start environment readiness
-checking. It remains docs-only and does not implement a checker script.
+Use this checker before future file modification when a task needs local
+readiness confirmation. It remains readiness-only and does not replace safety
+gates.
 
 The next recommended automation candidates are:
 
-- Y-AUTO-15 preflight environment checker implementation
 - APP-BOOT-01 new app bootstrap template design
 - APP-BOOT-02 bootstrap skeleton
 - Y-CI-01 lightweight CI design
@@ -1924,12 +1924,10 @@ The new prompt template document covers:
 - closeout / handoff sync;
 - new app bootstrap.
 
-Next candidate:
+Follow-up:
 
-- APP-BOOT-01 new app bootstrap template design, if moving to a new app
-  workflow.
-- Y-AUTO-15 preflight environment checker implementation, if continuing tooling
-  hardening in this repository.
+- Y-AUTO-15 implements the preflight environment checker.
+- APP-BOOT-01 remains the next recommended candidate.
 
 ## Y-AUTO-14 Preflight Environment Checker Design State
 
@@ -1959,15 +1957,48 @@ The new design covers:
 - PR #1001 leakage precheck;
 - local safety tool availability checks.
 
-Future candidate script path:
+Implemented script path:
 
 ```text
 scripts/check_local_dev_environment.py
 ```
 
-Next candidates:
+Follow-up:
 
-- Y-AUTO-15 preflight environment checker implementation, if continuing tooling
-  hardening.
-- APP-BOOT-01 new app bootstrap template design, if moving to a new app
-  workflow.
+- Y-AUTO-15 implements the preflight environment checker.
+- APP-BOOT-01 remains the next recommended candidate.
+
+## Y-AUTO-15 Preflight Environment Checker State
+
+Y-AUTO-15 implements `scripts/check_local_dev_environment.py`.
+
+Behavior:
+
+- Python runtime discovery;
+- Git repository, branch, and metadata access checks;
+- Git lock file detection;
+- optional GitHub CLI session state check;
+- remote and baseline ref checks;
+- working tree summary;
+- local helper exclusion check;
+- generated folder absence check;
+- PR #1001 leakage precheck;
+- local safety tool availability check.
+
+Not implemented:
+
+- no file writes;
+- no Git config changes;
+- no branch creation;
+- no GitHub write actions;
+- no PR creation/editing;
+- no merge actions;
+- no package generation;
+- no backend/frontend/Docker/CI/package/lockfile changes;
+- no secret/token/cookie handling;
+- no public hosting or ads;
+- no update application operations.
+
+Next candidate:
+
+- APP-BOOT-01 new app bootstrap template design.

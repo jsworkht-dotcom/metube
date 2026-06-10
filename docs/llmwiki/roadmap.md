@@ -2,6 +2,20 @@
 
 ## Immediate Next
 
+### Y-AUTO-15 preflight environment checker implementation outcome
+
+- Script:
+  `scripts/check_local_dev_environment.py`
+- Added a standalone read-only preflight environment checker.
+- Checks Python runtime discovery, Git repository/branch/metadata access, Git
+  lock files, optional GitHub CLI session state, remotes, baseline ref, working
+  tree summary, local helper exclusion, generated folder absence, PR #1001
+  leakage precheck, and local safety tool availability.
+- The checker writes no files, changes no Git config, creates no branches,
+  performs no GitHub write actions, creates no PRs, performs no merge actions,
+  and creates no package output.
+- The checker is readiness-only and does not replace safety gates.
+
 ### Y-AUTO-14 preflight environment checker design outcome
 
 - Document:
@@ -49,7 +63,6 @@
 
 ### Next automation candidates
 
-- Y-AUTO-15 preflight environment checker implementation.
 - APP-BOOT-01 new app bootstrap template design.
 - APP-BOOT-02 bootstrap skeleton.
 - Y-CI-01 lightweight CI design.
@@ -1196,7 +1209,25 @@ risk boundary, maintenance, stop condition, and rollback patterns.
 
 Next candidates:
 
-- Y-AUTO-15 preflight environment checker implementation.
+- APP-BOOT-01 new app bootstrap template design.
+- APP-BOOT-02 bootstrap skeleton.
+- Y-CI-01 lightweight CI design.
+
+Actual package generation remains blocked.
+
+## Y-AUTO-15 Outcome: Preflight Environment Checker Implementation
+
+Y-AUTO-15 adds `scripts/check_local_dev_environment.py` as a stdlib-only,
+read-only, text-output-only readiness checker.
+
+The checker reports Python runtime discovery, Git repository/branch/metadata
+access, Git lock files, optional GitHub CLI session state, remote configuration,
+baseline ref availability, working tree summary, local helper exclusion,
+generated folder absence, PR #1001 leakage precheck, and required local safety
+tool availability.
+
+Next candidates:
+
 - APP-BOOT-01 new app bootstrap template design.
 - APP-BOOT-02 bootstrap skeleton.
 - Y-CI-01 lightweight CI design.
@@ -1219,11 +1250,9 @@ The design documents:
 - integration boundaries with Codex prompt templates and the local safety gate
   aggregator.
 
-Next candidates:
+Follow-up:
 
-- Y-AUTO-15 preflight environment checker implementation.
-- APP-BOOT-01 new app bootstrap template design.
-- APP-BOOT-02 bootstrap skeleton.
-- Y-CI-01 lightweight CI design.
+- Y-AUTO-15 implements the preflight environment checker.
+- APP-BOOT-01 remains the next recommended candidate.
 
 Actual package generation remains blocked.

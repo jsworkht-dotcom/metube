@@ -14,8 +14,8 @@ risk classification, replace local verification, or authorize higher-risk work.
 - `scripts/run_local_safety_gates.py` is the local verification orchestrator.
 - `scripts/check_safety_wording.py` is the docs and PR wording preflight helper.
 - `scripts/generate_pr_body.py` can generate a reviewable PR body draft.
-- A future preflight environment checker may verify local readiness before task
-  edits begin.
+- `scripts/check_local_dev_environment.py` can verify local readiness before
+  task edits begin.
 - `docs/llmwiki/codex-automation-policy.md` remains the risk policy.
 - `docs/llmwiki/codex-auto-lanes.md` remains the lane execution policy.
 - Prompt templates do not authorize higher risk.
@@ -94,17 +94,22 @@ Expected state:
 
 Stop if modified or untracked files remain after the start block.
 
-## Future Preflight Block
+Optional readiness-only preflight before branch creation:
 
-Use this block only after the future preflight environment checker exists:
-
-```text
-Run preflight environment checker first.
-If it fails, stop before modifying files.
+```powershell
+python scripts/check_local_dev_environment.py --base fork/master --expected-branch master
 ```
 
-Until Y-AUTO-15 or a later implementation exists, templates keep the manual
-start checks.
+## Preflight Block
+
+Use this block after the manual start checks and before file modification:
+
+```powershell
+python scripts/check_local_dev_environment.py --base fork/master --expected-branch master
+```
+
+If the preflight reports `ERROR`, stop before modifying files. WARN findings
+must be reviewed and summarized in recovery or final reports.
 
 ## Common Read-First Block
 
@@ -416,13 +421,17 @@ Rules:
     python_runtime
     git_repository
     git_branch
-    git_permissions
+    git_metadata_access
+    git_lock_files
     github_cli_session
     remote_configuration
+    baseline_ref
+    working_tree_summary
     local_helper_exclusion
     generated_output_absence
     pr1001_leakage_precheck
     tooling_availability
+  Summarize preflight findings before resuming or finalizing.
   Recover the intended branch before continuing commits or PR work.
   Rerun gates after recovery.
   Continue commit or PR work only when the diff is understood and in scope.

@@ -943,9 +943,8 @@ discovery, Git metadata access, GitHub CLI session state, local helper
 exclusion, generated package folder absence, PR #1001 leakage precheck, and
 local safety tool availability.
 
-Next recommended candidate: Y-AUTO-15 preflight environment checker
-implementation if continuing tooling, or APP-BOOT-01 new app bootstrap template
-design if starting the new app workflow.
+Follow-up implemented by Y-AUTO-15. APP-BOOT-01 remains the next recommended
+candidate.
 
 Available commands:
 
@@ -959,5 +958,31 @@ Carry forward:
 
 - `export_context_updated.py` remains locally excluded and uncommitted.
 - Actual generation remains blocked.
-- Future preflight checker implementation remains separate.
+- Y-AUTO-15 implements the preflight checker.
 - The preflight checker will not replace safety gates or authorize higher risk.
+
+## Y-AUTO-15 Handoff Update
+
+Latest work: Y-AUTO-15 preflight environment checker implementation.
+
+New command:
+
+```powershell
+python scripts/check_local_dev_environment.py --base fork/master --expected-branch master
+```
+
+Available commands:
+
+```powershell
+python scripts/run_local_safety_gates.py --base fork/master
+python scripts/check_safety_wording.py --base fork/master
+python scripts/generate_pr_body.py --title "..." --risk high-low --scope docs-only
+```
+
+Next recommended candidate: APP-BOOT-01 new app bootstrap template design.
+
+Carry forward:
+
+- `export_context_updated.py` remains locally excluded and uncommitted.
+- Actual generation remains blocked.
+- The preflight checker is readiness-only and does not replace safety gates.

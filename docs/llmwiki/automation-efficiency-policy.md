@@ -232,9 +232,10 @@ Purpose:
   baseline checks, and local safety tool availability;
 - keep safety gates authoritative after changes.
 
-Future Y-AUTO-15 may implement a standalone read-only
-`scripts/check_local_dev_environment.py`. That implementation remains a
-candidate only and must not replace existing safety gates.
+Y-AUTO-15 implements the standalone read-only
+`scripts/check_local_dev_environment.py` checker. Future Codex tasks may run it
+before file modification to catch local readiness issues early. It does not
+replace existing safety gates.
 
 ## Future CI / Branch Protection / CODEOWNERS Candidates
 
@@ -521,5 +522,25 @@ Purpose:
   tool availability;
 - clarify that preflight is readiness-only and does not replace safety gates.
 
-Future Y-AUTO-15 may implement the checker as a stdlib-only, read-only,
-text-output-only script candidate. The implementation remains separate.
+Y-AUTO-15 implements the checker as a stdlib-only, read-only,
+text-output-only script. Future tasks can run it before file modification, but
+the checker remains readiness-only and does not replace safety gates.
+
+## Y-AUTO-15 Preflight Environment Checker Implementation Note
+
+Y-AUTO-15 adds `scripts/check_local_dev_environment.py` as a standalone
+preflight environment checker.
+
+Purpose:
+
+- detect local readiness issues before task edits;
+- check Python runtime discovery, Git repository/branch/metadata access, lock
+  files, optional GitHub CLI session state, remotes, baseline ref, local helper
+  exclusion, generated folder absence, PR #1001 leakage, and local safety tool
+  availability;
+- keep `scripts/run_local_safety_gates.py` and the underlying safety gates
+  authoritative after changes.
+
+The checker does not replace safety gates, approve merge, authorize higher
+risk, write reports, create generated package output, or perform GitHub write
+actions.

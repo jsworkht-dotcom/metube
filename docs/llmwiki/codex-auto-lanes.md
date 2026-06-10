@@ -52,9 +52,9 @@ no secret/token/cookie values appear
 required safety gates pass
 ```
 
-After a future Y-AUTO-15 implementation, lanes may start with the preflight
-environment checker. That checker is readiness-only; lane verification still
-uses the existing safety gates.
+After Y-AUTO-15, lanes may start with
+`scripts/check_local_dev_environment.py`. That checker is readiness-only; lane
+verification still uses the existing safety gates and PR review rules.
 
 ## Lane Summary
 
@@ -687,6 +687,30 @@ underlying local safety gates.
 Current recommended auto lane after Y-AUTO-14:
 
 - Y-AUTO-15: preflight environment checker implementation.
+- APP-BOOT-01: new app bootstrap template design.
+- APP-BOOT-02: bootstrap skeleton.
+- Y-CI-01: lightweight CI design.
+
+## Y-AUTO-15 Preflight Environment Checker Use In Auto Lanes
+
+Auto lanes may now start with:
+
+```powershell
+python scripts/check_local_dev_environment.py --base fork/master --expected-branch master
+```
+
+The preflight checker is readiness-only. It may report Python runtime discovery,
+Git repository/branch/metadata access, lock files, optional GitHub CLI session
+state, remotes, baseline ref, working tree summary, local helper exclusion,
+generated folder absence, PR #1001 leakage, and local safety tool availability.
+
+Lane verification still uses `git diff --check`,
+`scripts/check_safety_wording.py`, `scripts/run_local_safety_gates.py`, the
+underlying local safety gates, and PR review rules. The preflight checker does
+not approve merge, replace safety gates, or authorize higher risk.
+
+Current recommended auto lane after Y-AUTO-15:
+
 - APP-BOOT-01: new app bootstrap template design.
 - APP-BOOT-02: bootstrap skeleton.
 - Y-CI-01: lightweight CI design.

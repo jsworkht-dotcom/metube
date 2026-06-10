@@ -92,6 +92,9 @@ scripts/check_local_dev_environment.py
 
 Y-AUTO-15 may implement it later.
 
+Y-AUTO-15 implements this script as the first standalone read-only preflight
+checker.
+
 Initial implementation requirements:
 
 - stdlib-only;
@@ -113,9 +116,12 @@ Suggested categories:
 python_runtime
 git_repository
 git_branch
-git_permissions
+git_metadata_access
+git_lock_files
 github_cli_session
 remote_configuration
+baseline_ref
+working_tree_summary
 local_helper_exclusion
 generated_output_absence
 pr1001_leakage_precheck
@@ -429,3 +435,30 @@ For future Y-AUTO-15:
 revert preflight checker script and docs
 no generated output should exist
 ```
+
+## Y-AUTO-15 Implementation Note
+
+Y-AUTO-15 implements `scripts/check_local_dev_environment.py` as a standalone
+read-only preflight checker.
+
+The checker covers:
+
+- Python runtime discovery;
+- Git repository, branch, metadata access, and lock file checks;
+- optional GitHub CLI session state checks;
+- remote configuration and baseline ref checks;
+- working tree summary;
+- local helper exclusion;
+- generated package folder absence;
+- PR #1001 leakage precheck;
+- required local safety tool availability.
+
+The checker remains readiness-only:
+
+- no file writes;
+- no Git config changes;
+- no branch creation;
+- no GitHub write action;
+- no PR creation or editing;
+- no merge actions;
+- no package output.
