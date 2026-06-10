@@ -27,6 +27,8 @@ MeTube. The canonical branch is fork `master`, and local `master` tracks
 17. `docs/llmwiki/license-notice-plan.md`
 18. `docs/llmwiki/codex-gh-auth-runbook.md` if GitHub CLI auth, PR creation,
    checks, or merge commands fail inside Codex
+19. `docs/llmwiki/preflight-environment-checker-design.md` before future
+   preflight checker implementation work
 
 ## Key Points For Codex
 
@@ -925,3 +927,37 @@ Carry forward:
 - `export_context_updated.py` remains locally excluded and uncommitted.
 - Actual generation remains blocked.
 - Prompt templates do not replace safety gates or authorize higher risk.
+
+## Y-AUTO-14 Handoff Update
+
+Latest work: Y-AUTO-14 preflight environment checker design.
+
+Added:
+
+```text
+docs/llmwiki/preflight-environment-checker-design.md
+```
+
+The new doc defines a future readiness-only checker for Python runtime
+discovery, Git metadata access, GitHub CLI session state, local helper
+exclusion, generated package folder absence, PR #1001 leakage precheck, and
+local safety tool availability.
+
+Next recommended candidate: Y-AUTO-15 preflight environment checker
+implementation if continuing tooling, or APP-BOOT-01 new app bootstrap template
+design if starting the new app workflow.
+
+Available commands:
+
+```powershell
+python scripts/run_local_safety_gates.py --base fork/master
+python scripts/check_safety_wording.py --base fork/master
+python scripts/generate_pr_body.py --title "..." --risk high-low --scope docs-only
+```
+
+Carry forward:
+
+- `export_context_updated.py` remains locally excluded and uncommitted.
+- Actual generation remains blocked.
+- Future preflight checker implementation remains separate.
+- The preflight checker will not replace safety gates or authorize higher risk.

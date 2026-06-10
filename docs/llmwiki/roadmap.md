@@ -2,6 +2,22 @@
 
 ## Immediate Next
 
+### Y-AUTO-14 preflight environment checker design outcome
+
+- Document:
+  `docs/llmwiki/preflight-environment-checker-design.md`
+- Added docs-only design for a future task-start environment readiness checker.
+- Covers Python runtime discovery, Git metadata access, GitHub CLI session
+  state, remote and branch baseline checks, local helper exclusion, generated
+  package folder absence, PR #1001 leakage precheck, and local safety tool
+  availability.
+- Future candidate script path:
+  `scripts/check_local_dev_environment.py`
+- The checker design is readiness-only and does not replace safety gates.
+- No script implementation, checker change, CI integration, GitHub API
+  integration, PR creation/editing automation, report file writing, or generated
+  package output is included.
+
 ### Y-AUTO-13 Codex prompt templates outcome
 
 - Document:
@@ -33,9 +49,9 @@
 
 ### Next automation candidates
 
+- Y-AUTO-15 preflight environment checker implementation.
 - APP-BOOT-01 new app bootstrap template design.
 - APP-BOOT-02 bootstrap skeleton.
-- Y-AUTO-14 preflight environment checker design.
 - Y-CI-01 lightweight CI design.
 
 Actual package generation remains blocked.
@@ -1180,9 +1196,34 @@ risk boundary, maintenance, stop condition, and rollback patterns.
 
 Next candidates:
 
+- Y-AUTO-15 preflight environment checker implementation.
 - APP-BOOT-01 new app bootstrap template design.
 - APP-BOOT-02 bootstrap skeleton.
-- Y-AUTO-14 preflight environment checker design.
+- Y-CI-01 lightweight CI design.
+
+Actual package generation remains blocked.
+
+## Y-AUTO-14 Outcome: Preflight Environment Checker Design
+
+Y-AUTO-14 adds `docs/llmwiki/preflight-environment-checker-design.md` as a
+docs-only design for a future preflight environment checker.
+
+The design documents:
+
+- purpose, background, non-goals, output format, exit-code contract,
+  sanitization rules, stop conditions, and rollback note;
+- future check categories for Python runtime discovery, Git repository and
+  branch baseline, Git write-permission checks, GitHub CLI session state, remote
+  configuration, local helper exclusion, generated package folder absence, PR
+  #1001 leakage precheck, and local safety tool availability;
+- integration boundaries with Codex prompt templates and the local safety gate
+  aggregator.
+
+Next candidates:
+
+- Y-AUTO-15 preflight environment checker implementation.
+- APP-BOOT-01 new app bootstrap template design.
+- APP-BOOT-02 bootstrap skeleton.
 - Y-CI-01 lightweight CI design.
 
 Actual package generation remains blocked.

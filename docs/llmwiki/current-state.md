@@ -1728,18 +1728,17 @@
 
 ## Current Next Step
 
-Y-AUTO-13 adds docs-only Codex prompt templates at
-`docs/llmwiki/codex-run-prompt-templates.md`.
+Y-AUTO-14 adds docs-only preflight environment checker design at
+`docs/llmwiki/preflight-environment-checker-design.md`.
 
-Use `docs/llmwiki/codex-run-prompt-templates.md` as the reusable prompt
-template source for future Codex runs, and use `scripts/generate_pr_body.py` as
-the PR body drafting aid for the automation stream.
+Use this design as the source for future task-start environment readiness
+checking. It remains docs-only and does not implement a checker script.
 
 The next recommended automation candidates are:
 
+- Y-AUTO-15 preflight environment checker implementation
 - APP-BOOT-01 new app bootstrap template design
 - APP-BOOT-02 bootstrap skeleton
-- Y-AUTO-14 preflight environment checker design
 - Y-CI-01 lightweight CI design
 
 Use the `Risk classification` section from `scripts/check_repo_safety.py` as the
@@ -1929,5 +1928,46 @@ Next candidate:
 
 - APP-BOOT-01 new app bootstrap template design, if moving to a new app
   workflow.
-- Y-AUTO-14 preflight environment checker design, if continuing tooling
+- Y-AUTO-15 preflight environment checker implementation, if continuing tooling
   hardening in this repository.
+
+## Y-AUTO-14 Preflight Environment Checker Design State
+
+Y-AUTO-14 adds `docs/llmwiki/preflight-environment-checker-design.md`.
+
+Scope:
+
+- docs-only preflight environment checker design;
+- source-of-truth sync for automation efficiency, auto lanes, prompt templates,
+  current state, roadmap, and handoff;
+- no script implementation;
+- no existing checker changes;
+- no CI integration;
+- no GitHub API integration;
+- no PR creation/editing automation;
+- no generated package output.
+
+The new design covers:
+
+- Python runtime discovery;
+- Git repository and branch baseline checks;
+- Git write-permission checks;
+- GitHub CLI session state checks;
+- remote and branch baseline checks;
+- local helper exclusion checks;
+- generated package folder absence checks;
+- PR #1001 leakage precheck;
+- local safety tool availability checks.
+
+Future candidate script path:
+
+```text
+scripts/check_local_dev_environment.py
+```
+
+Next candidates:
+
+- Y-AUTO-15 preflight environment checker implementation, if continuing tooling
+  hardening.
+- APP-BOOT-01 new app bootstrap template design, if moving to a new app
+  workflow.
