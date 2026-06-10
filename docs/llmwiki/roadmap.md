@@ -2,39 +2,28 @@
 
 ## Immediate Next
 
-### Y-AUTO-07 codex auto lanes Outcome
+### Y-AUTO-11 PR body generator design outcome
 
-- Completed:
-  - Added `docs/llmwiki/codex-auto-lanes.md` to define concrete, practical
-    Codex auto lane execution for docs-only, report-only, checker-only, combined,
-    and High-mid PR-ready-only work.
-  - Added concrete permissions, one-PR bundles, continuous execution rules, stop
-    conditions, auto PR/merge gates, and closeout PR restrictions.
-- Not implemented:
-  - script changes
-  - checker changes
-  - CI / automation wrapper implementation
-  - report file writing
-  - package generation
-  - generated package folder
-  - backend/frontend/Docker/CI/package/lockfile changes
-  - dependency/install/update changes
+- Design document:
+  `docs/llmwiki/pr-body-generator-design.md`
+- Added docs-only design for a future stdout-only PR body generator.
+- Defined required PR body sections, risk templates, explicitly not-performed
+  presets, verification templates, local helper note rules, human review rules,
+  safety wording rules, CLI shape, output format, exit code contract,
+  sanitization rules, integration boundaries, stop conditions, and rollback
+  notes.
+- The generator remains a future task and must not replace safety gates,
+  approve merge, call the GitHub API, create PRs, edit PRs, write PR body
+  files by default, or create package output.
 
-### Y-AUTO-08 safety gate aggregator design
+### Next automation candidates
 
-- Design a local safety gate aggregator that runs the existing report-only and
-  dry-run-only checks.
-- Candidate scripts remain future work:
-  `scripts/run_local_safety_gates.py` or
-  `scripts/run_local_safety_gates.ps1`.
-- Do not implement CI, branch protection, PR comments, package generation, or
-  report file writing in the design PR.
+- Y-AUTO-12 PR body generator stdout-only implementation.
+- Y-AUTO-13 Codex prompt templates.
+- APP-BOOT-01 new app bootstrap template design.
+- APP-BOOT-02 bootstrap skeleton.
 
-### Y-AUTO-09 safety gate aggregator implementation
-
-- Implement only after Y-AUTO-08 design is approved.
-- The implementation must stay local, report-only, and no-generation.
-- It should aggregate existing gates rather than weaken them.
+Actual package generation remains blocked.
 
 ### Existing gate policy reminders
 
@@ -1102,9 +1091,34 @@ Y-AUTO-10B adds `scripts/check_safety_wording.py` as a standalone read-only safe
 
 Next candidates:
 
-- Y-AUTO-11 PR body generator design.
 - Y-AUTO-12 PR body generator stdout-only implementation.
 - Y-AUTO-13 Codex prompt templates.
 - APP-BOOT-01 new app bootstrap template design.
+- APP-BOOT-02 bootstrap skeleton.
+
+Actual package generation remains blocked.
+
+## Y-AUTO-11 Outcome: PR Body Generator Design
+
+Y-AUTO-11 adds `docs/llmwiki/pr-body-generator-design.md` as a docs-only
+design for a future stdout-only PR body generator.
+
+The design standardizes the PR body sections used across recent automation
+PRs: Summary, Risk / automation, Local helper note, Explicitly not performed,
+Verification, Cleanup / rollback, and Human review note.
+
+It defines future input options, required output sections, risk templates,
+explicitly not-performed presets, verification templates, local helper note
+rules, human review rules, safe wording rules, CLI shape, stdout Markdown
+output, exit code contract, sanitization rules, integration with the local
+safety gate aggregator, integration with the safety wording checker, and future
+GitHub API boundaries.
+
+Next candidates:
+
+- Y-AUTO-12 PR body generator stdout-only implementation.
+- Y-AUTO-13 Codex prompt templates.
+- APP-BOOT-01 new app bootstrap template design.
+- APP-BOOT-02 bootstrap skeleton.
 
 Actual package generation remains blocked.

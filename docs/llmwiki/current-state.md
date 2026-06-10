@@ -1728,12 +1728,15 @@
 
 ## Current Next Step
 
-Use the Y-AUTO-07 codex auto lane documentation as the next execution guide.
+Use the Y-AUTO-11 PR body generator design as the next execution guide for the
+automation stream.
 
 The next recommended automation candidates are:
 
-- Y-AUTO-08 safety gate aggregator design
-- Y-AUTO-09 safety gate aggregator implementation
+- Y-AUTO-12 PR body generator stdout-only implementation
+- Y-AUTO-13 Codex prompt templates
+- APP-BOOT-01 new app bootstrap template design
+- APP-BOOT-02 bootstrap skeleton
 
 Use the `Risk classification` section from `scripts/check_repo_safety.py` as the
 first local summary before auto PR or auto merge.
@@ -1837,3 +1840,24 @@ Not implemented:
 - no 更新適用機能.
 
 Next candidate: Y-AUTO-11 PR body generator design.
+
+## Y-AUTO-11 PR Body Generator Design State
+
+Y-AUTO-11 adds a docs-only design for a future PR body generator:
+
+- New design doc: `docs/llmwiki/pr-body-generator-design.md`.
+- Future candidate script path: `scripts/generate_pr_body.py`.
+- Defines output sections, risk templates, explicitly not-performed presets,
+  verification templates, human review templates, local helper note rules,
+  safety wording rules, CLI shape, output format, exit code contract, and
+  sanitization rules.
+- Documents future integration with `scripts/run_local_safety_gates.py` and
+  `scripts/check_safety_wording.py`.
+- Keeps `scripts/check_repo_safety.py` authoritative for repo safety
+  classification.
+- No script implementation, checker change, CI change, GitHub API integration,
+  PR automation, report file writing, package output, backend/frontend/Docker/CI
+  change, package/lockfile change, PR #1001 file change, or secret-like value
+  handling is included.
+
+Next candidate: Y-AUTO-12 PR body generator stdout-only implementation.

@@ -836,10 +836,35 @@ Aggregator command remains:
 python scripts/run_local_safety_gates.py --base fork/master
 ```
 
-Next recommended candidate: Y-AUTO-11 PR body generator design.
+Next recommended candidate: Y-AUTO-12 PR body generator stdout-only implementation.
 
 Carry forward:
 
 - `export_context_updated.py` remains locally excluded and uncommitted.
 - Actual package generation remains blocked.
 - The wording checker does not replace repo safety gates or authorize higher-risk work.
+## Y-AUTO-11 Handoff Update
+
+Latest work: Y-AUTO-11 PR body generator design.
+
+New design doc:
+
+```text
+docs/llmwiki/pr-body-generator-design.md
+```
+
+Next recommended candidate: Y-AUTO-12 PR body generator stdout-only
+implementation.
+
+Available commands:
+
+```powershell
+python scripts/run_local_safety_gates.py --base fork/master
+python scripts/check_safety_wording.py --base fork/master
+```
+
+Carry forward:
+
+- `export_context_updated.py` remains locally excluded and uncommitted.
+- Actual generation remains blocked.
+- The future PR body generator must not replace safety gates or approve merge.

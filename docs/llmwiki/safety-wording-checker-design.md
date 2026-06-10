@@ -189,6 +189,14 @@ Future PR body generation should use safe vocabulary in:
 
 This reduces false BLOCKED results while preserving conservative safety gates.
 
+Y-AUTO-11 adds `docs/llmwiki/pr-body-generator-design.md` as the docs-only
+design for that future generator. Generated PR body text should use the safe
+abstract vocabulary from this document.
+
+A later checker task may add a stdin or explicit PR-body check mode so generated
+Markdown can be validated before use. That future mode is not implemented by
+Y-AUTO-11.
+
 ## False Positive Handling
 
 - Do not weaken repo safety gates first.
