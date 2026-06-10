@@ -2,7 +2,34 @@
 
 ## Immediate Next
 
-### Use Y-AUTO-05 High-mid PR template dry-run policy
+### Y-AUTO-07 codex auto lanes
+
+- Use `docs/llmwiki/automation-efficiency-policy.md` as the current automation
+  execution guide.
+- Turn the Y-AUTO-06 lane definitions into a compact operating reference for
+  future Codex runs.
+- Keep the lane work docs-only unless a later task explicitly approves
+  report-only implementation.
+- Keep High-mid auto merge prohibited and High-high stopped before
+  implementation.
+
+### Y-AUTO-08 safety gate aggregator design
+
+- Design a local safety gate aggregator that runs the existing report-only and
+  dry-run-only checks.
+- Candidate scripts remain future work:
+  `scripts/run_local_safety_gates.py` or
+  `scripts/run_local_safety_gates.ps1`.
+- Do not implement CI, branch protection, PR comments, package generation, or
+  report file writing in the design PR.
+
+### Y-AUTO-09 safety gate aggregator implementation
+
+- Implement only after Y-AUTO-08 design is approved.
+- The implementation must stay local, report-only, and no-generation.
+- It should aggregate existing gates rather than weaken them.
+
+### Existing gate policy reminders
 
 - Read the `Risk classification` section from
   `scripts/check_repo_safety.py` before auto PR or auto merge.
@@ -61,6 +88,31 @@
 - Do not create `動画保存ツール_ローカル専用/`, copy files, build packages, install
   dependencies, add Tauri/Electron/WebView2, change backend/frontend/Docker/CI,
   or change package/lockfile files.
+
+## Y-AUTO-06 Automation Efficiency Policy Outcome
+
+- Policy document:
+  `docs/llmwiki/automation-efficiency-policy.md`
+- Added docs-only automation efficiency policy for safe one-PR scope expansion,
+  Codex auto lanes, local helper handling, closeout PRs, and future automation
+  candidates.
+- Documented `export_context_updated.py` as a local-only WebGPT
+  handoff/context export helper tracked through `.git/info/exclude`.
+- Recorded future candidates:
+  - Y-AUTO-07 codex auto lanes
+  - Y-AUTO-08 safety gate aggregator design
+  - Y-AUTO-09 safety gate aggregator implementation
+  - Y-AUTO-10 PR body generator design
+  - Y-AUTO-11 PR body generator stdout-only implementation
+  - Y-AUTO-12 Codex run prompt templates
+  - Y-AUTO-13 worktree operation design
+  - Y-AUTO-14 stop condition checker design
+- Actual package generation remains blocked.
+- This Y-AUTO-06 PR does not change scripts, add tests, add CI, write report
+  files, create generated distribution folders, create package output, run
+  ビルド/パッケージ/インストール操作, change dependencies, change
+  package/lockfile files, change backend/frontend/Docker/CI files, handle
+  cookie/token/secret values, touch PR #1001 files, or implement 更新適用機能.
 
 ## Y-08E Generation Readiness Checklist Design Outcome
 
