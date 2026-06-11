@@ -2,6 +2,63 @@
 
 ## Immediate Next
 
+### Y-SEC-01 local-only runtime guardrails
+
+- Status: implemented in the current Y-SEC-01 PR branch.
+- Summary: added first-pass local-only runtime guardrails for accidental
+  exposure and dangerous configuration.
+- Runtime guardrails include local Host allowlisting, Origin / Referer checks
+  for state-changing requests, dangerous local-only config fail-fast checks, and
+  minimal security response headers.
+- Y-SEC-01A amends this PR so the default bind is `HOST=127.0.0.1` and
+  non-loopback bind targets are blocked when `LOCAL_ONLY_MODE=true`.
+- Y-SEC-01B adds a dependency-free local-only security helper and
+  standard-library `unittest` coverage for host/source/public-host/config guard
+  decisions. These tests reduce the verification gap when pytest/aiohttp are
+  unavailable, but full backend pytest remains required in a dependency-ready
+  environment.
+- Y-SEC-01C rejects non-local `Origin` headers for all local-only requests,
+  while still allowing requests without `Origin` for local non-browser clients
+  and keeping the `Referer` guard scoped to state-changing requests.
+- No frontend UI, Docker, dependency, lockfile, package generation,
+  yt-dlp extractor, download queue semantic, or safety gate changes are part of
+  this lane.
+- Risk: High-mid / PR-ready only / human-review-required.
+
+### Security next candidates
+
+```text
+Y-SEC-01A:
+  distribution-safe loopback binding amendment
+
+Y-SEC-01B:
+  dependency-free local-only security core tests
+
+Y-SEC-01C:
+  reject non-local Origin on all local-only requests
+
+Y-SEC-02:
+  URL intake SSRF / private-network target guard
+
+Y-DIST-01:
+  CLEAN portable distribution manifest and forbidden-file checker
+
+Y-DIST-02:
+  checksum / hash / version / license notice bundle verification
+
+Y-DIST-03:
+  recipient-safe runbook and first-run local-only verification
+
+Y-SEC-03:
+  log and filename privacy redaction hardening
+
+Y-SEC-04:
+  CSP and frontend security header audit
+
+Y-SEC-05:
+  dependency / ffmpeg / yt-dlp version inventory and update review gate
+```
+
 ### Y-UI-QUALITY-01 quality selector simple labels with numeric values
 
 - Status: completed via fork PR #73.

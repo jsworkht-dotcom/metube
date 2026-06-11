@@ -50,6 +50,144 @@ def _json_request(body: dict | None):
     return req
 
 
+def _guard_request(method: str = "GET", host: str = "localhost:8081", **headers: str):
+    req = MagicMock(spec=web.Request)
+    req.method = method
+    req.headers = {"Host": host, **headers}
+    return req
+
+
+async def _ok_guard_handler(_request):
+    return web.Response(text="ok")
+
+
+async def _guard_response(method: str = "GET", host: str = "localhost:8081", **headers: str):
+    return await main.local_only_runtime_guard(
+        _guard_request(method=method, host=host, **headers),
+        _ok_guard_handler,
+    )
+
+
+@pytest.mark.asyncio
+async def test_local_only_guard_allows_localhost_host(monkeypatch):
+    monkeypatch.setattr(main.config, "LOCAL_ONLY_MODE", True)
+    resp = await _guard_response(host="localhost:8081")
+    assert resp.status == 200
+
+
+@pytest.mark.asyncio
+async def test_local_only_guard_allows_127_host(monkeypatch):
+    monkeypatch.setattr(main.config, "LOCAL_ONLY_MODE", True)
+    resp = await _guard_response(host="127.0.0.1:8081")
+    assert resp.status == 200
+
+
+@pytest.mark.asyncio
+async def test_local_only_guard_rejects_nonlocal_host(monkeypatch):
+    monkeypatch.setattr(main.config, "LOCAL_ONLY_MODE", True)
+    resp = await _guard_response(host="192.168.1.20:8081")
+    assert resp.status == 403
+    assert resp.text == "Local-only access required."
+
+
+@pytest.mark.asyncio
+async def test_local_only_guard_rejects_all_interface_host(monkeypatch):
+    monkeypatch.setattr(main.config, "LOCAL_ONLY_MODE", True)
+    resp = await _guard_response(host="0.0.0.0:8081")
+    assert resp.status == 403
+    assert resp.text == "Local-only access required."
+
+
+@pytest.mark.asyncio
+async def test_local_only_guard_rejects_nonlocal_origin_on_get(monkeypatch):
+    monkeypatch.setattr(main.config, "LOCAL_ONLY_MODE", True)
+    resp = await _guard_response(
+        host="localhost:8081",
+        Origin="https://example.com",
+    )
+    assert resp.status == 403
+    assert resp.text == "Local-only access required."
+
+
+@pytest.mark.asyncio
+async def test_local_only_guard_allows_local_origin_on_get(monkeypatch):
+    monkeypatch.setattr(main.config, "LOCAL_ONLY_MODE", True)
+    resp = await _guard_response(
+        host="localhost:8081",
+        Origin="http://127.0.0.1:8081",
+    )
+    assert resp.status == 200
+
+
+@pytest.mark.asyncio
+async def test_local_only_guard_allows_get_without_origin(monkeypatch):
+    monkeypatch.setattr(main.config, "LOCAL_ONLY_MODE", True)
+    resp = await _guard_response(host="localhost:8081")
+    assert resp.status == 200
+
+
+@pytest.mark.asyncio
+async def test_local_only_guard_rejects_nonlocal_origin_on_post(monkeypatch):
+    monkeypatch.setattr(main.config, "LOCAL_ONLY_MODE", True)
+    resp = await _guard_response(
+        method="POST",
+        host="localhost:8081",
+        Origin="https://example.com",
+    )
+    assert resp.status == 403
+
+
+@pytest.mark.asyncio
+async def test_local_only_guard_allows_local_origin_on_post(monkeypatch):
+    monkeypatch.setattr(main.config, "LOCAL_ONLY_MODE", True)
+    resp = await _guard_response(
+        method="POST",
+        host="localhost:8081",
+        Origin="http://127.0.0.1:8081",
+    )
+    assert resp.status == 200
+
+
+@pytest.mark.asyncio
+async def test_local_only_guard_allows_post_without_origin_or_referer(monkeypatch):
+    monkeypatch.setattr(main.config, "LOCAL_ONLY_MODE", True)
+    resp = await _guard_response(method="POST", host="localhost:8081")
+    assert resp.status == 200
+
+
+@pytest.mark.asyncio
+async def test_local_only_guard_rejects_nonlocal_referer_on_post(monkeypatch):
+    monkeypatch.setattr(main.config, "LOCAL_ONLY_MODE", True)
+    resp = await _guard_response(
+        method="POST",
+        host="localhost:8081",
+        Referer="https://example.com/form",
+    )
+    assert resp.status == 403
+
+
+@pytest.mark.asyncio
+async def test_local_only_guard_adds_security_headers_to_get(monkeypatch):
+    monkeypatch.setattr(main.config, "LOCAL_ONLY_MODE", True)
+    resp = await _guard_response(host="localhost:8081")
+    assert resp.status == 200
+    assert resp.headers["X-Content-Type-Options"] == "nosniff"
+    assert resp.headers["Referrer-Policy"] == "no-referrer"
+    assert resp.headers["X-Frame-Options"] == "DENY"
+    assert resp.headers["Cross-Origin-Resource-Policy"] == "same-origin"
+
+
+@pytest.mark.asyncio
+async def test_local_only_guard_adds_security_headers_to_403(monkeypatch):
+    monkeypatch.setattr(main.config, "LOCAL_ONLY_MODE", True)
+    resp = await _guard_response(host="192.168.1.20:8081")
+    assert resp.status == 403
+    assert resp.headers["X-Content-Type-Options"] == "nosniff"
+    assert resp.headers["Referrer-Policy"] == "no-referrer"
+    assert resp.headers["X-Frame-Options"] == "DENY"
+    assert resp.headers["Cross-Origin-Resource-Policy"] == "same-origin"
+
+
 @pytest.mark.asyncio
 async def test_add_ok(mock_dqueue):
     req = _json_request(_valid_video_add_body())

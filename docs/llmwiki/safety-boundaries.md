@@ -2,9 +2,12 @@
 
 ## Project Scope
 
-- Local-only personal use
+- Local-only per-recipient use
+- Controlled distribution to known recipients is allowed only through a future
+  CLEAN portable distribution process
 - No web publication
 - No external user offering
+- No external SaaS/service offering
 - No monetization or ad workflow
 - Markdown-only project documentation for this LLMwiki
 
@@ -17,8 +20,42 @@
 - No public hosting
 - No ads
 - No mass-download optimization
-- No backend, frontend, extractor, yt-dlp, Docker, CI, package, or lockfile changes as
-  part of this docs-only wiki task
+- No bundled downloads, logs, state, cookies, tokens, secrets, or recipient data
+- No generated package output until an explicit package-generation approval task
+- Distribution work does not approve DRM/auth bypass, cookie handling, or
+  mass-download optimization
+
+## Local-Only Runtime Security Boundary
+
+Y-SEC-01 adds runtime guardrails for the local-only fork. These guardrails are a
+defense against accidental exposure and unsafe local configuration, not a
+replacement for an OS firewall or authentication.
+
+Current local-only runtime boundaries:
+
+- Default runtime mode is `LOCAL_ONLY_MODE=true`.
+- Default bind is `HOST=127.0.0.1`.
+- Non-loopback bind targets are blocked in local-only mode.
+- Normal HTTP and static UI requests are expected to use local Host values such
+  as `localhost`, `127.0.0.1`, or `::1`.
+- Core local-only host/source/public-host/config guard decisions have
+  dependency-free helper coverage runnable with standard-library `unittest`.
+- Dependency-free helper tests reduce the verification gap, but do not replace
+  full aiohttp/pytest backend verification.
+- Browser-originated requests with a non-local `Origin` are rejected regardless
+  of method in local-only mode.
+- Browser state-changing requests with a non-local `Origin` or `Referer` are
+  rejected in local-only mode.
+- Wildcard CORS origins are blocked in local-only mode.
+- Per-download yt-dlp option overrides require the explicit unsafe escape hatch
+  `ALLOW_UNSAFE_YTDL_OPTIONS_OVERRIDES=true` when local-only mode is enabled.
+- Nightly automatic yt-dlp updates require the explicit unsafe escape hatch
+  `ALLOW_UNSAFE_NIGHTLY_UPDATE=true` when local-only mode is enabled.
+- Non-local absolute public host URLs are blocked in local-only mode.
+- Security response headers are added as a minimal browser hardening baseline.
+- Do not describe the Host guard as complete protection against manually forged
+  Host headers.
+- These runtime checks are still not authentication.
 
 ## Update-Status Boundary
 

@@ -2,15 +2,51 @@
 
 ## Short Context
 
-This is `youtubeダウンロード / MeTube local-only fork`, a personal local-only fork of
-MeTube. The canonical branch is fork `master`, and local `master` tracks
-`fork/master`.
+This is `youtubeダウンロード / MeTube local-only fork`, a local-only fork of MeTube.
+The current premise is controlled CLEAN portable distribution to known
+recipients, with each recipient running the app locally on their own PC. The
+canonical branch is fork `master`, and local `master` tracks `fork/master`.
 
 ## Current Closeout State
 
-- Current branch after merge should be `master`.
-- Latest expected `fork/master` after this PR merges will be this PR's future
+- Current Y-SEC-01 work branch:
+  `codex/y-sec-01-local-only-runtime-guardrails`.
+- Baseline before Y-SEC-01: fork `master`
+  `45852c6257380eb9893b7fd624fc52df439a12a3` from fork PR #81.
+- Latest expected `fork/master` after Y-SEC-01 merges will be this PR's future
   merge commit.
+- Current Y-SEC-01 state:
+  - local-only runtime guardrails implemented in backend startup/request
+    handling
+  - default bind is `HOST=127.0.0.1`
+  - non-loopback bind targets are blocked when `LOCAL_ONLY_MODE=true`
+  - dependency-free local-only security helper logic added with
+    standard-library `unittest` coverage for host/source/public-host/config
+    guard decisions
+  - these dependency-free tests reduce the current verification gap, but full
+    aiohttp/pytest backend verification remains pending in an environment with
+    dependencies
+  - local Host allowlist guard
+  - non-local `Origin` headers are rejected for all local-only requests,
+    including GET and browser handshake-style requests
+  - requests without `Origin` remain allowed for local non-browser clients
+  - Origin / Referer guard for state-changing requests
+  - wildcard CORS blocked in local-only mode
+  - yt-dlp option overrides and nightly auto updates require explicit unsafe
+    escape hatches
+  - non-local absolute public host URLs blocked in local-only mode
+  - minimal security response headers added
+  - controlled distribution is CLEAN portable local-only distribution, not
+    public hosting, Cloudflare/public web deployment, or an external
+    SaaS/service offering
+  - PR #82 remains draft until human review
+  - PR body update for Y-SEC-01B was blocked in the previous run by GitHub
+    connector write `403` and local `gh` auth `401`; Y-SEC-01C should retry
+    once and report if the metadata update remains blocked
+  - no package output, dependency install/update, Docker, cookie/token/secret
+    handling, public hosting, or safety gate changes
+- Next candidate:
+  `Y-SEC-02 URL intake SSRF / private-network target guard`.
 - Completed:
   - Y-08F generation readiness checklist preview via fork PR #70.
   - Y-08G readiness summary polish / advisory score refinement via fork PR #71.

@@ -19,6 +19,15 @@ import re
 from urllib.parse import parse_qs, urlencode, urlparse, urlunparse
 from watchfiles import DefaultFilter, Change, awatch
 
+from local_only_security import (
+    PUBLIC_HOST_URL_ATTRS as _PUBLIC_HOST_URL_ATTRS,
+    SECURITY_RESPONSE_HEADERS as _SECURITY_RESPONSE_HEADERS,
+    STATE_CHANGING_METHODS as _STATE_CHANGING_METHODS,
+    browser_origin_allowed as _browser_origin_allowed,
+    is_local_hostname as _is_local_hostname,
+    local_only_config_errors,
+    source_header_allowed as _source_header_allowed,
+)
 import update_status as update_status_checks
 import update_preflight as update_preflight_checks
 import update_plan as update_plan_checks
@@ -30,6 +39,17 @@ log = logging.getLogger('main')
 
 _NIGHTLY_TIME_RE = re.compile(r'^([01]\d|2[0-3]):[0-5]\d$')
 _RESTART_FOR_UPDATE = False
+_LOCAL_ONLY_FORBIDDEN_TEXT = 'Local-only access required.'
+
+
+def _add_security_headers(response):
+    for header, value in _SECURITY_RESPONSE_HEADERS.items():
+        response.headers.setdefault(header, value)
+    return response
+
+
+def _local_only_forbidden_response():
+    return _add_security_headers(web.Response(status=403, text=_LOCAL_ONLY_FORBIDDEN_TEXT))
 
 def _request_graceful_exit() -> None:
     raise GracefulExit()
@@ -83,9 +103,11 @@ class Config:
         'YTDL_OPTIONS_PRESETS': '{}',
         'YTDL_OPTIONS_PRESETS_FILE': '',
         'ALLOW_YTDL_OPTIONS_OVERRIDES': 'false',
+        'ALLOW_UNSAFE_YTDL_OPTIONS_OVERRIDES': 'false',
         'CORS_ALLOWED_ORIGINS': '',
+        'LOCAL_ONLY_MODE': 'true',
         'ROBOTS_TXT': '',
-        'HOST': '0.0.0.0',
+        'HOST': '127.0.0.1',
         'PORT': '8081',
         'HTTPS': 'false',
         'CERTFILE': '',
@@ -96,9 +118,21 @@ class Config:
         'LOGLEVEL': 'INFO',
         'ENABLE_ACCESSLOG': 'false',
         'YTDL_NIGHTLY_UPDATE_TIME': '',
+        'ALLOW_UNSAFE_NIGHTLY_UPDATE': 'false',
     }
 
-    _BOOLEAN = ('DOWNLOAD_DIRS_INDEXABLE', 'CUSTOM_DIRS', 'CREATE_CUSTOM_DIRS', 'DELETE_FILE_ON_TRASHCAN', 'HTTPS', 'ENABLE_ACCESSLOG', 'ALLOW_YTDL_OPTIONS_OVERRIDES')
+    _BOOLEAN = (
+        'DOWNLOAD_DIRS_INDEXABLE',
+        'CUSTOM_DIRS',
+        'CREATE_CUSTOM_DIRS',
+        'DELETE_FILE_ON_TRASHCAN',
+        'HTTPS',
+        'ENABLE_ACCESSLOG',
+        'ALLOW_YTDL_OPTIONS_OVERRIDES',
+        'ALLOW_UNSAFE_YTDL_OPTIONS_OVERRIDES',
+        'LOCAL_ONLY_MODE',
+        'ALLOW_UNSAFE_NIGHTLY_UPDATE',
+    )
 
     def __init__(self):
         for k, v in self._DEFAULTS.items():
@@ -116,7 +150,7 @@ class Config:
         if not self.URL_PREFIX.endswith('/'):
             self.URL_PREFIX += '/'
 
-        for attr in ('PUBLIC_HOST_URL', 'PUBLIC_HOST_AUDIO_URL'):
+        for attr in _PUBLIC_HOST_URL_ATTRS:
             val = getattr(self, attr)
             if val and not val.endswith('/'):
                 setattr(self, attr, val + '/')
@@ -129,10 +163,11 @@ class Config:
 
         if self.YTDL_NIGHTLY_UPDATE_TIME and not _NIGHTLY_TIME_RE.match(self.YTDL_NIGHTLY_UPDATE_TIME):
             log.error(
-                'Environment variable "YTDL_NIGHTLY_UPDATE_TIME" must be HH:MM (24-hour), got "%s"',
-                self.YTDL_NIGHTLY_UPDATE_TIME,
+                'Environment variable "YTDL_NIGHTLY_UPDATE_TIME" must be HH:MM (24-hour)',
             )
             sys.exit(1)
+
+        self._validate_local_only_guardrails()
 
         self._runtime_overrides = {}
 
@@ -142,6 +177,14 @@ class Config:
         success,_ = self.load_ytdl_option_presets()
         if not success:
             sys.exit(1)
+
+    def _config_error(self, message: str) -> None:
+        log.error(message)
+        sys.exit(1)
+
+    def _validate_local_only_guardrails(self) -> None:
+        for error in local_only_config_errors(self):
+            self._config_error(error)
 
     def set_runtime_override(self, key, value):
         self._runtime_overrides[key] = value
@@ -237,6 +280,40 @@ class Config:
         self.YTDL_OPTIONS_PRESETS.update(opts)
         return (True, '')
 
+
+def _state_changing_source_allowed(request) -> bool:
+    origin = request.headers.get('Origin')
+    if origin is not None:
+        return True
+
+    referer = request.headers.get('Referer')
+    if referer is not None:
+        return _source_header_allowed(referer, request.headers.get('Host'))
+
+    return True
+
+
+@web.middleware
+async def local_only_runtime_guard(request, handler):
+    if config.LOCAL_ONLY_MODE:
+        if not _is_local_hostname(request.headers.get('Host')):
+            return _local_only_forbidden_response()
+
+        if not _browser_origin_allowed(request.headers.get('Origin'), request.headers.get('Host')):
+            return _local_only_forbidden_response()
+
+        if request.method.upper() in _STATE_CHANGING_METHODS and not _state_changing_source_allowed(request):
+            return _local_only_forbidden_response()
+
+    try:
+        response = await handler(request)
+    except web.HTTPException as e:
+        _add_security_headers(e)
+        raise
+
+    return _add_security_headers(response)
+
+
 config = Config()
 # Align root logger level with Config (keeps a single source of truth).
 # This re-applies the log level after Config loads, in case LOGLEVEL was
@@ -259,7 +336,7 @@ class ObjectSerializer(json.JSONEncoder):
         return json.JSONEncoder.default(self, obj)
 
 serializer = ObjectSerializer()
-app = web.Application()
+app = web.Application(middlewares=[local_only_runtime_guard])
 _cors_origins = [o.strip() for o in config.CORS_ALLOWED_ORIGINS.split(',') if o.strip()] if config.CORS_ALLOWED_ORIGINS else []
 sio = socketio.AsyncServer(cors_allowed_origins=_cors_origins if _cors_origins else [])
 sio.attach(app, socketio_path=config.URL_PREFIX + 'socket.io')
@@ -1198,6 +1275,7 @@ app.router.add_route('OPTIONS', config.URL_PREFIX + 'upload-cookies', add_cors)
 app.router.add_route('OPTIONS', config.URL_PREFIX + 'delete-cookies', add_cors)
 
 async def on_prepare(request, response):
+    _add_security_headers(response)
     origin = request.headers.get('Origin')
     if origin and _cors_origins and ('*' in _cors_origins or origin in _cors_origins):
         response.headers['Access-Control-Allow-Origin'] = origin
