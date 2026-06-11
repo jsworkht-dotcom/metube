@@ -2,6 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { HttpClient } from '@angular/common/http';
 import { Subject, of } from 'rxjs';
 import { App } from './app';
+import { type Download } from './interfaces';
 import { DownloadsService } from './services/downloads.service';
 import { SubscriptionsService } from './services/subscriptions.service';
 import { CookieService } from 'ngx-cookie-service';
@@ -102,6 +103,26 @@ class CookieServiceStub {
 interface HttpClientMock {
   get: ReturnType<typeof vi.fn>;
 }
+
+const buildDownload = (overrides: Partial<Download>): Download => ({
+  id: 'test-id',
+  title: 'Test download',
+  url: 'https://example.com/watch?v=test',
+  download_type: 'video',
+  quality: 'best',
+  format: 'mp4',
+  folder: '',
+  custom_name_prefix: '',
+  playlist_item_limit: 0,
+  status: 'finished',
+  msg: '',
+  percent: 100,
+  speed: 0,
+  eta: 0,
+  filename: 'test.mp4',
+  checked: false,
+  ...overrides,
+});
 
 describe('App', () => {
   let downloads: DownloadsServiceStub;
@@ -246,6 +267,67 @@ describe('App', () => {
     const payload = subs.subscribeCalls[0] as Record<string, unknown>;
     expect('clipStart' in payload).toBe(false);
     expect('clipEnd' in payload).toBe(false);
+  });
+
+  it('formats completed video quality labels with selector wording', () => {
+    const fixture = TestBed.createComponent(App);
+    const app = fixture.componentInstance;
+    const labels = ['best', 'worst', '2160', '1440', '1080', '720', '480', '360', '240', '999'].map(
+      quality => app.formatQualityLabel(buildDownload({ download_type: 'video', quality })),
+    );
+
+    expect(labels).toEqual([
+      '最高画質（自動）',
+      '最低画質（自動）',
+      '4K（2160p）',
+      '高画質（1440p）',
+      'フルHD（1080p）',
+      '標準（720p）',
+      '軽量（480p）',
+      '低容量（360p）',
+      '最小（240p）',
+      '999p',
+    ]);
+  });
+
+  it('formats completed audio quality labels with selector wording', () => {
+    const fixture = TestBed.createComponent(App);
+    const app = fixture.componentInstance;
+    const labels = ['best', '320', '192', '128', '256'].map(quality =>
+      app.formatQualityLabel(buildDownload({ download_type: 'audio', quality })),
+    );
+
+    expect(labels).toEqual([
+      '最高音質（自動）',
+      '高音質（320kbps）',
+      '標準（192kbps）',
+      '軽量（128kbps）',
+      '256kbps',
+    ]);
+  });
+
+  it('keeps caption and thumbnail result quality labels hidden', () => {
+    const fixture = TestBed.createComponent(App);
+    const app = fixture.componentInstance;
+
+    expect(app.formatQualityLabel(buildDownload({ download_type: 'captions', quality: 'best' }))).toBe(
+      '-',
+    );
+    expect(app.formatQualityLabel(buildDownload({ download_type: 'thumbnail', quality: 'best' }))).toBe(
+      '-',
+    );
+  });
+
+  it('keeps a safe fallback for unknown result quality labels', () => {
+    const fixture = TestBed.createComponent(App);
+    const app = fixture.componentInstance;
+
+    expect(app.formatQualityLabel(buildDownload({ download_type: 'video', quality: 'custom' }))).toBe(
+      'Custom',
+    );
+    expect(app.formatQualityLabel(buildDownload({ download_type: 'audio', quality: 'lossless' }))).toBe(
+      'Lossless',
+    );
   });
 
   it('buildAddPayload includes clip times', () => {
