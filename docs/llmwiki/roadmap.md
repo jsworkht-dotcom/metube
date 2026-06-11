@@ -2,29 +2,40 @@
 
 ## Immediate Next
 
-### Y-08Z preview hardening closeout
+### Y-UI-QUALITY-01 quality selector simple labels with numeric values
 
-- Status: completed by this PR.
-- Closes the Y-08 clean-package preview hardening lane.
-- Y-08F generation readiness checklist preview is complete via fork PR #70.
-- Y-08G readiness summary polish / advisory score refinement is complete via
-  fork PR #71.
-- Readiness preview remains report-only and advisory-only:
-  - `overall: blocked`
-  - `actual_generation_approved: false`
-  - `score_basis: advisory_only`
-  - `advisory_score: 23/100`
-  - `approval_meaning: none`
-- Actual clean-package generation remains blocked.
+- Status: completed via fork PR #73.
+- Summary: simplified visible quality labels while preserving option ids and
+  backend behavior.
+- Visible video/audio quality labels now use simple Japanese labels plus numeric
+  values.
+- Existing option ids, API payloads, backend validation, and download logic were
+  unchanged.
+- The PR was frontend UI label-only and required human-reviewed merge because
+  the current local safety aggregator forbids `ui/**`.
+- This closeout does not modify safety gate behavior or broaden auto-merge
+  policy for `ui/**`.
 
 ### Next candidates
 
 Immediate next:
 
 ```text
-Y-UI-QUALITY-01:
-  quality selector simple labels with numeric values
+Y-UI-QUALITY-02:
+  optional quality selector helper copy / tooltip polish
 ```
+
+Automation later:
+
+```text
+Y-AUTO-later:
+  consider scoped aggregator support for explicitly approved frontend label-only lanes
+```
+
+- Do not modify safety gate behavior in this closeout.
+- Do not broaden auto-merge policy for `ui/**` in this closeout.
+- Any future frontend lane remains human-reviewed unless a later policy PR
+  explicitly updates the gate.
 
 Later clean-package lane:
 
@@ -166,8 +177,10 @@ Actual package generation remains blocked.
 ### Next package-material candidate
 
 - Y-08Z closes the preview hardening lane in this PR.
-- The next practical candidate is Y-UI-QUALITY-01 quality selector simple
-  labels with numeric values.
+- Y-UI-QUALITY-01 quality selector simple labels with numeric values is complete
+  via fork PR #73.
+- The next practical UI candidate is Y-UI-QUALITY-02 optional quality selector
+  helper copy / tooltip polish.
 - Later clean-package work should resume as Y-09 human-reviewed generation
   prototype planning only, not actual generation.
 - Keep Y-09 blocked unless later human-reviewed approval is given.
@@ -179,6 +192,8 @@ Actual package generation remains blocked.
 - Do not create `動画保存ツール_ローカル専用/`, copy files, build packages, install
   dependencies, add Tauri/Electron/WebView2, change backend/frontend/Docker/CI,
   or change package/lockfile files.
+- Do not broaden auto-merge policy for frontend `ui/**` work without a later
+  explicit safety gate policy PR.
 
 ## Y-AUTO-06 Automation Efficiency Policy Outcome
 
@@ -1180,11 +1195,14 @@ Any automatic update stage must respect the safety boundaries in
 
 ## Future UI Improvement Candidates
 
+- Y-UI-QUALITY-02 quality selector helper copy / tooltip polish
 - Improve clarity of Japanese status and error copy
 - Make local-only state visible without adding public hosting assumptions
 - Improve update-status footer presentation after runtime verification
-- Keep UI changes separate from backend, Docker, and CI changes unless a task explicitly
-  requires a broader scope
+- Keep UI changes separate from backend, Docker, and CI changes unless a task
+  explicitly requires a broader scope.
+- Keep frontend `ui/**` work human-reviewed unless a later policy PR explicitly
+  updates the local safety gate and automation policy.
 
 ## Not In Scope Now
 
