@@ -7,9 +7,13 @@ import unittest
 
 from app.local_only_security import (
     browser_origin_allowed,
+    contains_sensitive_url_material,
     is_local_hostname,
     local_only_config_errors,
     public_host_url_allowed,
+    redact_text_for_log,
+    redact_url_for_log,
+    sanitize_filename_component,
     source_header_allowed,
     strip_host_port,
     url_intake_security_errors,
@@ -185,6 +189,81 @@ class LocalOnlySecurityTests(unittest.TestCase):
         ):
             with self.subTest(url=url):
                 self.assertUrlBlocked(url)
+
+    def test_url_redaction_strips_query_fragment_userinfo_and_path(self):
+        cases = {
+            'https://example.com/watch?v=abc&token=secret': 'https://example.com/[redacted]',
+            'https://example.com/watch#secret-fragment': 'https://example.com/[redacted]',
+            'https://user:pass@example.com/video': 'https://example.com/[redacted]',
+            'http://127.0.0.1:8081/private?x=1': 'http://127.0.0.1/[redacted]',
+        }
+        for raw_url, redacted in cases.items():
+            with self.subTest(raw_url=raw_url):
+                self.assertEqual(redact_url_for_log(raw_url), redacted)
+
+    def test_url_redaction_uses_placeholder_for_malformed_or_missing_values(self):
+        self.assertEqual(redact_url_for_log('not-a-url-with-token=abc'), '[redacted]')
+        self.assertEqual(redact_url_for_log(None), '[redacted]')
+
+    def test_sensitive_url_material_detection(self):
+        for value in (
+            'https://example.com/watch?v=abc',
+            'https://example.com/video',
+            'https://user:pass@example.com/video',
+            'token=abc123',
+            'Cookie: sessionid=abc',
+            'C:\\Users\\name\\file',
+            '/home/name/file',
+        ):
+            with self.subTest(value=value):
+                self.assertTrue(contains_sensitive_url_material(value))
+        self.assertFalse(contains_sensitive_url_material('plain status message'))
+
+    def test_text_redaction_replaces_secret_like_values(self):
+        cases = {
+            'token=abc123': 'token=[redacted]',
+            'access_token=abc123': 'access_token=[redacted]',
+            'api_key=abc123': 'api_key=[redacted]',
+            'password=abc123': 'password=[redacted]',
+            'secret=abc123': 'secret=[redacted]',
+            'Authorization: Bearer abc.def.ghi': 'Authorization: Bearer [redacted]',
+            'Cookie: sessionid=abc': 'Cookie: [redacted]',
+        }
+        for raw_text, redacted in cases.items():
+            with self.subTest(raw_text=raw_text):
+                self.assertEqual(redact_text_for_log(raw_text), redacted)
+
+    def test_text_redaction_keeps_benign_text_readable(self):
+        text = 'Download completed with public metadata'
+        self.assertEqual(redact_text_for_log(text), text)
+
+    def test_filename_sanitization_removes_traversal_and_path_material(self):
+        traversal = sanitize_filename_component('../secret')
+        self.assertNotIn('..', traversal)
+        self.assertNotIn('/', traversal)
+        self.assertNotIn('\\', traversal)
+
+        windows_path = sanitize_filename_component('C:\\Users\\name\\file')
+        self.assertNotIn(':', windows_path)
+        self.assertNotIn('\\', windows_path)
+        self.assertNotIn('/', windows_path)
+
+    def test_filename_sanitization_handles_reserved_and_invalid_names(self):
+        self.assertEqual(sanitize_filename_component('CON'), 'download')
+        self.assertEqual(sanitize_filename_component('NUL.txt'), 'download')
+        sanitized = sanitize_filename_component('video:title?*')
+        for invalid in '<>:"/\\|?*':
+            self.assertNotIn(invalid, sanitized)
+        self.assertTrue(sanitized.startswith('video'))
+
+    def test_filename_sanitization_removes_controls_trailing_dots_and_limits_length(self):
+        self.assertEqual(sanitize_filename_component('bad\x00name'), 'badname')
+        self.assertEqual(sanitize_filename_component('video.  '), 'video')
+        self.assertLessEqual(len(sanitize_filename_component('a' * 200)), 120)
+        self.assertEqual(sanitize_filename_component(''), 'download')
+
+    def test_filename_sanitization_preserves_japanese_text(self):
+        self.assertEqual(sanitize_filename_component('動画タイトル'), '動画タイトル')
 
     def test_safe_default_like_config_returns_no_errors(self):
         self.assertEqual(local_only_config_errors(_safe_config()), [])

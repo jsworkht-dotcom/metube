@@ -19,8 +19,8 @@
 - Do not open PRs against upstream `alexta69/metube` unless explicitly requested for a
   separate upstream contribution.
 - Do not mix upstream PR #1001 files into fork-only work.
-- Latest baseline before Y-SEC-02: fork `master`
-  `e63e282afdb4d710b01d6562a2ffd377c3a3fc32` from fork PR #82.
+- Latest Y-SEC-02 merge baseline: fork `master`
+  `e54058dc112ae6c29237738b21bff0e3253407ea` from fork PR #83.
 
 ## Current Runtime Security State
 
@@ -59,8 +59,8 @@
 
 ### Y-SEC-02 URL intake SSRF / private-network target guard
 
-- Implemented in draft PR branch
-  `codex/y-sec-02-url-intake-ssrf-guard`.
+- Completed via fork PR #83.
+- Merge commit: `e54058dc112ae6c29237738b21bff0e3253407ea`.
 - Adds `URL_INTAKE_GUARD=true` by default and requires it to remain enabled
   when `LOCAL_ONLY_MODE=true`.
 - Adds a dependency-free URL intake helper for user-submitted download and
@@ -84,6 +84,29 @@
 - No package output, dependency install/update, Docker operation, public
   hosting, real download, cookie/token/secret handling, frontend change, or
   safety gate change was performed.
+
+### Y-SEC-03 log and filename privacy redaction hardening
+
+- Implemented in draft PR branch
+  `codex/y-sec-03-log-filename-redaction`.
+- Adds dependency-free privacy helpers in `app/local_only_security.py` for
+  URL log redaction, general text redaction, sensitive-material detection, and
+  single-component filename sanitization.
+- URL redaction preserves only scheme and hostname for HTTP(S) values and
+  removes userinfo, path details, query strings, and fragments.
+- Text redaction covers token-like key/value material, bearer authorization
+  headers, cookie headers, common local Windows paths, and common local Unix
+  paths.
+- `/add` and `/subscribe` sanitize non-empty `custom_name_prefix` before queue
+  or subscription use, while omitted or empty prefixes remain empty.
+- Unsafe URL intake errors remain generic and do not echo the submitted URL.
+- Bad-request logging defensively redacts the reason string.
+- This is first-pass redaction/sanitization. It does not claim all downstream
+  yt-dlp filenames are fully controlled.
+- No real download, package output, generated distribution folder, dependency
+  install/update, Docker operation, public hosting, cookie/token/secret
+  handling, frontend change, package/lockfile change, or safety gate change
+  was performed.
 
 ## Completed Work
 
@@ -1991,6 +2014,12 @@
   - Actual package generation remains blocked.
 
 ## Current Next Step
+
+Y-SEC-03 is implemented in draft PR branch
+`codex/y-sec-03-log-filename-redaction` for log/error privacy redaction and
+custom filename prefix sanitization. Human review is required before ready or
+merge. Next practical candidates are Y-DIST-01, Y-DIST-02, Y-DIST-03,
+Y-SEC-04, and Y-SEC-05.
 
 Y-08Z closes the Y-08 preview hardening lane as docs-only closeout.
 Y-UI-QUALITY-01 is complete via fork PR #73 with merge commit

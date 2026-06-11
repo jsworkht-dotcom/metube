@@ -58,6 +58,13 @@ Current local-only runtime boundaries:
 - URL intake protection is first-pass request validation. Do not claim complete
   protection against all DNS rebinding, downstream redirects, or later URLs
   fetched internally by yt-dlp.
+- Logs and user-facing errors should not expose raw submitted URLs, query
+  strings, token-like values, cookies, authorization headers, or local
+  filesystem paths.
+- Filename inputs must be sanitized before use in filesystem-affecting fields.
+- Filename sanitization is first-pass input hardening. Do not claim all
+  downstream yt-dlp filenames are fully controlled unless that is separately
+  proven.
 - Security response headers are added as a minimal browser hardening baseline.
 - Do not describe the Host guard as complete protection against manually forged
   Host headers.
