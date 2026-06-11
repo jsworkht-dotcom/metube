@@ -9,10 +9,10 @@ canonical branch is fork `master`, and local `master` tracks `fork/master`.
 
 ## Current Closeout State
 
-- Current Y-SEC-02 work branch:
-  `codex/y-sec-02-url-intake-ssrf-guard`.
-- Baseline before Y-SEC-02: fork `master`
-  `e63e282afdb4d710b01d6562a2ffd377c3a3fc32` from fork PR #82.
+- Current Y-SEC-03 work branch:
+  `codex/y-sec-03-log-filename-redaction`.
+- Baseline before Y-SEC-03: fork `master`
+  `e54058dc112ae6c29237738b21bff0e3253407ea` from fork PR #83.
 - Y-SEC-01 is complete via fork PR #82.
 - Y-SEC-01 state:
   - local-only runtime guardrails implemented in backend startup/request
@@ -41,6 +41,8 @@ canonical branch is fork `master`, and local `master` tracks `fork/master`.
   - no package output, dependency install/update, Docker, cookie/token/secret
     handling, public hosting, or safety gate changes
 - Current Y-SEC-02 state:
+  - completed via fork PR #83
+  - merge commit: `e54058dc112ae6c29237738b21bff0e3253407ea`
   - `URL_INTAKE_GUARD=true` is default-on and must remain enabled when
     `LOCAL_ONLY_MODE=true`
   - dependency-free URL intake helper added in `app/local_only_security.py`
@@ -62,8 +64,27 @@ canonical branch is fork `master`, and local `master` tracks `fork/master`.
   - no package output, dependency install/update, Docker, frontend change,
     cookie/token/secret handling, real download, public hosting, or safety gate
     change
-- Next candidate:
-  `Y-SEC-03 log and filename privacy redaction hardening`.
+- Current Y-SEC-03 state:
+  - dependency-free privacy helpers added in `app/local_only_security.py`
+  - URL log summaries remove userinfo, path details, query strings, and
+    fragments
+  - text redaction covers token-like key/value material, bearer authorization,
+    cookies, and common local path material
+  - non-empty `custom_name_prefix` values are sanitized before queue or
+    subscription use
+  - omitted or empty custom prefixes remain empty
+  - unsafe URL errors remain generic and do not echo the submitted URL
+  - downstream yt-dlp may still derive filenames internally; do not claim full
+    final filename control
+  - no package output, dependency install/update, Docker, frontend change,
+    package/lockfile change, cookie/token/secret handling, real download,
+    public hosting, or safety gate change
+- Next candidates:
+  - `Y-DIST-01 CLEAN portable distribution manifest and forbidden-file checker`
+  - `Y-DIST-02 checksum / hash / version / license notice bundle verification`
+  - `Y-DIST-03 recipient-safe runbook and first-run local-only verification`
+  - `Y-SEC-04 CSP and frontend security header audit`
+  - `Y-SEC-05 dependency / ffmpeg / yt-dlp version inventory and update review gate`
 - Completed:
   - Y-08F generation readiness checklist preview via fork PR #70.
   - Y-08G readiness summary polish / advisory score refinement via fork PR #71.
@@ -157,6 +178,8 @@ canonical branch is fork `master`, and local `master` tracks `fork/master`.
    checks, or merge commands fail inside Codex
 19. `docs/llmwiki/preflight-environment-checker-design.md` before future
    preflight checker implementation work
+20. `docs/llmwiki/privacy-redaction-security.md` before future log/error or
+   filename privacy work
 
 ## Key Points For Codex
 

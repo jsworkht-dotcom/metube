@@ -301,10 +301,27 @@ async def test_add_invalid_subtitle_language(mock_dqueue):
 
 
 @pytest.mark.asyncio
-async def test_add_custom_name_prefix_path_traversal(mock_dqueue):
-    req = _json_request(_valid_video_add_body(custom_name_prefix="../evil"))
-    with pytest.raises(web.HTTPBadRequest):
-        await main.add(req)
+async def test_add_custom_name_prefix_path_traversal_sanitized(mock_dqueue):
+    req = _json_request(_valid_video_add_body(custom_name_prefix="../secret"))
+    resp = await main.add(req)
+    assert resp.status == 200
+    call = mock_dqueue.add.await_args
+    assert call is not None
+    custom_name_prefix = call.args[6]
+    assert custom_name_prefix
+    assert ".." not in custom_name_prefix
+    assert "/" not in custom_name_prefix
+    assert "\\" not in custom_name_prefix
+
+
+@pytest.mark.asyncio
+async def test_add_custom_name_prefix_reserved_name_sanitized(mock_dqueue):
+    req = _json_request(_valid_video_add_body(custom_name_prefix="CON"))
+    resp = await main.add(req)
+    assert resp.status == 200
+    call = mock_dqueue.add.await_args
+    assert call is not None
+    assert call.args[6] == "download"
 
 
 @pytest.mark.asyncio

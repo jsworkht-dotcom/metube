@@ -27,8 +27,8 @@
 
 ### Y-SEC-02 URL intake SSRF / private-network target guard
 
-- Status: implemented in draft PR branch
-  `codex/y-sec-02-url-intake-ssrf-guard`.
+- Status: completed via fork PR #83.
+- Merge commit: `e54058dc112ae6c29237738b21bff0e3253407ea`.
 - Summary: added first-pass URL intake protection for user-submitted download
   and subscription URLs before enqueue or subscription creation.
 - `URL_INTAKE_GUARD=true` is default-on and must remain enabled while
@@ -47,12 +47,27 @@
   lane.
 - Risk: High-high / draft PR only / human-review-required.
 
+### Y-SEC-03 log and filename privacy redaction hardening
+
+- Status: implemented in draft PR branch
+  `codex/y-sec-03-log-filename-redaction`.
+- Summary: added first-pass dependency-free privacy redaction helpers for
+  URL/log text material and filename component sanitization.
+- URL/log redaction removes query strings, fragments, userinfo, token-like
+  values, bearer auth headers, cookie headers, and common local path material.
+- Non-empty `custom_name_prefix` values are sanitized before queue or
+  subscription use. Omitted or empty custom prefixes remain empty.
+- Unsafe URL intake errors remain generic and do not echo the submitted URL.
+- Known limits: downstream yt-dlp may still derive filenames internally, so do
+  not claim every final filename is fully controlled by this first pass.
+- No frontend UI, Docker, dependency, lockfile, package generation, yt-dlp
+  extractor, real download, cookie/token/secret handling, or safety gate change
+  is part of this lane.
+- Risk: High-high / draft PR only / human-review-required.
+
 ### Security next candidates
 
 ```text
-Y-SEC-03:
-  log and filename privacy redaction hardening
-
 Y-DIST-01:
   CLEAN portable distribution manifest and forbidden-file checker
 

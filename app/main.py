@@ -26,6 +26,8 @@ from local_only_security import (
     browser_origin_allowed as _browser_origin_allowed,
     is_local_hostname as _is_local_hostname,
     local_only_config_errors,
+    redact_text_for_log,
+    sanitize_filename_component,
     source_header_allowed as _source_header_allowed,
     url_intake_security_errors,
 )
@@ -732,8 +734,10 @@ def parse_download_options(post: dict) -> dict:
 
     if custom_name_prefix is None:
         custom_name_prefix = ''
-    if custom_name_prefix and ('..' in custom_name_prefix or custom_name_prefix.startswith('/') or custom_name_prefix.startswith('\\')):
-        raise web.HTTPBadRequest(reason='custom_name_prefix must not contain ".." or start with a path separator')
+    else:
+        custom_name_prefix = str(custom_name_prefix).strip()
+        if custom_name_prefix:
+            custom_name_prefix = sanitize_filename_component(custom_name_prefix)
     if auto_start is None:
         auto_start = True
     if playlist_item_limit is None:
@@ -866,7 +870,7 @@ async def add(request):
     try:
         o = parse_download_options(post)
     except web.HTTPBadRequest as e:
-        log.error("Bad request: %s", e.reason)
+        log.error("Bad request: %s", redact_text_for_log(e.reason))
         raise
     log.info(
         "Add download request: type=%s quality=%s format=%s has_folder=%s auto_start=%s",

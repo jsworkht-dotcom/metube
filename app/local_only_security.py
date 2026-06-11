@@ -7,7 +7,9 @@ local-only guard decisions can be tested without aiohttp or pytest.
 from __future__ import annotations
 
 import ipaddress
+import re
 import socket
+import unicodedata
 from urllib.parse import urlparse
 
 LOCAL_ONLY_ALLOWED_HOSTS = {'localhost', '127.0.0.1', '::1'}
@@ -49,6 +51,159 @@ URL_INTAKE_BLOCKED_IPV6_NETWORKS = tuple(
         'ff00::/8',
     )
 )
+REDACTED_VALUE = '[redacted]'
+REDACTED_PATH_VALUE = '[redacted-path]'
+_MAX_FILENAME_COMPONENT_LENGTH = 120
+_SENSITIVE_KEY_VALUE_RE = re.compile(
+    r'\b(?P<key>access_token|refresh_token|id_token|api_key|token|password|secret|'
+    r'signature|sig|key|sessionid|session|cookie)\s*=\s*[^&\s;,]+',
+    re.IGNORECASE,
+)
+_AUTH_BEARER_RE = re.compile(
+    r'\bAuthorization\s*:\s*Bearer\s+[^\r\n\s,;]+',
+    re.IGNORECASE | re.MULTILINE,
+)
+_COOKIE_HEADER_RE = re.compile(r'\bCookie\s*:\s*[^\r\n]*', re.IGNORECASE | re.MULTILINE)
+_SET_COOKIE_HEADER_RE = re.compile(r'\bSet-Cookie\s*:\s*[^\r\n]*', re.IGNORECASE | re.MULTILINE)
+_URL_IN_TEXT_RE = re.compile(r'\bhttps?://[^\s<>"\']+', re.IGNORECASE)
+_WINDOWS_LOCAL_PATH_RE = re.compile(
+    r'(?<![\w/])(?:[A-Za-z]:[\\/][^\s<>"|?*]+|\\\\[^\\/\s]+\\[^\\/\s][^\s<>"|?*]*)'
+)
+_UNIX_LOCAL_PATH_RE = re.compile(
+    r'(?<![\w:])/(?:Users|home|root|etc|var|tmp|mnt|Volumes|private|opt|srv|workspace)'
+    r'(?:/[^\s<>"\']*)?'
+)
+_FILENAME_INVALID_TRANSLATION = str.maketrans({char: '_' for char in '<>:"/\\|?*'})
+_WINDOWS_RESERVED_FILENAMES = {
+    'CON',
+    'PRN',
+    'AUX',
+    'NUL',
+    *(f'COM{i}' for i in range(1, 10)),
+    *(f'LPT{i}' for i in range(1, 10)),
+}
+
+
+def _redacted_key_value(match: re.Match[str]) -> str:
+    return f"{match.group('key')}={REDACTED_VALUE}"
+
+
+def _redacted_url_host(hostname: str) -> str:
+    if ':' in hostname and not (hostname.startswith('[') and hostname.endswith(']')):
+        return f'[{hostname}]'
+    return hostname
+
+
+def redact_url_for_log(value: str | None) -> str:
+    """Return a log-safe URL summary without path, query, fragment, or userinfo."""
+    if value is None:
+        return REDACTED_VALUE
+
+    text = str(value).strip()
+    if not text or any(char.isspace() for char in text):
+        return REDACTED_VALUE
+
+    try:
+        parsed = urlparse(text)
+        parsed.port
+        hostname = parsed.hostname
+    except ValueError:
+        return REDACTED_VALUE
+
+    scheme = parsed.scheme.lower()
+    if scheme not in URL_INTAKE_ALLOWED_SCHEMES or not hostname:
+        return REDACTED_VALUE
+
+    host = _redacted_url_host(hostname.lower().rstrip('.'))
+    summary = f'{scheme}://{host}'
+    if parsed.path or parsed.query or parsed.fragment or parsed.username or parsed.password:
+        summary += f'/{REDACTED_VALUE}'
+    return summary
+
+
+def contains_sensitive_url_material(value: str | None) -> bool:
+    """Return True when text contains URL, token, cookie, auth, or local-path material."""
+    if value is None:
+        return False
+
+    text = str(value).strip()
+    if not text:
+        return False
+    if (
+        _SENSITIVE_KEY_VALUE_RE.search(text)
+        or _AUTH_BEARER_RE.search(text)
+        or _COOKIE_HEADER_RE.search(text)
+        or _SET_COOKIE_HEADER_RE.search(text)
+        or _WINDOWS_LOCAL_PATH_RE.search(text)
+        or _UNIX_LOCAL_PATH_RE.search(text)
+    ):
+        return True
+
+    try:
+        parsed = urlparse(text)
+        parsed.port
+    except ValueError:
+        return True
+
+    return bool(
+        parsed.query
+        or parsed.fragment
+        or parsed.username
+        or parsed.password
+        or (parsed.scheme and parsed.netloc and parsed.path)
+    )
+
+
+def redact_text_for_log(value: object) -> str:
+    """Redact common secret-like values while leaving benign text readable."""
+    if value is None:
+        return REDACTED_VALUE
+
+    text = str(value)
+    text = _URL_IN_TEXT_RE.sub(lambda match: redact_url_for_log(match.group(0)), text)
+    text = _SET_COOKIE_HEADER_RE.sub(f'Set-Cookie: {REDACTED_VALUE}', text)
+    text = _COOKIE_HEADER_RE.sub(f'Cookie: {REDACTED_VALUE}', text)
+    text = _AUTH_BEARER_RE.sub(f'Authorization: Bearer {REDACTED_VALUE}', text)
+    text = _SENSITIVE_KEY_VALUE_RE.sub(_redacted_key_value, text)
+    text = _WINDOWS_LOCAL_PATH_RE.sub(REDACTED_PATH_VALUE, text)
+    text = _UNIX_LOCAL_PATH_RE.sub(REDACTED_PATH_VALUE, text)
+    return text
+
+
+def _filename_component_cleaned(value: str) -> str:
+    without_controls = ''.join(
+        char for char in value if unicodedata.category(char)[0] != 'C'
+    )
+    cleaned = without_controls.translate(_FILENAME_INVALID_TRANSLATION)
+    cleaned = re.sub(r'\.{2,}', '_', cleaned)
+    cleaned = re.sub(r'_+', '_', cleaned)
+    return cleaned.strip().strip('. ')
+
+
+def _reserved_windows_filename(value: str) -> bool:
+    stem = value.split('.', 1)[0].strip().upper()
+    return stem in _WINDOWS_RESERVED_FILENAMES
+
+
+def _safe_filename_fallback(fallback: str) -> str:
+    cleaned = _filename_component_cleaned(str(fallback or 'download'))
+    cleaned = cleaned[:_MAX_FILENAME_COMPONENT_LENGTH].rstrip(' .')
+    if not cleaned or cleaned in {'.', '..'} or _reserved_windows_filename(cleaned):
+        return 'download'
+    return cleaned
+
+
+def sanitize_filename_component(value: str | None, *, fallback: str = 'download') -> str:
+    """Return a safe single filename component for user-controlled name pieces."""
+    safe_fallback = _safe_filename_fallback(fallback)
+    if value is None:
+        return safe_fallback
+
+    cleaned = _filename_component_cleaned(str(value))
+    cleaned = cleaned[:_MAX_FILENAME_COMPONENT_LENGTH].rstrip(' .')
+    if not cleaned or cleaned in {'.', '..'} or _reserved_windows_filename(cleaned):
+        return safe_fallback
+    return cleaned
 
 
 def strip_host_port(host_value: str | None) -> str:
