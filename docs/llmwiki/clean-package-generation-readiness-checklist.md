@@ -12,6 +12,9 @@ Y-08F implements a report-only / stdout-only generation readiness preview in the
 clean-package dry-run reports. It does not implement actual generation, CI
 wiring, report file writing, or package output.
 
+Y-08G adds a compact advisory readiness score and readiness summary to that
+preview. The score is review-only and does not approve actual generation.
+
 ## Current Preview Baseline
 
 The current report-only baseline includes:
@@ -35,7 +38,7 @@ It must stay absent until a later explicitly approved generation task.
 
 ## Non-Goals
 
-Y-08F does not:
+Y-08G does not:
 
 - add CI;
 - write report files;
@@ -58,7 +61,7 @@ Y-08F does not:
 - add public hosting or ads;
 - add 更新適用機能.
 
-Y-08F changes only the report-only dry-run script, its report regression
+Y-08G changes only the report-only dry-run script, its report regression
 checker, and LLMwiki documentation.
 
 ## Readiness Gate Summary
@@ -283,6 +286,23 @@ Y-08F behavior:
 
 Y-08F remains report-only, stdout-only, no-generation, and checker-backed.
 
+Y-08G behavior:
+
+- Text output includes `Readiness summary` and `advisory_score: 23/100`.
+- Markdown output includes `### Readiness Summary` and
+  `advisory_score: 23/100`.
+- JSON output includes `generation_readiness.advisory_score` and
+  `generation_readiness.readiness_summary`.
+- The advisory score uses ready items divided by total items and is
+  review-only.
+- `approval_meaning` remains `none`.
+- `actual_generation_approved` remains `false`.
+- `overall` remains `blocked`.
+- The regression checker validates the Y-08G fields, advisory score
+  consistency, and generated package folder absence.
+
+Y-08G remains report-only, stdout-only, no-generation, and checker-backed.
+
 ## High-low / High-mid / High-high Boundary
 
 High-low:
@@ -322,7 +342,13 @@ High-high:
 Recommended next candidate:
 
 ```text
-Y-08G readiness summary polish / advisory score refinement
+Y-08H advisory readiness score / summary polish
+```
+
+Alternative closeout candidate:
+
+```text
+Y-08Z preview hardening closeout
 ```
 
 Actual package generation remains blocked.
@@ -346,6 +372,6 @@ For this report-only task:
 
 ## Rollback / Cleanup Note
 
-Rollback is a revert of the Y-08F script, checker, and docs commit.
+Rollback is a revert of the Y-08G script, checker, and docs commit.
 
 No generated package output exists to clean up.

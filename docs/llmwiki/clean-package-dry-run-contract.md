@@ -1729,6 +1729,46 @@ Rules:
 - Actual clean-package generation remains blocked until a later
   human-reviewed task explicitly approves it.
 
+## Y-08G Readiness Summary Polish
+
+Y-08G refines the report-only readiness preview in:
+
+```text
+scripts/clean_package_dry_run.py
+```
+
+It also extends the regression checker:
+
+```text
+scripts/check_clean_package_dry_run_reports.py
+```
+
+Implemented behavior:
+
+- Text output includes `Readiness summary` and `advisory_score: 23/100`.
+- Markdown output includes `### Readiness Summary` and
+  `advisory_score: 23/100`.
+- JSON `generation_readiness.advisory_score` includes `value: 23`, `max: 100`,
+  `basis: ready_items_divided_by_total_items`, `approval_meaning: none`,
+  `blocked_override: true`, and `actual_generation_approved: false`.
+- JSON `generation_readiness.readiness_summary` groups ready, blocked,
+  needs-human-review, and unresolved item ids with the next required action.
+- The readiness preview keeps `overall: blocked`,
+  `actual_generation_approved: false`, and `score_basis: advisory_only`.
+- The checker validates the Y-08G fields, cross-format advisory score
+  consistency, and generated package folder absence.
+
+Rules:
+
+- Y-08G is report-only, stdout-only, and no-generation.
+- The advisory score is review-only and has no generation approval meaning.
+- Y-08G does not write report files.
+- Y-08G does not create package files, actual runtime launchers, `NOTICE.txt`,
+  license bundles, inventory output, guide output, ZIP/installer/package
+  output, or `動画保存ツール_ローカル専用/`.
+- Actual clean-package generation remains blocked until a later
+  human-reviewed task explicitly approves it.
+
 ## Y-CHECK-01 Repository Safety Gate Relationship
 
 Y-CHECK-01 is documented in:
@@ -1786,8 +1826,8 @@ Review the existing report-only safety checker before low-, medium-, or
 qualifying high-low-risk fork PRs.
 
 The next package-material candidate should be selected explicitly. The
-recommended next candidate is Y-08G readiness summary polish / advisory score
-refinement, if explicitly approved.
+recommended next candidate is Y-08H advisory readiness score / summary polish,
+or Y-08Z preview hardening closeout, if explicitly approved.
 
 Actual clean-package generation should wait until after repeated successful
 dry-run reports and a later explicit generation task.

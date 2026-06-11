@@ -465,6 +465,31 @@ The checker now validates:
 Y-08F remains report-only and does not write report files, create package
 output, add CI wiring, or approve actual package generation.
 
+## Y-08G Readiness Summary Regression Additions
+
+Y-08G extends the checker for advisory readiness score and summary output.
+
+The checker now also validates:
+
+- Text output contains `Readiness summary`.
+- Text output contains `advisory_score: 23/100`.
+- Markdown output contains `### Readiness Summary`.
+- Markdown output contains `advisory_score: 23/100`.
+- JSON has `generation_readiness.advisory_score`.
+- JSON `generation_readiness.advisory_score.value` is `23`.
+- JSON `generation_readiness.advisory_score.max` is `100`.
+- JSON `generation_readiness.advisory_score.approval_meaning` is `none`.
+- JSON `generation_readiness.advisory_score.blocked_override` is `true`.
+- JSON `generation_readiness.advisory_score.actual_generation_approved` is
+  `false`.
+- JSON has `generation_readiness.readiness_summary`.
+- JSON readiness summary item lists match checklist item statuses.
+- Cross-format advisory score consistency remains enforced.
+- Generated package folder absence is still checked.
+
+Y-08G remains report-only and does not write report files, create package
+output, add CI wiring, or approve actual package generation.
+
 ## PR Review Checklist
 
 Before merging future report-mode changes, confirm:

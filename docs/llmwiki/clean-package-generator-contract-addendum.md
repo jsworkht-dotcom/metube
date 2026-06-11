@@ -557,6 +557,23 @@ Y-08F implementation note:
 - Actual manifest, notice, license, inventory, guide, runtime, desktop shell,
   and package generation remain later human-reviewed tasks.
 
+Y-08G implementation note:
+
+- `scripts/clean_package_dry_run.py` now reports a compact advisory readiness
+  score and readiness summary in text, Markdown, and JSON output.
+- Text and Markdown show `advisory_score: 23/100`.
+- JSON includes `generation_readiness.advisory_score` and
+  `generation_readiness.readiness_summary`.
+- The advisory score is review-only, has `approval_meaning: none`, and does
+  not approve generation.
+- The readiness preview keeps `overall: blocked`,
+  `actual_generation_approved: false`, and `score_basis: advisory_only`.
+- `scripts/check_clean_package_dry_run_reports.py` validates the Y-08G fields,
+  cross-format advisory score consistency, and generated package folder
+  absence.
+- Actual manifest, notice, license, inventory, guide, runtime, desktop shell,
+  and package generation remain later human-reviewed tasks.
+
 ## Cleanup / Rollback Candidate
 
 Future implementation planning should include cleanup and rollback candidates
@@ -647,7 +664,9 @@ Candidate phases, each requiring a separate explicit task:
 4h. Add generation readiness checklist preview in report-only mode. Completed
     by Y-08F.
 4i. Refine readiness summary polish or advisory score presentation in
-    report-only mode, if explicitly approved.
+    report-only mode. Completed by Y-08G.
+4j. Optionally close out preview hardening or make a final advisory summary
+    polish pass in report-only mode, if explicitly approved.
 5. Add a human-reviewed generator prototype that can be inspected but does not
    run actual generation in automated checks.
 6. Add actual generation only after human approval, clean dry-runs, reviewed

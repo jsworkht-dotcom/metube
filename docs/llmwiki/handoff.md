@@ -676,11 +676,35 @@ MeTube. The canonical branch is fork `master`, and local `master` tracks
   package/lockfile files, handle cookie/token/secret values, touch PR #1001
   files, or implement 更新適用機能.
 - Recommended candidate after Y-08F: Y-08G readiness summary polish / advisory
-  score refinement in report-only / stdout-only mode. Optional later CI wiring
-  for the Y-07E checker remains separate.
+  score refinement in report-only / stdout-only mode. Implemented by Y-08G.
 - Actual package generation remains blocked.
 - `export_context_updated.py` is a known local-only WebGPT handoff/context
   export helper. It remains untracked and outside Y-08F scope.
+- Y-08G readiness summary polish / advisory score refinement is implemented in
+  `scripts/clean_package_dry_run.py`.
+- Y-08G outcome: text and Markdown output now include readiness summary polish
+  with `advisory_score: 23/100`; JSON output includes
+  `generation_readiness.advisory_score` and
+  `generation_readiness.readiness_summary`.
+- The advisory score is review-only, has `approval_meaning: none`, and does
+  not approve generation.
+- Y-08G keeps `generation_readiness.overall: blocked`,
+  `actual_generation_approved: false`, and `score_basis: advisory_only`.
+- Y-08G checker coverage is implemented in
+  `scripts/check_clean_package_dry_run_reports.py`.
+- Verify Y-08G with `scripts/check_clean_package_dry_run_reports.py`, normal
+  repo safety gates, and the clean-package dry-run text, Markdown, and JSON
+  modes.
+- Y-08G does not write report files, create generated package folders, create
+  package output, change backend/frontend/Docker/CI files, change
+  package/lockfile files, handle cookie/token/secret values, touch PR #1001
+  files, or implement 更新適用機能.
+- Recommended candidate after Y-08G: Y-08H advisory readiness score / summary
+  polish, or Y-08Z preview hardening closeout. Optional later CI wiring for the
+  Y-07E checker remains separate.
+- Actual package generation remains blocked.
+- `export_context_updated.py` is a known local-only WebGPT handoff/context
+  export helper. It remains untracked and outside Y-08G scope.
 - Y-CHECK-01 safety gate checker design is documented at
   `docs/llmwiki/safety-gate-checker-design.md`.
 - Y-CHECK-01 outcome: the future checker should evaluate repository diffs for
@@ -767,9 +791,9 @@ Run `scripts/check_repo_safety.py`,
 high-low-risk fork PR.
 
 The next package-material candidate should be selected explicitly. The
-recommended next candidate is Y-08G readiness summary polish / advisory score
-refinement, if explicitly approved. Optional later CI wiring for the Y-07E
-checker remains separate.
+recommended next candidate is Y-08H advisory readiness score / summary polish,
+or Y-08Z preview hardening closeout, if explicitly approved. Optional later CI
+wiring for the Y-07E checker remains separate.
 
 Do not create generated guide outputs, copy license text, create the generated
 package folder, copy package files, implement actual package generation, add

@@ -1487,8 +1487,37 @@
   - cookie/token/secret handling
   - 更新適用機能
 - Next candidate:
-  - Y-08G readiness summary polish / advisory score refinement, if explicitly
-    approved.
+  - Implemented by Y-08G readiness summary polish / advisory score refinement.
+  - Actual package generation remains blocked.
+
+### Y-08G readiness summary polish / advisory score refinement
+
+- Scope: report-only readiness summary polish and checker/docs sync.
+- Changed scripts:
+  - `scripts/clean_package_dry_run.py`
+  - `scripts/check_clean_package_dry_run_reports.py`
+- Behavior:
+  - Adds JSON `generation_readiness.advisory_score`.
+  - Adds JSON `generation_readiness.readiness_summary`.
+  - Shows `advisory_score: 23/100` in text and Markdown output.
+  - Keeps `generation_readiness.overall: blocked`.
+  - Keeps `generation_readiness.actual_generation_approved: false`.
+  - Keeps `generation_readiness.score_basis: advisory_only`.
+  - Treats the advisory score as review-only; it is not generation approval.
+  - Extends the checker for Y-08G score, summary, cross-format consistency,
+    and generated package folder absence.
+- Not implemented:
+  - actual package generation
+  - generated package folder
+  - report file writing
+  - ZIP / installer / package output
+  - backend/frontend/Docker/CI/package/lockfile changes
+  - PR #1001 file changes
+  - cookie/token/secret handling
+  - 更新適用機能
+- Next candidates:
+  - Y-08H advisory readiness score / summary polish
+  - Y-08Z preview hardening closeout
   - Actual package generation remains blocked.
 
 ### Y-CHECK-01 safety gate checker design
@@ -1782,12 +1811,12 @@ Use `scripts/check_repo_safety.py` and `scripts/clean_package_dry_run.py` as
 local report-only gates before the next low-, medium-, or qualifying
 high-low-risk fork PR.
 
-The previous package-material next step is complete through Y-08F.
+The previous package-material next step is complete through Y-08G.
 
 The next package-material candidate should be selected explicitly. The
-recommended next candidate is Y-08G readiness summary polish / advisory score
-refinement, if explicitly approved. Optional later CI wiring for the Y-07E
-checker remains separate.
+recommended next candidate is Y-08H advisory readiness score / summary polish,
+or Y-08Z preview hardening closeout, if explicitly approved. Optional later CI
+wiring for the Y-07E checker remains separate.
 
 Next scope:
 
