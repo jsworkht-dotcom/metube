@@ -31,15 +31,15 @@ export const VIDEO_FORMATS: Option[] = [
 ];
 
 export const VIDEO_QUALITIES: Quality[] = [
-  { id: "best", text: "最高" },
-  { id: "2160", text: "2160p" },
-  { id: "1440", text: "1440p" },
-  { id: "1080", text: "1080p" },
-  { id: "720", text: "720p" },
-  { id: "480", text: "480p" },
-  { id: "360", text: "360p" },
-  { id: "240", text: "240p" },
-  { id: "worst", text: "最低" },
+  { id: "best", text: "最高画質（自動）" },
+  { id: "2160", text: "4K（2160p）" },
+  { id: "1440", text: "高画質（1440p）" },
+  { id: "1080", text: "フルHD（1080p）" },
+  { id: "720", text: "標準（720p）" },
+  { id: "480", text: "軽量（480p）" },
+  { id: "360", text: "低容量（360p）" },
+  { id: "240", text: "最小（240p）" },
+  { id: "worst", text: "最低画質（自動）" },
 ];
 
 export const AUDIO_FORMATS: AudioFormatOption[] = [
@@ -47,24 +47,24 @@ export const AUDIO_FORMATS: AudioFormatOption[] = [
     id: "m4a",
     text: "M4A",
     qualities: [
-      { id: "best", text: "最高" },
-      { id: "192", text: "192 kbps" },
-      { id: "128", text: "128 kbps" },
+      { id: "best", text: "最高音質（自動）" },
+      { id: "192", text: "標準（192kbps）" },
+      { id: "128", text: "軽量（128kbps）" },
     ],
   },
   {
     id: "mp3",
     text: "MP3",
     qualities: [
-      { id: "best", text: "最高" },
-      { id: "320", text: "320 kbps" },
-      { id: "192", text: "192 kbps" },
-      { id: "128", text: "128 kbps" },
+      { id: "best", text: "最高音質（自動）" },
+      { id: "320", text: "高音質（320kbps）" },
+      { id: "192", text: "標準（192kbps）" },
+      { id: "128", text: "軽量（128kbps）" },
     ],
   },
-  { id: "opus", text: "OPUS", qualities: [{ id: "best", text: "最高" }] },
-  { id: "wav", text: "WAV", qualities: [{ id: "best", text: "最高" }] },
-  { id: "flac", text: "FLAC", qualities: [{ id: "best", text: "最高" }] },
+  { id: "opus", text: "OPUS", qualities: [{ id: "best", text: "最高音質（自動）" }] },
+  { id: "wav", text: "WAV", qualities: [{ id: "best", text: "最高音質（自動）" }] },
+  { id: "flac", text: "FLAC", qualities: [{ id: "best", text: "最高音質（自動）" }] },
 ];
 
 export const CAPTION_FORMATS: Option[] = [
