@@ -20,6 +20,12 @@ canonical branch is fork `master`, and local `master` tracks `fork/master`.
     handling
   - default bind is `HOST=127.0.0.1`
   - non-loopback bind targets are blocked when `LOCAL_ONLY_MODE=true`
+  - dependency-free local-only security helper logic added with
+    standard-library `unittest` coverage for host/source/public-host/config
+    guard decisions
+  - these dependency-free tests reduce the current verification gap, but full
+    aiohttp/pytest backend verification remains pending in an environment with
+    dependencies
   - local Host allowlist guard
   - Origin / Referer guard for state-changing requests
   - wildcard CORS blocked in local-only mode

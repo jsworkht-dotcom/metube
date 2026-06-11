@@ -19,6 +19,14 @@ import re
 from urllib.parse import parse_qs, urlencode, urlparse, urlunparse
 from watchfiles import DefaultFilter, Change, awatch
 
+from local_only_security import (
+    PUBLIC_HOST_URL_ATTRS as _PUBLIC_HOST_URL_ATTRS,
+    SECURITY_RESPONSE_HEADERS as _SECURITY_RESPONSE_HEADERS,
+    STATE_CHANGING_METHODS as _STATE_CHANGING_METHODS,
+    is_local_hostname as _is_local_hostname,
+    local_only_config_errors,
+    source_header_allowed as _source_header_allowed,
+)
 import update_status as update_status_checks
 import update_preflight as update_preflight_checks
 import update_plan as update_plan_checks
@@ -30,54 +38,7 @@ log = logging.getLogger('main')
 
 _NIGHTLY_TIME_RE = re.compile(r'^([01]\d|2[0-3]):[0-5]\d$')
 _RESTART_FOR_UPDATE = False
-_LOCAL_ONLY_ALLOWED_HOSTS = {'localhost', '127.0.0.1', '::1'}
-_STATE_CHANGING_METHODS = {'POST', 'PUT', 'PATCH', 'DELETE'}
 _LOCAL_ONLY_FORBIDDEN_TEXT = 'Local-only access required.'
-_SECURITY_RESPONSE_HEADERS = {
-    'X-Content-Type-Options': 'nosniff',
-    'Referrer-Policy': 'no-referrer',
-    'X-Frame-Options': 'DENY',
-    'Cross-Origin-Resource-Policy': 'same-origin',
-}
-_PUBLIC_HOST_URL_ATTRS = (
-    '_'.join(('PUBLIC', 'HOST', 'URL')),
-    '_'.join(('PUBLIC', 'HOST', 'AUDIO', 'URL')),
-)
-
-
-def _strip_host_port(host_value: str | None) -> str:
-    if not host_value:
-        return ''
-
-    host = host_value.strip().lower()
-    if not host:
-        return ''
-    if ',' in host:
-        return ''
-
-    if host.startswith('['):
-        end = host.find(']')
-        if end != -1:
-            return host[1:end]
-        return host
-
-    if host.count(':') == 1:
-        return host.split(':', 1)[0]
-
-    return host
-
-
-def _is_local_hostname(hostname: str | None) -> bool:
-    return _strip_host_port(hostname) in _LOCAL_ONLY_ALLOWED_HOSTS
-
-
-def _absolute_url_hostname(url_value: str | None) -> str | None:
-    if not url_value:
-        return None
-    parsed = urlparse(url_value)
-    if not parsed.netloc:
-        return None
-    return parsed.hostname.lower() if parsed.hostname else None
 
 
 def _add_security_headers(response):
@@ -221,31 +182,8 @@ class Config:
         sys.exit(1)
 
     def _validate_local_only_guardrails(self) -> None:
-        if not self.LOCAL_ONLY_MODE:
-            return
-
-        if not _is_local_hostname(self.HOST):
-            self._config_error('HOST must be loopback when LOCAL_ONLY_MODE=true')
-
-        cors_origins = [o.strip() for o in self.CORS_ALLOWED_ORIGINS.split(',') if o.strip()]
-        if '*' in cors_origins:
-            self._config_error('Wildcard CORS origins are not allowed when LOCAL_ONLY_MODE=true')
-
-        if self.ALLOW_YTDL_OPTIONS_OVERRIDES and not self.ALLOW_UNSAFE_YTDL_OPTIONS_OVERRIDES:
-            self._config_error(
-                'ALLOW_YTDL_OPTIONS_OVERRIDES requires '
-                'ALLOW_UNSAFE_YTDL_OPTIONS_OVERRIDES=true when LOCAL_ONLY_MODE=true'
-            )
-
-        if self.YTDL_NIGHTLY_UPDATE_TIME and not self.ALLOW_UNSAFE_NIGHTLY_UPDATE:
-            self._config_error(
-                'YTDL_NIGHTLY_UPDATE_TIME requires ALLOW_UNSAFE_NIGHTLY_UPDATE=true when LOCAL_ONLY_MODE=true'
-            )
-
-        for attr in _PUBLIC_HOST_URL_ATTRS:
-            hostname = _absolute_url_hostname(getattr(self, attr))
-            if hostname and not _is_local_hostname(hostname):
-                self._config_error(f'{attr} must be relative or local when LOCAL_ONLY_MODE=true')
+        for error in local_only_config_errors(self):
+            self._config_error(error)
 
     def set_runtime_override(self, key, value):
         self._runtime_overrides[key] = value
@@ -340,15 +278,6 @@ class Config:
 
         self.YTDL_OPTIONS_PRESETS.update(opts)
         return (True, '')
-
-
-def _source_header_allowed(source_value: str | None, host_value: str | None) -> bool:
-    source_hostname = _absolute_url_hostname(source_value)
-    if not source_hostname:
-        return False
-
-    host_hostname = _strip_host_port(host_value)
-    return _is_local_hostname(source_hostname) or source_hostname == host_hostname
 
 
 def _state_changing_source_allowed(request) -> bool:

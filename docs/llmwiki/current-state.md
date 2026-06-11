@@ -30,6 +30,11 @@
 - Adds `LOCAL_ONLY_MODE=true` by default for this fork.
 - Y-SEC-01A amends the runtime default bind to `HOST=127.0.0.1`.
 - Y-SEC-01A blocks non-loopback `HOST` values when `LOCAL_ONLY_MODE=true`.
+- Y-SEC-01B extracts dependency-free local-only security helper logic and adds
+  standard-library `unittest` coverage for host/source/public-host/config guard
+  decisions.
+- Y-SEC-01B reduces the current verification gap when pytest/aiohttp are not
+  available, but does not replace full backend pytest verification.
 - Adds a local Host allowlist guard for HTTP and static UI requests.
 - Adds an Origin / Referer guard for state-changing requests.
 - Blocks wildcard CORS in local-only mode.

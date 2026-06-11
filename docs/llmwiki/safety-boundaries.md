@@ -38,6 +38,10 @@ Current local-only runtime boundaries:
 - Non-loopback bind targets are blocked in local-only mode.
 - Normal HTTP and static UI requests are expected to use local Host values such
   as `localhost`, `127.0.0.1`, or `::1`.
+- Core local-only host/source/public-host/config guard decisions have
+  dependency-free helper coverage runnable with standard-library `unittest`.
+- Dependency-free helper tests reduce the verification gap, but do not replace
+  full aiohttp/pytest backend verification.
 - Browser state-changing requests with a non-local `Origin` or `Referer` are
   rejected in local-only mode.
 - Wildcard CORS origins are blocked in local-only mode.

@@ -12,6 +12,11 @@
   minimal security response headers.
 - Y-SEC-01A amends this PR so the default bind is `HOST=127.0.0.1` and
   non-loopback bind targets are blocked when `LOCAL_ONLY_MODE=true`.
+- Y-SEC-01B adds a dependency-free local-only security helper and
+  standard-library `unittest` coverage for host/source/public-host/config guard
+  decisions. These tests reduce the verification gap when pytest/aiohttp are
+  unavailable, but full backend pytest remains required in a dependency-ready
+  environment.
 - No frontend UI, Docker, dependency, lockfile, package generation,
   yt-dlp extractor, download queue semantic, or safety gate changes are part of
   this lane.
@@ -22,6 +27,9 @@
 ```text
 Y-SEC-01A:
   distribution-safe loopback binding amendment
+
+Y-SEC-01B:
+  dependency-free local-only security core tests
 
 Y-SEC-02:
   URL intake SSRF / private-network target guard
