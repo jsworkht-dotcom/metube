@@ -1614,6 +1614,44 @@
   - generated package output;
   - PR #1001 files.
 
+### Y-UI-QUALITY-03 completed/result table quality label polish
+
+- Scope: frontend UI label/test polish for completed/result table display.
+- Status: completed via fork PR #77.
+- PR title: `feat: polish result quality labels`.
+- Merge commit: `c2f58fad237218d681414b51749bca6fe1bc734b`.
+- Changed files:
+  - `ui/src/app/app.html`
+  - `ui/src/app/app.ts`
+  - `ui/src/app/app.spec.ts`
+- Outcome:
+  - completed/result table quality labels now match the simplified selector
+    wording;
+  - result table quality column header changed from `画質` to neutral `品質`;
+  - video quality labels now include `最高画質（自動）`, `4K（2160p）`,
+    `高画質（1440p）`, `フルHD（1080p）`, `標準（720p）`, `軽量（480p）`,
+    `低容量（360p）`, and `最小（240p）`;
+  - audio quality labels now include `最高音質（自動）`,
+    `高音質（320kbps）`, `標準（192kbps）`, and `軽量（128kbps）`;
+  - captions and thumbnails keep `-`;
+  - safe fallback behavior remains for unknown quality strings;
+  - focused UI spec coverage was added for label mapping.
+- Verification notes:
+  - frontend tests passed: 40 tests;
+  - no dependency install or update operation was performed;
+  - no package output was generated;
+  - generated package folder remained absent.
+- Safety note:
+  - because this touched `ui/**`, it was High-mid / human-reviewed frontend UI
+    label/test work, not auto-merge;
+  - this did not weaken the safety gate or modify gate behavior.
+- Not changed:
+  - backend/API/download logic;
+  - option ids, payloads, validation, or yt-dlp selector behavior;
+  - Docker, CI, package, or lock files;
+  - generated package output;
+  - PR #1001 files.
+
 ### Y-CHECK-01 safety gate checker design
 
 - Scope: docs-only design for a future repository safety checker and automation
@@ -1889,7 +1927,9 @@ Y-08Z closes the Y-08 preview hardening lane as docs-only closeout.
 Y-UI-QUALITY-01 is complete via fork PR #73 with merge commit
 `402996eba52f923be962e2fe69ebdaa6084363f2`. Y-UI-QUALITY-02 is complete via
 fork PR #75 with merge commit
-`eea1c861a62033b02255950491cd9e0f6ab2d77b`.
+`eea1c861a62033b02255950491cd9e0f6ab2d77b`. Y-UI-QUALITY-03 is complete via
+fork PR #77 with merge commit
+`c2f58fad237218d681414b51749bca6fe1bc734b`.
 
 Y-UI-QUALITY-01 simplified the visible quality selector labels while preserving
 numeric values, existing option ids, API payloads, backend validation, and
@@ -1897,12 +1937,16 @@ download logic. Y-UI-QUALITY-02 clarified the quality selector helper copy:
 video help now explains quality targets / upper limits, source-quality fallback,
 auto mode, and file-size tradeoff; audio help now explains the quality /
 file-size tradeoff and auto mode; the audio selector label changed from `画質`
-to `音質`.
+to `音質`. Y-UI-QUALITY-03 polished completed/result table quality labels so
+they match selector wording, changed the result table column header from `画質`
+to `品質`, kept captions/thumbnails as `-`, preserved safe fallback behavior,
+and added focused UI spec coverage.
 
-Y-UI-QUALITY-02 preserved option ids, payloads, backend/API/download logic,
-validation, and yt-dlp selector behavior. Because it touched `ui/**`, it was a
-High-mid / human-reviewed frontend UI copy-only merge, not auto-merge. That
-known scope mismatch did not weaken or modify the safety gate.
+Y-UI-QUALITY-02 and Y-UI-QUALITY-03 preserved option ids, payloads,
+backend/API/download logic, validation, and yt-dlp selector behavior. Because
+they touched `ui/**`, they were High-mid / human-reviewed frontend UI merges,
+not auto-merge. That known scope mismatch did not weaken or modify the safety
+gate.
 
 Use the preflight checker before future file modification when a task needs
 local readiness confirmation:
@@ -1927,11 +1971,11 @@ remain absent.
 The next practical candidate is:
 
 ```text
-Y-UI-QUALITY-03 completed/result table quality label polish
+Y-UI-REVIEW-01 current UI manual review checklist / screenshot-based review notes
 ```
 
-Pause for review of the current UI can be chosen instead, but future `ui/**`
-work remains human-reviewed unless a later policy PR explicitly updates the
+Pause for actual UI review can be chosen instead, but future `ui/**` work
+remains human-reviewed unless a later policy/checker PR explicitly updates the
 local safety gate and automation policy.
 
 Later clean-package work should resume as a separate explicitly approved lane,
