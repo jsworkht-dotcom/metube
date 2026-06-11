@@ -303,6 +303,21 @@ Y-08G behavior:
 
 Y-08G remains report-only, stdout-only, no-generation, and checker-backed.
 
+Y-08Z closeout:
+
+- Y-08Z closes the Y-08 preview hardening lane.
+- Y-08B through Y-08G preview hardening is complete.
+- The dry-run previews are strong enough for review but still do not authorize
+  generation.
+- The advisory score remains review-only and does not replace human approval.
+- Readiness state remains `overall: blocked`,
+  `actual_generation_approved: false`, `score_basis: advisory_only`,
+  `advisory_score: 23/100`, and `approval_meaning: none`.
+- Actual package generation remains a later separate human-reviewed task.
+- Y-UI-QUALITY-01 quality selector simple labels with numeric values is
+  separate frontend UI work and must not be mixed with clean-package
+  generation.
+
 ## High-low / High-mid / High-high Boundary
 
 High-low:
@@ -342,20 +357,18 @@ High-high:
 Recommended next candidate:
 
 ```text
-Y-08H advisory readiness score / summary polish
+Y-UI-QUALITY-01 quality selector simple labels with numeric values
 ```
 
-Alternative closeout candidate:
-
-```text
-Y-08Z preview hardening closeout
-```
+Later clean-package lane: Y-09 human-reviewed generation prototype planning
+only, not actual generation. Y-09 remains blocked unless later human-reviewed
+approval is given.
 
 Actual package generation remains blocked.
 
 ## Verification Checklist
 
-For this report-only task:
+For report-only preview tasks:
 
 - `git diff --check`
 - `python -m py_compile scripts/clean_package_dry_run.py`
@@ -372,6 +385,6 @@ For this report-only task:
 
 ## Rollback / Cleanup Note
 
-Rollback is a revert of the Y-08G script, checker, and docs commit.
+Rollback for Y-08Z is a docs-only revert of the closeout references.
 
 No generated package output exists to clean up.

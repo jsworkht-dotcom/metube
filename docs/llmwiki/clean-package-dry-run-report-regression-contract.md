@@ -490,6 +490,27 @@ The checker now also validates:
 Y-08G remains report-only and does not write report files, create package
 output, add CI wiring, or approve actual package generation.
 
+## Y-08Z Preview Hardening Closeout
+
+Y-08Z is docs-only closeout for the Y-08 preview hardening lane.
+
+Closeout state:
+
+- Y-08B through Y-08G preview hardening is complete.
+- The dry-run previews are strong enough for review but still do not authorize
+  actual generation.
+- The advisory score remains review-only and does not replace human approval.
+- Readiness remains `overall: blocked`,
+  `actual_generation_approved: false`, `score_basis: advisory_only`,
+  `advisory_score: 23/100`, and `approval_meaning: none`.
+- Actual generation remains a later separate human-reviewed task.
+- Y-UI-QUALITY-01 quality selector simple labels with numeric values is
+  separate frontend UI work and must not be mixed with clean-package
+  generation.
+
+Y-08Z does not change scripts, add CI wiring, write report files, create
+package output, or approve actual package generation.
+
 ## PR Review Checklist
 
 Before merging future report-mode changes, confirm:

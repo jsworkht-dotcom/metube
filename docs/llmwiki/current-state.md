@@ -1493,6 +1493,9 @@
 ### Y-08G readiness summary polish / advisory score refinement
 
 - Scope: report-only readiness summary polish and checker/docs sync.
+- Completed by fork PR #71.
+- Latest expected `fork/master` after Y-08G:
+  `4971e33fcb1c79eb4f1ee70a5d802565dfa04624`
 - Changed scripts:
   - `scripts/clean_package_dry_run.py`
   - `scripts/check_clean_package_dry_run_reports.py`
@@ -1515,10 +1518,35 @@
   - PR #1001 file changes
   - cookie/token/secret handling
   - 更新適用機能
-- Next candidates:
-  - Y-08H advisory readiness score / summary polish
-  - Y-08Z preview hardening closeout
+- Follow-up:
+  - Y-08Z preview hardening closeout, completed by this PR.
+  - Next practical candidate after Y-08Z:
+    `Y-UI-QUALITY-01 quality selector simple labels with numeric values`
   - Actual package generation remains blocked.
+
+### Y-08Z preview hardening closeout
+
+- Scope: docs-only closeout for the Y-08 preview hardening lane.
+- Status: completed by this PR.
+- Prior completed work:
+  - Y-08F generation readiness checklist preview completed via fork PR #70.
+  - Y-08G readiness summary polish / advisory score refinement completed via
+    fork PR #71.
+- Latest expected `fork/master` after Y-08G:
+  `4971e33fcb1c79eb4f1ee70a5d802565dfa04624`
+- Readiness preview state:
+  - `overall: blocked`
+  - `actual_generation_approved: false`
+  - `score_basis: advisory_only`
+  - `advisory_score: 23/100`
+  - `approval_meaning: none`
+- Boundary:
+  - readiness preview is report-only and advisory-only
+  - advisory score does not replace human approval
+  - actual clean-package generation remains blocked
+  - no package output or generated package folder is approved
+- Next practical candidate:
+  - `Y-UI-QUALITY-01 quality selector simple labels with numeric values`
 
 ### Y-CHECK-01 safety gate checker design
 
@@ -1791,18 +1819,17 @@
 
 ## Current Next Step
 
-Y-AUTO-15 implements the task-start preflight environment checker at
-`scripts/check_local_dev_environment.py`.
+Y-08Z closes the Y-08 preview hardening lane as docs-only closeout. Y-08F is
+complete via fork PR #70, and Y-08G is complete via fork PR #71.
 
-Use this checker before future file modification when a task needs local
-readiness confirmation. It remains readiness-only and does not replace safety
-gates.
+Use the preflight checker before future file modification when a task needs
+local readiness confirmation:
 
-The next recommended automation candidates are:
+```powershell
+python scripts/check_local_dev_environment.py --base fork/master --expected-branch master
+```
 
-- APP-BOOT-01 new app bootstrap template design
-- APP-BOOT-02 bootstrap skeleton
-- Y-CI-01 lightweight CI design
+It remains readiness-only and does not replace safety gates.
 
 Use the `Risk classification` section from `scripts/check_repo_safety.py` as the
 first local summary before auto PR or auto merge.
@@ -1811,17 +1838,24 @@ Use `scripts/check_repo_safety.py` and `scripts/clean_package_dry_run.py` as
 local report-only gates before the next low-, medium-, or qualifying
 high-low-risk fork PR.
 
-The previous package-material next step is complete through Y-08G.
+The previous package-material lane is complete through Y-08Z closeout. Actual
+clean-package generation remains blocked.
 
-The next package-material candidate should be selected explicitly. The
-recommended next candidate is Y-08H advisory readiness score / summary polish,
-or Y-08Z preview hardening closeout, if explicitly approved. Optional later CI
-wiring for the Y-07E checker remains separate.
+The next practical candidate is:
+
+```text
+Y-UI-QUALITY-01 quality selector simple labels with numeric values
+```
+
+Later clean-package work should resume as a separate explicitly approved lane,
+with Y-09 limited to human-reviewed generation prototype planning only and not
+actual generation.
 
 Next scope:
 
 - Keep any further Y-CHECK automation, CI, or PR-comment integration separate
   until explicitly approved.
+- Keep UI quality label improvement separate from clean-package generation.
 - Keep notice material source-only, sanitized, and review-oriented.
 - Keep guide and notice files as source material only; do not generate package
   outputs.

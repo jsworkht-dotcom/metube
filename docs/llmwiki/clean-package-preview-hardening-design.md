@@ -380,8 +380,8 @@ High-high:
   Completed in report-only / stdout-only mode.
 - Y-08G: readiness summary polish / advisory score refinement.
   Completed in report-only / stdout-only mode.
-- Y-08H: optional advisory readiness score / summary polish follow-up.
 - Y-08Z: preview hardening closeout.
+  Completed by this PR.
 
 ## Recommended Next Step
 
@@ -401,12 +401,22 @@ report-only mode. The advisory score is review-only, does not approve actual
 generation, and the preview remains `overall: blocked` with
 `actual_generation_approved: false`.
 
-Next candidate: Y-08H advisory readiness score / summary polish, or Y-08Z
-preview hardening closeout, if explicitly approved.
+Y-08Z closes the preview hardening lane. Y-08B through Y-08G are complete, and
+the dry-run previews are strong enough for review but still do not authorize
+generation. Advisory score remains review-only and does not replace human
+approval.
+
+Next practical candidate: Y-UI-QUALITY-01 quality selector simple labels with
+numeric values. This is separate frontend UI work and must not be mixed with
+clean-package generation.
+
+Later clean-package work should resume as Y-09 human-reviewed generation
+prototype planning only, not actual generation. Actual clean-package generation
+remains blocked until a later explicit human-reviewed task approves it.
 
 ## Verification Checklist
 
-For this report-only task:
+For report-only preview tasks:
 
 - `git diff --check`
 - `python -m py_compile scripts/clean_package_dry_run.py`
@@ -423,6 +433,6 @@ For this report-only task:
 
 ## Rollback / Cleanup Note
 
-Rollback is a revert of the Y-08G script, checker, and docs commit.
+Rollback for Y-08Z is a docs-only revert of the closeout references.
 
 No generated package output exists to clean up.

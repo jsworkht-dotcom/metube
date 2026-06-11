@@ -6,6 +6,28 @@ This is `youtubeダウンロード / MeTube local-only fork`, a personal local-o
 MeTube. The canonical branch is fork `master`, and local `master` tracks
 `fork/master`.
 
+## Current Closeout State
+
+- Current branch after merge should be `master`.
+- Latest expected `fork/master` after this PR merges will be this PR's future
+  merge commit.
+- Y-08F generation readiness checklist preview is complete via fork PR #70.
+- Y-08G readiness summary polish / advisory score refinement is complete via
+  fork PR #71.
+- Y-08Z closes the preview hardening lane in this PR.
+- Readiness preview remains report-only and advisory-only:
+  - `overall: blocked`
+  - `actual_generation_approved: false`
+  - `score_basis: advisory_only`
+  - `advisory_score: 23/100`
+  - `approval_meaning: none`
+- Actual generation remains blocked.
+- No package output or `動画保存ツール_ローカル専用/` generated package folder should
+  exist.
+- Run preflight before the next task.
+- Next step: `Y-UI-QUALITY-01 quality selector simple labels with numeric
+  values`.
+
 ## Read First
 
 1. `docs/llmwiki/current-state.md`
@@ -699,9 +721,10 @@ MeTube. The canonical branch is fork `master`, and local `master` tracks
   package output, change backend/frontend/Docker/CI files, change
   package/lockfile files, handle cookie/token/secret values, touch PR #1001
   files, or implement 更新適用機能.
-- Recommended candidate after Y-08G: Y-08H advisory readiness score / summary
-  polish, or Y-08Z preview hardening closeout. Optional later CI wiring for the
-  Y-07E checker remains separate.
+- Follow-up after Y-08G: Y-08Z preview hardening closeout, completed by this
+  PR. Optional later CI wiring for the Y-07E checker remains separate.
+- Next practical candidate after Y-08Z: Y-UI-QUALITY-01 quality selector simple
+  labels with numeric values.
 - Actual package generation remains blocked.
 - `export_context_updated.py` is a known local-only WebGPT handoff/context
   export helper. It remains untracked and outside Y-08G scope.
@@ -790,10 +813,13 @@ Run `scripts/check_repo_safety.py`,
 `scripts/clean_package_dry_run.py` before the next low-, medium-, or qualifying
 high-low-risk fork PR.
 
-The next package-material candidate should be selected explicitly. The
-recommended next candidate is Y-08H advisory readiness score / summary polish,
-or Y-08Z preview hardening closeout, if explicitly approved. Optional later CI
-wiring for the Y-07E checker remains separate.
+The Y-08 package-material lane is closed by Y-08Z. The next practical
+candidate is Y-UI-QUALITY-01 quality selector simple labels with numeric
+values. Optional later CI wiring for the Y-07E checker remains separate.
+
+Later clean-package work should resume as Y-09 human-reviewed generation
+prototype planning only, not actual generation. Keep Y-09 blocked unless later
+human-reviewed approval is given.
 
 Do not create generated guide outputs, copy license text, create the generated
 package folder, copy package files, implement actual package generation, add

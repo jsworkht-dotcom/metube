@@ -1769,6 +1769,31 @@ Rules:
 - Actual clean-package generation remains blocked until a later
   human-reviewed task explicitly approves it.
 
+## Y-08Z Preview Hardening Closeout
+
+Y-08Z closes the Y-08 clean-package preview hardening lane as docs-only
+closeout.
+
+Closeout state:
+
+- Y-08B through Y-08G preview hardening is complete.
+- Y-08F generation readiness checklist preview is complete via fork PR #70.
+- Y-08G readiness summary polish / advisory score refinement is complete via
+  fork PR #71.
+- The readiness preview remains report-only and advisory-only.
+- `generation_readiness.overall` remains `blocked`.
+- `generation_readiness.actual_generation_approved` remains `false`.
+- `generation_readiness.score_basis` remains `advisory_only`.
+- The advisory score remains `23/100`.
+- `generation_readiness.advisory_score.approval_meaning` remains `none`.
+- Advisory score does not replace human approval.
+- Actual clean-package generation remains blocked until a later separate
+  human-reviewed task explicitly approves it.
+
+Next practical work is Y-UI-QUALITY-01 quality selector simple labels with
+numeric values. That frontend UI quality work is separate and must not be mixed
+with clean-package generation.
+
 ## Y-CHECK-01 Repository Safety Gate Relationship
 
 Y-CHECK-01 is documented in:
@@ -1825,9 +1850,11 @@ Relationship:
 Review the existing report-only safety checker before low-, medium-, or
 qualifying high-low-risk fork PRs.
 
-The next package-material candidate should be selected explicitly. The
-recommended next candidate is Y-08H advisory readiness score / summary polish,
-or Y-08Z preview hardening closeout, if explicitly approved.
+The Y-08 package-material lane is closed by Y-08Z. The next practical
+candidate is Y-UI-QUALITY-01 quality selector simple labels with numeric
+values.
 
-Actual clean-package generation should wait until after repeated successful
-dry-run reports and a later explicit generation task.
+Later clean-package work should resume as Y-09 human-reviewed generation
+prototype planning only, not actual generation. Actual clean-package generation
+should wait until after repeated successful dry-run reports and a later
+explicit human-reviewed generation task.
