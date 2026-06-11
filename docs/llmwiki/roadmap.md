@@ -2,6 +2,41 @@
 
 ## Immediate Next
 
+### Y-08Z preview hardening closeout
+
+- Status: completed by this PR.
+- Closes the Y-08 clean-package preview hardening lane.
+- Y-08F generation readiness checklist preview is complete via fork PR #70.
+- Y-08G readiness summary polish / advisory score refinement is complete via
+  fork PR #71.
+- Readiness preview remains report-only and advisory-only:
+  - `overall: blocked`
+  - `actual_generation_approved: false`
+  - `score_basis: advisory_only`
+  - `advisory_score: 23/100`
+  - `approval_meaning: none`
+- Actual clean-package generation remains blocked.
+
+### Next candidates
+
+Immediate next:
+
+```text
+Y-UI-QUALITY-01:
+  quality selector simple labels with numeric values
+```
+
+Later clean-package lane:
+
+```text
+Y-09:
+  human-reviewed generation prototype planning only, not actual generation
+```
+
+Y-09 remains blocked unless later human-reviewed approval is given.
+
+## Recent Automation Outcomes
+
 ### Y-AUTO-15 preflight environment checker implementation outcome
 
 - Script:
@@ -130,11 +165,12 @@ Actual package generation remains blocked.
 
 ### Next package-material candidate
 
-- Y-08G implements readiness summary polish / advisory score refinement in
-  this PR.
-- The next recommended package-material candidate is Y-08H advisory readiness
-  score / summary polish, or Y-08Z preview hardening closeout, if explicitly
-  approved.
+- Y-08Z closes the preview hardening lane in this PR.
+- The next practical candidate is Y-UI-QUALITY-01 quality selector simple
+  labels with numeric values.
+- Later clean-package work should resume as Y-09 human-reviewed generation
+  prototype planning only, not actual generation.
+- Keep Y-09 blocked unless later human-reviewed approval is given.
 - Optional later CI wiring for the Y-07E checker remains separate.
 - Keep the next PR report-only, dry-run-only, or source-material only unless
   explicitly approved otherwise.
@@ -231,8 +267,10 @@ Actual package generation remains blocked.
 - The regression checker validates Y-08G fields, score value/max, approval
   meaning, blocked override, cross-format advisory score consistency, and
   generated package folder absence.
-- Future recommended candidate after Y-08G: Y-08H advisory readiness score /
-  summary polish, or Y-08Z preview hardening closeout.
+- Follow-up closeout after Y-08G: Y-08Z preview hardening closeout, completed
+  by this PR.
+- Next practical candidate after Y-08Z: Y-UI-QUALITY-01 quality selector simple
+  labels with numeric values.
 - Actual package generation remains blocked.
 - This Y-08G PR does not create package output, write report files, create
   generated distribution folders, run ビルド/パッケージ/インストール操作,
@@ -1182,8 +1220,7 @@ Next candidates:
 - Y-AUTO-10 PR body generator design.
 - Y-AUTO-11 PR body generator stdout-only implementation.
 - Y-AUTO-13 Codex run prompt templates.
-- Y-08H advisory readiness score / summary polish, or Y-08Z preview hardening
-  closeout, if explicitly approved.
+- Y-UI-QUALITY-01 quality selector simple labels with numeric values.
 
 Actual package generation remains blocked.
 ## Y-AUTO-10A Outcome: Safety Wording Checker Design

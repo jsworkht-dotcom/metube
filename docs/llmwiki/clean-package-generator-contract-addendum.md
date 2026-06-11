@@ -574,6 +574,22 @@ Y-08G implementation note:
 - Actual manifest, notice, license, inventory, guide, runtime, desktop shell,
   and package generation remain later human-reviewed tasks.
 
+Y-08Z closeout note:
+
+- Y-08Z closes the Y-08 preview hardening lane as docs-only closeout.
+- Y-08B through Y-08G preview hardening is complete.
+- The dry-run previews are strong enough for review but still do not authorize
+  actual generation.
+- The advisory score is review-only and does not replace human approval.
+- The readiness preview remains `overall: blocked`, with
+  `actual_generation_approved: false`, `score_basis: advisory_only`,
+  `advisory_score: 23/100`, and `approval_meaning: none`.
+- Actual manifest, notice, license, inventory, guide, runtime, desktop shell,
+  and package generation remain later separate human-reviewed tasks.
+- Y-UI-QUALITY-01 quality selector simple labels with numeric values is
+  separate frontend UI work and must not be mixed with clean-package
+  generation.
+
 ## Cleanup / Rollback Candidate
 
 Future implementation planning should include cleanup and rollback candidates
@@ -665,10 +681,9 @@ Candidate phases, each requiring a separate explicit task:
     by Y-08F.
 4i. Refine readiness summary polish or advisory score presentation in
     report-only mode. Completed by Y-08G.
-4j. Optionally close out preview hardening or make a final advisory summary
-    polish pass in report-only mode, if explicitly approved.
-5. Add a human-reviewed generator prototype that can be inspected but does not
-   run actual generation in automated checks.
+4j. Close out preview hardening. Completed by Y-08Z.
+5. Y-09: plan a human-reviewed generator prototype only, not actual generation,
+   if explicitly approved by a later task.
 6. Add actual generation only after human approval, clean dry-runs, reviewed
    license/notice inputs, and cleanup/rollback planning.
 
