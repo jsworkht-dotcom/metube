@@ -32,6 +32,7 @@ REQUIRED_MARKDOWN_SECTIONS = (
     "## Package Manifest Preview",
     "## Package Output Diff Prediction",
     "## Notice / Guide Source Coverage",
+    "## Generation Readiness Preview",
     "## Excluded Paths Summary",
     "## Blockers",
     "## Warnings",
@@ -53,6 +54,7 @@ REQUIRED_JSON_FIELDS = (
     "package_manifest_preview",
     "package_output_diff_prediction",
     "source_coverage",
+    "generation_readiness",
     "excluded_paths_summary",
     "validation",
     "warnings",
@@ -162,6 +164,24 @@ REQUIRED_COVERAGE_CATEGORIES = {
     "manifest_source",
 }
 
+REQUIRED_READINESS_ITEM_FIELDS = {
+    "id",
+    "category",
+    "label",
+    "status",
+    "required_before_generation",
+    "human_review_required",
+    "evidence_source",
+    "notes",
+}
+
+READINESS_STATUSES = {
+    "ready",
+    "blocked",
+    "needs_human_review",
+    "unresolved",
+}
+
 CHECK_NAMES = (
     "all modes exit 0",
     "default text output",
@@ -169,16 +189,20 @@ CHECK_NAMES = (
     "text manifest entries",
     "text output groups",
     "text source coverage status",
+    "text generation readiness preview",
     "--format markdown required sections",
     "--format markdown manifest entries",
     "--format markdown output groups",
     "--format markdown source coverage status",
+    "--format markdown generation readiness preview",
     "--format json parse",
     "--format json required fields",
     "--format json manifest entries",
     "--format json output groups",
     "--format json source coverage status",
+    "--format json generation readiness preview",
     "cross-format status consistency",
+    "cross-format readiness consistency",
     "generated package folder absent",
 )
 
@@ -375,6 +399,35 @@ def check_text_outputs(
             "--format text output missing Source coverage status",
         )
 
+    if "Generation Readiness Preview" not in default:
+        add_failure(
+            failures,
+            check_status,
+            "text generation readiness preview",
+            "default text output missing Generation Readiness Preview",
+        )
+    if "Generation Readiness Preview" not in text:
+        add_failure(
+            failures,
+            check_status,
+            "text generation readiness preview",
+            "--format text output missing Generation Readiness Preview",
+        )
+    if "overall: blocked" not in default:
+        add_failure(
+            failures,
+            check_status,
+            "text generation readiness preview",
+            "default text readiness overall is not blocked",
+        )
+    if "actual_generation_approved: false" not in text:
+        add_failure(
+            failures,
+            check_status,
+            "text generation readiness preview",
+            "--format text readiness actual_generation_approved is not false",
+        )
+
 
 def check_markdown_output(
     result: ModeResult,
@@ -421,6 +474,29 @@ def check_markdown_output(
             check_status,
             "--format markdown source coverage status",
             "Markdown output missing Source Coverage Status",
+        )
+
+    if "## Generation Readiness Preview" not in output:
+        add_failure(
+            failures,
+            check_status,
+            "--format markdown generation readiness preview",
+            "Markdown output missing Generation Readiness Preview section",
+        )
+    readiness_section = markdown_section(output, "## Generation Readiness Preview")
+    if "- overall: `blocked`" not in readiness_section:
+        add_failure(
+            failures,
+            check_status,
+            "--format markdown generation readiness preview",
+            "Markdown readiness overall is not blocked",
+        )
+    if "- actual_generation_approved: `false`" not in readiness_section:
+        add_failure(
+            failures,
+            check_status,
+            "--format markdown generation readiness preview",
+            "Markdown readiness actual_generation_approved is not false",
         )
 
 
@@ -945,6 +1021,157 @@ def check_json_source_coverage(
         )
 
 
+def check_json_generation_readiness(
+    json_data: dict[str, object] | None,
+    failures: list[str],
+    check_status: dict[str, bool],
+) -> None:
+    check_name = "--format json generation readiness preview"
+    if json_data is None:
+        add_failure(
+            failures,
+            check_status,
+            check_name,
+            "JSON data unavailable for generation readiness checks",
+        )
+        return
+
+    readiness = json_data.get("generation_readiness")
+    if not isinstance(readiness, dict):
+        add_failure(
+            failures,
+            check_status,
+            check_name,
+            "generation_readiness is not an object",
+        )
+        return
+
+    if readiness.get("overall") != "blocked":
+        add_failure(
+            failures,
+            check_status,
+            check_name,
+            "generation_readiness.overall is not blocked",
+        )
+    if readiness.get("actual_generation_approved") is not False:
+        add_failure(
+            failures,
+            check_status,
+            check_name,
+            "generation_readiness.actual_generation_approved is not false",
+        )
+    if readiness.get("score_basis") != "advisory_only":
+        add_failure(
+            failures,
+            check_status,
+            check_name,
+            "generation_readiness.score_basis is not advisory_only",
+        )
+    if not isinstance(readiness.get("next_required_action"), str):
+        add_failure(
+            failures,
+            check_status,
+            check_name,
+            "generation_readiness.next_required_action is not a string",
+        )
+
+    items = readiness.get("checklist_items")
+    if not isinstance(items, list) or not items:
+        add_failure(
+            failures,
+            check_status,
+            check_name,
+            "generation_readiness.checklist_items is not a non-empty list",
+        )
+        return
+
+    summary = readiness.get("summary")
+    if not isinstance(summary, dict):
+        add_failure(
+            failures,
+            check_status,
+            check_name,
+            "generation_readiness.summary is not an object",
+        )
+    else:
+        for key in ("total", "ready", "blocked", "needs_human_review", "unresolved"):
+            if not isinstance(summary.get(key), int):
+                add_failure(
+                    failures,
+                    check_status,
+                    check_name,
+                    f"generation_readiness.summary.{key} is not an integer",
+                )
+        if summary.get("total") != len(items):
+            add_failure(
+                failures,
+                check_status,
+                check_name,
+                "generation_readiness.summary total does not match items length",
+            )
+        if summary.get("blocked", 0) < 1:
+            add_failure(
+                failures,
+                check_status,
+                check_name,
+                "generation_readiness.summary blocked count is less than 1",
+            )
+
+    actual_generation_blocked = False
+    for index, item in enumerate(items):
+        if not isinstance(item, dict):
+            add_failure(
+                failures,
+                check_status,
+                check_name,
+                f"readiness item {index} is not an object",
+            )
+            continue
+
+        missing = REQUIRED_READINESS_ITEM_FIELDS - set(item)
+        if missing:
+            add_failure(
+                failures,
+                check_status,
+                check_name,
+                f"readiness item {index} missing fields: {', '.join(sorted(missing))}",
+            )
+        if item.get("status") not in READINESS_STATUSES:
+            add_failure(
+                failures,
+                check_status,
+                check_name,
+                f"readiness item {index} status is not recognized",
+            )
+        if item.get("required_before_generation") is not True:
+            add_failure(
+                failures,
+                check_status,
+                check_name,
+                f"readiness item {index} required_before_generation is not true",
+            )
+        if item.get("human_review_required") is not True:
+            add_failure(
+                failures,
+                check_status,
+                check_name,
+                f"readiness item {index} human_review_required is not true",
+            )
+        if (
+            item.get("id") == "actual_generation_approval"
+            and item.get("status") == "blocked"
+        ):
+            actual_generation_blocked = True
+
+    if not actual_generation_blocked:
+        add_failure(
+            failures,
+            check_status,
+            check_name,
+            "actual_generation_approval readiness item is not blocked",
+        )
+
+
 def check_cross_format_consistency(
     results: dict[str, ModeResult],
     json_data: dict[str, object] | None,
@@ -1036,6 +1263,75 @@ def check_cross_format_consistency(
         )
 
 
+def check_cross_format_readiness_consistency(
+    results: dict[str, ModeResult],
+    json_data: dict[str, object] | None,
+    failures: list[str],
+    check_status: dict[str, bool],
+) -> None:
+    check_name = "cross-format readiness consistency"
+    default = results["default"].stdout
+    text = results["text"].stdout
+    markdown = results["markdown"].stdout
+
+    if "overall: blocked" not in default:
+        add_failure(
+            failures,
+            check_status,
+            check_name,
+            "default text readiness overall is not blocked",
+        )
+    if "overall: blocked" not in text:
+        add_failure(
+            failures,
+            check_status,
+            check_name,
+            "--format text readiness overall is not blocked",
+        )
+    markdown_readiness = markdown_section(markdown, "## Generation Readiness Preview")
+    if "- overall: `blocked`" not in markdown_readiness:
+        add_failure(
+            failures,
+            check_status,
+            check_name,
+            "Markdown readiness overall is not blocked",
+        )
+
+    if json_data is None:
+        add_failure(
+            failures,
+            check_status,
+            check_name,
+            "JSON data unavailable for readiness consistency checks",
+        )
+        return
+
+    readiness = json_data.get("generation_readiness")
+    if not isinstance(readiness, dict):
+        add_failure(
+            failures,
+            check_status,
+            check_name,
+            "JSON generation_readiness is unavailable for consistency checks",
+        )
+        return
+
+    if readiness.get("overall") != "blocked":
+        add_failure(
+            failures,
+            check_status,
+            check_name,
+            "JSON readiness overall is not blocked",
+        )
+    if readiness.get("actual_generation_approved") is not False:
+        add_failure(
+            failures,
+            check_status,
+            check_name,
+            "JSON readiness actual_generation_approved is not false",
+        )
+
+
 def check_generated_package_absent(
     root: Path,
     failures: list[str],
@@ -1090,7 +1386,14 @@ def main(argv: list[str]) -> int:
     check_json_manifest_entries(json_data, failures, check_status)
     check_json_output_groups(json_data, failures, check_status)
     check_json_source_coverage(json_data, failures, check_status)
+    check_json_generation_readiness(json_data, failures, check_status)
     check_cross_format_consistency(results, json_data, failures, check_status)
+    check_cross_format_readiness_consistency(
+        results,
+        json_data,
+        failures,
+        check_status,
+    )
     check_generated_package_absent(root, failures, check_status)
 
     print_report(check_status, failures)

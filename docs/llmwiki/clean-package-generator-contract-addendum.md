@@ -537,8 +537,23 @@ Y-08E implementation note:
   runtime/desktop shell readiness, security/privacy, cleanup/rollback, and
   explicit human review.
 - Passing dry-run previews does not approve actual generation.
-- A future readiness preview may be implemented as report-only output only
-  after a later explicit task.
+- Follow-up readiness preview is implemented by Y-08F as report-only output.
+- Actual manifest, notice, license, inventory, guide, runtime, desktop shell,
+  and package generation remain later human-reviewed tasks.
+
+Y-08F implementation note:
+
+- `scripts/clean_package_dry_run.py` now reports a generation readiness
+  checklist preview in text, Markdown, and JSON output.
+- JSON includes top-level `generation_readiness`.
+- The readiness preview keeps `overall: blocked`,
+  `actual_generation_approved: false`, and `score_basis: advisory_only`.
+- The preview includes checklist items, summary counts, unresolved count, and a
+  next required action.
+- `scripts/check_clean_package_dry_run_reports.py` validates the readiness
+  preview across text, Markdown, and JSON modes.
+- The readiness preview is advisory only. It does not approve actual
+  generation, write report files, or create package output.
 - Actual manifest, notice, license, inventory, guide, runtime, desktop shell,
   and package generation remain later human-reviewed tasks.
 
@@ -629,8 +644,10 @@ Candidate phases, each requiring a separate explicit task:
     Y-08D.
 4g. Add a package generation readiness checklist in docs-only mode. Completed
     by Y-08E.
-4h. Add generation readiness checklist preview in report-only mode, if
-    explicitly approved.
+4h. Add generation readiness checklist preview in report-only mode. Completed
+    by Y-08F.
+4i. Refine readiness summary polish or advisory score presentation in
+    report-only mode, if explicitly approved.
 5. Add a human-reviewed generator prototype that can be inspected but does not
    run actual generation in automated checks.
 6. Add actual generation only after human approval, clean dry-runs, reviewed

@@ -377,6 +377,8 @@ High-high:
 - Y-08E: docs-only generation readiness checklist.
   Completed in docs-only mode.
 - Y-08F: implement generation readiness checklist preview in dry-run reports.
+  Completed in report-only / stdout-only mode.
+- Y-08G: readiness summary polish / advisory score refinement.
 
 ## Recommended Next Step
 
@@ -389,14 +391,18 @@ Y-08D implemented source coverage status hardening in report-only mode.
 
 Y-08E added a package generation readiness checklist in docs-only mode.
 
-Y-08F should implement generation readiness checklist preview in report-only
-mode, if explicitly approved.
+Y-08F implemented generation readiness checklist preview in report-only mode.
+
+Y-08G should refine readiness summary polish or advisory score presentation in
+report-only mode, if explicitly approved.
 
 ## Verification Checklist
 
-For this docs-only task:
+For this report-only task:
 
 - `git diff --check`
+- `python -m py_compile scripts/clean_package_dry_run.py`
+- `python -m py_compile scripts/check_clean_package_dry_run_reports.py`
 - `python scripts/check_repo_safety.py`
 - `python scripts/check_repo_safety.py --base fork/master`
 - `python scripts/check_clean_package_dry_run_reports.py`
@@ -405,10 +411,10 @@ For this docs-only task:
 - `python scripts/clean_package_dry_run.py --format markdown`
 - `python scripts/clean_package_dry_run.py --format json`
 - Confirm `動画保存ツール_ローカル専用/` is absent.
-- Confirm changed files are approved docs only.
+- Confirm changed files are approved report/checker/docs scope only.
 
 ## Rollback / Cleanup Note
 
-Rollback is a docs-only revert of the Y-08E checklist commit.
+Rollback is a revert of the Y-08F script, checker, and docs commit.
 
 No generated package output exists to clean up.
