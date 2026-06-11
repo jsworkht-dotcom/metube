@@ -66,13 +66,16 @@ MeTube. The canonical branch is fork `master`, and local `master` tracks
 - No package output or `動画保存ツール_ローカル専用/` generated package folder should
   exist.
 - Run preflight before the next task.
-- Current after this PR merges: `Y-UI-REVIEW-02` partial screenshot review
-  findings are recorded docs-only.
-- Review outcome: temporary screenshots captured static desktop, video helper
-  popover, and narrow-width states; full interactive screenshot review remains
-  limited because the static preview stayed at `サーバーに接続中...`.
-- Next: `Y-UI-REVIEW-02R` rerun screenshot review with a working browser/backend
-  environment.
+- Completed:
+  - Y-UI-REVIEW-01 current UI review checklist.
+  - Y-UI-REVIEW-02 screenshot review findings with partial static coverage.
+- Current after this PR merges: `Y-UI-REVIEW-02R` rerun screenshot review is
+  recorded docs-only.
+- Review outcome: temporary screenshots with a local mock server captured the
+  loaded form, video/audio helper popovers, audio mode, completed/result rows,
+  video/audio quality labels, captions/thumbnail `-`, and narrow-width layout.
+  No blocking UI findings were observed.
+- Next: `Y-UI-REVIEW-02Z` review-complete closeout.
 - Safety: no package generation, generated folder absent, frontend work remains
   human-reviewed, and safety gate policy changes remain separate.
 - Frontend `ui/**` work remains human-reviewed unless safety gate policy is
@@ -837,7 +840,7 @@ as the next-chat source of truth.
 Recommended next candidate:
 
 ```text
-Y-UI-REVIEW-02R rerun screenshot review with working browser environment
+Y-UI-REVIEW-02Z review-complete closeout
 ```
 
 Alternative:

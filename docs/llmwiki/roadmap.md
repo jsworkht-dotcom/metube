@@ -73,13 +73,30 @@
 - No UI code, backend code, scripts, Docker files, CI files, package files, or
   lockfiles were changed.
 
+### Y-UI-REVIEW-02R rerun screenshot review with mocked browser environment
+
+- Status: completed.
+- Summary: reran screenshot review with a temporary mocked browser environment
+  and recorded remaining findings.
+- Findings:
+  `docs/llmwiki/current-ui-screenshot-review-findings.md`
+- The rerun observed the loaded add form, video quality helper popover, audio
+  mode, audio `音質` selector label, audio quality helper popover,
+  completed/result table header `品質`, synthetic video/audio result quality
+  labels, captions/thumbnail `-`, and narrow-width loaded layout.
+- Native select dropdown panels were not visible in screenshots after selector
+  clicks, so selector option labels were verified through browser DOM evidence.
+- No blocking UI findings were observed.
+- No UI code, backend code, scripts, Docker files, CI files, package files, or
+  lockfiles were changed.
+
 ### Next candidates
 
 Immediate next:
 
 ```text
-Y-UI-REVIEW-02R:
-  rerun screenshot review with working browser environment
+Y-UI-REVIEW-02Z:
+  review-complete closeout
 ```
 
 Automation later:

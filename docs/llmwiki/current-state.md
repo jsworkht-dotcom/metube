@@ -1966,6 +1966,17 @@ review remains partial because the static preview stayed at
 audio-mode, and real result-row visual review. No UI code, backend code,
 download behavior, or package output was changed.
 
+Y-UI-REVIEW-02R reran the screenshot review with a temporary local mock server
+and safe synthetic data, then appended the rerun result to
+`docs/llmwiki/current-ui-screenshot-review-findings.md`. The rerun improved
+coverage by observing the loaded add form, video helper popover, audio mode,
+audio `音質` selector label, audio helper popover, completed/result table
+header `品質`, synthetic video/audio quality labels, captions/thumbnail `-`,
+and narrow-width loaded layout. No blocking UI findings were observed. Native
+select dropdown panels were not visible in captured screenshots and were
+verified through browser DOM evidence instead. No UI code, backend code,
+download behavior, or package output was changed.
+
 Use the preflight checker before future file modification when a task needs
 local readiness confirmation:
 
@@ -1989,7 +2000,7 @@ remain absent.
 The next practical candidate is:
 
 ```text
-Y-UI-REVIEW-02R rerun screenshot review with working browser environment
+Y-UI-REVIEW-02Z review-complete closeout
 ```
 
 Pause can be chosen instead. Future `ui/**` work remains human-reviewed unless

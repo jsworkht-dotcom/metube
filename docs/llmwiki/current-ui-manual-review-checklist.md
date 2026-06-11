@@ -13,7 +13,7 @@ behavior, download behavior, or local-only policy.
 ## Review Status
 
 ```text
-status: screenshot-review-attempted / partial-static-screenshots-captured
+status: rerun-screenshot-reviewed-no-blocking-issues
 ```
 
 Y-UI-REVIEW-02 attempted review and captured temporary static screenshots for
@@ -21,6 +21,13 @@ the initial add form, the video quality helper popover, and a narrow-width
 layout. The preview remained at `サーバーに接続中...`, so selector-open states,
 audio-mode visuals, and completed/result rows were not visually reviewed. This
 document does not assert a full visual pass/fail.
+
+Y-UI-REVIEW-02R reran the review with a temporary local mock server and safe
+synthetic data. The rerun captured the loaded form, video and audio helper
+popovers, audio mode, completed/result rows for video/audio/captions/thumbnail,
+and a narrow-width loaded layout. Native OS select dropdown panels were not
+visible in screenshots after selector clicks, so those open-state screenshots
+remain unchecked; selector labels were verified through browser DOM evidence.
 
 ## Scope
 
@@ -40,10 +47,10 @@ document does not assert a full visual pass/fail.
 - [ ] Screenshot: video quality selector opened
 - [x] Screenshot: video quality helper popover
 - [ ] Screenshot: audio quality selector opened
-- [ ] Screenshot: audio quality helper popover
-- [ ] Screenshot: completed/result table with video row
-- [ ] Screenshot: completed/result table with audio row
-- [ ] Screenshot: completed/result table with captions/thumbnail row if available
+- [x] Screenshot: audio quality helper popover
+- [x] Screenshot: completed/result table with video row
+- [x] Screenshot: completed/result table with audio row
+- [x] Screenshot: completed/result table with captions/thumbnail row if available
 - [x] Screenshot: narrow-width layout
 
 ## Expected UI Wording
@@ -116,6 +123,18 @@ Helper popover wording to review:
   visuals, and real result rows were not observed.
 - suggested next task: `Y-UI-REVIEW-02R rerun screenshot review with working browser environment`
 - risk: Low docs-only risk; limited visual coverage.
+
+### Finding 2
+
+- status: no-blocking-findings-observed
+- screen: Y-UI-REVIEW-02R mocked loaded UI review
+- issue: No blocking copy/layout issue was observed in the rerun screenshots.
+- evidence: screenshots captured the loaded form, audio mode, video/audio
+  helper popovers, completed/result rows, `品質` column, video/audio result
+  quality labels, captions/thumbnail `-`, and narrow-width layout.
+- suggested next task: `Y-UI-REVIEW-02Z review-complete closeout`
+- risk: Low docs-only risk; native select dropdown panels were not captured
+  visually and were verified via browser DOM evidence instead.
 
 ## Next Task Decision
 

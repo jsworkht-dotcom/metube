@@ -131,3 +131,136 @@ decision: rerun screenshot review with working browser environment
 ```text
 Y-UI-REVIEW-02R rerun screenshot review with working browser environment
 ```
+
+## Y-UI-REVIEW-02R Rerun
+
+### Review Status
+
+```text
+status: rerun-screenshot-reviewed-no-blocking-issues
+```
+
+The rerun used a temporary static Angular build and a temporary local mock
+server outside the repository. The mock server provided safe synthetic
+Socket.IO/HTTP data so the UI could leave `サーバーに接続中...`, enable the
+form controls, switch to audio mode, and render completed/result rows without
+submitting any real download job.
+
+No blocking UI copy or layout finding was observed in the screenshots captured
+for the rerun. Native OS select dropdown contents were not visible in the
+captured screenshots after clicking the selectors, so selector option labels
+are recorded from browser DOM evidence and visible closed-control states.
+
+### Environment
+
+- local HEAD before branch work:
+  `d9ce0e2d12d972acb0c04faa4a987767bc643072`
+- expected `fork/master`:
+  `d9ce0e2d12d972acb0c04faa4a987767bc643072`
+- frontend server was started: yes, as a temporary static build served by a
+  temporary local mock server
+- browser automation was used: yes
+- network/API was mocked: yes, with safe synthetic local-only data
+- screenshots were captured: yes, temporary only
+- screenshots were committed: no
+- real downloads were submitted: no
+- generated package folder exists: no
+
+Temporary screenshot files were kept outside the repository under:
+
+```text
+C:\Users\tomikyo\AppData\Local\Temp\y-ui-review-02r-screenshots\
+```
+
+Captured files:
+
+- `01-desktop-loaded-form-and-results.png`
+- `02-video-quality-selector-clicked.png`
+- `03-video-quality-helper-popover.png`
+- `04-audio-mode-mp3-selected.png`
+- `05-audio-quality-selector-clicked.png`
+- `06-audio-quality-helper-popover.png`
+- `07-mobile-loaded-form-and-results.png`
+
+Temporary mock/build files were outside the repository and are not committed:
+
+- `C:\tmp\y-ui-review-02r-mock-server.py`
+- `C:\Users\tomikyo\AppData\Local\Temp\y-ui-review-02r-static-preview\`
+
+### Screenshot / Observation Inventory
+
+- initial add form:
+  - status: observed-ok
+  - evidence: desktop and narrow-width screenshots show the loaded form without
+    `サーバーに接続中...`; controls were enabled by mocked Socket.IO state.
+- video quality selector labels:
+  - status: observed-ok
+  - evidence: browser DOM in the loaded UI listed `最高画質（自動）`,
+    `4K（2160p）`, `高画質（1440p）`, `フルHD（1080p）`,
+    `標準（720p）`, `軽量（480p）`, `低容量（360p）`, `最小（240p）`,
+    and `最低画質（自動）`. Native dropdown chrome was not visible in the
+    selector-click screenshot.
+- video quality helper popover:
+  - status: observed-ok
+  - evidence: screenshot captured the `画質` helper popover explaining quality
+    target/upper-limit behavior, source-quality fallback, auto mode, and
+    file-size tradeoff.
+- audio mode:
+  - status: observed-ok
+  - evidence: screenshot captured `種類: 音声`, MP3 format selected, and
+    enabled audio quality controls.
+- audio quality selector / 音質 label:
+  - status: observed-ok
+  - evidence: screenshot captured the visible `音質` label and selected
+    `最高音質（自動）`; browser DOM listed MP3 options
+    `最高音質（自動）`, `高音質（320kbps）`, `標準（192kbps）`, and
+    `軽量（128kbps）`.
+- audio quality helper popover:
+  - status: observed-ok
+  - evidence: screenshot captured the `音質` helper popover explaining
+    quality/file-size tradeoff, lightweight 128kbps, and auto mode.
+- completed/result table:
+  - status: observed-ok
+  - evidence: screenshot captured a completed/result table populated with safe
+    synthetic video, audio, captions, and thumbnail rows.
+- result 品質 column:
+  - status: observed-ok
+  - evidence: screenshot captured the result table header `品質`.
+- video result quality label:
+  - status: observed-ok
+  - evidence: synthetic video row displayed `フルHD（1080p）`.
+- audio result quality label:
+  - status: observed-ok
+  - evidence: synthetic audio row displayed `高音質（320kbps）`.
+- captions/thumbnail quality label:
+  - status: observed-ok
+  - evidence: synthetic captions and thumbnail rows displayed `-`.
+- narrow-width layout:
+  - status: observed-ok
+  - evidence: 375px-wide screenshot captured the loaded audio form and
+    completed/result rows with horizontal table overflow behavior.
+
+### Findings
+
+No blocking UI findings were observed in the rerun screenshots.
+
+Review limits:
+
+- Data was safe synthetic/mock data, not real download history.
+- Native select dropdown option panels were not visible in the captured browser
+  screenshots, so dropdown label coverage relies on browser DOM evidence plus
+  closed-control screenshots.
+- This rerun does not assert behavior for a real backend session, real
+  downloads, private URLs, cookies, tokens, or accounts.
+
+### Decision
+
+```text
+decision: close review as complete docs-only
+```
+
+### Next Candidate
+
+```text
+Y-UI-REVIEW-02Z review-complete closeout
+```
