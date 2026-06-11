@@ -18,12 +18,19 @@ MeTube. The canonical branch is fork `master`, and local `master` tracks
   - Y-UI-QUALITY-01 quality selector simple labels via fork PR #73.
   - Y-UI-QUALITY-01Z docs closeout via fork PR #74.
   - Y-UI-QUALITY-02 quality selector helper copy via fork PR #75.
+  - Y-UI-QUALITY-02Z docs closeout via fork PR #76.
+  - Y-UI-QUALITY-03 completed/result table quality label polish via fork PR
+    #77.
 - PR #73 merge commit:
   `402996eba52f923be962e2fe69ebdaa6084363f2`.
 - PR #74 merge commit:
   `708f2ca583b95bb25135e3463764ac547c75a084`.
 - PR #75 merge commit:
   `eea1c861a62033b02255950491cd9e0f6ab2d77b`.
+- PR #76 merge commit:
+  `702cf9c231f21366267a9f3c181e90b6494ecb8e`.
+- PR #77 merge commit:
+  `c2f58fad237218d681414b51749bca6fe1bc734b`.
 - Y-UI-QUALITY-01 simplified visible video/audio quality labels while preserving
   numeric values, existing option ids, API payloads, backend validation, and
   download logic.
@@ -34,8 +41,14 @@ MeTube. The canonical branch is fork `master`, and local `master` tracks
   `音質`.
 - Y-UI-QUALITY-02 preserved option ids, payloads, backend/API/download logic,
   validation, and yt-dlp selector behavior.
-- PR #73 and PR #75 were High-mid / human-reviewed frontend UI work because
-  the current local safety aggregator forbids `ui/**`.
+- Y-UI-QUALITY-03 polished completed/result table quality labels so they match
+  selector wording, changed the result table column header from `画質` to
+  `品質`, kept captions/thumbnails as `-`, preserved safe fallback behavior,
+  and added focused UI spec coverage.
+- Y-UI-QUALITY-03 preserved backend/API/download logic, option ids, payloads,
+  validation, and yt-dlp selector behavior.
+- PR #73, PR #75, and PR #77 were High-mid / human-reviewed frontend UI work
+  because the current local safety aggregator forbids `ui/**`.
 - This docs closeout does not weaken or modify the safety gate.
 - Readiness preview remains report-only and advisory-only:
   - `overall: blocked`
@@ -47,8 +60,8 @@ MeTube. The canonical branch is fork `master`, and local `master` tracks
 - No package output or `動画保存ツール_ローカル専用/` generated package folder should
   exist.
 - Run preflight before the next task.
-- Current next: choose `Y-UI-QUALITY-03 completed/result table quality label
-  polish` or pause for review of the current UI.
+- Current next: choose `Y-UI-REVIEW-01 current UI manual review checklist /
+  screenshot-based review notes` or pause for actual UI review.
 - Frontend `ui/**` work remains human-reviewed unless safety gate policy is
   explicitly updated later.
 
@@ -811,13 +824,13 @@ as the next-chat source of truth.
 Recommended next candidate:
 
 ```text
-Y-UI-QUALITY-03 completed/result table quality label polish
+Y-UI-REVIEW-01 current UI manual review checklist / screenshot-based review notes
 ```
 
 Alternative:
 
 ```text
-pause for review of the current UI
+pause for actual UI review
 ```
 
 Use the `Risk classification` section from `scripts/check_repo_safety.py`
@@ -839,8 +852,8 @@ Run `scripts/check_repo_safety.py`,
 high-low-risk fork PR.
 
 The Y-08 package-material lane is closed by Y-08Z. Y-UI-QUALITY-01,
-Y-UI-QUALITY-01Z, and Y-UI-QUALITY-02 are complete. Optional later CI wiring
-for the Y-07E checker remains separate.
+Y-UI-QUALITY-01Z, Y-UI-QUALITY-02, Y-UI-QUALITY-02Z, and Y-UI-QUALITY-03 are
+complete. Optional later CI wiring for the Y-07E checker remains separate.
 
 Later clean-package work should resume as Y-09 human-reviewed generation
 prototype planning only, not actual generation. Keep Y-09 blocked unless later
@@ -854,6 +867,9 @@ update execution, handle cookie/token/secret values, or add Y-CHECK automation /
 CI / PR bot behavior yet.
 
 Actual package generation remains blocked.
+
+Safety-gate support for frontend copy-only or label-only lanes should remain a
+separate policy/checker task, not bundled into this closeout.
 
 ## Y-AUTO-08 Handoff Update
 

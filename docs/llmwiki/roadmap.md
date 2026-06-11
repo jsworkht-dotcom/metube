@@ -32,13 +32,27 @@
 - The PR was frontend UI copy-only and required human-reviewed merge because
   the current local safety aggregator forbids `ui/**`.
 
+### Y-UI-QUALITY-03 completed/result table quality label polish
+
+- Status: completed via fork PR #77.
+- Summary: polished result table quality labels and focused specs while
+  preserving behavior.
+- Completed/result table quality labels now match the simplified selector
+  wording.
+- Result table quality column header changed from `画質` to neutral `品質`.
+- Focused UI spec coverage was added for quality label mapping.
+- Backend/API/download logic, option ids, payloads, validation, and yt-dlp
+  selector behavior were unchanged.
+- The PR was frontend UI label/test work and required human-reviewed merge
+  because the current local safety aggregator forbids `ui/**`.
+
 ### Next candidates
 
 Immediate next:
 
 ```text
-Y-UI-QUALITY-03:
-  completed/result table quality label polish
+Y-UI-REVIEW-01:
+  current UI manual review checklist / screenshot-based review notes
 ```
 
 Automation later:
@@ -51,7 +65,7 @@ Y-AUTO-later:
 - Do not modify safety gate behavior in this closeout.
 - Do not broaden auto-merge policy for `ui/**` in this closeout.
 - Any future frontend lane remains human-reviewed unless a later policy PR
-  explicitly updates the gate.
+  or checker PR explicitly updates the gate.
 
 Later clean-package lane:
 
