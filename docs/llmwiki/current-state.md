@@ -19,8 +19,8 @@
 - Do not open PRs against upstream `alexta69/metube` unless explicitly requested for a
   separate upstream contribution.
 - Do not mix upstream PR #1001 files into fork-only work.
-- Latest Y-SEC-02 merge baseline: fork `master`
-  `e54058dc112ae6c29237738b21bff0e3253407ea` from fork PR #83.
+- Latest Y-SEC-03 merge baseline: fork `master`
+  `aa0200b126d5cdc9d18617280fe733284bf990e6` from fork PR #84.
 
 ## Current Runtime Security State
 
@@ -87,8 +87,8 @@
 
 ### Y-SEC-03 log and filename privacy redaction hardening
 
-- Implemented in draft PR branch
-  `codex/y-sec-03-log-filename-redaction`.
+- Completed via fork PR #84.
+- Merge commit: `aa0200b126d5cdc9d18617280fe733284bf990e6`.
 - Adds dependency-free privacy helpers in `app/local_only_security.py` for
   URL log redaction, general text redaction, sensitive-material detection, and
   single-component filename sanitization.
@@ -107,6 +107,27 @@
   install/update, Docker operation, public hosting, cookie/token/secret
   handling, frontend change, package/lockfile change, or safety gate change
   was performed.
+
+### Y-DIST-01 CLEAN portable distribution manifest and forbidden-file checker
+
+- Implemented in branch
+  `codex/y-dist-01-clean-distribution-checker`.
+- Adds `scripts/check_clean_distribution.py` as a stdlib-only, report-only
+  checker for an explicitly provided candidate directory.
+- Adds `docs/llmwiki/clean-portable-distribution-manifest.md` as the manifest
+  contract for future CLEAN portable distribution review.
+- Adds dependency-free `unittest` coverage for missing paths, forbidden
+  paths, sensitive filenames, symlinks, conservative secret-like content
+  patterns, large-file scan limits, sanitized reports, and JSON output.
+- The checker is read-only, blocks findings with a non-zero exit code, does
+  not follow symlinks, and does not print matched secret values or file
+  contents.
+- Future CLEAN share, upload, ZIP, installer, or package generation must pass
+  this checker first, but this checker does not approve generation.
+- No CLEAN folder, ZIP, installer, package output, dependency install/update,
+  Docker operation, real download, cookie/token/secret handling, frontend
+  change, package/lockfile change, or existing safety gate behavior change is
+  part of this lane.
 
 ## Completed Work
 
@@ -2015,11 +2036,11 @@
 
 ## Current Next Step
 
-Y-SEC-03 is implemented in draft PR branch
-`codex/y-sec-03-log-filename-redaction` for log/error privacy redaction and
-custom filename prefix sanitization. Human review is required before ready or
-merge. Next practical candidates are Y-DIST-01, Y-DIST-02, Y-DIST-03,
-Y-SEC-04, and Y-SEC-05.
+Y-DIST-01 is implemented in branch
+`codex/y-dist-01-clean-distribution-checker` as a report-only CLEAN portable
+distribution checker and manifest contract. It does not generate output or
+approve package creation. Human review is required before ready or merge. Next
+practical candidates are Y-DIST-02, Y-DIST-03, Y-SEC-04, and Y-SEC-05.
 
 Y-08Z closes the Y-08 preview hardening lane as docs-only closeout.
 Y-UI-QUALITY-01 is complete via fork PR #73 with merge commit

@@ -162,6 +162,29 @@ The checker must not weaken existing human approval gates for destructive,
 credential, deployment, infrastructure, install/update, push, merge, release, or
 customer-data actions.
 
+## CLEAN Portable Distribution Checker Boundary
+
+Y-DIST-01 adds a report-only candidate-directory checker at
+`scripts/check_clean_distribution.py` and a manifest contract at
+`docs/llmwiki/clean-portable-distribution-manifest.md`.
+
+The checker may inspect only the candidate path explicitly provided by the
+operator. It must remain read-only, must not follow symlinks, must not create or
+delete files, must not generate `動画保存ツール_ローカル専用/`, must not create ZIP,
+installer, or package output, and must not install dependencies or run Docker.
+
+The checker must block forbidden distribution contents such as repository
+metadata, `.env`, cookies, tokens, secrets, logs, state, downloads, databases,
+build output, caches, editor folders, private key material, backup/temp/swap
+files, obvious sensitive filenames, and conservative secret-like content pattern
+families. Content reports must include only path, line, and pattern family; they
+must not print file contents or matched secret values.
+
+Passing the checker does not approve package generation, public hosting, ZIP or
+installer output, external sharing, or future unchecked manual copying. Future
+CLEAN share/upload/generation work must pass the checker first and still needs
+explicit package-generation approval.
+
 ## Codex Automation Boundary
 
 The Codex automation policy is tracked in
