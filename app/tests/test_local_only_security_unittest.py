@@ -12,6 +12,7 @@ from app.local_only_security import (
     public_host_url_allowed,
     source_header_allowed,
     strip_host_port,
+    url_intake_security_errors,
 )
 
 PUBLIC_URL_KEY = '_'.join(('PUBLIC', 'HOST', 'URL'))
@@ -30,6 +31,7 @@ def _safe_config(**overrides):
         ALLOW_UNSAFE_OVERRIDES_KEY: False,
         'YTDL_NIGHTLY_UPDATE_TIME': '',
         'ALLOW_UNSAFE_NIGHTLY_UPDATE': False,
+        'URL_INTAKE_GUARD': True,
         PUBLIC_URL_KEY: 'download/',
         PUBLIC_AUDIO_URL_KEY: 'audio_download/',
     }
@@ -41,6 +43,12 @@ def _safe_config(**overrides):
 
 
 class LocalOnlySecurityTests(unittest.TestCase):
+    def assertUrlAllowed(self, url: str) -> None:
+        self.assertEqual(url_intake_security_errors(url), [])
+
+    def assertUrlBlocked(self, url: str | None) -> None:
+        self.assertTrue(url_intake_security_errors(url))
+
     def test_local_host_parsing_allows_loopback_values(self):
         cases = {
             'localhost': 'localhost',
@@ -110,6 +118,74 @@ class LocalOnlySecurityTests(unittest.TestCase):
             with self.subTest(url=url):
                 self.assertFalse(public_host_url_allowed(url))
 
+    def test_url_intake_allows_public_urls(self):
+        for url in (
+            'https://www.youtube.com/watch?v=test',
+            'https://youtu.be/test',
+            'http://example.com/video',
+            'https://example.com/path?x=1',
+        ):
+            with self.subTest(url=url):
+                self.assertUrlAllowed(url)
+
+    def test_url_intake_blocks_disallowed_schemes_and_missing_hosts(self):
+        for url in (
+            'file:///etc/passwd',
+            'ftp://example.com/file',
+            'data:text/plain,hello',
+            'javascript:alert(1)',
+            'http:///missing-host',
+        ):
+            with self.subTest(url=url):
+                self.assertUrlBlocked(url)
+
+    def test_url_intake_blocks_local_private_and_special_ips(self):
+        for url in (
+            'http://localhost:8081/',
+            'http://127.0.0.1:8081/',
+            'http://0.0.0.0/',
+            'http://192.168.1.20/video',
+            'http://10.0.0.5/video',
+            'http://172.16.0.1/video',
+            'http://169.254.169.254/latest/meta-data/',
+            'http://100.64.0.1/video',
+            'http://224.0.0.1/video',
+            'http://240.0.0.1/video',
+            'http://255.255.255.255/video',
+            'http://[::1]/',
+            'http://[fc00::1]/',
+            'http://[fe80::1]/',
+            'http://[::]/',
+            'http://[ff00::1]/',
+            'http://[::ffff:127.0.0.1]/',
+        ):
+            with self.subTest(url=url):
+                self.assertUrlBlocked(url)
+
+    def test_url_intake_blocks_userinfo(self):
+        self.assertUrlBlocked('https://user:pass@example.com/video')
+
+    def test_url_intake_blocks_internal_hostnames(self):
+        for url in (
+            'http://printer.local/',
+            'http://router.lan/',
+            'http://metadata.google.internal/',
+        ):
+            with self.subTest(url=url):
+                self.assertUrlBlocked(url)
+
+    def test_url_intake_blocks_malformed_empty_and_relative_values(self):
+        for url in (
+            '',
+            '   ',
+            'not-a-url',
+            'https://example.com:99999/',
+            'https://example.com/a b',
+            None,
+        ):
+            with self.subTest(url=url):
+                self.assertUrlBlocked(url)
+
     def test_safe_default_like_config_returns_no_errors(self):
         self.assertEqual(local_only_config_errors(_safe_config()), [])
 
@@ -120,6 +196,12 @@ class LocalOnlySecurityTests(unittest.TestCase):
                     'HOST must be loopback when LOCAL_ONLY_MODE=true',
                     local_only_config_errors(_safe_config(HOST=host)),
                 )
+
+    def test_url_intake_guard_must_remain_enabled_in_local_only_mode(self):
+        self.assertIn(
+            'URL_INTAKE_GUARD must remain enabled when LOCAL_ONLY_MODE=true',
+            local_only_config_errors(_safe_config(URL_INTAKE_GUARD=False)),
+        )
 
     def test_wildcard_cors_returns_config_error(self):
         self.assertIn(

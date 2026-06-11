@@ -9,13 +9,12 @@ canonical branch is fork `master`, and local `master` tracks `fork/master`.
 
 ## Current Closeout State
 
-- Current Y-SEC-01 work branch:
-  `codex/y-sec-01-local-only-runtime-guardrails`.
-- Baseline before Y-SEC-01: fork `master`
-  `45852c6257380eb9893b7fd624fc52df439a12a3` from fork PR #81.
-- Latest expected `fork/master` after Y-SEC-01 merges will be this PR's future
-  merge commit.
-- Current Y-SEC-01 state:
+- Current Y-SEC-02 work branch:
+  `codex/y-sec-02-url-intake-ssrf-guard`.
+- Baseline before Y-SEC-02: fork `master`
+  `e63e282afdb4d710b01d6562a2ffd377c3a3fc32` from fork PR #82.
+- Y-SEC-01 is complete via fork PR #82.
+- Y-SEC-01 state:
   - local-only runtime guardrails implemented in backend startup/request
     handling
   - default bind is `HOST=127.0.0.1`
@@ -39,14 +38,32 @@ canonical branch is fork `master`, and local `master` tracks `fork/master`.
   - controlled distribution is CLEAN portable local-only distribution, not
     public hosting, Cloudflare/public web deployment, or an external
     SaaS/service offering
-  - PR #82 remains draft until human review
-  - PR body update for Y-SEC-01B was blocked in the previous run by GitHub
-    connector write `403` and local `gh` auth `401`; Y-SEC-01C should retry
-    once and report if the metadata update remains blocked
   - no package output, dependency install/update, Docker, cookie/token/secret
     handling, public hosting, or safety gate changes
+- Current Y-SEC-02 state:
+  - `URL_INTAKE_GUARD=true` is default-on and must remain enabled when
+    `LOCAL_ONLY_MODE=true`
+  - dependency-free URL intake helper added in `app/local_only_security.py`
+  - `/add` and `/subscribe` reject unsafe submitted URLs before enqueue or
+    subscription creation
+  - blocked targets include non-HTTP(S), malformed or missing-host URLs,
+    URL userinfo, localhost/loopback, private/link-local/shared/multicast/
+    reserved IP literals, IPv4-mapped IPv6 that points to blocked IPv4 ranges,
+    obvious internal hostnames, and metadata hostnames
+  - unsafe URL errors use a generic 400 reason and do not echo the submitted
+    URL
+  - DNS resolution is opt-in helper behavior only and is not enabled on the
+    request path in this first pass
+  - this does not claim complete DNS rebinding, downstream redirect, or
+    yt-dlp-internal URL protection
+  - dependency-free `unittest` passes with bundled Codex Python
+  - focused pytest/aiohttp tests were added but not run here because `pytest`
+    is unavailable and dependency installation was not performed
+  - no package output, dependency install/update, Docker, frontend change,
+    cookie/token/secret handling, real download, public hosting, or safety gate
+    change
 - Next candidate:
-  `Y-SEC-02 URL intake SSRF / private-network target guard`.
+  `Y-SEC-03 log and filename privacy redaction hardening`.
 - Completed:
   - Y-08F generation readiness checklist preview via fork PR #70.
   - Y-08G readiness summary polish / advisory score refinement via fork PR #71.

@@ -27,6 +27,7 @@ from local_only_security import (
     is_local_hostname as _is_local_hostname,
     local_only_config_errors,
     source_header_allowed as _source_header_allowed,
+    url_intake_security_errors,
 )
 import update_status as update_status_checks
 import update_preflight as update_preflight_checks
@@ -40,6 +41,7 @@ log = logging.getLogger('main')
 _NIGHTLY_TIME_RE = re.compile(r'^([01]\d|2[0-3]):[0-5]\d$')
 _RESTART_FOR_UPDATE = False
 _LOCAL_ONLY_FORBIDDEN_TEXT = 'Local-only access required.'
+_URL_INTAKE_FORBIDDEN_REASON = 'URL is not allowed by local-only security policy.'
 
 
 def _add_security_headers(response):
@@ -119,6 +121,7 @@ class Config:
         'ENABLE_ACCESSLOG': 'false',
         'YTDL_NIGHTLY_UPDATE_TIME': '',
         'ALLOW_UNSAFE_NIGHTLY_UPDATE': 'false',
+        'URL_INTAKE_GUARD': 'true',
     }
 
     _BOOLEAN = (
@@ -132,6 +135,7 @@ class Config:
         'ALLOW_UNSAFE_YTDL_OPTIONS_OVERRIDES',
         'LOCAL_ONLY_MODE',
         'ALLOW_UNSAFE_NIGHTLY_UPDATE',
+        'URL_INTAKE_GUARD',
     )
 
     def __init__(self):
@@ -714,6 +718,8 @@ def parse_download_options(post: dict) -> dict:
     if not url or not quality or not download_type:
         raise web.HTTPBadRequest(reason="missing 'url', 'download_type', or 'quality'")
     url = str(url).strip()
+    if config.URL_INTAKE_GUARD and url_intake_security_errors(url):
+        raise web.HTTPBadRequest(reason=_URL_INTAKE_FORBIDDEN_REASON)
     folder = post.get('folder')
     custom_name_prefix = post.get('custom_name_prefix')
     playlist_item_limit = post.get('playlist_item_limit')

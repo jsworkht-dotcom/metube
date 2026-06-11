@@ -4,7 +4,7 @@
 
 ### Y-SEC-01 local-only runtime guardrails
 
-- Status: implemented in the current Y-SEC-01 PR branch.
+- Status: completed via fork PR #82.
 - Summary: added first-pass local-only runtime guardrails for accidental
   exposure and dangerous configuration.
 - Runtime guardrails include local Host allowlisting, Origin / Referer checks
@@ -25,20 +25,33 @@
   this lane.
 - Risk: High-mid / PR-ready only / human-review-required.
 
+### Y-SEC-02 URL intake SSRF / private-network target guard
+
+- Status: implemented in draft PR branch
+  `codex/y-sec-02-url-intake-ssrf-guard`.
+- Summary: added first-pass URL intake protection for user-submitted download
+  and subscription URLs before enqueue or subscription creation.
+- `URL_INTAKE_GUARD=true` is default-on and must remain enabled while
+  `LOCAL_ONLY_MODE=true`.
+- Guard blocks non-HTTP(S) schemes, missing or malformed hosts, URL userinfo,
+  localhost/loopback, private/link-local/shared/multicast/reserved IP literals,
+  IPv4-mapped IPv6 pointing to blocked IPv4 ranges, obvious internal hostnames,
+  and metadata hostnames.
+- DNS resolution remains opt-in helper behavior and is not enabled on the
+  request path in this first pass.
+- Known limits: this does not claim complete protection against all DNS
+  rebinding, downstream extractor redirects, or later URLs fetched internally by
+  yt-dlp.
+- No frontend UI, Docker, dependency, lockfile, package generation, yt-dlp
+  extractor, download queue semantic, or safety gate changes are part of this
+  lane.
+- Risk: High-high / draft PR only / human-review-required.
+
 ### Security next candidates
 
 ```text
-Y-SEC-01A:
-  distribution-safe loopback binding amendment
-
-Y-SEC-01B:
-  dependency-free local-only security core tests
-
-Y-SEC-01C:
-  reject non-local Origin on all local-only requests
-
-Y-SEC-02:
-  URL intake SSRF / private-network target guard
+Y-SEC-03:
+  log and filename privacy redaction hardening
 
 Y-DIST-01:
   CLEAN portable distribution manifest and forbidden-file checker
@@ -48,9 +61,6 @@ Y-DIST-02:
 
 Y-DIST-03:
   recipient-safe runbook and first-run local-only verification
-
-Y-SEC-03:
-  log and filename privacy redaction hardening
 
 Y-SEC-04:
   CSP and frontend security header audit

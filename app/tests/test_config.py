@@ -31,6 +31,25 @@ class ConfigTests(unittest.TestCase):
             c = Config()
         self.assertFalse(c.LOCAL_ONLY_MODE)
 
+    def test_url_intake_guard_defaults_to_true(self):
+        with patch.dict(os.environ, _base_env(), clear=False):
+            c = Config()
+        self.assertTrue(c.URL_INTAKE_GUARD)
+
+    def test_url_intake_guard_false_parses_false_when_local_only_disabled(self):
+        with patch.dict(
+            os.environ,
+            _base_env(LOCAL_ONLY_MODE="false", URL_INTAKE_GUARD="false"),
+            clear=False,
+        ):
+            c = Config()
+        self.assertFalse(c.URL_INTAKE_GUARD)
+
+    def test_url_intake_guard_false_exits_in_local_only_mode(self):
+        with patch.dict(os.environ, _base_env(URL_INTAKE_GUARD="false"), clear=False):
+            with self.assertRaises(SystemExit):
+                Config()
+
     def test_host_defaults_to_loopback(self):
         with patch.dict(os.environ, _base_env(), clear=False):
             c = Config()
