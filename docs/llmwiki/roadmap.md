@@ -48,12 +48,28 @@
 
 ### Y-UI-REVIEW-01 current UI manual review checklist
 
-- Status: checklist-ready.
+- Status: completed via fork PR #79.
 - Summary: created manual UI review checklist for quality selector/result table
   polish.
+- Merge commit: `2c30cc28080e39949bb4a6ab8e646abb700ebfb1`.
 - Checklist:
   `docs/llmwiki/current-ui-manual-review-checklist.md`
 - Screenshot capture and visual pass/fail review are not yet completed.
+- No UI code, backend code, scripts, Docker files, CI files, package files, or
+  lockfiles were changed.
+
+### Y-UI-REVIEW-02 screenshot review findings closeout
+
+- Status: partial.
+- Summary: recorded current UI screenshot review findings and the environment
+  limitation that prevented full interactive screenshot review.
+- Findings:
+  `docs/llmwiki/current-ui-screenshot-review-findings.md`
+- Temporary screenshots were captured outside the repository for the static
+  desktop add form, video quality helper popover, and narrow-width layout.
+- The static preview remained at `サーバーに接続中...`, so native
+  selector-open states, audio-mode visuals, and completed/result rows were not
+  visually reviewed.
 - No UI code, backend code, scripts, Docker files, CI files, package files, or
   lockfiles were changed.
 
@@ -62,8 +78,8 @@
 Immediate next:
 
 ```text
-Y-UI-REVIEW-02:
-  screenshot review findings closeout or issue-specific UI polish
+Y-UI-REVIEW-02R:
+  rerun screenshot review with working browser environment
 ```
 
 Automation later:
