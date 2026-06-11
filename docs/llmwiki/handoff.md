@@ -9,10 +9,10 @@ canonical branch is fork `master`, and local `master` tracks `fork/master`.
 
 ## Current Closeout State
 
-- Current Y-DIST-01 work branch:
-  `codex/y-dist-01-clean-distribution-checker`.
-- Baseline before Y-DIST-01: fork `master`
-  `aa0200b126d5cdc9d18617280fe733284bf990e6` from fork PR #84.
+- Current Y-DIST-02 work branch:
+  `codex/y-dist-02-metadata-checker`.
+- Baseline before Y-DIST-02: fork `master`
+  `f2e2678e3dc986a34f2e5bb0bd65f56d54b2b415` from fork PR #85.
 - Y-SEC-01 is complete via fork PR #82.
 - Y-SEC-01 state:
   - local-only runtime guardrails implemented in backend startup/request
@@ -82,6 +82,8 @@ canonical branch is fork `master`, and local `master` tracks `fork/master`.
     package/lockfile change, cookie/token/secret handling, real download,
     public hosting, or safety gate change
 - Current Y-DIST-01 state:
+  - completed via fork PR #85
+  - merge commit: `f2e2678e3dc986a34f2e5bb0bd65f56d54b2b415`
   - report-only CLEAN portable distribution candidate checker added at
     `scripts/check_clean_distribution.py`
   - manifest contract added at
@@ -97,8 +99,25 @@ canonical branch is fork `master`, and local `master` tracks `fork/master`.
   - no CLEAN folder, ZIP, installer, package output, dependency install/update,
     Docker operation, real download, cookie/token/secret handling, frontend
     change, package/lockfile change, or existing safety gate behavior change
+- Current Y-DIST-02 state:
+  - report-only CLEAN portable distribution metadata checker added at
+    `scripts/check_distribution_metadata.py`
+  - metadata verification contract added at
+    `docs/llmwiki/distribution-metadata-verification.md`
+  - dependency-free unittest coverage added at
+    `app/tests/test_distribution_metadata_checker_unittest.py`
+  - checker requires candidate-root `VERSION.txt`, `MANIFEST.json`,
+    `checksums.sha256`, `LICENSE`, and `NOTICE`
+  - checker validates version shape, manifest fields, local-only distribution
+    metadata, sha256sum-style checksum entries, recomputed SHA-256 matches,
+    duplicate listed paths, missing listed files, unsafe checksum paths, and
+    basic license / notice presence and safety
+  - checker runs Y-DIST-01 as a prerequisite and includes those findings
+  - no metadata generation, checksum generation, CLEAN folder, ZIP, installer,
+    package output, dependency install/update, Docker operation, real download,
+    cookie/token/secret handling, frontend change, package/lockfile change, or
+    existing safety gate behavior change
 - Next candidates:
-  - `Y-DIST-02 checksum / hash / version / license notice bundle verification`
   - `Y-DIST-03 recipient-safe runbook and first-run local-only verification`
   - `Y-SEC-04 CSP and frontend security header audit`
   - `Y-SEC-05 dependency / ffmpeg / yt-dlp version inventory and update review gate`
@@ -933,7 +952,6 @@ as the next-chat source of truth.
 Recommended next candidates:
 
 ```text
-Y-DIST-02 checksum / hash / version / license notice bundle verification
 Y-DIST-03 recipient-safe runbook and first-run local-only verification
 Y-SEC-04 CSP and frontend security header audit
 Y-SEC-05 dependency / ffmpeg / yt-dlp version inventory and update review gate
@@ -942,7 +960,7 @@ Y-SEC-05 dependency / ffmpeg / yt-dlp version inventory and update review gate
 Alternative:
 
 ```text
-pause for human review of Y-DIST-01
+pause for human review of Y-DIST-02
 ```
 
 Use the `Risk classification` section from `scripts/check_repo_safety.py`

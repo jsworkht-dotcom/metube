@@ -67,8 +67,8 @@
 
 ### Y-DIST-01 CLEAN portable distribution manifest and forbidden-file checker
 
-- Status: implemented in branch
-  `codex/y-dist-01-clean-distribution-checker`.
+- Status: completed via fork PR #85.
+- Merge commit: `f2e2678e3dc986a34f2e5bb0bd65f56d54b2b415`.
 - Summary: added a stdlib-only, report-only forbidden-file checker for an
   explicitly provided CLEAN portable distribution candidate directory.
 - The checker blocks forbidden paths, obvious sensitive filenames, symlinks,
@@ -80,12 +80,29 @@
   generated files outside the requested docs/test/tooling changes.
 - Risk: High-low / tooling-only / report-only / draft PR preferred.
 
+### Y-DIST-02 checksum / hash / version / license notice bundle verification
+
+- Status: implemented in branch
+  `codex/y-dist-02-metadata-checker`.
+- Summary: adds a stdlib-only, report-only metadata checker for an explicitly
+  provided CLEAN portable distribution candidate directory.
+- The checker requires candidate-root `VERSION.txt`, `MANIFEST.json`,
+  `checksums.sha256`, `LICENSE`, and `NOTICE`.
+- The checker validates basic version shape, manifest fields, local-only
+  distribution metadata, sha256sum-style checksum lines, recomputed SHA-256
+  matches, duplicate listed paths, missing listed files, unsafe checksum paths,
+  and basic license / notice presence and safety.
+- The checker runs Y-DIST-01 as a prerequisite and includes those findings in
+  its report.
+- This lane does not create metadata, generate checksums, create a CLEAN folder,
+  ZIP, installer, package output, or generated files outside the requested
+  docs/test/tooling changes.
+- Risk: High-low / tooling-only / report-only / draft PR preferred /
+  human-review-required.
+
 ### Security next candidates
 
 ```text
-Y-DIST-02:
-  checksum / hash / version / license notice bundle verification
-
 Y-DIST-03:
   recipient-safe runbook and first-run local-only verification
 

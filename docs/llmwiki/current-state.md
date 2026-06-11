@@ -19,8 +19,8 @@
 - Do not open PRs against upstream `alexta69/metube` unless explicitly requested for a
   separate upstream contribution.
 - Do not mix upstream PR #1001 files into fork-only work.
-- Latest Y-SEC-03 merge baseline: fork `master`
-  `aa0200b126d5cdc9d18617280fe733284bf990e6` from fork PR #84.
+- Latest Y-DIST-01 merge baseline: fork `master`
+  `f2e2678e3dc986a34f2e5bb0bd65f56d54b2b415` from fork PR #85.
 
 ## Current Runtime Security State
 
@@ -110,8 +110,8 @@
 
 ### Y-DIST-01 CLEAN portable distribution manifest and forbidden-file checker
 
-- Implemented in branch
-  `codex/y-dist-01-clean-distribution-checker`.
+- Completed via fork PR #85.
+- Merge commit: `f2e2678e3dc986a34f2e5bb0bd65f56d54b2b415`.
 - Adds `scripts/check_clean_distribution.py` as a stdlib-only, report-only
   checker for an explicitly provided candidate directory.
 - Adds `docs/llmwiki/clean-portable-distribution-manifest.md` as the manifest
@@ -128,6 +128,33 @@
   Docker operation, real download, cookie/token/secret handling, frontend
   change, package/lockfile change, or existing safety gate behavior change is
   part of this lane.
+
+### Y-DIST-02 checksum / hash / version / license notice bundle verification
+
+- Implemented in branch `codex/y-dist-02-metadata-checker`.
+- Adds `scripts/check_distribution_metadata.py` as a stdlib-only, report-only
+  metadata checker for an explicitly provided CLEAN portable distribution
+  candidate directory.
+- Adds `docs/llmwiki/distribution-metadata-verification.md` as the metadata
+  verification contract for future CLEAN portable distribution review.
+- Adds dependency-free `unittest` coverage for required metadata files,
+  manifest fields, version mismatch, checksum line/path/hash failures,
+  duplicate listed paths, extra unlisted file warnings, sanitized secret-like
+  license/notice reports, and JSON output.
+- The checker requires candidate-root `VERSION.txt`, `MANIFEST.json`,
+  `checksums.sha256`, `LICENSE`, and `NOTICE`.
+- The checker validates basic version shape, manifest fields, `local_only`,
+  distribution type, source commit shape, sha256sum-style checksum entries,
+  recomputed SHA-256 matches, duplicate listed paths, missing listed files,
+  unsafe checksum paths, and basic license / notice presence and safety.
+- The checker runs Y-DIST-01 as a prerequisite and includes those findings in
+  its report.
+- Future CLEAN share, upload, ZIP, installer, or package generation must pass
+  both Y-DIST-01 and Y-DIST-02 first, but neither checker approves generation.
+- No metadata generation, checksum generation, CLEAN folder, ZIP, installer,
+  package output, dependency install/update, Docker operation, real download,
+  cookie/token/secret handling, frontend change, package/lockfile change, or
+  existing safety gate behavior change is part of this lane.
 
 ## Completed Work
 
@@ -2036,11 +2063,12 @@
 
 ## Current Next Step
 
-Y-DIST-01 is implemented in branch
-`codex/y-dist-01-clean-distribution-checker` as a report-only CLEAN portable
-distribution checker and manifest contract. It does not generate output or
-approve package creation. Human review is required before ready or merge. Next
-practical candidates are Y-DIST-02, Y-DIST-03, Y-SEC-04, and Y-SEC-05.
+Y-DIST-02 is implemented in branch `codex/y-dist-02-metadata-checker` as a
+report-only CLEAN portable distribution metadata, checksum, version, and
+license/notice checker. It does not generate metadata, generate checksums,
+create package output, or approve package creation. Human review is required
+before ready or merge. Next practical candidates are Y-DIST-03, Y-SEC-04, and
+Y-SEC-05.
 
 Y-08Z closes the Y-08 preview hardening lane as docs-only closeout.
 Y-UI-QUALITY-01 is complete via fork PR #73 with merge commit
@@ -2116,10 +2144,12 @@ The previous package-material lane is complete through Y-08Z closeout. Actual
 clean-package generation remains blocked. The generated package folder must
 remain absent.
 
-The next practical candidate is:
+The next practical candidates are:
 
 ```text
-Y-UI-REVIEW-02Z review-complete closeout
+Y-DIST-03 recipient-safe runbook and first-run local-only verification
+Y-SEC-04 CSP and frontend security header audit
+Y-SEC-05 dependency / ffmpeg / yt-dlp version inventory and update review gate
 ```
 
 Pause can be chosen instead. Future `ui/**` work remains human-reviewed unless
