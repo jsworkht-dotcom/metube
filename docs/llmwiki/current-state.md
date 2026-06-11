@@ -1948,6 +1948,16 @@ they touched `ui/**`, they were High-mid / human-reviewed frontend UI merges,
 not auto-merge. That known scope mismatch did not weaken or modify the safety
 gate.
 
+Y-UI-QUALITY-03Z is complete via fork PR #78 with merge commit
+`035ecce6f2c9964772bc6612ddba422309a73cd1`.
+
+Y-UI-REVIEW-01 created a docs-only manual UI review checklist for the current
+quality selector and completed/result table polish:
+`docs/llmwiki/current-ui-manual-review-checklist.md`. Screenshot capture and
+visual pass/fail review are not yet completed. No UI code, backend code, or
+download behavior was changed. The next state is manual screenshot review or
+pause.
+
 Use the preflight checker before future file modification when a task needs
 local readiness confirmation:
 
@@ -1971,7 +1981,7 @@ remain absent.
 The next practical candidate is:
 
 ```text
-Y-UI-REVIEW-01 current UI manual review checklist / screenshot-based review notes
+Y-UI-REVIEW-02 screenshot review findings closeout or issue-specific UI polish
 ```
 
 Pause for actual UI review can be chosen instead, but future `ui/**` work

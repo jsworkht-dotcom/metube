@@ -21,6 +21,7 @@ MeTube. The canonical branch is fork `master`, and local `master` tracks
   - Y-UI-QUALITY-02Z docs closeout via fork PR #76.
   - Y-UI-QUALITY-03 completed/result table quality label polish via fork PR
     #77.
+  - Y-UI-QUALITY-03Z docs closeout via fork PR #78.
 - PR #73 merge commit:
   `402996eba52f923be962e2fe69ebdaa6084363f2`.
 - PR #74 merge commit:
@@ -31,6 +32,8 @@ MeTube. The canonical branch is fork `master`, and local `master` tracks
   `702cf9c231f21366267a9f3c181e90b6494ecb8e`.
 - PR #77 merge commit:
   `c2f58fad237218d681414b51749bca6fe1bc734b`.
+- PR #78 merge commit:
+  `035ecce6f2c9964772bc6612ddba422309a73cd1`.
 - Y-UI-QUALITY-01 simplified visible video/audio quality labels while preserving
   numeric values, existing option ids, API payloads, backend validation, and
   download logic.
@@ -60,8 +63,10 @@ MeTube. The canonical branch is fork `master`, and local `master` tracks
 - No package output or `動画保存ツール_ローカル専用/` generated package folder should
   exist.
 - Run preflight before the next task.
-- Current next: choose `Y-UI-REVIEW-01 current UI manual review checklist /
-  screenshot-based review notes` or pause for actual UI review.
+- Current after this PR merges: `Y-UI-REVIEW-01` checklist-ready.
+- Next: manual screenshot review, or pause.
+- Safety: no package generation, generated folder absent, frontend work remains
+  human-reviewed, and safety gate policy changes remain separate.
 - Frontend `ui/**` work remains human-reviewed unless safety gate policy is
   explicitly updated later.
 
@@ -824,7 +829,7 @@ as the next-chat source of truth.
 Recommended next candidate:
 
 ```text
-Y-UI-REVIEW-01 current UI manual review checklist / screenshot-based review notes
+Y-UI-REVIEW-02 screenshot review findings closeout or issue-specific UI polish
 ```
 
 Alternative:

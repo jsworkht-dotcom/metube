@@ -46,20 +46,31 @@
 - The PR was frontend UI label/test work and required human-reviewed merge
   because the current local safety aggregator forbids `ui/**`.
 
+### Y-UI-REVIEW-01 current UI manual review checklist
+
+- Status: checklist-ready.
+- Summary: created manual UI review checklist for quality selector/result table
+  polish.
+- Checklist:
+  `docs/llmwiki/current-ui-manual-review-checklist.md`
+- Screenshot capture and visual pass/fail review are not yet completed.
+- No UI code, backend code, scripts, Docker files, CI files, package files, or
+  lockfiles were changed.
+
 ### Next candidates
 
 Immediate next:
 
 ```text
-Y-UI-REVIEW-01:
-  current UI manual review checklist / screenshot-based review notes
+Y-UI-REVIEW-02:
+  screenshot review findings closeout or issue-specific UI polish
 ```
 
 Automation later:
 
 ```text
 Y-AUTO-later:
-  consider scoped safety-gate support for explicitly approved frontend label-only/copy-only lanes
+  scoped safety-gate support for explicitly approved frontend label-only/copy-only lanes
 ```
 
 - Do not modify safety gate behavior in this closeout.
