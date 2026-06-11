@@ -49,8 +49,8 @@
 
 ### Y-SEC-03 log and filename privacy redaction hardening
 
-- Status: implemented in draft PR branch
-  `codex/y-sec-03-log-filename-redaction`.
+- Status: completed via fork PR #84.
+- Merge commit: `aa0200b126d5cdc9d18617280fe733284bf990e6`.
 - Summary: added first-pass dependency-free privacy redaction helpers for
   URL/log text material and filename component sanitization.
 - URL/log redaction removes query strings, fragments, userinfo, token-like
@@ -65,12 +65,24 @@
   is part of this lane.
 - Risk: High-high / draft PR only / human-review-required.
 
+### Y-DIST-01 CLEAN portable distribution manifest and forbidden-file checker
+
+- Status: implemented in branch
+  `codex/y-dist-01-clean-distribution-checker`.
+- Summary: added a stdlib-only, report-only forbidden-file checker for an
+  explicitly provided CLEAN portable distribution candidate directory.
+- The checker blocks forbidden paths, obvious sensitive filenames, symlinks,
+  and conservative secret-like content pattern families without printing file
+  contents or matched secret values.
+- The manifest contract records allowed conceptual contents, forbidden
+  contents, checker behavior, known limits, and the future generation gate.
+- This lane does not create a CLEAN folder, ZIP, installer, package output, or
+  generated files outside the requested docs/test/tooling changes.
+- Risk: High-low / tooling-only / report-only / draft PR preferred.
+
 ### Security next candidates
 
 ```text
-Y-DIST-01:
-  CLEAN portable distribution manifest and forbidden-file checker
-
 Y-DIST-02:
   checksum / hash / version / license notice bundle verification
 

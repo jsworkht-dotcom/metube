@@ -9,10 +9,10 @@ canonical branch is fork `master`, and local `master` tracks `fork/master`.
 
 ## Current Closeout State
 
-- Current Y-SEC-03 work branch:
-  `codex/y-sec-03-log-filename-redaction`.
-- Baseline before Y-SEC-03: fork `master`
-  `e54058dc112ae6c29237738b21bff0e3253407ea` from fork PR #83.
+- Current Y-DIST-01 work branch:
+  `codex/y-dist-01-clean-distribution-checker`.
+- Baseline before Y-DIST-01: fork `master`
+  `aa0200b126d5cdc9d18617280fe733284bf990e6` from fork PR #84.
 - Y-SEC-01 is complete via fork PR #82.
 - Y-SEC-01 state:
   - local-only runtime guardrails implemented in backend startup/request
@@ -65,6 +65,8 @@ canonical branch is fork `master`, and local `master` tracks `fork/master`.
     cookie/token/secret handling, real download, public hosting, or safety gate
     change
 - Current Y-SEC-03 state:
+  - completed via fork PR #84
+  - merge commit: `aa0200b126d5cdc9d18617280fe733284bf990e6`
   - dependency-free privacy helpers added in `app/local_only_security.py`
   - URL log summaries remove userinfo, path details, query strings, and
     fragments
@@ -79,8 +81,23 @@ canonical branch is fork `master`, and local `master` tracks `fork/master`.
   - no package output, dependency install/update, Docker, frontend change,
     package/lockfile change, cookie/token/secret handling, real download,
     public hosting, or safety gate change
+- Current Y-DIST-01 state:
+  - report-only CLEAN portable distribution candidate checker added at
+    `scripts/check_clean_distribution.py`
+  - manifest contract added at
+    `docs/llmwiki/clean-portable-distribution-manifest.md`
+  - dependency-free unittest coverage added at
+    `app/tests/test_clean_distribution_checker_unittest.py`
+  - checker accepts only an explicit candidate directory and does not assume a
+    generated package folder exists
+  - checker blocks forbidden paths, obvious sensitive filenames, symlinks, and
+    conservative secret-like content pattern families
+  - reports path, line, and pattern family only for content findings; it does
+    not print matched secret values or file contents
+  - no CLEAN folder, ZIP, installer, package output, dependency install/update,
+    Docker operation, real download, cookie/token/secret handling, frontend
+    change, package/lockfile change, or existing safety gate behavior change
 - Next candidates:
-  - `Y-DIST-01 CLEAN portable distribution manifest and forbidden-file checker`
   - `Y-DIST-02 checksum / hash / version / license notice bundle verification`
   - `Y-DIST-03 recipient-safe runbook and first-run local-only verification`
   - `Y-SEC-04 CSP and frontend security header audit`
@@ -913,16 +930,19 @@ canonical branch is fork `master`, and local `master` tracks `fork/master`.
 Use `docs/llmwiki/current-state.md`, `docs/llmwiki/roadmap.md`, and this handoff
 as the next-chat source of truth.
 
-Recommended next candidate:
+Recommended next candidates:
 
 ```text
-Y-UI-REVIEW-02Z review-complete closeout
+Y-DIST-02 checksum / hash / version / license notice bundle verification
+Y-DIST-03 recipient-safe runbook and first-run local-only verification
+Y-SEC-04 CSP and frontend security header audit
+Y-SEC-05 dependency / ffmpeg / yt-dlp version inventory and update review gate
 ```
 
 Alternative:
 
 ```text
-pause for actual UI review
+pause for human review of Y-DIST-01
 ```
 
 Use the `Risk classification` section from `scripts/check_repo_safety.py`
