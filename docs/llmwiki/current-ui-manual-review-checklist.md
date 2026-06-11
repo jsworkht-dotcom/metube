@@ -13,12 +13,14 @@ behavior, download behavior, or local-only policy.
 ## Review Status
 
 ```text
-status: checklist-ready / screenshots-not-yet-captured
+status: screenshot-review-attempted / partial-static-screenshots-captured
 ```
 
-Screenshots are not captured in this task. This document does not assert visual
-pass/fail, layout correctness, or screenshot evidence. A later manual review
-should capture screenshots and record findings below.
+Y-UI-REVIEW-02 attempted review and captured temporary static screenshots for
+the initial add form, the video quality helper popover, and a narrow-width
+layout. The preview remained at `サーバーに接続中...`, so selector-open states,
+audio-mode visuals, and completed/result rows were not visually reviewed. This
+document does not assert a full visual pass/fail.
 
 ## Scope
 
@@ -34,15 +36,15 @@ should capture screenshots and record findings below.
 
 ## Screenshot Checklist
 
-- [ ] Screenshot: initial add form
+- [x] Screenshot: initial add form
 - [ ] Screenshot: video quality selector opened
-- [ ] Screenshot: video quality helper popover
+- [x] Screenshot: video quality helper popover
 - [ ] Screenshot: audio quality selector opened
 - [ ] Screenshot: audio quality helper popover
 - [ ] Screenshot: completed/result table with video row
 - [ ] Screenshot: completed/result table with audio row
 - [ ] Screenshot: completed/result table with captions/thumbnail row if available
-- [ ] Screenshot: narrow-width layout
+- [x] Screenshot: narrow-width layout
 
 ## Expected UI Wording
 
@@ -105,12 +107,15 @@ Helper popover wording to review:
 
 ### Finding 1
 
-- status:
-- screen:
-- issue:
-- evidence:
-- suggested next task:
-- risk:
+- status: environment-limited-review
+- screen: static preview add form and completed/result table
+- issue: backend state was unavailable in the Codex static preview, leaving
+  controls disabled at `サーバーに接続中...`.
+- evidence: temporary screenshots captured only static desktop, video helper
+  popover, and narrow-width states. Native selector-open states, audio-mode
+  visuals, and real result rows were not observed.
+- suggested next task: `Y-UI-REVIEW-02R rerun screenshot review with working browser environment`
+- risk: Low docs-only risk; limited visual coverage.
 
 ## Next Task Decision
 

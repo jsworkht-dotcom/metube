@@ -22,6 +22,7 @@ MeTube. The canonical branch is fork `master`, and local `master` tracks
   - Y-UI-QUALITY-03 completed/result table quality label polish via fork PR
     #77.
   - Y-UI-QUALITY-03Z docs closeout via fork PR #78.
+  - Y-UI-REVIEW-01 current UI review checklist via fork PR #79.
 - PR #73 merge commit:
   `402996eba52f923be962e2fe69ebdaa6084363f2`.
 - PR #74 merge commit:
@@ -34,6 +35,8 @@ MeTube. The canonical branch is fork `master`, and local `master` tracks
   `c2f58fad237218d681414b51749bca6fe1bc734b`.
 - PR #78 merge commit:
   `035ecce6f2c9964772bc6612ddba422309a73cd1`.
+- PR #79 merge commit:
+  `2c30cc28080e39949bb4a6ab8e646abb700ebfb1`.
 - Y-UI-QUALITY-01 simplified visible video/audio quality labels while preserving
   numeric values, existing option ids, API payloads, backend validation, and
   download logic.
@@ -63,8 +66,13 @@ MeTube. The canonical branch is fork `master`, and local `master` tracks
 - No package output or `動画保存ツール_ローカル専用/` generated package folder should
   exist.
 - Run preflight before the next task.
-- Current after this PR merges: `Y-UI-REVIEW-01` checklist-ready.
-- Next: manual screenshot review, or pause.
+- Current after this PR merges: `Y-UI-REVIEW-02` partial screenshot review
+  findings are recorded docs-only.
+- Review outcome: temporary screenshots captured static desktop, video helper
+  popover, and narrow-width states; full interactive screenshot review remains
+  limited because the static preview stayed at `サーバーに接続中...`.
+- Next: `Y-UI-REVIEW-02R` rerun screenshot review with a working browser/backend
+  environment.
 - Safety: no package generation, generated folder absent, frontend work remains
   human-reviewed, and safety gate policy changes remain separate.
 - Frontend `ui/**` work remains human-reviewed unless safety gate policy is
@@ -829,7 +837,7 @@ as the next-chat source of truth.
 Recommended next candidate:
 
 ```text
-Y-UI-REVIEW-02 screenshot review findings closeout or issue-specific UI polish
+Y-UI-REVIEW-02R rerun screenshot review with working browser environment
 ```
 
 Alternative:

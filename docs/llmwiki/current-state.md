@@ -1951,12 +1951,20 @@ gate.
 Y-UI-QUALITY-03Z is complete via fork PR #78 with merge commit
 `035ecce6f2c9964772bc6612ddba422309a73cd1`.
 
-Y-UI-REVIEW-01 created a docs-only manual UI review checklist for the current
-quality selector and completed/result table polish:
-`docs/llmwiki/current-ui-manual-review-checklist.md`. Screenshot capture and
-visual pass/fail review are not yet completed. No UI code, backend code, or
-download behavior was changed. The next state is manual screenshot review or
-pause.
+Y-UI-REVIEW-01 is complete via fork PR #79 with merge commit
+`2c30cc28080e39949bb4a6ab8e646abb700ebfb1`. It created a docs-only manual UI
+review checklist for the current quality selector and completed/result table polish:
+`docs/llmwiki/current-ui-manual-review-checklist.md`.
+
+Y-UI-REVIEW-02 attempted the current UI screenshot review and recorded findings
+docs-only:
+`docs/llmwiki/current-ui-screenshot-review-findings.md`. Temporary screenshots
+were captured outside the repository for the static desktop add form, video
+quality helper popover, and narrow-width layout. Full interactive screenshot
+review remains partial because the static preview stayed at
+`サーバーに接続中...`, leaving controls disabled and blocking selector-open,
+audio-mode, and real result-row visual review. No UI code, backend code,
+download behavior, or package output was changed.
 
 Use the preflight checker before future file modification when a task needs
 local readiness confirmation:
@@ -1981,12 +1989,12 @@ remain absent.
 The next practical candidate is:
 
 ```text
-Y-UI-REVIEW-02 screenshot review findings closeout or issue-specific UI polish
+Y-UI-REVIEW-02R rerun screenshot review with working browser environment
 ```
 
-Pause for actual UI review can be chosen instead, but future `ui/**` work
-remains human-reviewed unless a later policy/checker PR explicitly updates the
-local safety gate and automation policy.
+Pause can be chosen instead. Future `ui/**` work remains human-reviewed unless
+a later policy/checker PR explicitly updates the local safety gate and
+automation policy.
 
 Later clean-package work should resume as a separate explicitly approved lane,
 with Y-09 limited to human-reviewed generation prototype planning only and not
