@@ -11,10 +11,19 @@ MeTube. The canonical branch is fork `master`, and local `master` tracks
 - Current branch after merge should be `master`.
 - Latest expected `fork/master` after this PR merges will be this PR's future
   merge commit.
-- Y-08F generation readiness checklist preview is complete via fork PR #70.
-- Y-08G readiness summary polish / advisory score refinement is complete via
-  fork PR #71.
-- Y-08Z closes the preview hardening lane in this PR.
+- Completed:
+  - Y-08F generation readiness checklist preview via fork PR #70.
+  - Y-08G readiness summary polish / advisory score refinement via fork PR #71.
+  - Y-08Z preview hardening lane closeout via fork PR #72.
+  - Y-UI-QUALITY-01 quality selector simple labels via fork PR #73.
+- PR #73 merge commit:
+  `402996eba52f923be962e2fe69ebdaa6084363f2`.
+- Y-UI-QUALITY-01 simplified visible video/audio quality labels while preserving
+  numeric values, existing option ids, API payloads, backend validation, and
+  download logic.
+- PR #73 was High-mid / human-reviewed frontend UI label-only work because the
+  current local safety aggregator forbids `ui/**`.
+- This docs closeout does not weaken or modify the safety gate.
 - Readiness preview remains report-only and advisory-only:
   - `overall: blocked`
   - `actual_generation_approved: false`
@@ -25,8 +34,10 @@ MeTube. The canonical branch is fork `master`, and local `master` tracks
 - No package output or `動画保存ツール_ローカル専用/` generated package folder should
   exist.
 - Run preflight before the next task.
-- Next step: `Y-UI-QUALITY-01 quality selector simple labels with numeric
-  values`.
+- Current next: choose between `Y-UI-QUALITY-02 quality selector helper copy /
+  tooltip polish` or another small UI task.
+- Frontend `ui/**` work remains human-reviewed unless safety gate policy is
+  explicitly updated later.
 
 ## Read First
 
@@ -781,18 +792,19 @@ MeTube. The canonical branch is fork `master`, and local `master` tracks
 
 ## Next Step
 
-Use `docs/llmwiki/codex-auto-lanes.md` for the next automation sequence.
+Use `docs/llmwiki/current-state.md`, `docs/llmwiki/roadmap.md`, and this handoff
+as the next-chat source of truth.
 
 Recommended next candidate:
 
 ```text
-Y-AUTO-08 safety gate aggregator design
+Y-UI-QUALITY-02 quality selector helper copy / tooltip polish
 ```
 
-Then continue with:
+Alternative:
 
 ```text
-Y-AUTO-09 safety gate aggregator implementation
+another small UI task
 ```
 
 Use the `Risk classification` section from `scripts/check_repo_safety.py`
@@ -804,18 +816,18 @@ High-high, or Unknown outcomes.
 For High-mid outcomes, stop after PR-ready handoff and wait for human review
 before merge.
 
-Before the next actual High-mid task, use the Y-AUTO-05 PR body checklist and
-confirm the PR body includes `human-review-required`, rollback/cleanup
-candidates, residual risks, and the human review checklist.
+Frontend `ui/**` work remains human-reviewed unless a later policy PR explicitly
+updates the local safety gate and automation policy. Do not modify safety gate
+behavior or broaden auto-merge policy inside this closeout.
 
 Run `scripts/check_repo_safety.py`,
 `scripts/check_repo_safety.py --base fork/master`, and
 `scripts/clean_package_dry_run.py` before the next low-, medium-, or qualifying
 high-low-risk fork PR.
 
-The Y-08 package-material lane is closed by Y-08Z. The next practical
-candidate is Y-UI-QUALITY-01 quality selector simple labels with numeric
-values. Optional later CI wiring for the Y-07E checker remains separate.
+The Y-08 package-material lane is closed by Y-08Z. Y-UI-QUALITY-01 is complete
+via fork PR #73. Optional later CI wiring for the Y-07E checker remains
+separate.
 
 Later clean-package work should resume as Y-09 human-reviewed generation
 prototype planning only, not actual generation. Keep Y-09 blocked unless later

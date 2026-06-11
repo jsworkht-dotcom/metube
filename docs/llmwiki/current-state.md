@@ -1548,6 +1548,38 @@
 - Next practical candidate:
   - `Y-UI-QUALITY-01 quality selector simple labels with numeric values`
 
+### Y-UI-QUALITY-01 quality selector simple labels with numeric values
+
+- Scope: frontend UI label-only improvement.
+- Status: completed via fork PR #73.
+- PR title: `feat: simplify quality selector labels`.
+- Merge commit: `402996eba52f923be962e2fe69ebdaa6084363f2`.
+- Changed files:
+  - `ui/src/app/app.ts`
+  - `ui/src/app/interfaces/formats.ts`
+- Outcome:
+  - visible video/audio quality selector labels now use simple Japanese labels
+    plus numeric values;
+  - numeric values remain visible, for example `2160p`, `1080p`, `320kbps`,
+    `192kbps`, and `128kbps`;
+  - existing option ids were preserved;
+  - API payloads, backend validation, and download logic were unchanged.
+- Verification notes:
+  - existing `ui/node_modules` was used for local frontend lint/test;
+  - no dependency install was performed;
+  - generated package folder remained absent.
+- Safety note:
+  - `scripts/run_local_safety_gates.py` currently forbids `ui/**`, so this
+    explicitly approved frontend UI label-only task required human-reviewed
+    merge instead of auto-merge;
+  - this did not weaken the safety gate or modify gate behavior.
+- Not changed:
+  - backend/API/download logic;
+  - option ids;
+  - Docker, CI, package, or lock files;
+  - generated package output;
+  - PR #1001 files.
+
 ### Y-CHECK-01 safety gate checker design
 
 - Scope: docs-only design for a future repository safety checker and automation
@@ -1819,8 +1851,15 @@
 
 ## Current Next Step
 
-Y-08Z closes the Y-08 preview hardening lane as docs-only closeout. Y-08F is
-complete via fork PR #70, and Y-08G is complete via fork PR #71.
+Y-08Z closes the Y-08 preview hardening lane as docs-only closeout. Y-UI-QUALITY-01
+is complete via fork PR #73 with merge commit
+`402996eba52f923be962e2fe69ebdaa6084363f2`.
+
+Y-UI-QUALITY-01 simplified the visible quality selector labels while preserving
+numeric values, existing option ids, API payloads, backend validation, and
+download logic. It was a High-mid / human-reviewed frontend UI label-only merge
+because the current local safety aggregator forbids `ui/**`; that known scope
+mismatch did not weaken or modify the safety gate.
 
 Use the preflight checker before future file modification when a task needs
 local readiness confirmation:
@@ -1839,13 +1878,18 @@ local report-only gates before the next low-, medium-, or qualifying
 high-low-risk fork PR.
 
 The previous package-material lane is complete through Y-08Z closeout. Actual
-clean-package generation remains blocked.
+clean-package generation remains blocked. The generated package folder must
+remain absent.
 
 The next practical candidate is:
 
 ```text
-Y-UI-QUALITY-01 quality selector simple labels with numeric values
+Y-UI-QUALITY-02 quality selector helper copy / tooltip polish
 ```
+
+Another small UI task can be chosen instead, but future `ui/**` work remains
+human-reviewed unless a later policy PR explicitly updates the local safety
+gate and automation policy.
 
 Later clean-package work should resume as a separate explicitly approved lane,
 with Y-09 limited to human-reviewed generation prototype planning only and not
@@ -1855,7 +1899,9 @@ Next scope:
 
 - Keep any further Y-CHECK automation, CI, or PR-comment integration separate
   until explicitly approved.
-- Keep UI quality label improvement separate from clean-package generation.
+- Do not modify safety gate behavior in this docs closeout.
+- Do not broaden auto-merge policy for `ui/**` in this docs closeout.
+- Keep UI quality selector follow-up work separate from clean-package generation.
 - Keep notice material source-only, sanitized, and review-oriented.
 - Keep guide and notice files as source material only; do not generate package
   outputs.
