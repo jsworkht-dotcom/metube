@@ -35,6 +35,11 @@
   decisions.
 - Y-SEC-01B reduces the current verification gap when pytest/aiohttp are not
   available, but does not replace full backend pytest verification.
+- Y-SEC-01C rejects non-local `Origin` headers for all requests in local-only
+  mode, improving localhost/browser-origin hardening for distributed
+  local-only builds.
+- Requests without `Origin` remain allowed for local non-browser clients, and
+  the state-changing `Referer` guard remains in place.
 - Adds a local Host allowlist guard for HTTP and static UI requests.
 - Adds an Origin / Referer guard for state-changing requests.
 - Blocks wildcard CORS in local-only mode.

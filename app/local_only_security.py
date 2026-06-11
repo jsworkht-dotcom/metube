@@ -70,6 +70,14 @@ def source_header_allowed(source_value: str | None, host_value: str | None) -> b
     return is_local_hostname(source_hostname) or source_hostname == host_hostname
 
 
+def browser_origin_allowed(origin_value: str | None, host_value: str | None) -> bool:
+    if origin_value is None:
+        return True
+    if not is_local_hostname(host_value):
+        return False
+    return source_header_allowed(origin_value, host_value)
+
+
 def public_host_url_allowed(url_value: str | None) -> bool:
     hostname = absolute_url_hostname(url_value)
     return hostname is None or is_local_hostname(hostname)

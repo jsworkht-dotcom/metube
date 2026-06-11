@@ -17,6 +17,9 @@
   decisions. These tests reduce the verification gap when pytest/aiohttp are
   unavailable, but full backend pytest remains required in a dependency-ready
   environment.
+- Y-SEC-01C rejects non-local `Origin` headers for all local-only requests,
+  while still allowing requests without `Origin` for local non-browser clients
+  and keeping the `Referer` guard scoped to state-changing requests.
 - No frontend UI, Docker, dependency, lockfile, package generation,
   yt-dlp extractor, download queue semantic, or safety gate changes are part of
   this lane.
@@ -30,6 +33,9 @@ Y-SEC-01A:
 
 Y-SEC-01B:
   dependency-free local-only security core tests
+
+Y-SEC-01C:
+  reject non-local Origin on all local-only requests
 
 Y-SEC-02:
   URL intake SSRF / private-network target guard

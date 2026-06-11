@@ -6,6 +6,7 @@ from types import SimpleNamespace
 import unittest
 
 from app.local_only_security import (
+    browser_origin_allowed,
     is_local_hostname,
     local_only_config_errors,
     public_host_url_allowed,
@@ -73,6 +74,25 @@ class LocalOnlySecurityTests(unittest.TestCase):
         for source in ('https://example.com', 'http://[::1', None):
             with self.subTest(source=source):
                 self.assertFalse(source_header_allowed(source, 'localhost:8081'))
+
+    def test_browser_origin_allows_missing_and_local_origin(self):
+        self.assertTrue(browser_origin_allowed(None, 'localhost:8081'))
+        for origin in (
+            'http://localhost:8081',
+            'http://127.0.0.1:8081',
+            'http://[::1]:8081',
+        ):
+            with self.subTest(origin=origin):
+                self.assertTrue(browser_origin_allowed(origin, 'localhost:8081'))
+
+    def test_browser_origin_rejects_nonlocal_invalid_and_same_nonlocal_host(self):
+        for origin, host in (
+            ('https://example.com', 'localhost:8081'),
+            ('http://[::1', 'localhost:8081'),
+            ('https://example.com', 'example.com'),
+        ):
+            with self.subTest(origin=origin, host=host):
+                self.assertFalse(browser_origin_allowed(origin, host))
 
     def test_public_host_url_allows_relative_and_loopback_urls(self):
         for url in (

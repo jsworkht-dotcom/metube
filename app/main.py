@@ -23,6 +23,7 @@ from local_only_security import (
     PUBLIC_HOST_URL_ATTRS as _PUBLIC_HOST_URL_ATTRS,
     SECURITY_RESPONSE_HEADERS as _SECURITY_RESPONSE_HEADERS,
     STATE_CHANGING_METHODS as _STATE_CHANGING_METHODS,
+    browser_origin_allowed as _browser_origin_allowed,
     is_local_hostname as _is_local_hostname,
     local_only_config_errors,
     source_header_allowed as _source_header_allowed,
@@ -283,7 +284,7 @@ class Config:
 def _state_changing_source_allowed(request) -> bool:
     origin = request.headers.get('Origin')
     if origin is not None:
-        return _source_header_allowed(origin, request.headers.get('Host'))
+        return True
 
     referer = request.headers.get('Referer')
     if referer is not None:
@@ -296,6 +297,9 @@ def _state_changing_source_allowed(request) -> bool:
 async def local_only_runtime_guard(request, handler):
     if config.LOCAL_ONLY_MODE:
         if not _is_local_hostname(request.headers.get('Host')):
+            return _local_only_forbidden_response()
+
+        if not _browser_origin_allowed(request.headers.get('Origin'), request.headers.get('Host')):
             return _local_only_forbidden_response()
 
         if request.method.upper() in _STATE_CHANGING_METHODS and not _state_changing_source_allowed(request):

@@ -42,6 +42,8 @@ Current local-only runtime boundaries:
   dependency-free helper coverage runnable with standard-library `unittest`.
 - Dependency-free helper tests reduce the verification gap, but do not replace
   full aiohttp/pytest backend verification.
+- Browser-originated requests with a non-local `Origin` are rejected regardless
+  of method in local-only mode.
 - Browser state-changing requests with a non-local `Origin` or `Referer` are
   rejected in local-only mode.
 - Wildcard CORS origins are blocked in local-only mode.
@@ -53,6 +55,7 @@ Current local-only runtime boundaries:
 - Security response headers are added as a minimal browser hardening baseline.
 - Do not describe the Host guard as complete protection against manually forged
   Host headers.
+- These runtime checks are still not authentication.
 
 ## Update-Status Boundary
 

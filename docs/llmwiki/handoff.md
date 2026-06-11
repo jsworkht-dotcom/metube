@@ -27,6 +27,9 @@ canonical branch is fork `master`, and local `master` tracks `fork/master`.
     aiohttp/pytest backend verification remains pending in an environment with
     dependencies
   - local Host allowlist guard
+  - non-local `Origin` headers are rejected for all local-only requests,
+    including GET and browser handshake-style requests
+  - requests without `Origin` remain allowed for local non-browser clients
   - Origin / Referer guard for state-changing requests
   - wildcard CORS blocked in local-only mode
   - yt-dlp option overrides and nightly auto updates require explicit unsafe
@@ -37,6 +40,9 @@ canonical branch is fork `master`, and local `master` tracks `fork/master`.
     public hosting, Cloudflare/public web deployment, or an external
     SaaS/service offering
   - PR #82 remains draft until human review
+  - PR body update for Y-SEC-01B was blocked in the previous run by GitHub
+    connector write `403` and local `gh` auth `401`; Y-SEC-01C should retry
+    once and report if the metadata update remains blocked
   - no package output, dependency install/update, Docker, cookie/token/secret
     handling, public hosting, or safety gate changes
 - Next candidate:
