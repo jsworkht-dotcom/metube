@@ -859,12 +859,37 @@ export class App implements AfterViewInit, OnInit, OnDestroy {
   }
 
   formatQualityLabel(download: Download): string {
-    if (download.download_type === 'captions' || download.download_type === 'thumbnail') {
+    const type = download.download_type || 'video';
+    if (type === 'captions' || type === 'thumbnail') {
       return '-';
     }
     const q = download.quality;
     if (!q) return '';
-    if (/^\d+$/.test(q) && download.download_type === 'audio') return `${q} kbps`;
+
+    if (type === 'audio') {
+      const audioQualityLabels: Record<string, string> = {
+        best: '最高音質（自動）',
+        '320': '高音質（320kbps）',
+        '192': '標準（192kbps）',
+        '128': '軽量（128kbps）',
+      };
+      if (audioQualityLabels[q]) return audioQualityLabels[q];
+      if (/^\d+$/.test(q)) return `${q}kbps`;
+      return q.charAt(0).toUpperCase() + q.slice(1);
+    }
+
+    const videoQualityLabels: Record<string, string> = {
+      best: '最高画質（自動）',
+      worst: '最低画質（自動）',
+      '2160': '4K（2160p）',
+      '1440': '高画質（1440p）',
+      '1080': 'フルHD（1080p）',
+      '720': '標準（720p）',
+      '480': '軽量（480p）',
+      '360': '低容量（360p）',
+      '240': '最小（240p）',
+    };
+    if (videoQualityLabels[q]) return videoQualityLabels[q];
     if (/^\d+$/.test(q)) return `${q}p`;
     return q.charAt(0).toUpperCase() + q.slice(1);
   }
