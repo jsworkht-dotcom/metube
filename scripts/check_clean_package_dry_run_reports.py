@@ -182,6 +182,12 @@ READINESS_STATUSES = {
     "unresolved",
 }
 
+EXPECTED_ADVISORY_SCORE_VALUE = 23
+EXPECTED_ADVISORY_SCORE_MAX = 100
+EXPECTED_ADVISORY_SCORE_TEXT = (
+    f"{EXPECTED_ADVISORY_SCORE_VALUE}/{EXPECTED_ADVISORY_SCORE_MAX}"
+)
+
 CHECK_NAMES = (
     "all modes exit 0",
     "default text output",
@@ -203,6 +209,7 @@ CHECK_NAMES = (
     "--format json generation readiness preview",
     "cross-format status consistency",
     "cross-format readiness consistency",
+    "cross-format advisory score consistency",
     "generated package folder absent",
 )
 
@@ -427,6 +434,21 @@ def check_text_outputs(
             "text generation readiness preview",
             "--format text readiness actual_generation_approved is not false",
         )
+    for label, output in (("default", default), ("--format text", text)):
+        if "Readiness summary" not in output:
+            add_failure(
+                failures,
+                check_status,
+                "text generation readiness preview",
+                f"{label} output missing Readiness summary",
+            )
+        if f"advisory_score: {EXPECTED_ADVISORY_SCORE_TEXT}" not in output:
+            add_failure(
+                failures,
+                check_status,
+                "text generation readiness preview",
+                f"{label} output missing advisory_score: {EXPECTED_ADVISORY_SCORE_TEXT}",
+            )
 
 
 def check_markdown_output(
@@ -497,6 +519,20 @@ def check_markdown_output(
             check_status,
             "--format markdown generation readiness preview",
             "Markdown readiness actual_generation_approved is not false",
+        )
+    if "### Readiness Summary" not in readiness_section:
+        add_failure(
+            failures,
+            check_status,
+            "--format markdown generation readiness preview",
+            "Markdown readiness summary subsection is missing",
+        )
+    if f"- advisory_score: `{EXPECTED_ADVISORY_SCORE_TEXT}`" not in readiness_section:
+        add_failure(
+            failures,
+            check_status,
+            "--format markdown generation readiness preview",
+            f"Markdown advisory_score is not {EXPECTED_ADVISORY_SCORE_TEXT}",
         )
 
 
@@ -1117,6 +1153,82 @@ def check_json_generation_readiness(
                 "generation_readiness.summary blocked count is less than 1",
             )
 
+    advisory_score = readiness.get("advisory_score")
+    if not isinstance(advisory_score, dict):
+        add_failure(
+            failures,
+            check_status,
+            check_name,
+            "generation_readiness.advisory_score is not an object",
+        )
+    else:
+        if advisory_score.get("value") != EXPECTED_ADVISORY_SCORE_VALUE:
+            add_failure(
+                failures,
+                check_status,
+                check_name,
+                (
+                    "generation_readiness.advisory_score.value is not "
+                    f"{EXPECTED_ADVISORY_SCORE_VALUE}"
+                ),
+            )
+        if advisory_score.get("max") != EXPECTED_ADVISORY_SCORE_MAX:
+            add_failure(
+                failures,
+                check_status,
+                check_name,
+                (
+                    "generation_readiness.advisory_score.max is not "
+                    f"{EXPECTED_ADVISORY_SCORE_MAX}"
+                ),
+            )
+        if advisory_score.get("basis") != "ready_items_divided_by_total_items":
+            add_failure(
+                failures,
+                check_status,
+                check_name,
+                "generation_readiness.advisory_score.basis is unexpected",
+            )
+        if advisory_score.get("approval_meaning") != "none":
+            add_failure(
+                failures,
+                check_status,
+                check_name,
+                "generation_readiness.advisory_score.approval_meaning is not none",
+            )
+        if advisory_score.get("blocked_override") is not True:
+            add_failure(
+                failures,
+                check_status,
+                check_name,
+                "generation_readiness.advisory_score.blocked_override is not true",
+            )
+        if advisory_score.get("actual_generation_approved") is not False:
+            add_failure(
+                failures,
+                check_status,
+                check_name,
+                (
+                    "generation_readiness.advisory_score."
+                    "actual_generation_approved is not false"
+                ),
+            )
+        if (
+            isinstance(summary, dict)
+            and isinstance(summary.get("total"), int)
+            and isinstance(summary.get("ready"), int)
+        ):
+            total = summary["total"]
+            ready = summary["ready"]
+            expected = (ready * 100 // total) if total else 0
+            if advisory_score.get("value") != expected:
+                add_failure(
+                    failures,
+                    check_status,
+                    check_name,
+                    "generation_readiness.advisory_score.value does not match summary",
+                )
+
     actual_generation_blocked = False
     for index, item in enumerate(items):
         if not isinstance(item, dict):
@@ -1170,6 +1282,69 @@ def check_json_generation_readiness(
             check_name,
             "actual_generation_approval readiness item is not blocked",
         )
+
+    readiness_summary = readiness.get("readiness_summary")
+    if not isinstance(readiness_summary, dict):
+        add_failure(
+            failures,
+            check_status,
+            check_name,
+            "generation_readiness.readiness_summary is not an object",
+        )
+    else:
+        if not isinstance(readiness_summary.get("headline"), str):
+            add_failure(
+                failures,
+                check_status,
+                check_name,
+                "generation_readiness.readiness_summary.headline is not a string",
+            )
+        if readiness_summary.get("next_required_action") != readiness.get(
+            "next_required_action"
+        ):
+            add_failure(
+                failures,
+                check_status,
+                check_name,
+                (
+                    "generation_readiness.readiness_summary.next_required_action "
+                    "does not match"
+                ),
+            )
+
+        expected_by_status = {
+            "ready_items": "ready",
+            "blocked_items": "blocked",
+            "needs_human_review_items": "needs_human_review",
+            "unresolved_items": "unresolved",
+        }
+        for field, status in expected_by_status.items():
+            values = readiness_summary.get(field)
+            if not isinstance(values, list) or not all(
+                isinstance(value, str) for value in values
+            ):
+                add_failure(
+                    failures,
+                    check_status,
+                    check_name,
+                    f"generation_readiness.readiness_summary.{field} is invalid",
+                )
+                continue
+            expected_values = [
+                str(item["id"])
+                for item in items
+                if isinstance(item, dict) and item.get("status") == status
+            ]
+            if values != expected_values:
+                add_failure(
+                    failures,
+                    check_status,
+                    check_name,
+                    (
+                        f"generation_readiness.readiness_summary.{field} "
+                        "does not match checklist item statuses"
+                    ),
+                )
 
 
 def check_cross_format_consistency(
@@ -1332,6 +1507,82 @@ def check_cross_format_readiness_consistency(
         )
 
 
+def check_cross_format_advisory_score_consistency(
+    results: dict[str, ModeResult],
+    json_data: dict[str, object] | None,
+    failures: list[str],
+    check_status: dict[str, bool],
+) -> None:
+    check_name = "cross-format advisory score consistency"
+    default = results["default"].stdout
+    text = results["text"].stdout
+    markdown = results["markdown"].stdout
+
+    expected_text = f"advisory_score: {EXPECTED_ADVISORY_SCORE_TEXT}"
+    if expected_text not in default:
+        add_failure(
+            failures,
+            check_status,
+            check_name,
+            "default text advisory score is missing or inconsistent",
+        )
+    if expected_text not in text:
+        add_failure(
+            failures,
+            check_status,
+            check_name,
+            "--format text advisory score is missing or inconsistent",
+        )
+
+    markdown_readiness = markdown_section(markdown, "## Generation Readiness Preview")
+    expected_markdown = f"- advisory_score: `{EXPECTED_ADVISORY_SCORE_TEXT}`"
+    if expected_markdown not in markdown_readiness:
+        add_failure(
+            failures,
+            check_status,
+            check_name,
+            "Markdown advisory score is missing or inconsistent",
+        )
+
+    if json_data is None:
+        add_failure(
+            failures,
+            check_status,
+            check_name,
+            "JSON data unavailable for advisory score consistency checks",
+        )
+        return
+
+    readiness = json_data.get("generation_readiness")
+    if not isinstance(readiness, dict):
+        add_failure(
+            failures,
+            check_status,
+            check_name,
+            "JSON generation_readiness is unavailable for advisory score checks",
+        )
+        return
+
+    advisory_score = readiness.get("advisory_score")
+    if not isinstance(advisory_score, dict):
+        add_failure(
+            failures,
+            check_status,
+            check_name,
+            "JSON advisory_score is unavailable for consistency checks",
+        )
+        return
+
+    json_score_text = f"{advisory_score.get('value')}/{advisory_score.get('max')}"
+    if json_score_text != EXPECTED_ADVISORY_SCORE_TEXT:
+        add_failure(
+            failures,
+            check_status,
+            check_name,
+            "JSON advisory score does not match text and Markdown",
+        )
+
+
 def check_generated_package_absent(
     root: Path,
     failures: list[str],
@@ -1389,6 +1640,12 @@ def main(argv: list[str]) -> int:
     check_json_generation_readiness(json_data, failures, check_status)
     check_cross_format_consistency(results, json_data, failures, check_status)
     check_cross_format_readiness_consistency(
+        results,
+        json_data,
+        failures,
+        check_status,
+    )
+    check_cross_format_advisory_score_consistency(
         results,
         json_data,
         failures,

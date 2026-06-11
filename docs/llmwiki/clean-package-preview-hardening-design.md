@@ -379,6 +379,9 @@ High-high:
 - Y-08F: implement generation readiness checklist preview in dry-run reports.
   Completed in report-only / stdout-only mode.
 - Y-08G: readiness summary polish / advisory score refinement.
+  Completed in report-only / stdout-only mode.
+- Y-08H: optional advisory readiness score / summary polish follow-up.
+- Y-08Z: preview hardening closeout.
 
 ## Recommended Next Step
 
@@ -393,8 +396,13 @@ Y-08E added a package generation readiness checklist in docs-only mode.
 
 Y-08F implemented generation readiness checklist preview in report-only mode.
 
-Y-08G should refine readiness summary polish or advisory score presentation in
-report-only mode, if explicitly approved.
+Y-08G completed readiness summary polish and advisory score refinement in
+report-only mode. The advisory score is review-only, does not approve actual
+generation, and the preview remains `overall: blocked` with
+`actual_generation_approved: false`.
+
+Next candidate: Y-08H advisory readiness score / summary polish, or Y-08Z
+preview hardening closeout, if explicitly approved.
 
 ## Verification Checklist
 
@@ -415,6 +423,6 @@ For this report-only task:
 
 ## Rollback / Cleanup Note
 
-Rollback is a revert of the Y-08F script, checker, and docs commit.
+Rollback is a revert of the Y-08G script, checker, and docs commit.
 
 No generated package output exists to clean up.

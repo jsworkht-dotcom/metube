@@ -130,9 +130,11 @@ Actual package generation remains blocked.
 
 ### Next package-material candidate
 
-- Y-08F implements the generation readiness checklist preview in this PR.
-- The next recommended package-material candidate is Y-08G readiness summary
-  polish / advisory score refinement, if explicitly approved.
+- Y-08G implements readiness summary polish / advisory score refinement in
+  this PR.
+- The next recommended package-material candidate is Y-08H advisory readiness
+  score / summary polish, or Y-08Z preview hardening closeout, if explicitly
+  approved.
 - Optional later CI wiring for the Y-07E checker remains separate.
 - Keep the next PR report-only, dry-run-only, or source-material only unless
   explicitly approved otherwise.
@@ -202,9 +204,37 @@ Actual package generation remains blocked.
   object, approval false, summary object, generated folder absence, and
   cross-format readiness status consistency.
 - Future recommended candidate after Y-08F: Y-08G readiness summary polish /
-  advisory score refinement in report-only / stdout-only mode.
+  advisory score refinement in report-only / stdout-only mode. Implemented by
+  Y-08G.
 - Actual package generation remains blocked.
 - This Y-08F PR does not create package output, write report files, create
+  generated distribution folders, run ビルド/パッケージ/インストール操作,
+  change dependencies, change package/lockfile files, change
+  backend/frontend/Docker/CI files, handle cookie/token/secret values, touch PR
+  #1001 files, or implement 更新適用機能.
+
+## Y-08G Readiness Summary Polish Outcome
+
+- Scripts:
+  - `scripts/clean_package_dry_run.py`
+  - `scripts/check_clean_package_dry_run_reports.py`
+- Added a compact advisory readiness score and readiness summary to the
+  report-only clean-package dry-run output.
+- Text output includes `Readiness summary` and `advisory_score: 23/100`.
+- Markdown output includes `### Readiness Summary` and
+  `advisory_score: 23/100`.
+- JSON output includes `generation_readiness.advisory_score` and
+  `generation_readiness.readiness_summary`.
+- The score is review-only and has no approval meaning.
+- The readiness preview keeps `overall: blocked`,
+  `actual_generation_approved: false`, and `score_basis: advisory_only`.
+- The regression checker validates Y-08G fields, score value/max, approval
+  meaning, blocked override, cross-format advisory score consistency, and
+  generated package folder absence.
+- Future recommended candidate after Y-08G: Y-08H advisory readiness score /
+  summary polish, or Y-08Z preview hardening closeout.
+- Actual package generation remains blocked.
+- This Y-08G PR does not create package output, write report files, create
   generated distribution folders, run ビルド/パッケージ/インストール操作,
   change dependencies, change package/lockfile files, change
   backend/frontend/Docker/CI files, handle cookie/token/secret values, touch PR
@@ -1152,8 +1182,8 @@ Next candidates:
 - Y-AUTO-10 PR body generator design.
 - Y-AUTO-11 PR body generator stdout-only implementation.
 - Y-AUTO-13 Codex run prompt templates.
-- Y-08G readiness summary polish / advisory score refinement, if explicitly
-  approved.
+- Y-08H advisory readiness score / summary polish, or Y-08Z preview hardening
+  closeout, if explicitly approved.
 
 Actual package generation remains blocked.
 ## Y-AUTO-10A Outcome: Safety Wording Checker Design

@@ -2113,16 +2113,25 @@ def build_generation_readiness(
             }
         )
 
+    summary = summarize_generation_readiness(items)
+    next_required_action = (
+        "Resolve unresolved checklist items and complete explicit human "
+        "review before any actual generation task."
+    )
+
     return {
         "overall": "blocked",
         "actual_generation_approved": False,
         "score_basis": "advisory_only",
-        "checklist_items": items,
-        "summary": summarize_generation_readiness(items),
-        "next_required_action": (
-            "Resolve unresolved checklist items and complete explicit human "
-            "review before any actual generation task."
+        "advisory_score": build_advisory_score(summary),
+        "readiness_summary": build_readiness_summary(
+            items,
+            summary,
+            next_required_action,
         ),
+        "checklist_items": items,
+        "summary": summary,
+        "next_required_action": next_required_action,
     }
 
 
@@ -2141,6 +2150,47 @@ def summarize_generation_readiness(
         if status in counts:
             counts[status] += 1
     return counts
+
+
+def build_advisory_score(summary: dict[str, int]) -> dict[str, object]:
+    total = summary["total"]
+    value = (summary["ready"] * 100 // total) if total else 0
+    return {
+        "value": value,
+        "max": 100,
+        "basis": "ready_items_divided_by_total_items",
+        "approval_meaning": "none",
+        "blocked_override": summary["blocked"] > 0,
+        "actual_generation_approved": False,
+    }
+
+
+def readiness_item_ids_by_status(
+    items: list[dict[str, object]],
+    status: str,
+) -> list[str]:
+    return [str(item["id"]) for item in items if item["status"] == status]
+
+
+def build_readiness_summary(
+    items: list[dict[str, object]],
+    summary: dict[str, int],
+    next_required_action: str,
+) -> dict[str, object]:
+    return {
+        "headline": (
+            f"{summary['ready']} of {summary['total']} readiness items are ready; "
+            "actual generation remains blocked."
+        ),
+        "ready_items": readiness_item_ids_by_status(items, "ready"),
+        "blocked_items": readiness_item_ids_by_status(items, "blocked"),
+        "needs_human_review_items": readiness_item_ids_by_status(
+            items,
+            "needs_human_review",
+        ),
+        "unresolved_items": readiness_item_ids_by_status(items, "unresolved"),
+        "next_required_action": next_required_action,
+    }
 
 
 def print_package_manifest_preview(root: Path, excluded_found: list[str]) -> None:
@@ -2286,10 +2336,19 @@ def print_source_coverage_status(root: Path) -> None:
         )
 
 
+def format_inline_items(items: Iterable[object]) -> str:
+    values = [str(item) for item in items]
+    return ", ".join(values) if values else "none"
+
+
 def print_generation_readiness_preview(blocked: list[Finding]) -> None:
     readiness = build_generation_readiness(blocked)
     summary = readiness["summary"]
     assert isinstance(summary, dict)
+    advisory_score = readiness["advisory_score"]
+    assert isinstance(advisory_score, dict)
+    readiness_summary = readiness["readiness_summary"]
+    assert isinstance(readiness_summary, dict)
 
     print("Generation Readiness Preview:")
     print(f"  overall: {readiness['overall']}")
@@ -2298,6 +2357,29 @@ def print_generation_readiness_preview(blocked: list[Finding]) -> None:
         f"{str(readiness['actual_generation_approved']).lower()}"
     )
     print(f"  score_basis: {readiness['score_basis']}")
+    print(f"  advisory_score: {advisory_score['value']}/{advisory_score['max']}")
+    print("  Readiness summary:")
+    print(f"    headline: {readiness_summary['headline']}")
+    print(
+        "    ready_items: "
+        f"{format_inline_items(readiness_summary['ready_items'])}"
+    )
+    print(
+        "    blocked_items: "
+        f"{format_inline_items(readiness_summary['blocked_items'])}"
+    )
+    print(
+        "    needs_human_review_items: "
+        f"{format_inline_items(readiness_summary['needs_human_review_items'])}"
+    )
+    print(
+        "    unresolved_items: "
+        f"{format_inline_items(readiness_summary['unresolved_items'])}"
+    )
+    print(
+        "    next_required_action: "
+        f"{readiness_summary['next_required_action']}"
+    )
     print("  summary:")
     print(f"    total: {summary['total']}")
     print(f"    ready: {summary['ready']}")
@@ -2414,6 +2496,10 @@ def print_markdown_report(
     generation_readiness = build_generation_readiness(blocked)
     readiness_summary = generation_readiness["summary"]
     assert isinstance(readiness_summary, dict)
+    advisory_score = generation_readiness["advisory_score"]
+    assert isinstance(advisory_score, dict)
+    readiness_detail = generation_readiness["readiness_summary"]
+    assert isinstance(readiness_detail, dict)
     readiness_items = generation_readiness["checklist_items"]
     assert isinstance(readiness_items, list)
 
@@ -2616,6 +2702,32 @@ def print_markdown_report(
         f"`{str(generation_readiness['actual_generation_approved']).lower()}`"
     )
     print(f"- score_basis: `{generation_readiness['score_basis']}`")
+    print()
+    print("### Readiness Summary")
+    print()
+    print(f"- advisory_score: `{advisory_score['value']}/{advisory_score['max']}`")
+    print(
+        "- actual_generation_approved: "
+        f"`{str(generation_readiness['actual_generation_approved']).lower()}`"
+    )
+    print(f"- headline: {readiness_detail['headline']}")
+    print(
+        "- ready_items: "
+        f"`{format_inline_items(readiness_detail['ready_items'])}`"
+    )
+    print(
+        "- blocked_items: "
+        f"`{format_inline_items(readiness_detail['blocked_items'])}`"
+    )
+    print(
+        "- needs_human_review_items: "
+        f"`{format_inline_items(readiness_detail['needs_human_review_items'])}`"
+    )
+    print(
+        "- unresolved_items: "
+        f"`{format_inline_items(readiness_detail['unresolved_items'])}`"
+    )
+    print(f"- next_required_action: {readiness_detail['next_required_action']}")
     print("- summary:")
     print(f"  - total: `{readiness_summary['total']}`")
     print(f"  - ready: `{readiness_summary['ready']}`")
