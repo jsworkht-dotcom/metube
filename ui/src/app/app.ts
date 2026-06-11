@@ -917,13 +917,13 @@ export class App implements AfterViewInit, OnInit, OnDestroy {
   setQualities() {
     if (this.downloadType === 'video') {
       this.qualities = this.format === 'ios'
-        ? [{ id: 'best', text: 'Best' }]
+        ? [{ id: 'best', text: '最高画質（自動）' }]
         : VIDEO_QUALITIES;
     } else if (this.downloadType === 'audio') {
       const selectedFormat = this.audioFormats.find(el => el.id === this.format);
-      this.qualities = selectedFormat ? selectedFormat.qualities : [{ id: 'best', text: 'Best' }];
+      this.qualities = selectedFormat ? selectedFormat.qualities : [{ id: 'best', text: '最高音質（自動）' }];
     } else {
-      this.qualities = [{ id: 'best', text: 'Best' }];
+      this.qualities = [{ id: 'best', text: '最高（自動）' }];
     }
     const exists = this.qualities.find(el => el.id === this.quality);
     this.quality = exists ? this.quality : 'best';
