@@ -52,6 +52,12 @@ Current local-only runtime boundaries:
 - Nightly automatic yt-dlp updates require the explicit unsafe escape hatch
   `ALLOW_UNSAFE_NIGHTLY_UPDATE=true` when local-only mode is enabled.
 - Non-local absolute public host URLs are blocked in local-only mode.
+- URL intake for downloads and subscriptions must reject local, private,
+  internal, metadata-style, non-HTTP(S), malformed, and userinfo-bearing
+  targets by default.
+- URL intake protection is first-pass request validation. Do not claim complete
+  protection against all DNS rebinding, downstream redirects, or later URLs
+  fetched internally by yt-dlp.
 - Security response headers are added as a minimal browser hardening baseline.
 - Do not describe the Host guard as complete protection against manually forged
   Host headers.

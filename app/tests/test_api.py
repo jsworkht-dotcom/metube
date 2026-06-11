@@ -200,6 +200,38 @@ async def test_add_ok(mock_dqueue):
 
 
 @pytest.mark.asyncio
+async def test_add_public_url_passes_url_intake_guard(mock_dqueue):
+    req = _json_request(_valid_video_add_body(url="https://www.youtube.com/watch?v=test"))
+    resp = await main.add(req)
+    assert resp.status == 200
+    call = mock_dqueue.add.await_args
+    assert call is not None
+    assert call.args[0] == "https://www.youtube.com/watch?v=test"
+
+
+@pytest.mark.parametrize(
+    "bad_url",
+    (
+        "http://localhost:8081/",
+        "http://192.168.1.20/video",
+        "file:///etc/passwd",
+        "https://user:pass@example.com/video",
+    ),
+)
+@pytest.mark.asyncio
+async def test_add_rejects_unsafe_url_intake_without_echoing_url(mock_dqueue, bad_url):
+    req = _json_request(_valid_video_add_body(url=bad_url))
+    with pytest.raises(web.HTTPBadRequest) as exc:
+        await main.add(req)
+
+    assert exc.value.status == 400
+    assert exc.value.reason == "URL is not allowed by local-only security policy."
+    assert bad_url not in (exc.value.text or "")
+    assert bad_url not in exc.value.reason
+    mock_dqueue.add.assert_not_called()
+
+
+@pytest.mark.asyncio
 async def test_add_passes_preset_and_overrides(mock_dqueue, monkeypatch):
     monkeypatch.setattr(main.config, "YTDL_OPTIONS_PRESETS", {"Preset A": {"writesubtitles": True}})
     monkeypatch.setattr(main.config, "ALLOW_YTDL_OPTIONS_OVERRIDES", True)

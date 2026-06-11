@@ -19,14 +19,15 @@
 - Do not open PRs against upstream `alexta69/metube` unless explicitly requested for a
   separate upstream contribution.
 - Do not mix upstream PR #1001 files into fork-only work.
-- Latest baseline before Y-SEC-01: fork `master`
-  `45852c6257380eb9893b7fd624fc52df439a12a3` from fork PR #81.
+- Latest baseline before Y-SEC-02: fork `master`
+  `e63e282afdb4d710b01d6562a2ffd377c3a3fc32` from fork PR #82.
 
 ## Current Runtime Security State
 
 ### Y-SEC-01 local-only runtime guardrails
 
-- Implemented in the Y-SEC-01 PR branch.
+- Completed via fork PR #82.
+- Merge commit: `e63e282afdb4d710b01d6562a2ffd377c3a3fc32`.
 - Adds `LOCAL_ONLY_MODE=true` by default for this fork.
 - Y-SEC-01A amends the runtime default bind to `HOST=127.0.0.1`.
 - Y-SEC-01A blocks non-loopback `HOST` values when `LOCAL_ONLY_MODE=true`.
@@ -52,10 +53,37 @@
 - Adds minimal security response headers:
   `X-Content-Type-Options`, `Referrer-Policy`, `X-Frame-Options`, and
   `Cross-Origin-Resource-Policy`.
-- PR #82 remains draft until human review.
 - No package output, dependency install/update, Docker operation, real
   download, cookie/token/secret handling, public hosting, or safety gate
   change was performed.
+
+### Y-SEC-02 URL intake SSRF / private-network target guard
+
+- Implemented in draft PR branch
+  `codex/y-sec-02-url-intake-ssrf-guard`.
+- Adds `URL_INTAKE_GUARD=true` by default and requires it to remain enabled
+  when `LOCAL_ONLY_MODE=true`.
+- Adds a dependency-free URL intake helper for user-submitted download and
+  subscription URLs.
+- Blocks non-HTTP(S) schemes, missing or malformed hosts, URL userinfo,
+  localhost/loopback, private/link-local/shared/multicast/reserved IP literals,
+  IPv4-mapped IPv6 literals that point to blocked IPv4 ranges, obvious
+  internal hostnames such as `.local`, `.home`, `.lan`, `.localhost`, and
+  metadata hostnames such as `metadata.google.internal`.
+- Unsafe `/add` and `/subscribe` URL intake is rejected before enqueue or
+  subscription creation with a generic 400 reason. The raw URL is not echoed in
+  the response or log message.
+- DNS resolution support exists as an explicit helper option only and is not
+  enabled on the request path in this first pass.
+- This guard blocks obvious dangerous initial URLs. It does not fully control
+  later URLs fetched internally by yt-dlp, and it does not claim complete DNS
+  rebinding or downstream redirect protection.
+- Verification: dependency-free `unittest` coverage passes with bundled Codex
+  Python. Focused pytest/aiohttp API tests were added but not run here because
+  `pytest` is not installed and dependency installation was not performed.
+- No package output, dependency install/update, Docker operation, public
+  hosting, real download, cookie/token/secret handling, frontend change, or
+  safety gate change was performed.
 
 ## Completed Work
 
