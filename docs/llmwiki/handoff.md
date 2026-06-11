@@ -2,9 +2,10 @@
 
 ## Short Context
 
-This is `youtubeダウンロード / MeTube local-only fork`, a personal local-only fork of
-MeTube. The canonical branch is fork `master`, and local `master` tracks
-`fork/master`.
+This is `youtubeダウンロード / MeTube local-only fork`, a local-only fork of MeTube.
+The current premise is controlled CLEAN portable distribution to known
+recipients, with each recipient running the app locally on their own PC. The
+canonical branch is fork `master`, and local `master` tracks `fork/master`.
 
 ## Current Closeout State
 
@@ -17,6 +18,8 @@ MeTube. The canonical branch is fork `master`, and local `master` tracks
 - Current Y-SEC-01 state:
   - local-only runtime guardrails implemented in backend startup/request
     handling
+  - default bind is `HOST=127.0.0.1`
+  - non-loopback bind targets are blocked when `LOCAL_ONLY_MODE=true`
   - local Host allowlist guard
   - Origin / Referer guard for state-changing requests
   - wildcard CORS blocked in local-only mode
@@ -24,6 +27,10 @@ MeTube. The canonical branch is fork `master`, and local `master` tracks
     escape hatches
   - non-local absolute public host URLs blocked in local-only mode
   - minimal security response headers added
+  - controlled distribution is CLEAN portable local-only distribution, not
+    public hosting, Cloudflare/public web deployment, or an external
+    SaaS/service offering
+  - PR #82 remains draft until human review
   - no package output, dependency install/update, Docker, cookie/token/secret
     handling, public hosting, or safety gate changes
 - Next candidate:

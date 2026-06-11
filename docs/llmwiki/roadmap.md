@@ -10,6 +10,8 @@
 - Runtime guardrails include local Host allowlisting, Origin / Referer checks
   for state-changing requests, dangerous local-only config fail-fast checks, and
   minimal security response headers.
+- Y-SEC-01A amends this PR so the default bind is `HOST=127.0.0.1` and
+  non-loopback bind targets are blocked when `LOCAL_ONLY_MODE=true`.
 - No frontend UI, Docker, dependency, lockfile, package generation,
   yt-dlp extractor, download queue semantic, or safety gate changes are part of
   this lane.
@@ -18,8 +20,20 @@
 ### Security next candidates
 
 ```text
+Y-SEC-01A:
+  distribution-safe loopback binding amendment
+
 Y-SEC-02:
   URL intake SSRF / private-network target guard
+
+Y-DIST-01:
+  CLEAN portable distribution manifest and forbidden-file checker
+
+Y-DIST-02:
+  checksum / hash / version / license notice bundle verification
+
+Y-DIST-03:
+  recipient-safe runbook and first-run local-only verification
 
 Y-SEC-03:
   log and filename privacy redaction hardening

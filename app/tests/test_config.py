@@ -31,6 +31,34 @@ class ConfigTests(unittest.TestCase):
             c = Config()
         self.assertFalse(c.LOCAL_ONLY_MODE)
 
+    def test_host_defaults_to_loopback(self):
+        with patch.dict(os.environ, _base_env(), clear=False):
+            c = Config()
+        self.assertEqual(c.HOST, "127.0.0.1")
+
+    def test_loopback_hosts_allowed_in_local_only_mode(self):
+        for host in ("localhost", "127.0.0.1", "::1", "[::1]"):
+            with self.subTest(host=host):
+                with patch.dict(os.environ, _base_env(HOST=host), clear=False):
+                    c = Config()
+                self.assertEqual(c.HOST, host)
+
+    def test_nonloopback_hosts_exit_in_local_only_mode(self):
+        for host in ("0.0.0.0", "192.168.1.20"):
+            with self.subTest(host=host):
+                with patch.dict(os.environ, _base_env(HOST=host), clear=False):
+                    with self.assertRaises(SystemExit):
+                        Config()
+
+    def test_nonloopback_host_allowed_when_local_only_disabled(self):
+        with patch.dict(
+            os.environ,
+            _base_env(LOCAL_ONLY_MODE="false", HOST="0.0.0.0"),
+            clear=False,
+        ):
+            c = Config()
+        self.assertEqual(c.HOST, "0.0.0.0")
+
     def test_url_prefix_gets_trailing_slash(self):
         with patch.dict(os.environ, _base_env(URL_PREFIX="foo"), clear=False):
             c = Config()

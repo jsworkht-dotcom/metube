@@ -11,7 +11,11 @@
 
 ## Repository State
 
-- This project is local-only and for personal use.
+- This project is local-only per recipient. The current premise is controlled
+  CLEAN portable distribution to known recipients, where each recipient runs
+  the app locally on their own PC.
+- Public hosting, Cloudflare/public web deployment, and external SaaS/service
+  offering remain prohibited and out of scope.
 - Do not open PRs against upstream `alexta69/metube` unless explicitly requested for a
   separate upstream contribution.
 - Do not mix upstream PR #1001 files into fork-only work.
@@ -24,6 +28,8 @@
 
 - Implemented in the Y-SEC-01 PR branch.
 - Adds `LOCAL_ONLY_MODE=true` by default for this fork.
+- Y-SEC-01A amends the runtime default bind to `HOST=127.0.0.1`.
+- Y-SEC-01A blocks non-loopback `HOST` values when `LOCAL_ONLY_MODE=true`.
 - Adds a local Host allowlist guard for HTTP and static UI requests.
 - Adds an Origin / Referer guard for state-changing requests.
 - Blocks wildcard CORS in local-only mode.
@@ -36,6 +42,7 @@
 - Adds minimal security response headers:
   `X-Content-Type-Options`, `Referrer-Policy`, `X-Frame-Options`, and
   `Cross-Origin-Resource-Policy`.
+- PR #82 remains draft until human review.
 - No package output, dependency install/update, Docker operation, real
   download, cookie/token/secret handling, public hosting, or safety gate
   change was performed.

@@ -91,6 +91,14 @@ async def test_local_only_guard_rejects_nonlocal_host(monkeypatch):
 
 
 @pytest.mark.asyncio
+async def test_local_only_guard_rejects_all_interface_host(monkeypatch):
+    monkeypatch.setattr(main.config, "LOCAL_ONLY_MODE", True)
+    resp = await _guard_response(host="0.0.0.0:8081")
+    assert resp.status == 403
+    assert resp.text == "Local-only access required."
+
+
+@pytest.mark.asyncio
 async def test_local_only_guard_rejects_nonlocal_origin_on_post(monkeypatch):
     monkeypatch.setattr(main.config, "LOCAL_ONLY_MODE", True)
     resp = await _guard_response(

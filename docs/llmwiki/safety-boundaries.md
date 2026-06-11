@@ -2,9 +2,12 @@
 
 ## Project Scope
 
-- Local-only personal use
+- Local-only per-recipient use
+- Controlled distribution to known recipients is allowed only through a future
+  CLEAN portable distribution process
 - No web publication
 - No external user offering
+- No external SaaS/service offering
 - No monetization or ad workflow
 - Markdown-only project documentation for this LLMwiki
 
@@ -17,18 +20,22 @@
 - No public hosting
 - No ads
 - No mass-download optimization
-- No backend, frontend, extractor, yt-dlp, Docker, CI, package, or lockfile changes as
-  part of this docs-only wiki task
+- No bundled downloads, logs, state, cookies, tokens, secrets, or recipient data
+- No generated package output until an explicit package-generation approval task
+- Distribution work does not approve DRM/auth bypass, cookie handling, or
+  mass-download optimization
 
 ## Local-Only Runtime Security Boundary
 
 Y-SEC-01 adds runtime guardrails for the local-only fork. These guardrails are a
 defense against accidental exposure and unsafe local configuration, not a
-replacement for loopback binding, an OS firewall, or authentication.
+replacement for an OS firewall or authentication.
 
 Current local-only runtime boundaries:
 
 - Default runtime mode is `LOCAL_ONLY_MODE=true`.
+- Default bind is `HOST=127.0.0.1`.
+- Non-loopback bind targets are blocked in local-only mode.
 - Normal HTTP and static UI requests are expected to use local Host values such
   as `localhost`, `127.0.0.1`, or `::1`.
 - Browser state-changing requests with a non-local `Origin` or `Referer` are

@@ -145,7 +145,7 @@ class Config:
         'CORS_ALLOWED_ORIGINS': '',
         'LOCAL_ONLY_MODE': 'true',
         'ROBOTS_TXT': '',
-        'HOST': '0.0.0.0',
+        'HOST': '127.0.0.1',
         'PORT': '8081',
         'HTTPS': 'false',
         'CERTFILE': '',
@@ -223,6 +223,9 @@ class Config:
     def _validate_local_only_guardrails(self) -> None:
         if not self.LOCAL_ONLY_MODE:
             return
+
+        if not _is_local_hostname(self.HOST):
+            self._config_error('HOST must be loopback when LOCAL_ONLY_MODE=true')
 
         cors_origins = [o.strip() for o in self.CORS_ALLOWED_ORIGINS.split(',') if o.strip()]
         if '*' in cors_origins:
