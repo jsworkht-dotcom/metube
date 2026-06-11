@@ -20,6 +20,29 @@
 - No backend, frontend, extractor, yt-dlp, Docker, CI, package, or lockfile changes as
   part of this docs-only wiki task
 
+## Local-Only Runtime Security Boundary
+
+Y-SEC-01 adds runtime guardrails for the local-only fork. These guardrails are a
+defense against accidental exposure and unsafe local configuration, not a
+replacement for loopback binding, an OS firewall, or authentication.
+
+Current local-only runtime boundaries:
+
+- Default runtime mode is `LOCAL_ONLY_MODE=true`.
+- Normal HTTP and static UI requests are expected to use local Host values such
+  as `localhost`, `127.0.0.1`, or `::1`.
+- Browser state-changing requests with a non-local `Origin` or `Referer` are
+  rejected in local-only mode.
+- Wildcard CORS origins are blocked in local-only mode.
+- Per-download yt-dlp option overrides require the explicit unsafe escape hatch
+  `ALLOW_UNSAFE_YTDL_OPTIONS_OVERRIDES=true` when local-only mode is enabled.
+- Nightly automatic yt-dlp updates require the explicit unsafe escape hatch
+  `ALLOW_UNSAFE_NIGHTLY_UPDATE=true` when local-only mode is enabled.
+- Non-local absolute public host URLs are blocked in local-only mode.
+- Security response headers are added as a minimal browser hardening baseline.
+- Do not describe the Host guard as complete protection against manually forged
+  Host headers.
+
 ## Update-Status Boundary
 
 `update-status` must remain readonly unless a future manually approved task explicitly

@@ -8,9 +8,26 @@ MeTube. The canonical branch is fork `master`, and local `master` tracks
 
 ## Current Closeout State
 
-- Current branch after merge should be `master`.
-- Latest expected `fork/master` after this PR merges will be this PR's future
+- Current Y-SEC-01 work branch:
+  `codex/y-sec-01-local-only-runtime-guardrails`.
+- Baseline before Y-SEC-01: fork `master`
+  `45852c6257380eb9893b7fd624fc52df439a12a3` from fork PR #81.
+- Latest expected `fork/master` after Y-SEC-01 merges will be this PR's future
   merge commit.
+- Current Y-SEC-01 state:
+  - local-only runtime guardrails implemented in backend startup/request
+    handling
+  - local Host allowlist guard
+  - Origin / Referer guard for state-changing requests
+  - wildcard CORS blocked in local-only mode
+  - yt-dlp option overrides and nightly auto updates require explicit unsafe
+    escape hatches
+  - non-local absolute public host URLs blocked in local-only mode
+  - minimal security response headers added
+  - no package output, dependency install/update, Docker, cookie/token/secret
+    handling, public hosting, or safety gate changes
+- Next candidate:
+  `Y-SEC-02 URL intake SSRF / private-network target guard`.
 - Completed:
   - Y-08F generation readiness checklist preview via fork PR #70.
   - Y-08G readiness summary polish / advisory score refinement via fork PR #71.

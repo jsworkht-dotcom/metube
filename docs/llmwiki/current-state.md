@@ -15,6 +15,30 @@
 - Do not open PRs against upstream `alexta69/metube` unless explicitly requested for a
   separate upstream contribution.
 - Do not mix upstream PR #1001 files into fork-only work.
+- Latest baseline before Y-SEC-01: fork `master`
+  `45852c6257380eb9893b7fd624fc52df439a12a3` from fork PR #81.
+
+## Current Runtime Security State
+
+### Y-SEC-01 local-only runtime guardrails
+
+- Implemented in the Y-SEC-01 PR branch.
+- Adds `LOCAL_ONLY_MODE=true` by default for this fork.
+- Adds a local Host allowlist guard for HTTP and static UI requests.
+- Adds an Origin / Referer guard for state-changing requests.
+- Blocks wildcard CORS in local-only mode.
+- Blocks per-download yt-dlp option overrides in local-only mode unless
+  `ALLOW_UNSAFE_YTDL_OPTIONS_OVERRIDES=true` is explicitly set.
+- Blocks nightly automatic yt-dlp updates in local-only mode unless
+  `ALLOW_UNSAFE_NIGHTLY_UPDATE=true` is explicitly set.
+- Blocks non-local absolute public host URL values in local-only mode while
+  preserving relative defaults.
+- Adds minimal security response headers:
+  `X-Content-Type-Options`, `Referrer-Policy`, `X-Frame-Options`, and
+  `Cross-Origin-Resource-Policy`.
+- No package output, dependency install/update, Docker operation, real
+  download, cookie/token/secret handling, public hosting, or safety gate
+  change was performed.
 
 ## Completed Work
 
