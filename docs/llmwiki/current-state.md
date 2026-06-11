@@ -1580,6 +1580,40 @@
   - generated package output;
   - PR #1001 files.
 
+### Y-UI-QUALITY-02 quality selector helper copy / tooltip polish
+
+- Scope: frontend UI copy-only helper/popover polish.
+- Status: completed via fork PR #75.
+- PR title: `feat: clarify quality selector help copy`.
+- Merge commit: `eea1c861a62033b02255950491cd9e0f6ab2d77b`.
+- Changed files:
+  - `ui/src/app/app.html`
+- Outcome:
+  - quality selector helper copy was clarified;
+  - the video quality helper now explains quality targets / upper limits,
+    fallback when source quality is unavailable, auto mode, and the file-size
+    tradeoff;
+  - the audio quality helper now explains the audio quality / file-size
+    tradeoff and auto mode;
+  - the audio selector label changed from `画質` to `音質`;
+  - option ids were preserved;
+  - API payloads, backend/API/download logic, validation, and yt-dlp selector
+    behavior were unchanged.
+- Verification notes:
+  - no dependency installation operations were performed;
+  - no generated package output was created;
+  - generated package folder remained absent.
+- Safety note:
+  - because this touched `ui/**`, it was High-mid / human-reviewed frontend UI
+    copy-only work, not auto-merge;
+  - this did not weaken the safety gate or modify gate behavior.
+- Not changed:
+  - backend/API/download logic;
+  - option ids, payload names, validation, or yt-dlp selector behavior;
+  - Docker, CI, package, or lock files;
+  - generated package output;
+  - PR #1001 files.
+
 ### Y-CHECK-01 safety gate checker design
 
 - Scope: docs-only design for a future repository safety checker and automation
@@ -1851,15 +1885,24 @@
 
 ## Current Next Step
 
-Y-08Z closes the Y-08 preview hardening lane as docs-only closeout. Y-UI-QUALITY-01
-is complete via fork PR #73 with merge commit
-`402996eba52f923be962e2fe69ebdaa6084363f2`.
+Y-08Z closes the Y-08 preview hardening lane as docs-only closeout.
+Y-UI-QUALITY-01 is complete via fork PR #73 with merge commit
+`402996eba52f923be962e2fe69ebdaa6084363f2`. Y-UI-QUALITY-02 is complete via
+fork PR #75 with merge commit
+`eea1c861a62033b02255950491cd9e0f6ab2d77b`.
 
 Y-UI-QUALITY-01 simplified the visible quality selector labels while preserving
 numeric values, existing option ids, API payloads, backend validation, and
-download logic. It was a High-mid / human-reviewed frontend UI label-only merge
-because the current local safety aggregator forbids `ui/**`; that known scope
-mismatch did not weaken or modify the safety gate.
+download logic. Y-UI-QUALITY-02 clarified the quality selector helper copy:
+video help now explains quality targets / upper limits, source-quality fallback,
+auto mode, and file-size tradeoff; audio help now explains the quality /
+file-size tradeoff and auto mode; the audio selector label changed from `画質`
+to `音質`.
+
+Y-UI-QUALITY-02 preserved option ids, payloads, backend/API/download logic,
+validation, and yt-dlp selector behavior. Because it touched `ui/**`, it was a
+High-mid / human-reviewed frontend UI copy-only merge, not auto-merge. That
+known scope mismatch did not weaken or modify the safety gate.
 
 Use the preflight checker before future file modification when a task needs
 local readiness confirmation:
@@ -1884,12 +1927,12 @@ remain absent.
 The next practical candidate is:
 
 ```text
-Y-UI-QUALITY-02 quality selector helper copy / tooltip polish
+Y-UI-QUALITY-03 completed/result table quality label polish
 ```
 
-Another small UI task can be chosen instead, but future `ui/**` work remains
-human-reviewed unless a later policy PR explicitly updates the local safety
-gate and automation policy.
+Pause for review of the current UI can be chosen instead, but future `ui/**`
+work remains human-reviewed unless a later policy PR explicitly updates the
+local safety gate and automation policy.
 
 Later clean-package work should resume as a separate explicitly approved lane,
 with Y-09 limited to human-reviewed generation prototype planning only and not

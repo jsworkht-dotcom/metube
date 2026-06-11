@@ -16,13 +16,26 @@ MeTube. The canonical branch is fork `master`, and local `master` tracks
   - Y-08G readiness summary polish / advisory score refinement via fork PR #71.
   - Y-08Z preview hardening lane closeout via fork PR #72.
   - Y-UI-QUALITY-01 quality selector simple labels via fork PR #73.
+  - Y-UI-QUALITY-01Z docs closeout via fork PR #74.
+  - Y-UI-QUALITY-02 quality selector helper copy via fork PR #75.
 - PR #73 merge commit:
   `402996eba52f923be962e2fe69ebdaa6084363f2`.
+- PR #74 merge commit:
+  `708f2ca583b95bb25135e3463764ac547c75a084`.
+- PR #75 merge commit:
+  `eea1c861a62033b02255950491cd9e0f6ab2d77b`.
 - Y-UI-QUALITY-01 simplified visible video/audio quality labels while preserving
   numeric values, existing option ids, API payloads, backend validation, and
   download logic.
-- PR #73 was High-mid / human-reviewed frontend UI label-only work because the
-  current local safety aggregator forbids `ui/**`.
+- Y-UI-QUALITY-02 clarified quality selector helper copy: video help now
+  explains quality targets / upper limits, source-quality fallback, auto mode,
+  and file-size tradeoff; audio help now explains audio quality / file-size
+  tradeoff and auto mode; the audio selector label changed from `画質` to
+  `音質`.
+- Y-UI-QUALITY-02 preserved option ids, payloads, backend/API/download logic,
+  validation, and yt-dlp selector behavior.
+- PR #73 and PR #75 were High-mid / human-reviewed frontend UI work because
+  the current local safety aggregator forbids `ui/**`.
 - This docs closeout does not weaken or modify the safety gate.
 - Readiness preview remains report-only and advisory-only:
   - `overall: blocked`
@@ -34,8 +47,8 @@ MeTube. The canonical branch is fork `master`, and local `master` tracks
 - No package output or `動画保存ツール_ローカル専用/` generated package folder should
   exist.
 - Run preflight before the next task.
-- Current next: choose between `Y-UI-QUALITY-02 quality selector helper copy /
-  tooltip polish` or another small UI task.
+- Current next: choose `Y-UI-QUALITY-03 completed/result table quality label
+  polish` or pause for review of the current UI.
 - Frontend `ui/**` work remains human-reviewed unless safety gate policy is
   explicitly updated later.
 
@@ -798,13 +811,13 @@ as the next-chat source of truth.
 Recommended next candidate:
 
 ```text
-Y-UI-QUALITY-02 quality selector helper copy / tooltip polish
+Y-UI-QUALITY-03 completed/result table quality label polish
 ```
 
 Alternative:
 
 ```text
-another small UI task
+pause for review of the current UI
 ```
 
 Use the `Risk classification` section from `scripts/check_repo_safety.py`
@@ -825,9 +838,9 @@ Run `scripts/check_repo_safety.py`,
 `scripts/clean_package_dry_run.py` before the next low-, medium-, or qualifying
 high-low-risk fork PR.
 
-The Y-08 package-material lane is closed by Y-08Z. Y-UI-QUALITY-01 is complete
-via fork PR #73. Optional later CI wiring for the Y-07E checker remains
-separate.
+The Y-08 package-material lane is closed by Y-08Z. Y-UI-QUALITY-01,
+Y-UI-QUALITY-01Z, and Y-UI-QUALITY-02 are complete. Optional later CI wiring
+for the Y-07E checker remains separate.
 
 Later clean-package work should resume as Y-09 human-reviewed generation
 prototype planning only, not actual generation. Keep Y-09 blocked unless later

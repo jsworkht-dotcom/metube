@@ -16,20 +16,36 @@
 - This closeout does not modify safety gate behavior or broaden auto-merge
   policy for `ui/**`.
 
+### Y-UI-QUALITY-02 quality selector helper copy / tooltip polish
+
+- Status: completed via fork PR #75.
+- Summary: clarified quality selector helper copy and audio label while
+  preserving behavior.
+- Video quality helper copy now explains quality targets / upper limits,
+  fallback when source quality is unavailable, auto mode, and file-size
+  tradeoff.
+- Audio quality helper copy now explains the audio quality / file-size tradeoff
+  and auto mode.
+- Audio selector label changed from `画質` to `音質`.
+- Option ids, payloads, backend/API/download logic, validation, and yt-dlp
+  selector behavior were unchanged.
+- The PR was frontend UI copy-only and required human-reviewed merge because
+  the current local safety aggregator forbids `ui/**`.
+
 ### Next candidates
 
 Immediate next:
 
 ```text
-Y-UI-QUALITY-02:
-  optional quality selector helper copy / tooltip polish
+Y-UI-QUALITY-03:
+  completed/result table quality label polish
 ```
 
 Automation later:
 
 ```text
 Y-AUTO-later:
-  consider scoped aggregator support for explicitly approved frontend label-only lanes
+  consider scoped safety-gate support for explicitly approved frontend label-only/copy-only lanes
 ```
 
 - Do not modify safety gate behavior in this closeout.
