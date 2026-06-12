@@ -19,8 +19,8 @@
 - Do not open PRs against upstream `alexta69/metube` unless explicitly requested for a
   separate upstream contribution.
 - Do not mix upstream PR #1001 files into fork-only work.
-- Latest Y-DIST-02 merge baseline: fork `master`
-  `00a90bfa1efd11935aa46b07848d05614d1c744e` from fork PR #86.
+- Latest Y-GH-OPS-01 merge baseline: fork `master`
+  `9a1a262e03da7976850b8dfddacb1576b0572c2c` from fork PR #87.
 
 ## Current Runtime Security State
 
@@ -164,7 +164,8 @@
 ### Y-GH-OPS-01 GitHub connector fallback runbook closeout
 
 - Scope: docs-only GitHub operations runbook / prompt-template / LLMwiki sync.
-- Status: completed by this closeout PR.
+- Status: completed via fork PR #87.
+- Merge commit: `9a1a262e03da7976850b8dfddacb1576b0572c2c`.
 - Purpose:
   - record that GitHub connector ready-for-review / GraphQL mutations can fail
     with `Resource not accessible by integration`;
@@ -181,6 +182,36 @@
   - Docker operations;
   - metadata/checksum/package generation;
   - PR #1001 file changes.
+
+### Y-CI-01 lightweight safety workflow design
+
+- Scope: docs-only GitHub Actions safety workflow design.
+- Status: designed in this docs-only PR.
+- Design doc:
+  `docs/llmwiki/lightweight-safety-workflow-design.md`.
+- Future workflow candidate:
+  `.github/workflows/local-fork-safety.yml`.
+- Candidate workflow name: `local-fork-safety`.
+- Initial design:
+  - run on `pull_request` targeting `master`;
+  - prefer broad PR coverage over path filtering for the first workflow;
+  - use `permissions: contents: read`;
+  - run existing stdlib-friendly repository safety and clean-package dry-run
+    checks;
+  - keep warning-only findings as successful CI with log output;
+  - fail CI for blockers;
+  - keep concurrency for Y-CI-04 unless real PR noise requires it earlier.
+- Not implemented:
+  - `.github/workflows/` changes;
+  - CI implementation;
+  - required-check configuration;
+  - branch protection mutation;
+  - CODEOWNERS addition;
+  - backend/frontend/Docker/package/lockfile changes;
+  - dependency installation operations;
+  - Docker operations;
+  - generated package output;
+  - metadata/checksum generation.
 
 ## Completed Work
 
@@ -2176,7 +2207,7 @@ remain absent.
 The next practical candidates are:
 
 ```text
-Y-CI-01 lightweight safety workflow design
+Y-CI-02 minimal workflow implementation
 Y-DIST-03 recipient-safe runbook and first-run local-only verification
 Y-GH-01 branch protection design
 Y-WIKI-CLEAN-01 current-state / handoff / archive整理

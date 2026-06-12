@@ -263,6 +263,10 @@ Y-GH-02 CODEOWNERS design
 
 Y-AUTO-06 does not implement CI, branch protection, or CODEOWNERS.
 
+Y-CI-01 designs `local-fork-safety` as a lightweight PR visibility layer. It
+does not replace local gates, implement `.github/workflows/`, add required
+checks, mutate branch protection, or add CODEOWNERS.
+
 ## Worktree Operation Candidate
 
 Later phase:

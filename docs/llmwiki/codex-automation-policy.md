@@ -376,6 +376,10 @@ For high-low auto merge, both gates are required because the work is close to
 package generation, desktop shell, backup/rollback, or output-preview areas even
 when the task itself remains docs-only, report-only, or dry-run-only.
 
+Future `local-fork-safety` GitHub Actions work is a PR visibility layer only.
+It should not replace local gates, human review rules, High-mid / High-high
+merge restrictions, or generated package approval rules.
+
 This policy does not weaken human approval gates for destructive actions,
 credentials, production deployment, infrastructure mutation, dependency changes,
 public hosting, releases, or customer-data work.

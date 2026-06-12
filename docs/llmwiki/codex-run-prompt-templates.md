@@ -211,6 +211,8 @@ Verification:
   git diff --name-only fork/master...HEAD
   git status --short --branch
   git ls-files --others --exclude-standard
+  If local-fork-safety exists on the PR, inspect its status as an additional PR
+  signal. Do not treat it as a replacement for local gates.
 
 PR body:
   Generate a draft, review it manually, and keep the standard sections.
@@ -562,6 +564,22 @@ git ls-files --others --exclude-standard
 ```
 
 Use bundled Codex Python if `python` is unavailable. Do not install Python.
+
+## Future Lightweight CI Pattern
+
+When `local-fork-safety` exists, treat it as a minimum PR safety display:
+
+```text
+CI success does not approve generated package output.
+CI success does not replace local safety gates.
+CI success does not override human review requirements.
+CI blockers should stop merge.
+CI warning-only logs should be summarized but should not become blockers unless
+a later policy changes severity handling.
+```
+
+Y-CI-01 is design-only. Do not create `.github/workflows/` until Y-CI-02 or a
+later explicit CI implementation task.
 
 ## Safety Wording Pattern
 
