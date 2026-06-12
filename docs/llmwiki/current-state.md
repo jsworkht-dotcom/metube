@@ -19,8 +19,8 @@
 - Do not open PRs against upstream `alexta69/metube` unless explicitly requested for a
   separate upstream contribution.
 - Do not mix upstream PR #1001 files into fork-only work.
-- Latest Y-GH-OPS-01 merge baseline: fork `master`
-  `9a1a262e03da7976850b8dfddacb1576b0572c2c` from fork PR #87.
+- Latest Y-CI-02 merge baseline: fork `master`
+  `66a4a638fef65988c10405398e6e591f0fccb923` from fork PR #89.
 
 ## Current Runtime Security State
 
@@ -217,9 +217,11 @@
 ### Y-CI-02 minimal workflow implementation
 
 - Scope: minimal GitHub Actions PR safety display workflow.
-- Status: implemented in this PR; pending review and merge.
+- Status: completed via fork PR #89.
+- Merge commit: `66a4a638fef65988c10405398e6e591f0fccb923`.
 - Workflow:
   `.github/workflows/local-fork-safety.yml`.
+- The `local-fork-safety` workflow is now present on fork `master`.
 - Behavior:
   - runs on `pull_request` targeting `master` without path filters;
   - uses `permissions: contents: read`;
@@ -241,6 +243,22 @@
   - backend/frontend/Docker/package/lockfile changes;
   - cookie/token/secret handling;
   - PR #1001 file changes.
+- PR #89's workflow failure was accepted by human review as expected for the
+  first workflow-introducing PR, because the check did not exist on the base
+  branch before merge.
+
+### Y-CI-02B local-fork-safety docs-only self-check
+
+- Scope: docs-only self-check PR.
+- Status: in progress as an observation PR.
+- Purpose:
+  - confirm a normal docs-only PR can pass `local-fork-safety`;
+  - observe the workflow behavior without modifying `.github/workflows/`.
+- Expected CI behavior: `local-fork-safety` succeeds.
+- If the check fails unexpectedly, use `Y-CI-02C workflow fix` as the next
+  candidate and do not merge the observation PR.
+- If the check passes cleanly, continue with either `Y-CI-03 reusable workflow`
+  or `Y-DIST-03 recipient-safe runbook and first-run local-only verification`.
 
 ## Completed Work
 
@@ -2149,15 +2167,12 @@
 
 ## Current Next Step
 
-Y-DIST-02 is complete via fork PR #86 with merge commit
-`00a90bfa1efd11935aa46b07848d05614d1c744e`. It added a report-only CLEAN
-portable distribution metadata, checksum, version, and license/notice checker.
-It does not generate metadata, generate checksums, create package output, or
-approve package creation. GitHub connector ready-for-review failed with
-`Resource not accessible by integration`; human-approved `gh` fallback marked
-the PR ready and squash-merged it with an expected head SHA guard. The remote
-branch `codex/y-dist-02-metadata-checker` was deleted. No token/secret/cookie
-values were read, printed, or stored.
+Y-CI-02 is complete via fork PR #89 with merge commit
+`66a4a638fef65988c10405398e6e591f0fccb923`. It added the minimal
+`local-fork-safety` pull request workflow. PR #89's failure was accepted by
+human review as an expected first-run failure for the workflow-introducing PR.
+Y-CI-02B is the follow-up docs-only observation PR to confirm that a normal
+docs-only change now passes `local-fork-safety` without changing workflow files.
 
 Y-08Z closes the Y-08 preview hardening lane as docs-only closeout.
 Y-UI-QUALITY-01 is complete via fork PR #73 with merge commit
@@ -2236,6 +2251,7 @@ remain absent.
 The next practical candidates are:
 
 ```text
+Y-CI-02C workflow fix if local-fork-safety fails unexpectedly
 Y-CI-03 reusable workflow
 Y-CI-04 concurrency / cancel-in-progress
 Y-DIST-03 recipient-safe runbook and first-run local-only verification

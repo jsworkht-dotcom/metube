@@ -139,11 +139,13 @@
 
 ### Y-CI-02 minimal workflow implementation
 
-- Status: implemented in this PR; pending review and merge.
+- Status: completed via fork PR #89.
+- Merge commit: `66a4a638fef65988c10405398e6e591f0fccb923`.
 - Workflow:
   `.github/workflows/local-fork-safety.yml`
 - Summary: adds the minimal `local-fork-safety` pull request workflow for fork
   `master`.
+- The workflow is now present on fork `master`.
 - The workflow has no path filter and no concurrency setting in this phase.
 - The workflow uses `permissions: contents: read`, `actions/checkout@v6`, and a
   read-only fetch to create `fork/master` for base diff checks.
@@ -153,10 +155,26 @@
 - This workflow is only a PR safety display layer. Success does not approve
   package generation, ZIP/installer output, CLEAN folder creation,
   metadata/checksum generation, branch protection, required checks, or merge.
+- PR #89's failure was human-reviewed as expected for the first
+  workflow-introducing PR because the check did not exist on the base branch
+  before merge.
+
+### Y-CI-02B local-fork-safety docs-only self-check
+
+- Status: in progress.
+- Summary: create a small docs-only observation PR to confirm a normal docs-only
+  change passes the new `local-fork-safety` workflow.
+- This is not a workflow-fix PR and should not modify `.github/workflows/`.
+- Expected CI behavior: `local-fork-safety` succeeds.
+- If it fails unexpectedly, keep the PR unmerged and use `Y-CI-02C workflow fix`
+  as the next candidate.
 
 ### Security next candidates
 
 ```text
+Y-CI-02C:
+  workflow fix if local-fork-safety fails unexpectedly
+
 Y-CI-03:
   reusable workflow
 

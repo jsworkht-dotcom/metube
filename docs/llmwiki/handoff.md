@@ -9,10 +9,10 @@ canonical branch is fork `master`, and local `master` tracks `fork/master`.
 
 ## Current Closeout State
 
-- Current Y-CI-02 work branch:
-  `codex/y-ci-02-minimal-local-fork-safety-workflow`.
-- Current fork `master` after Y-CI-01:
-  `14508576e249ee65ff4d2d63060cb6b1d4e8e484` from fork PR #88.
+- Current Y-CI-02B work branch:
+  `codex/y-ci-02b-local-fork-safety-docs-self-check`.
+- Current fork `master` after Y-CI-02:
+  `66a4a638fef65988c10405398e6e591f0fccb923` from fork PR #89.
 - Y-SEC-01 is complete via fork PR #82.
 - Y-SEC-01 state:
   - local-only runtime guardrails implemented in backend startup/request
@@ -160,9 +160,11 @@ canonical branch is fork `master`, and local `master` tracks `fork/master`.
     changes, dependency installation operations, Docker operations, generated
     package output, or metadata/checksum generation
 - Current Y-CI-02 state:
-  - minimal GitHub Actions PR safety display workflow implemented in this PR
+  - completed via fork PR #89
+  - merge commit: `66a4a638fef65988c10405398e6e591f0fccb923`
   - workflow path:
     `.github/workflows/local-fork-safety.yml`
+  - `local-fork-safety` workflow is now present on fork `master`
   - runs on `pull_request` targeting `master` without path filters
   - uses `permissions: contents: read`
   - creates `fork/master` with a read-only fetch for base diff checks
@@ -173,7 +175,20 @@ canonical branch is fork `master`, and local `master` tracks `fork/master`.
     configure required checks, add CODEOWNERS, or touch PR #1001 files
   - CI success remains a PR safety display only and does not approve package
     generation or merge
+  - PR #89's failure was human-reviewed as expected for the first
+    workflow-introducing PR because the check did not exist on the base branch
+    before merge
+- Current Y-CI-02B state:
+  - docs-only observation PR
+  - purpose: confirm a normal docs-only PR passes `local-fork-safety`
+  - not a workflow-fix PR
+  - do not change `.github/workflows/`
+  - if `local-fork-safety` fails unexpectedly, keep the PR unmerged and use
+    `Y-CI-02C workflow fix` as the next candidate
+  - if it passes cleanly, compare `Y-CI-03 reusable workflow` and
+    `Y-DIST-03 recipient-safe runbook and first-run local-only verification`
 - Next candidates:
+  - `Y-CI-02C workflow fix` if this docs-only self-check fails unexpectedly
   - `Y-CI-03 reusable workflow`
   - `Y-CI-04 concurrency / cancel-in-progress`
   - `Y-DIST-03 recipient-safe runbook and first-run local-only verification`
@@ -1013,7 +1028,9 @@ as the next-chat source of truth.
 Recommended next candidates:
 
 ```text
-Y-CI-02 minimal workflow implementation
+Y-CI-02C workflow fix if local-fork-safety fails unexpectedly
+Y-CI-03 reusable workflow if local-fork-safety passes cleanly
+Y-CI-04 concurrency / cancel-in-progress
 Y-DIST-03 recipient-safe runbook and first-run local-only verification
 Y-GH-01 branch protection design
 Y-WIKI-CLEAN-01 current-state / handoff / archive整理
