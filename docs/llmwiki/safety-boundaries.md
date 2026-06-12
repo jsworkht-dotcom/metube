@@ -243,6 +243,26 @@ authentication bypass, or restriction circumvention becomes necessary; if update
 application operations run automatically; or if distribution artifact creation
 occurs without explicit human approval.
 
+## Distribution Readiness Matrix Boundary
+
+Y-DIST-04 adds advisory documentation at
+`docs/llmwiki/distribution-readiness-matrix.md`.
+
+The matrix may summarize ready, blocked, human-review-required, not-started,
+not-applicable-yet, and warning-only items. It must remain advisory and must not
+approve CLEAN folder generation, ZIP / installer / package output, metadata
+generation, checksum generation, real download verification, dependency
+installation operations, container image operations, backend/frontend runtime
+changes, public hosting, credential-bearing file handling, or PR #1001 file
+inclusion.
+
+Future distribution readiness must stop if external/public hosting appears,
+non-loopback bind or public URL appears, DRM/auth/restriction bypass is needed,
+credential-bearing file handling is needed, PR #1001 files appear, generated
+package output appears without approval, metadata/checksum generation appears
+without approval, local-fork-safety fails unexpectedly, Y-DIST-01 fails,
+Y-DIST-02 fails, or recipient first-run verification fails.
+
 ## Codex Automation Boundary
 
 The Codex automation policy is tracked in

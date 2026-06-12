@@ -9,10 +9,10 @@ canonical branch is fork `master`, and local `master` tracks `fork/master`.
 
 ## Current Closeout State
 
-- Current Y-DIST-03 work branch:
-  `codex/y-dist-03-recipient-safe-runbook`.
-- Current fork `master` after Y-CI-02B:
-  `f235416950868331f5a107e13631899aa7785c21` from fork PR #90.
+- Current Y-DIST-04 work branch:
+  `codex/y-dist-04-readiness-matrix`.
+- Current fork `master` after Y-DIST-03:
+  `f43c9a106308ac05a0ef5e32f4cf455a4d88b3e1` from fork PR #91.
 - Y-SEC-01 is complete via fork PR #82.
 - Y-SEC-01 state:
   - local-only runtime guardrails implemented in backend startup/request
@@ -186,9 +186,10 @@ canonical branch is fork `master`, and local `master` tracks `fork/master`.
   - not a workflow-fix PR
   - `.github/workflows/` was not changed
 - Current Y-DIST-03 state:
+  - completed via fork PR #91
+  - merge commit: `f43c9a106308ac05a0ef5e32f4cf455a4d88b3e1`
   - docs-only recipient-safe runbook and first-run local-only verification lane
-  - active branch: `codex/y-dist-03-recipient-safe-runbook`
-  - target docs:
+  - docs:
     - `docs/llmwiki/recipient-safe-runbook.md`
     - `docs/llmwiki/first-run-local-only-verification.md`
   - relation:
@@ -202,11 +203,25 @@ canonical branch is fork `master`, and local `master` tracks `fork/master`.
     operations, container image operations, backend/frontend runtime changes,
     yt-dlp extractor changes, download queue changes, public hosting,
     cookie/token/secret handling, or PR #1001 files
+- Current Y-DIST-04 state:
+  - docs-only distribution readiness matrix lane
+  - active branch: `codex/y-dist-04-readiness-matrix`
+  - target doc:
+    - `docs/llmwiki/distribution-readiness-matrix.md`
+  - matrix is advisory only and does not approve artifact generation
+  - expected next candidate:
+    `Y-DIST-05 human approval checklist before any artifact generation`
+  - no CLEAN folder, ZIP output, installer output, package output, metadata
+    generation, checksum generation, real download, dependency installation
+    operations, container image operations, backend/frontend/Docker/package/
+    lockfile changes, `.github/workflows/` changes, branch protection changes,
+    required-check changes, CODEOWNERS, `.gitignore`, public hosting,
+    cookie/token/secret handling, or PR #1001 files
 - Next candidates:
-  - `Y-CI-02C workflow fix` if this docs-only self-check fails unexpectedly
+  - `Y-DIST-05 human approval checklist before any artifact generation`
+  - `Y-DIST-06 approved clean candidate dry-run plan`
   - `Y-CI-03 reusable workflow`
   - `Y-CI-04 concurrency / cancel-in-progress`
-  - `Y-DIST-03 recipient-safe runbook and first-run local-only verification`
   - `Y-GH-01 branch protection design`
   - `Y-WIKI-CLEAN-01 current-state / handoff / archive整理`
 - Completed:
@@ -1043,8 +1058,9 @@ as the next-chat source of truth.
 Recommended next candidates:
 
 ```text
-Y-CI-02C workflow fix if local-fork-safety fails unexpectedly on a later PR
-Y-CI-03 reusable workflow if local-fork-safety passes cleanly
+Y-DIST-05 human approval checklist before any artifact generation
+Y-DIST-06 approved clean candidate dry-run plan
+Y-CI-03 reusable workflow
 Y-CI-04 concurrency / cancel-in-progress
 Y-GH-01 branch protection design
 Y-WIKI-CLEAN-01 current-state / handoff / archive整理

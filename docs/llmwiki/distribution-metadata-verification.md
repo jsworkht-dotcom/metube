@@ -126,6 +126,7 @@ Future CLEAN share, upload, or package generation must pass both:
 - Y-DIST-01: forbidden-file / clean distribution checker
 - Y-DIST-02: metadata / checksum / version / license-notice checker
 - Y-DIST-03: recipient-safe runbook and first-run local-only verification
+- Y-DIST-04: advisory distribution readiness matrix
 
 Any actual metadata generation, checksum generation, package folder creation,
 ZIP output, installer output, or distribution upload remains blocked until a
@@ -135,3 +136,8 @@ Y-DIST-03 is procedural documentation only. It standardizes the recipient
 instructions and first-run stop conditions that must be reviewed before handoff,
 but it does not generate metadata, generate checksums, create a package folder,
 or perform a real download.
+
+Y-DIST-04 is advisory documentation only. It summarizes ready, blocked,
+human-review-required, not-started, not-applicable-yet, and warning-only items
+before any generation lane, but it does not approve metadata generation,
+checksum generation, package folder creation, or real download verification.

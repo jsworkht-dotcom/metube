@@ -113,6 +113,16 @@ These documents define local-only recipient instructions, first-run local-only
 verification items, and stop conditions. They do not create a CLEAN candidate
 and do not approve generated package output.
 
+## Distribution Readiness Matrix
+
+Y-DIST-04 adds an advisory readiness matrix at
+`docs/llmwiki/distribution-readiness-matrix.md`.
+
+The matrix summarizes ready, blocked, human-review-required, not-started,
+not-applicable-yet, and warning-only items before any future CLEAN generation
+task. It does not approve creating a CLEAN candidate or generated package
+output.
+
 ## Known Limits
 
 - The checker only reports on the candidate directory it is given.
@@ -136,6 +146,7 @@ This document does not approve external public hosting.
 
 Future Y-DIST generation work must pass the Y-DIST-01 clean distribution
 checker, pass the Y-DIST-02 metadata checker, and review the Y-DIST-03
-recipient runbook / first-run verification before any share, upload, ZIP,
-installer, or package output step. Any generation task remains blocked until it
-receives explicit package-generation approval and human review.
+recipient runbook / first-run verification. It must also review the Y-DIST-04
+readiness matrix before any share, upload, ZIP, installer, or package output
+step. Any generation task remains blocked until it receives explicit
+package-generation approval and human review.

@@ -33,6 +33,7 @@ Needs verification before any future handoff:
 
 - The distributed material has passed the Y-DIST-01 and Y-DIST-02 checker
   gates on the exact candidate directory.
+- The Y-DIST-04 readiness matrix has no unresolved blocker for the candidate.
 - The first-run local-only verification has been completed and recorded.
 - The recipient has been told where downloads are saved and how to stop the app.
 
@@ -155,6 +156,12 @@ Y-DIST-03:
   contract.
 - Standardizes safe recipient instructions and stop conditions.
 - Does not generate distribution output.
+
+Y-DIST-04:
+
+- Defines the advisory distribution readiness matrix at
+  `docs/llmwiki/distribution-readiness-matrix.md`.
+- Does not approve artifact generation.
 
 ## Explicit Non-Goals
 

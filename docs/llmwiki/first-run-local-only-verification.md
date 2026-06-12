@@ -46,6 +46,7 @@ Needs verification:
 - No secret-like data appears in logs, state, or downloads directories.
 - The exact CLEAN candidate passes the Y-DIST-01 and Y-DIST-02 checker gates
   before any handoff.
+- The Y-DIST-04 readiness matrix has been reviewed before first-run handoff.
 
 ## Verification Checklist
 
@@ -185,6 +186,12 @@ Y-DIST-03:
 - Defines what must be checked before a recipient is told the local-only app is
   safe to open.
 - Does not generate the checked candidate.
+
+Y-DIST-04:
+
+- Provides the advisory readiness matrix at
+  `docs/llmwiki/distribution-readiness-matrix.md`.
+- Does not approve first-run execution, real downloads, or candidate generation.
 
 ## Explicit Non-Goals
 
