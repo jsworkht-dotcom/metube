@@ -388,6 +388,12 @@ dependency installation operations, Docker operations, package output, generated
 artifacts, branch protection mutation, required-check configuration, CODEOWNERS,
 or credential handling.
 
+Y-GH-01 is a docs-only branch protection / ruleset design lane documented in
+`docs/llmwiki/branch-protection-design.md`. It may record candidate GitHub
+settings, required-check risks, staged adoption, approval requirements, and
+rollback plans, but it must not mutate branch protection, create rulesets,
+configure required checks, add CODEOWNERS, or call GitHub settings APIs.
+
 This policy does not weaken human approval gates for destructive actions,
 credentials, production deployment, infrastructure mutation, dependency changes,
 public hosting, releases, or customer-data work.

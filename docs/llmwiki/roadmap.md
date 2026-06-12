@@ -296,8 +296,10 @@
 
 ### Y-CI-04 concurrency / cancel-in-progress
 
-- Status: active.
-- Summary: add workflow-level concurrency to the `local-fork-safety` caller so
+- Status: completed via fork PR #97.
+- fork `master` after merge:
+  `becdf346956cb61b985df93637ab5c121884e49c`.
+- Summary: added workflow-level concurrency to the `local-fork-safety` caller so
   older local safety runs for the same PR ref are canceled.
 - Workflow files:
   - `.github/workflows/local-fork-safety.yml` remains the PR visibility layer
@@ -323,11 +325,33 @@
   pass secrets, mutate branch protection, configure required checks, add
   CODEOWNERS, or touch backend/frontend/Docker/package/lockfile files.
 
+### Y-GH-01 branch protection / ruleset design
+
+- Status: active.
+- Scope: docs-only branch protection / ruleset strategy.
+- Design doc:
+  `docs/llmwiki/branch-protection-design.md`.
+- Summary: records candidate fork `master` branch protection and ruleset
+  policy, required-check naming risks, staged adoption, approval requirements,
+  rollback expectations, and stop conditions.
+- Current recommendation:
+  - no GitHub settings mutation in Y-GH-01;
+  - no required checks until the exact displayed check name is stable;
+  - consider Y-CI-05 post-workflow-change observation before Y-GH-02.
+- This lane does not mutate branch protection, create rulesets, configure
+  required checks, add required reviews or CODEOWNERS, call GitHub settings
+  APIs, change `.github/workflows/`, install dependencies, run Docker, run
+  builds/tests, create package output, generate metadata/checksums, handle
+  credentials, or touch PR #1001 files.
+
 ### Security next candidates
 
 ```text
-Y-GH-01:
-  branch protection design
+Y-CI-05:
+  post-workflow-change observation PR
+
+Y-GH-02:
+  required checks design
 
 Y-WIKI-CLEAN-01:
   current-state / handoff / archive整理
