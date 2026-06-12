@@ -20,7 +20,7 @@
   separate upstream contribution.
 - Do not mix upstream PR #1001 files into fork-only work.
 - Latest fork `master` baseline:
-  `1bb28de03e3257cedb097301672a30cdd1052f18` from fork PR #98.
+  `e77e68c56a369c3ae962cf0abcbe958ce36a2101` from fork PR #99.
 
 ## Current Runtime Security State
 
@@ -509,7 +509,7 @@
 - Current recommendation:
   - do not mutate GitHub settings in Y-GH-01;
   - do not enable required checks until the displayed check name is stable;
-  - consider Y-CI-05 post-workflow-change observation before Y-GH-02.
+  - use Y-CI-05 observation before Y-GH-02 required-check design.
 - Not included:
   - branch protection mutation;
   - ruleset creation or mutation;
@@ -524,8 +524,9 @@
 ### Y-CI-05 post-workflow-change observation
 
 - Scope: docs-only observation PR.
-- Status: active in the current branch.
-- Branch: `codex/y-ci-05-post-workflow-observation`.
+- Status: completed via fork PR #99.
+- fork `master` after merge:
+  `e77e68c56a369c3ae962cf0abcbe958ce36a2101`.
 - Observation doc:
   `docs/llmwiki/post-workflow-change-observation.md`.
 - Purpose:
@@ -533,10 +534,43 @@
   - record the exact displayed GitHub check name;
   - confirm `local-fork-safety` still passes without workflow changes;
   - provide one more observation before Y-GH-02 required-check design.
+- Observed result:
+  - displayed check name: `local fork safety / local fork safety`;
+  - check result: pass;
+  - workflow files changed: no;
+  - GitHub settings changed: no.
 - Not included:
   - `.github/workflows/` changes;
   - GitHub settings, branch protection, ruleset, required-check, or CODEOWNERS
     mutation;
+  - dependency install/update, Docker/container operations, build/test, pytest,
+    generated output, metadata, checksums, real downloads, credentials, or PR
+    #1001 files.
+
+### Y-GH-02 required checks design
+
+- Scope: docs-only required checks design.
+- Status: active in the current branch.
+- Design doc:
+  `docs/llmwiki/required-checks-design.md`.
+- Current required-check candidate:
+  `local fork safety / local fork safety`.
+- Evidence:
+  - observed passing on Y-GH-01 PR #98;
+  - observed passing again on Y-CI-05 PR #99.
+- Current recommendation:
+  - do not implement required checks yet;
+  - verify the exact GitHub UI/API check name immediately before any future
+    implementation;
+  - prefer a future explicit human-approved implementation lane.
+- Main risk:
+  - workflow-file PRs intentionally hit CI-scope local safety blockers, so a
+    required local safety check can block expected human-approved workflow
+    changes without a documented exception and rollback path.
+- Not included:
+  - GitHub settings, branch protection, ruleset, required-check, or CODEOWNERS
+    mutation;
+  - `.github/workflows/` changes;
   - dependency install/update, Docker/container operations, build/test, pytest,
     generated output, metadata, checksums, real downloads, credentials, or PR
     #1001 files.
@@ -2467,9 +2501,14 @@ truth at `docs/llmwiki/branch-protection-design.md` without mutating GitHub
 settings, configuring required checks, adding CODEOWNERS, or changing workflow
 files.
 
-Y-CI-05 is the active docs-only post-workflow-change observation lane. Its
-source of truth is `docs/llmwiki/post-workflow-change-observation.md`. It must
-not change workflows or GitHub settings.
+Y-CI-05 is complete via fork PR #99 with merge commit
+`e77e68c56a369c3ae962cf0abcbe958ce36a2101`. It observed the passing GitHub
+check name `local fork safety / local fork safety` on a normal docs-only PR
+without workflow or GitHub settings changes.
+
+Y-GH-02 is the active docs-only required checks design lane. Its source of
+truth is `docs/llmwiki/required-checks-design.md`. It must not change workflows
+or GitHub settings.
 
 Y-08Z closes the Y-08 preview hardening lane as docs-only closeout.
 Y-UI-QUALITY-01 is complete via fork PR #73 with merge commit
@@ -2545,11 +2584,12 @@ The previous package-material lane is complete through Y-08Z closeout. Actual
 clean-package generation remains blocked. The generated package folder must
 remain absent.
 
-The next practical candidates after Y-CI-05 are:
+The next practical candidates after Y-GH-02 are:
 
 ```text
-Y-GH-02 required checks design
 Y-WIKI-CLEAN-01 current-state / handoff / archive整理
+Y-GH-03 minimal branch protection implementation without required checks,
+  only with explicit human approval
 ```
 
 Pause can be chosen instead. Future `ui/**` work remains human-reviewed unless

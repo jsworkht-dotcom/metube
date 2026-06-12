@@ -52,6 +52,9 @@ Facts:
 - Y-CI-05 PR #99 observed the same displayed passing check name:
   `local fork safety / local fork safety`. This is useful input for Y-GH-02,
   but it still does not enable required checks by itself.
+- Y-GH-02 records the required checks design in
+  `docs/llmwiki/required-checks-design.md` and recommends no required-check
+  implementation yet.
 - Current caller uses workflow-level concurrency:
   `group: ${{ github.workflow }}-${{ github.ref }}` and
   `cancel-in-progress: true`.
@@ -211,7 +214,7 @@ Design recommendation:
 - Do not enable required checks in Y-GH-01.
 - First observe a normal docs-only PR after Y-CI-04.
 - Record the exact displayed check name and GitHub check conclusion.
-- Consider a later Y-GH-02 required checks design before any implementation.
+- Use Y-GH-02 required checks design before any implementation.
 - If required checks are later approved, start with one exact check name and a
   documented rollback path.
 
@@ -362,20 +365,22 @@ Stop and report facts if any of these occur:
 
 ## Next Candidates
 
-Recommended after Y-CI-05 if the observation succeeds:
+Y-GH-02 records required checks design here:
 
 ```text
-Y-GH-02 required checks design
+docs/llmwiki/required-checks-design.md
 ```
 
-Y-CI-05 is still only one additional observation. Required-check implementation
-remains too early until Y-GH-02 explicitly designs the exact required-check
-candidate and rollback path.
+Y-CI-05 is still only one additional observation. Y-GH-02 records
+`local fork safety / local fork safety` as the current candidate, but
+required-check implementation remains too early until a later human-approved
+lane accepts the workflow-change exception policy and rollback path.
 
 Other candidates:
 
 ```text
 Y-GH-03 branch protection implementation, only with explicit human approval
+Y-GH-04 required checks implementation, only with explicit human approval after rollback path is accepted
 Y-WIKI-CLEAN-01 current-state / handoff / archive整理
 ```
 

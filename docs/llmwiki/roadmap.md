@@ -339,7 +339,7 @@
 - Current recommendation:
   - no GitHub settings mutation in Y-GH-01;
   - no required checks until the exact displayed check name is stable;
-  - consider Y-CI-05 post-workflow-change observation before Y-GH-02.
+  - use Y-CI-05 post-workflow-change observation before Y-GH-02.
 - This lane does not mutate branch protection, create rulesets, configure
   required checks, add required reviews or CODEOWNERS, call GitHub settings
   APIs, change `.github/workflows/`, install dependencies, run Docker, run
@@ -348,7 +348,9 @@
 
 ### Y-CI-05 post-workflow-change observation
 
-- Status: active.
+- Status: completed via fork PR #99.
+- fork `master` after merge:
+  `e77e68c56a369c3ae962cf0abcbe958ce36a2101`.
 - Scope: docs-only observation PR.
 - Observation doc:
   `docs/llmwiki/post-workflow-change-observation.md`.
@@ -360,19 +362,52 @@
   - displayed check name is captured;
   - check result is success;
   - no workflow files or GitHub settings are changed.
+- Observed result:
+  - displayed check name: `local fork safety / local fork safety`;
+  - check result: pass;
+  - workflow files changed: no;
+  - GitHub settings changed: no.
 - This lane does not change `.github/workflows/`, mutate GitHub settings,
   configure branch protection, rulesets, required checks, or CODEOWNERS,
+  install dependencies, run Docker, run builds/tests, create package output,
+  generate metadata/checksums, handle credentials, or touch PR #1001 files.
+
+### Y-GH-02 required checks design
+
+- Status: active.
+- Scope: docs-only required checks design.
+- Design doc:
+  `docs/llmwiki/required-checks-design.md`.
+- Summary: records `local fork safety / local fork safety` as the current
+  required-check candidate based on PR #98 and PR #99 observations, but
+  recommends deferring actual required-check implementation.
+- Main risk: if the local safety check becomes required, future
+  human-approved workflow-change PRs may be blocked because `.github/workflows/*`
+  is intentionally CI-scope.
+- Recommendation:
+  - do not implement required checks yet;
+  - verify the exact check name in GitHub UI/API immediately before any future
+    implementation;
+  - use a later Y-GH-03/Y-GH-04 lane only after explicit human approval and an
+    accepted rollback path.
+- This lane does not mutate GitHub settings, create rulesets, configure branch
+  protection or required checks, add CODEOWNERS, change `.github/workflows/`,
   install dependencies, run Docker, run builds/tests, create package output,
   generate metadata/checksums, handle credentials, or touch PR #1001 files.
 
 ### Security next candidates
 
 ```text
-Y-GH-02:
-  required checks design
-
 Y-WIKI-CLEAN-01:
   current-state / handoff / archive整理
+
+Y-GH-03:
+  minimal branch protection implementation without required checks,
+  only with explicit human approval
+
+Y-GH-04:
+  required checks implementation, only with explicit human approval after
+  rollback path is accepted
 ```
 
 ### Y-UI-QUALITY-01 quality selector simple labels with numeric values
