@@ -19,8 +19,8 @@
 - Do not open PRs against upstream `alexta69/metube` unless explicitly requested for a
   separate upstream contribution.
 - Do not mix upstream PR #1001 files into fork-only work.
-- Latest Y-CI-02 merge baseline: fork `master`
-  `66a4a638fef65988c10405398e6e591f0fccb923` from fork PR #89.
+- Latest fork `master` baseline:
+  `f235416950868331f5a107e13631899aa7785c21` from fork PR #90.
 
 ## Current Runtime Security State
 
@@ -250,15 +250,47 @@
 ### Y-CI-02B local-fork-safety docs-only self-check
 
 - Scope: docs-only self-check PR.
-- Status: in progress as an observation PR.
+- Status: completed via fork PR #90.
+- Merge commit: `f235416950868331f5a107e13631899aa7785c21`.
 - Purpose:
   - confirm a normal docs-only PR can pass `local-fork-safety`;
   - observe the workflow behavior without modifying `.github/workflows/`.
-- Expected CI behavior: `local-fork-safety` succeeds.
-- If the check fails unexpectedly, use `Y-CI-02C workflow fix` as the next
-  candidate and do not merge the observation PR.
-- If the check passes cleanly, continue with either `Y-CI-03 reusable workflow`
-  or `Y-DIST-03 recipient-safe runbook and first-run local-only verification`.
+- Result: `local-fork-safety` succeeded on the docs-only PR.
+- Follow-up: continue with `Y-DIST-03 recipient-safe runbook and first-run
+  local-only verification`; keep `Y-CI-02C workflow fix` as a fallback only if a
+  later docs-only PR fails unexpectedly.
+
+### Y-DIST-03 recipient-safe runbook and first-run local-only verification
+
+- Scope: docs-only recipient handoff and first-run verification procedure.
+- Status: active in the current branch.
+- Documents:
+  - `docs/llmwiki/recipient-safe-runbook.md`
+  - `docs/llmwiki/first-run-local-only-verification.md`
+- Purpose:
+  - define recipient-safe local-only instructions;
+  - define first-run local-only verification items;
+  - standardize stop conditions before distribution, first-run guidance, or
+    launch confirmation.
+- Relation:
+  - Y-DIST-01 covers CLEAN candidate forbidden-file / secret-like content /
+    manifest baseline checking.
+  - Y-DIST-02 covers version / manifest / checksum / license / notice metadata
+    checking.
+  - Y-DIST-03 covers recipient-safe procedure only; it does not generate
+    distribution output.
+- Not included:
+  - CLEAN folder generation;
+  - ZIP, installer, or package output;
+  - metadata or checksum generation;
+  - real download verification;
+  - dependency installation operations;
+  - container image operations;
+  - backend/frontend runtime changes;
+  - yt-dlp extractor or download queue changes;
+  - public hosting;
+  - cookie/token/secret handling;
+  - PR #1001 file changes.
 
 ## Completed Work
 
@@ -2167,12 +2199,12 @@
 
 ## Current Next Step
 
-Y-CI-02 is complete via fork PR #89 with merge commit
-`66a4a638fef65988c10405398e6e591f0fccb923`. It added the minimal
-`local-fork-safety` pull request workflow. PR #89's failure was accepted by
-human review as an expected first-run failure for the workflow-introducing PR.
-Y-CI-02B is the follow-up docs-only observation PR to confirm that a normal
-docs-only change now passes `local-fork-safety` without changing workflow files.
+Y-CI-02B is complete via fork PR #90 with merge commit
+`f235416950868331f5a107e13631899aa7785c21`. It confirmed that a normal
+docs-only PR can pass `local-fork-safety` without changing workflow files.
+
+Y-DIST-03 is the active docs-only follow-up: add the recipient-safe runbook and
+first-run local-only verification contract without creating distribution output.
 
 Y-08Z closes the Y-08 preview hardening lane as docs-only closeout.
 Y-UI-QUALITY-01 is complete via fork PR #73 with merge commit
@@ -2251,10 +2283,9 @@ remain absent.
 The next practical candidates are:
 
 ```text
-Y-CI-02C workflow fix if local-fork-safety fails unexpectedly
+Y-CI-02C workflow fix if local-fork-safety fails unexpectedly on a later PR
 Y-CI-03 reusable workflow
 Y-CI-04 concurrency / cancel-in-progress
-Y-DIST-03 recipient-safe runbook and first-run local-only verification
 Y-GH-01 branch protection design
 Y-WIKI-CLEAN-01 current-state / handoff / archive整理
 ```

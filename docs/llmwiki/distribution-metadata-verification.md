@@ -125,7 +125,13 @@ Future CLEAN share, upload, or package generation must pass both:
 
 - Y-DIST-01: forbidden-file / clean distribution checker
 - Y-DIST-02: metadata / checksum / version / license-notice checker
+- Y-DIST-03: recipient-safe runbook and first-run local-only verification
 
 Any actual metadata generation, checksum generation, package folder creation,
 ZIP output, installer output, or distribution upload remains blocked until a
 separate task explicitly approves that exact generation scope.
+
+Y-DIST-03 is procedural documentation only. It standardizes the recipient
+instructions and first-run stop conditions that must be reviewed before handoff,
+but it does not generate metadata, generate checksums, create a package folder,
+or perform a real download.

@@ -161,13 +161,34 @@
 
 ### Y-CI-02B local-fork-safety docs-only self-check
 
-- Status: in progress.
-- Summary: create a small docs-only observation PR to confirm a normal docs-only
-  change passes the new `local-fork-safety` workflow.
+- Status: completed via fork PR #90.
+- Merge commit: `f235416950868331f5a107e13631899aa7785c21`.
+- Summary: created a small docs-only observation PR to confirm a normal
+  docs-only change passes the new `local-fork-safety` workflow.
 - This is not a workflow-fix PR and should not modify `.github/workflows/`.
-- Expected CI behavior: `local-fork-safety` succeeds.
-- If it fails unexpectedly, keep the PR unmerged and use `Y-CI-02C workflow fix`
-  as the next candidate.
+- Result: `local-fork-safety` succeeded.
+- If a later docs-only PR fails unexpectedly, keep that PR unmerged and use
+  `Y-CI-02C workflow fix` as the next candidate.
+
+### Y-DIST-03 recipient-safe runbook and first-run local-only verification
+
+- Status: active.
+- Summary: add docs-only recipient-safe local-only instructions and first-run
+  local-only verification procedure.
+- New documents:
+  - `docs/llmwiki/recipient-safe-runbook.md`
+  - `docs/llmwiki/first-run-local-only-verification.md`
+- Relation:
+  - Y-DIST-01 covers CLEAN candidate forbidden-file / secret-like content /
+    manifest baseline checking.
+  - Y-DIST-02 covers version / manifest / checksum / license / notice metadata
+    checking.
+  - Y-DIST-03 covers recipient procedure and first-run verification only.
+- This lane does not create a CLEAN folder, ZIP output, installer output,
+  package output, metadata, checksums, real downloads, dependency installation
+  operations, container image operations, backend/frontend runtime changes,
+  yt-dlp extractor changes, download queue changes, public hosting,
+  cookie/token/secret handling, or PR #1001 files.
 
 ### Security next candidates
 
@@ -180,9 +201,6 @@ Y-CI-03:
 
 Y-CI-04:
   concurrency / cancel-in-progress
-
-Y-DIST-03:
-  recipient-safe runbook and first-run local-only verification
 
 Y-GH-01:
   branch protection design

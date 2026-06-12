@@ -211,6 +211,38 @@ external sharing, or legal sufficiency of license / notice material. Future
 CLEAN share/upload/generation work must pass both Y-DIST-01 and Y-DIST-02 and
 still needs explicit package-generation approval and human review.
 
+## Recipient Runbook And First-Run Verification Boundary
+
+Y-DIST-03 adds recipient-safe documentation at
+`docs/llmwiki/recipient-safe-runbook.md` and
+`docs/llmwiki/first-run-local-only-verification.md`.
+
+These documents are procedural source-of-truth material for future recipient
+handoff and first-run review. They must remain docs-only unless a later task
+explicitly approves a different scope.
+
+Y-DIST-03 does not approve:
+
+- No CLEAN folder generation.
+- No ZIP, installer, or package output.
+- No metadata generation.
+- No checksum generation.
+- No real download verification.
+- No dependency install/update operations.
+- No Docker pull/build operations.
+- No backend/frontend runtime changes.
+- No yt-dlp extractor or download queue changes.
+- No public hosting.
+- No cookie/token/secret handling.
+- No PR #1001 file inclusion.
+
+Future first-run confirmation must stop if the app listens on an external host,
+`0.0.0.0`, a LAN IP, or a public IP; if the browser URL is not loopback; if
+credential-bearing file handling becomes necessary; if DRM bypass,
+authentication bypass, or restriction circumvention becomes necessary; if update
+application operations run automatically; or if distribution artifact creation
+occurs without explicit human approval.
+
 ## Codex Automation Boundary
 
 The Codex automation policy is tracked in
