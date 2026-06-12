@@ -20,7 +20,7 @@
   separate upstream contribution.
 - Do not mix upstream PR #1001 files into fork-only work.
 - Latest fork `master` baseline:
-  `f235416950868331f5a107e13631899aa7785c21` from fork PR #90.
+  `f43c9a106308ac05a0ef5e32f4cf455a4d88b3e1` from fork PR #91.
 
 ## Current Runtime Security State
 
@@ -256,14 +256,14 @@
   - confirm a normal docs-only PR can pass `local-fork-safety`;
   - observe the workflow behavior without modifying `.github/workflows/`.
 - Result: `local-fork-safety` succeeded on the docs-only PR.
-- Follow-up: continue with `Y-DIST-03 recipient-safe runbook and first-run
-  local-only verification`; keep `Y-CI-02C workflow fix` as a fallback only if a
-  later docs-only PR fails unexpectedly.
+- Follow-up completed by Y-DIST-03. Keep `Y-CI-02C workflow fix` as a fallback
+  only if a later docs-only PR fails unexpectedly.
 
 ### Y-DIST-03 recipient-safe runbook and first-run local-only verification
 
 - Scope: docs-only recipient handoff and first-run verification procedure.
-- Status: active in the current branch.
+- Status: completed via fork PR #91.
+- Merge commit: `f43c9a106308ac05a0ef5e32f4cf455a4d88b3e1`.
 - Documents:
   - `docs/llmwiki/recipient-safe-runbook.md`
   - `docs/llmwiki/first-run-local-only-verification.md`
@@ -288,6 +288,34 @@
   - container image operations;
   - backend/frontend runtime changes;
   - yt-dlp extractor or download queue changes;
+  - public hosting;
+  - cookie/token/secret handling;
+  - PR #1001 file changes.
+
+### Y-DIST-04 distribution readiness matrix
+
+- Scope: docs-only distribution readiness matrix.
+- Status: active in the current branch.
+- Document:
+  `docs/llmwiki/distribution-readiness-matrix.md`.
+- Purpose:
+  - list current readiness by category;
+  - show blocked, human-review-required, warning-only, and not-yet-applicable
+    items;
+  - keep artifact generation blocked until a separate explicit human approval
+    task.
+- Recommended next candidate after completion:
+  `Y-DIST-05 human approval checklist before any artifact generation`.
+- Not included:
+  - CLEAN folder generation;
+  - ZIP, installer, or package output;
+  - metadata or checksum generation;
+  - real download verification;
+  - dependency installation operations;
+  - container image operations;
+  - backend/frontend runtime changes;
+  - `.github/workflows/` changes;
+  - branch protection / required-check / CODEOWNERS changes;
   - public hosting;
   - cookie/token/secret handling;
   - PR #1001 file changes.
@@ -2199,12 +2227,15 @@
 
 ## Current Next Step
 
-Y-CI-02B is complete via fork PR #90 with merge commit
-`f235416950868331f5a107e13631899aa7785c21`. It confirmed that a normal
-docs-only PR can pass `local-fork-safety` without changing workflow files.
+Y-DIST-03 is complete via fork PR #91 with merge commit
+`f43c9a106308ac05a0ef5e32f4cf455a4d88b3e1`. It added the recipient-safe runbook
+and first-run local-only verification contract without creating distribution
+output.
 
-Y-DIST-03 is the active docs-only follow-up: add the recipient-safe runbook and
-first-run local-only verification contract without creating distribution output.
+Y-DIST-04 is the active docs-only follow-up: add an advisory distribution
+readiness matrix that lists ready, blocked, human-review-required,
+not-started, not-applicable-yet, and warning-only items before any artifact
+generation.
 
 Y-08Z closes the Y-08 preview hardening lane as docs-only closeout.
 Y-UI-QUALITY-01 is complete via fork PR #73 with merge commit
@@ -2283,7 +2314,8 @@ remain absent.
 The next practical candidates are:
 
 ```text
-Y-CI-02C workflow fix if local-fork-safety fails unexpectedly on a later PR
+Y-DIST-05 human approval checklist before any artifact generation
+Y-DIST-06 approved clean candidate dry-run plan
 Y-CI-03 reusable workflow
 Y-CI-04 concurrency / cancel-in-progress
 Y-GH-01 branch protection design

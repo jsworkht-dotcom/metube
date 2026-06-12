@@ -172,8 +172,9 @@
 
 ### Y-DIST-03 recipient-safe runbook and first-run local-only verification
 
-- Status: active.
-- Summary: add docs-only recipient-safe local-only instructions and first-run
+- Status: completed via fork PR #91.
+- Merge commit: `f43c9a106308ac05a0ef5e32f4cf455a4d88b3e1`.
+- Summary: added docs-only recipient-safe local-only instructions and first-run
   local-only verification procedure.
 - New documents:
   - `docs/llmwiki/recipient-safe-runbook.md`
@@ -190,11 +191,36 @@
   yt-dlp extractor changes, download queue changes, public hosting,
   cookie/token/secret handling, or PR #1001 files.
 
+### Y-DIST-04 distribution readiness matrix
+
+- Status: active.
+- Summary: add a docs-only advisory readiness matrix for future CLEAN portable
+  distribution planning.
+- New document:
+  `docs/llmwiki/distribution-readiness-matrix.md`.
+- The matrix defines `ready`, `blocked`, `human_review_required`,
+  `not_started`, `not_applicable_yet`, and `warning_only` status categories.
+- It covers project scope / legal safety, local-only runtime boundary, runtime
+  security guardrails, CLEAN candidate file hygiene, metadata/checksum/version/
+  license notice, recipient runbook, first-run verification, CI/local safety
+  gates, artifact generation approval, human review/merge gates, known local
+  environment issues, and next required actions.
+- This lane is advisory only and does not approve CLEAN folder generation, ZIP
+  output, installer output, package output, metadata/checksum generation, real
+  download verification, dependency installation operations, container image
+  operations, backend/frontend/Docker/package/lockfile changes,
+  `.github/workflows/` changes, branch protection changes, required-check
+  changes, CODEOWNERS, `.gitignore`, public hosting, credential handling, or
+  PR #1001 files.
+
 ### Security next candidates
 
 ```text
-Y-CI-02C:
-  workflow fix if local-fork-safety fails unexpectedly
+Y-DIST-05:
+  human approval checklist before any artifact generation
+
+Y-DIST-06:
+  approved clean candidate dry-run plan
 
 Y-CI-03:
   reusable workflow
