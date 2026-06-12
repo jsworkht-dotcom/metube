@@ -86,6 +86,21 @@ For small text-like files, the checker scans only conservative secret-like
 pattern families and reports only the path, line, and pattern family. It must
 not print matching secret values or file contents.
 
+## Metadata Verification
+
+Y-DIST-02 adds a separate report-only metadata checker at
+`scripts/check_distribution_metadata.py`.
+
+Future CLEAN candidates must include root-level `VERSION.txt`, `MANIFEST.json`,
+`checksums.sha256`, `LICENSE`, and `NOTICE` files. The metadata checker verifies
+basic version shape, manifest fields, local-only distribution metadata,
+sha256sum-style checksum entries, recomputed SHA-256 matches, duplicate listed
+paths, missing listed files, and basic license / notice presence and safety.
+
+The metadata checker does not create metadata, does not generate checksums, does
+not create package output, and does not decide legal sufficiency of `LICENSE` or
+`NOTICE`.
+
 ## Known Limits
 
 - The checker only reports on the candidate directory it is given.
@@ -107,6 +122,7 @@ This document does not approve installer output.
 
 This document does not approve external public hosting.
 
-Future Y-DIST generation work must pass this checker before any share, upload,
-ZIP, installer, or package output step. Any generation task remains blocked
-until it receives explicit package-generation approval and human review.
+Future Y-DIST generation work must pass both the Y-DIST-01 clean distribution
+checker and the Y-DIST-02 metadata checker before any share, upload, ZIP,
+installer, or package output step. Any generation task remains blocked until it
+receives explicit package-generation approval and human review.

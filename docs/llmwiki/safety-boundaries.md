@@ -185,6 +185,32 @@ installer output, external sharing, or future unchecked manual copying. Future
 CLEAN share/upload/generation work must pass the checker first and still needs
 explicit package-generation approval.
 
+## CLEAN Distribution Metadata Checker Boundary
+
+Y-DIST-02 adds a report-only candidate-directory metadata checker at
+`scripts/check_distribution_metadata.py` and the contract at
+`docs/llmwiki/distribution-metadata-verification.md`.
+
+The checker must remain read-only and must not create metadata files, generate
+checksums, create `動画保存ツール_ローカル専用/`, create ZIP or installer output,
+install dependencies, run Docker, or modify repository files. It verifies only
+an explicitly provided candidate directory.
+
+The checker requires candidate-root `VERSION.txt`, `MANIFEST.json`,
+`checksums.sha256`, `LICENSE`, and `NOTICE`. It blocks missing required files,
+invalid manifest fields, `local_only` values other than `true`, unsupported
+distribution types, version mismatches, malformed checksum lines, unsafe
+checksum paths, missing listed files, duplicate listed paths, non-regular or
+symlink listed paths, checksum mismatches, empty license / notice files, and
+secret-like metadata content patterns. Reports must not print file contents or
+matched secret values.
+
+Passing the metadata checker does not approve package generation, checksum
+generation, metadata generation, public hosting, ZIP or installer output,
+external sharing, or legal sufficiency of license / notice material. Future
+CLEAN share/upload/generation work must pass both Y-DIST-01 and Y-DIST-02 and
+still needs explicit package-generation approval and human review.
+
 ## Codex Automation Boundary
 
 The Codex automation policy is tracked in
