@@ -47,6 +47,9 @@ Needs verification:
 - The exact CLEAN candidate passes the Y-DIST-01 and Y-DIST-02 checker gates
   before any handoff.
 - The Y-DIST-04 readiness matrix has been reviewed before first-run handoff.
+- The Y-DIST-05 approval checklist has been reviewed before any candidate
+  generation, first-run verification, real download verification, or handoff
+  scope is approved.
 
 ## Verification Checklist
 
@@ -192,6 +195,13 @@ Y-DIST-04:
 - Provides the advisory readiness matrix at
   `docs/llmwiki/distribution-readiness-matrix.md`.
 - Does not approve first-run execution, real downloads, or candidate generation.
+
+Y-DIST-05:
+
+- Provides the human approval checklist at
+  `docs/llmwiki/artifact-generation-approval-checklist.md`.
+- Does not approve first-run execution, real downloads, handoff, or candidate
+  generation by itself.
 
 ## Explicit Non-Goals
 

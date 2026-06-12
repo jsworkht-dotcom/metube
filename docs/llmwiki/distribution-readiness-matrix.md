@@ -114,7 +114,7 @@ stop conditions. It does not approve artifact generation.
 
 | item | current_status | evidence_or_source | required_before_distribution | blocker_if_failed | next_action |
 | --- | --- | --- | --- | --- | --- |
-| Explicit artifact-generation approval | `blocked` | No generation approval task exists. | yes | yes | Y-DIST-05 should define the approval checklist. |
+| Explicit artifact-generation approval | `blocked` | Y-DIST-05 checklist exists, but all categories remain `not approved`. | yes | yes | Future approval must use `docs/llmwiki/artifact-generation-approval-checklist.md`. |
 | CLEAN folder creation | `blocked` | Not generated; explicitly prohibited in this lane. | yes | yes | Separate explicit approval required. |
 | ZIP / installer / package output | `blocked` | Not generated; explicitly prohibited in this lane. | yes | yes | Separate explicit approval required. |
 | Metadata/checksum generation | `blocked` | Not generated; explicitly prohibited in this lane. | yes | yes | Separate explicit approval required. |
@@ -124,7 +124,7 @@ stop conditions. It does not approve artifact generation.
 
 | item | current_status | evidence_or_source | required_before_distribution | blocker_if_failed | next_action |
 | --- | --- | --- | --- | --- | --- |
-| Human review before artifact generation | `human_review_required` | Safety boundaries require separate explicit approval. | yes | yes | Add Y-DIST-05 checklist before any generation lane. |
+| Human review before artifact generation | `human_review_required` | Safety boundaries and Y-DIST-05 require separate explicit approval. | yes | yes | Use the Y-DIST-05 checklist before any generation lane. |
 | Human review before distribution handoff | `human_review_required` | Y-DIST-03 runbook / first-run verification require review. | yes | yes | Record reviewer, candidate path, and checklist result. |
 | Human review for license / notice sufficiency | `human_review_required` | Y-DIST-02 known limit | yes | yes | Legal/compliance review before handoff. |
 | Merge gate for docs-only planning PRs | `ready` | `local-fork-safety` PR visibility is active. | yes | yes if checks fail | Keep expected-head and check-state review before merge. |
@@ -142,24 +142,23 @@ stop conditions. It does not approve artifact generation.
 
 | item | current_status | evidence_or_source | required_before_distribution | blocker_if_failed | next_action |
 | --- | --- | --- | --- | --- | --- |
-| Y-DIST-05 human approval checklist before artifact generation | `not_started` | Recommended next candidate after this matrix. | yes | yes | Define the exact approval checklist before any generation task. |
+| Y-DIST-05 human approval checklist before artifact generation | `ready` | `docs/llmwiki/artifact-generation-approval-checklist.md` | yes | yes | Use it before any future generation task; it does not approve generation by itself. |
 | Y-DIST-06 approved clean candidate dry-run plan | `not_started` | Candidate after Y-DIST-05. | yes | yes | Keep dry-run plan separate from real output generation. |
 | Y-CI-03 reusable workflow | `not_started` | CI follow-up candidate. | no for distribution docs | no | Consider after distribution approval checklist. |
 | Y-CI-04 concurrency / cancel-in-progress | `not_started` | CI follow-up candidate. | no for distribution docs | no | Consider after or alongside Y-CI-03. |
 | Y-GH-01 branch protection design | `not_started` | Governance follow-up candidate. | human decision | no for docs-only planning | Keep design-only unless explicitly approved. |
 | Y-WIKI-CLEAN-01 current-state / handoff / archive整理 | `not_started` | Documentation maintenance candidate. | no | no | Use after current distribution lane settles. |
 
-Recommended next step after Y-DIST-04:
+Recommended next step after Y-DIST-05:
 
 ```text
-Y-DIST-05 human approval checklist before any artifact generation
+Y-DIST-06 approved clean candidate dry-run plan
 ```
 
 Rationale: Y-DIST-01, Y-DIST-02, and Y-DIST-03 define the checker and recipient
-procedure baselines. Before any real output exists, the next safest step is a
-human approval checklist that states who may approve generation, what exact
-artifact scope is approved, which candidate path is allowed, and which stop
-conditions still apply.
+procedure baselines, Y-DIST-04 defines advisory readiness, and Y-DIST-05 fixes
+the human approval checklist. The next safest step is a dry-run plan that still
+does not create real output.
 
 ## Stop Conditions
 

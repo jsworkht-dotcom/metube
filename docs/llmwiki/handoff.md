@@ -9,10 +9,10 @@ canonical branch is fork `master`, and local `master` tracks `fork/master`.
 
 ## Current Closeout State
 
-- Current Y-DIST-04 work branch:
-  `codex/y-dist-04-readiness-matrix`.
-- Current fork `master` after Y-DIST-03:
-  `f43c9a106308ac05a0ef5e32f4cf455a4d88b3e1` from fork PR #91.
+- Current Y-DIST-05 work branch:
+  `codex/y-dist-05-artifact-generation-approval-checklist`.
+- Current fork `master` after Y-DIST-04:
+  `cca229cc2b842cda3778546236358069e6938ab3` from fork PR #92.
 - Y-SEC-01 is complete via fork PR #82.
 - Y-SEC-01 state:
   - local-only runtime guardrails implemented in backend startup/request
@@ -205,7 +205,8 @@ canonical branch is fork `master`, and local `master` tracks `fork/master`.
     cookie/token/secret handling, or PR #1001 files
 - Current Y-DIST-04 state:
   - docs-only distribution readiness matrix lane
-  - active branch: `codex/y-dist-04-readiness-matrix`
+  - completed via fork PR #92
+  - merge commit: `cca229cc2b842cda3778546236358069e6938ab3`
   - target doc:
     - `docs/llmwiki/distribution-readiness-matrix.md`
   - matrix is advisory only and does not approve artifact generation
@@ -217,8 +218,23 @@ canonical branch is fork `master`, and local `master` tracks `fork/master`.
     lockfile changes, `.github/workflows/` changes, branch protection changes,
     required-check changes, CODEOWNERS, `.gitignore`, public hosting,
     cookie/token/secret handling, or PR #1001 files
+- Current Y-DIST-05 state:
+  - docs-only human approval checklist lane
+  - active branch:
+    `codex/y-dist-05-artifact-generation-approval-checklist`
+  - target doc:
+    - `docs/llmwiki/artifact-generation-approval-checklist.md`
+  - artifact generation remains blocked by default
+  - all approval categories remain `not approved`
+  - future approval must name the exact source commit, artifact scope, output
+    path, required checks, manual reviews, stop conditions, and explicitly
+    forbidden operations
+  - no CLEAN folder, ZIP output, installer output, package output, metadata
+    generation, checksum generation, real download, dependency installation
+    operations, container image operations, backend/frontend runtime changes,
+    yt-dlp extractor changes, download queue changes, public hosting,
+    cookie/token/secret handling, or PR #1001 files
 - Next candidates:
-  - `Y-DIST-05 human approval checklist before any artifact generation`
   - `Y-DIST-06 approved clean candidate dry-run plan`
   - `Y-CI-03 reusable workflow`
   - `Y-CI-04 concurrency / cancel-in-progress`
@@ -1058,7 +1074,6 @@ as the next-chat source of truth.
 Recommended next candidates:
 
 ```text
-Y-DIST-05 human approval checklist before any artifact generation
 Y-DIST-06 approved clean candidate dry-run plan
 Y-CI-03 reusable workflow
 Y-CI-04 concurrency / cancel-in-progress

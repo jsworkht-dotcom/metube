@@ -20,7 +20,7 @@
   separate upstream contribution.
 - Do not mix upstream PR #1001 files into fork-only work.
 - Latest fork `master` baseline:
-  `f43c9a106308ac05a0ef5e32f4cf455a4d88b3e1` from fork PR #91.
+  `cca229cc2b842cda3778546236358069e6938ab3` from fork PR #92.
 
 ## Current Runtime Security State
 
@@ -295,7 +295,8 @@
 ### Y-DIST-04 distribution readiness matrix
 
 - Scope: docs-only distribution readiness matrix.
-- Status: active in the current branch.
+- Status: completed via fork PR #92.
+- Merge commit: `cca229cc2b842cda3778546236358069e6938ab3`.
 - Document:
   `docs/llmwiki/distribution-readiness-matrix.md`.
 - Purpose:
@@ -316,6 +317,30 @@
   - backend/frontend runtime changes;
   - `.github/workflows/` changes;
   - branch protection / required-check / CODEOWNERS changes;
+  - public hosting;
+  - cookie/token/secret handling;
+  - PR #1001 file changes.
+
+### Y-DIST-05 human approval checklist before artifact generation
+
+- Scope: docs-only human approval checklist.
+- Status: active in the current branch.
+- Document:
+  `docs/llmwiki/artifact-generation-approval-checklist.md`.
+- Purpose:
+  - state that artifact generation is blocked by default;
+  - define the exact approval categories and required approval fields;
+  - define required pre-generation checks, post-generation checks, and stop
+    conditions before any future artifact generation lane.
+- Current approval status: all artifact categories remain `not approved`.
+- Not included:
+  - CLEAN folder generation;
+  - ZIP, installer, or package output;
+  - metadata or checksum generation;
+  - real download verification;
+  - dependency installation operations;
+  - container image operations;
+  - backend/frontend runtime changes;
   - public hosting;
   - cookie/token/secret handling;
   - PR #1001 file changes.
@@ -2227,15 +2252,14 @@
 
 ## Current Next Step
 
-Y-DIST-03 is complete via fork PR #91 with merge commit
-`f43c9a106308ac05a0ef5e32f4cf455a4d88b3e1`. It added the recipient-safe runbook
-and first-run local-only verification contract without creating distribution
-output.
+Y-DIST-04 is complete via fork PR #92 with merge commit
+`cca229cc2b842cda3778546236358069e6938ab3`. It added the advisory distribution
+readiness matrix without approving or creating artifact output.
 
-Y-DIST-04 is the active docs-only follow-up: add an advisory distribution
-readiness matrix that lists ready, blocked, human-review-required,
-not-started, not-applicable-yet, and warning-only items before any artifact
-generation.
+Y-DIST-05 is the active docs-only follow-up: add a human approval checklist that
+states artifact generation is blocked by default, fixes the approval fields,
+and records stop conditions before any future CLEAN portable distribution
+artifact generation.
 
 Y-08Z closes the Y-08 preview hardening lane as docs-only closeout.
 Y-UI-QUALITY-01 is complete via fork PR #73 with merge commit
@@ -2314,7 +2338,6 @@ remain absent.
 The next practical candidates are:
 
 ```text
-Y-DIST-05 human approval checklist before any artifact generation
 Y-DIST-06 approved clean candidate dry-run plan
 Y-CI-03 reusable workflow
 Y-CI-04 concurrency / cancel-in-progress

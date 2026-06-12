@@ -193,7 +193,8 @@
 
 ### Y-DIST-04 distribution readiness matrix
 
-- Status: active.
+- Status: completed via fork PR #92.
+- Merge commit: `cca229cc2b842cda3778546236358069e6938ab3`.
 - Summary: add a docs-only advisory readiness matrix for future CLEAN portable
   distribution planning.
 - New document:
@@ -213,12 +214,26 @@
   changes, CODEOWNERS, `.gitignore`, public hosting, credential handling, or
   PR #1001 files.
 
+### Y-DIST-05 human approval checklist before artifact generation
+
+- Status: active.
+- Summary: add a docs-only human approval checklist before any future CLEAN
+  portable distribution artifact generation.
+- New document:
+  `docs/llmwiki/artifact-generation-approval-checklist.md`.
+- The checklist states that artifact generation is blocked by default, all
+  artifact categories are currently `not approved`, and any future approval
+  must name the exact source commit, artifact scope, output path, remaining
+  forbidden operations, required checks, and stop conditions.
+- This lane does not create a CLEAN folder, ZIP output, installer output,
+  package output, metadata, checksums, real downloads, dependency installation
+  operations, container image operations, backend/frontend runtime changes,
+  yt-dlp extractor changes, download queue changes, public hosting,
+  cookie/token/secret handling, or PR #1001 files.
+
 ### Security next candidates
 
 ```text
-Y-DIST-05:
-  human approval checklist before any artifact generation
-
 Y-DIST-06:
   approved clean candidate dry-run plan
 
