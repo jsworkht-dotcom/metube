@@ -2,11 +2,13 @@
 
 ## Purpose
 
-Y-CI-03 is a docs-only design for a future reusable GitHub Actions workflow
-that can host the existing local fork safety checks.
+Y-CI-03 was a docs-only design for a reusable GitHub Actions workflow that can
+host the existing local fork safety checks. It completed via fork PR #95.
 
-This design does not change `.github/workflows/`. The implementation is reserved
-for Y-CI-03B.
+Y-CI-03B is the active implementation lane. It changes only
+`.github/workflows/` plus minimal docs sync by keeping
+`.github/workflows/local-fork-safety.yml` as the PR caller and adding
+`.github/workflows/reusable-local-safety.yml` as the `workflow_call` target.
 
 ## Sources Checked
 
@@ -41,17 +43,20 @@ Facts:
   `uses: ./.github/workflows/<filename>`.
 - For same-repository local calls, the called workflow comes from the same
   commit as the caller workflow.
+- In Y-CI-03B, `.github/workflows/local-fork-safety.yml` is the caller.
+- In Y-CI-03B, `.github/workflows/reusable-local-safety.yml` is the reusable
+  `workflow_call` target.
+- Both workflows keep `permissions: contents: read`.
 
-Assumptions:
+Assumptions carried into implementation:
 
-- The future caller remains `.github/workflows/local-fork-safety.yml`.
-- The future reusable workflow candidate is
+- The caller remains `.github/workflows/local-fork-safety.yml`.
+- The reusable workflow target is
   `.github/workflows/reusable-local-safety.yml`.
-- The future caller should stay responsible for PR visibility and target branch
-  selection.
-- The future reusable workflow should own the local safety job steps.
+- The caller stays responsible for PR visibility and target branch selection.
+- The reusable workflow owns the local safety job steps.
 
-Needs verification during Y-CI-03B:
+Needs verification during Y-CI-03B PR checks:
 
 - GitHub accepts the same-repository `uses:
   ./.github/workflows/reusable-local-safety.yml` call in this repository.
@@ -63,6 +68,9 @@ Needs verification during Y-CI-03B:
   read-only `fork/master` fetch.
 - Normal docs-only PRs still pass.
 - PR #1001 files and generated package folders still fail when introduced.
+- No dependency install/update, Docker operation, artifact upload, cache,
+  package output, branch protection, required-check, CODEOWNERS, secret, or
+  `pull_request_target` behavior appears.
 
 ## Current Workflow Baseline
 
@@ -97,7 +105,7 @@ Current behavior:
 
 ## Reusable Workflow Target
 
-Future reusable workflow candidate:
+Reusable workflow target:
 
 ```text
 .github/workflows/reusable-local-safety.yml
@@ -110,16 +118,16 @@ on:
   workflow_call:
 ```
 
-Future caller workflow:
+Caller workflow:
 
 ```text
 .github/workflows/local-fork-safety.yml
 ```
 
-The future caller should keep the `pull_request` trigger and `contents: read`
-permissions, then call the reusable workflow as the local safety job.
+The caller keeps the `pull_request` trigger and `contents: read` permissions,
+then calls the reusable workflow as the local safety job.
 
-## Expected Future Structure
+## Y-CI-03B Structure
 
 `local-fork-safety.yml`:
 
@@ -138,7 +146,7 @@ permissions, then call the reusable workflow as the local safety job.
 - Does not use Docker.
 - Does not generate package output.
 
-Initial future shape:
+Implementation shape:
 
 ```yaml
 # .github/workflows/local-fork-safety.yml
@@ -176,8 +184,8 @@ jobs:
       # Same local safety steps as the current workflow.
 ```
 
-Y-CI-03B should validate the exact syntax before PR handoff. This design is not
-an implementation approval.
+Y-CI-03B validates this syntax locally where possible, then confirms the
+caller/reusable behavior with the GitHub Actions PR check.
 
 ## Why Reusable
 
@@ -204,7 +212,7 @@ an implementation approval.
 
 ## Y-CI-03B Implementation Constraints
 
-Future Y-CI-03B must keep these constraints:
+Y-CI-03B must keep these constraints:
 
 - No dependency install or update.
 - No container image retrieval or build operation.
@@ -218,6 +226,10 @@ Future Y-CI-03B must keep these constraints:
 - No credentials or secrets beyond the default GitHub token for read-only
   checkout.
 - `permissions: contents: read`.
+- No `pull_request_target`.
+- No secrets or `secrets: inherit`.
+- No artifact upload.
+- No cache addition.
 - No branch protection mutation.
 - No required-check configuration.
 - No CODEOWNERS changes.
@@ -235,6 +247,8 @@ Future Y-CI-03B succeeds only if:
 - Warning-only wording remains non-blocking.
 - No broader permissions, dependency setup, Docker operation, package output, or
   artifact generation is introduced.
+- No `pull_request_target`, secrets, artifact upload, cache, branch protection,
+  required-check configuration, or CODEOWNERS change is introduced.
 
 ## Stop Conditions
 
@@ -245,16 +259,19 @@ Stop Y-CI-03B and report facts if any of these occur:
 - The reusable workflow is not called.
 - Checks are silently skipped.
 - Permissions expand beyond `contents: read` without explicit approval.
+- `pull_request_target` appears.
+- Secrets or `secrets: inherit` appears.
+- Artifact upload or cache appears.
 - Dependency install or update becomes necessary.
 - Container image retrieval or build becomes necessary.
 - A generated artifact appears.
 - PR #1001 files appear.
+- `動画保存ツール_ローカル専用/` appears.
 - Token, secret, or cookie handling becomes necessary.
 
 ## Next Candidates
 
 ```text
-Y-CI-03B reusable workflow implementation
 Y-CI-04 concurrency / cancel-in-progress
 Y-GH-01 branch protection design
 Y-WIKI-CLEAN-01 current-state / handoff / archive整理

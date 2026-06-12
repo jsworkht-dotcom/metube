@@ -253,14 +253,15 @@
 
 ### Y-CI-03 reusable local safety workflow design
 
-- Status: active.
-- Summary: add a docs-only design for a future reusable workflow split of
+- Status: completed via fork PR #95.
+- Merge commit: `c64b935fc02b7893e8be38d13a53e8b26adf91cf`.
+- Summary: added a docs-only design for a future reusable workflow split of
   `local-fork-safety`.
 - New document:
   `docs/llmwiki/reusable-local-safety-workflow-design.md`.
-- Future reusable workflow candidate:
+- Reusable workflow candidate:
   `.github/workflows/reusable-local-safety.yml`.
-- Future implementation candidate:
+- Implementation candidate:
   `Y-CI-03B reusable workflow implementation`.
 - This lane documents the current workflow baseline, target `workflow_call`
   structure, benefits, risks, implementation constraints, success criteria, and
@@ -270,12 +271,30 @@
   create metadata/checksums, mutate branch protection, configure required
   checks, add CODEOWNERS, or touch PR #1001 files.
 
+### Y-CI-03B reusable workflow implementation
+
+- Status: active.
+- Summary: split `local-fork-safety` into a thin PR caller and a reusable
+  `workflow_call` target.
+- Workflow files:
+  - `.github/workflows/local-fork-safety.yml` is now the caller for
+    `pull_request` to `master`;
+  - `.github/workflows/reusable-local-safety.yml` is the reusable target that
+    owns the existing safety steps.
+- Permissions remain `contents: read` in both workflows.
+- Expected check behavior:
+  - `local-fork-safety` starts on PRs targeting `master`;
+  - the caller invokes the reusable workflow;
+  - `local fork safety` runs the same repository safety, clean dry-run, JSON,
+    wording, generated-folder absence, and PR #1001 absence checks.
+- This lane does not install or update dependencies, run Docker, create package
+  output or artifacts, upload artifacts, add cache, use `pull_request_target`,
+  pass secrets, mutate branch protection, configure required checks, add
+  CODEOWNERS, or touch backend/frontend/Docker/package/lockfile files.
+
 ### Security next candidates
 
 ```text
-Y-CI-03B:
-  reusable workflow implementation
-
 Y-CI-04:
   concurrency / cancel-in-progress
 

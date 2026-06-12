@@ -9,10 +9,10 @@ canonical branch is fork `master`, and local `master` tracks `fork/master`.
 
 ## Current Closeout State
 
-- Current Y-CI-03 work branch:
-  `codex/y-ci-03-reusable-workflow-design`.
-- Current fork `master` after Y-DIST-06:
-  `72efd6c4e42e3c27ed020cee5b6e1f64ec7acffe` from fork PR #94.
+- Current Y-CI-03B work branch:
+  `codex/y-ci-03b-reusable-workflow-implementation`.
+- Current fork `master` after Y-CI-03:
+  `c64b935fc02b7893e8be38d13a53e8b26adf91cf` from fork PR #95.
 - Y-SEC-01 is complete via fork PR #82.
 - Y-SEC-01 state:
   - local-only runtime guardrails implemented in backend startup/request
@@ -254,13 +254,16 @@ canonical branch is fork `master`, and local `master` tracks `fork/master`.
     cookie/token/secret handling, or PR #1001 files
 - Current Y-CI-03 state:
   - docs-only reusable local safety workflow design lane
-  - active branch:
+  - completed via fork PR #95
+  - merge commit:
+    `c64b935fc02b7893e8be38d13a53e8b26adf91cf`
+  - design branch:
     `codex/y-ci-03-reusable-workflow-design`
   - target doc:
     - `docs/llmwiki/reusable-local-safety-workflow-design.md`
-  - future reusable workflow candidate:
+  - reusable workflow candidate:
     `.github/workflows/reusable-local-safety.yml`
-  - future implementation candidate:
+  - implementation candidate:
     `Y-CI-03B reusable workflow implementation`
   - design covers the current `local-fork-safety` baseline, target
     `workflow_call` structure, benefits, risks, implementation constraints,
@@ -269,8 +272,28 @@ canonical branch is fork `master`, and local `master` tracks `fork/master`.
     Docker, run frontend build/test, run backend pytest, create package output,
     create metadata/checksums, change branch protection, configure required
     checks, add CODEOWNERS, or touch PR #1001 files
+- Current Y-CI-03B state:
+  - CI-scope reusable workflow implementation lane
+  - active branch:
+    `codex/y-ci-03b-reusable-workflow-implementation`
+  - `.github/workflows/local-fork-safety.yml` is now the thin caller for
+    `pull_request` to `master`
+  - `.github/workflows/reusable-local-safety.yml` is the `workflow_call` target
+    with the existing local safety steps
+  - both workflows keep `permissions: contents: read`
+  - expected PR check behavior: `local-fork-safety` starts, calls the reusable
+    workflow, and runs `local fork safety` with the same repository safety,
+    clean dry-run, JSON, safety wording, generated-folder absence, and PR #1001
+    absence checks
+  - this lane must not install/update dependencies, use Docker, create package
+    or artifact output, add cache, use `pull_request_target`, pass secrets,
+    mutate branch protection, configure required checks, add CODEOWNERS, handle
+    cookie/token/secret values, or touch PR #1001 files
+  - stop if workflow syntax cannot be validated, the caller does not run, the
+    reusable workflow is not called, checks are skipped, permissions expand
+    beyond `contents: read`, generated output appears, PR #1001 files appear,
+    or `動画保存ツール_ローカル専用/` appears
 - Next candidates:
-  - `Y-CI-03B reusable workflow implementation`
   - `Y-CI-04 concurrency / cancel-in-progress`
   - `Y-GH-01 branch protection design`
   - `Y-WIKI-CLEAN-01 current-state / handoff / archive整理`
@@ -1105,10 +1128,9 @@ canonical branch is fork `master`, and local `master` tracks `fork/master`.
 Use `docs/llmwiki/current-state.md`, `docs/llmwiki/roadmap.md`, and this handoff
 as the next-chat source of truth.
 
-Recommended next candidates:
+Recommended next candidates after Y-CI-03B:
 
 ```text
-Y-CI-03B reusable workflow implementation
 Y-CI-04 concurrency / cancel-in-progress
 Y-GH-01 branch protection design
 Y-WIKI-CLEAN-01 current-state / handoff / archive整理
@@ -1117,7 +1139,7 @@ Y-WIKI-CLEAN-01 current-state / handoff / archive整理
 Alternative:
 
 ```text
-pause for review of the Y-CI-03 reusable workflow design
+pause for review of the Y-CI-03B reusable workflow implementation
 ```
 
 Use the `Risk classification` section from `scripts/check_repo_safety.py`

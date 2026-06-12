@@ -20,7 +20,7 @@
   separate upstream contribution.
 - Do not mix upstream PR #1001 files into fork-only work.
 - Latest fork `master` baseline:
-  `72efd6c4e42e3c27ed020cee5b6e1f64ec7acffe` from fork PR #94.
+  `c64b935fc02b7893e8be38d13a53e8b26adf91cf` from fork PR #95.
 
 ## Current Runtime Security State
 
@@ -375,7 +375,8 @@
 
 - Scope: docs-only reusable workflow design for the existing
   `local-fork-safety` PR safety display layer.
-- Status: active in the current branch.
+- Status: completed via fork PR #95.
+- Merge commit: `c64b935fc02b7893e8be38d13a53e8b26adf91cf`.
 - Document:
   `docs/llmwiki/reusable-local-safety-workflow-design.md`.
 - Future workflow candidate:
@@ -398,6 +399,45 @@
   - branch protection, required-check configuration, or CODEOWNERS changes;
   - cookie/token/secret handling;
   - PR #1001 file changes.
+
+### Y-CI-03B reusable workflow implementation
+
+- Scope: CI workflow implementation plus minimal docs sync.
+- Status: active in the current branch.
+- Branch: `codex/y-ci-03b-reusable-workflow-implementation`.
+- Workflow changes:
+  - `.github/workflows/local-fork-safety.yml` remains the `pull_request` to
+    `master` PR visibility layer and now calls the reusable workflow;
+  - `.github/workflows/reusable-local-safety.yml` is the `workflow_call`
+    target and owns the existing local safety steps.
+- Permissions:
+  - caller keeps `permissions: contents: read`;
+  - reusable workflow also declares `permissions: contents: read`;
+  - permissions are not broadened.
+- Expected check behavior:
+  - `local-fork-safety` starts on PRs targeting `master`;
+  - the caller invokes `reusable-local-safety.yml`;
+  - `local fork safety` runs the same checkout, fork/master base-ref, repo
+    safety, clean dry-run, JSON, safety wording, generated-folder absence, and
+    PR #1001 absence checks.
+- Not included:
+  - dependency installation or update;
+  - container image retrieval/build operations;
+  - package, ZIP, installer, CLEAN folder, metadata, checksum, or artifact
+    output;
+  - branch protection, required-check configuration, or CODEOWNERS changes;
+  - `pull_request_target`, secrets, `secrets: inherit`, artifact upload, or
+    cache additions;
+  - backend/frontend/Docker/package/lockfile changes;
+  - cookie/token/secret handling;
+  - PR #1001 file changes.
+- Stop conditions:
+  - workflow syntax cannot be validated;
+  - `local-fork-safety` does not run or does not call the reusable workflow;
+  - checks are silently skipped;
+  - permissions expand beyond `contents: read`;
+  - generated package output, PR #1001 files, or
+    `動画保存ツール_ローカル専用/` appear.
 
 ## Completed Work
 
@@ -2306,12 +2346,16 @@
 
 ## Current Next Step
 
-Y-DIST-06 is complete via fork PR #94 with merge commit
-`72efd6c4e42e3c27ed020cee5b6e1f64ec7acffe`. It added the approved clean
-candidate dry-run plan while keeping artifact generation blocked by default.
+Y-CI-03 is complete via fork PR #95 with merge commit
+`c64b935fc02b7893e8be38d13a53e8b26adf91cf`. It designed the reusable workflow
+split for `local-fork-safety` without changing `.github/workflows/`.
 
-Y-CI-03 is the active docs-only follow-up: design a future reusable workflow
-split for `local-fork-safety` without changing `.github/workflows/` in this PR.
+Y-CI-03B is the active CI-scope implementation lane: keep
+`.github/workflows/local-fork-safety.yml` as the PR caller, add
+`.github/workflows/reusable-local-safety.yml` as the `workflow_call` target,
+preserve `permissions: contents: read`, and keep the existing safety checks
+without dependency install/update, Docker, package output, artifact upload,
+branch protection, required-check, or CODEOWNERS changes.
 
 Y-08Z closes the Y-08 preview hardening lane as docs-only closeout.
 Y-UI-QUALITY-01 is complete via fork PR #73 with merge commit
@@ -2387,10 +2431,9 @@ The previous package-material lane is complete through Y-08Z closeout. Actual
 clean-package generation remains blocked. The generated package folder must
 remain absent.
 
-The next practical candidates are:
+The next practical candidates after Y-CI-03B are:
 
 ```text
-Y-CI-03B reusable workflow implementation
 Y-CI-04 concurrency / cancel-in-progress
 Y-GH-01 branch protection design
 Y-WIKI-CLEAN-01 current-state / handoff / archive整理
