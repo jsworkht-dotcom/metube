@@ -44,6 +44,9 @@ Facts:
 - Current workflow name: `local-fork-safety`.
 - Current reusable workflow name: `reusable-local-safety`.
 - Current visible job name in both workflow files: `local fork safety`.
+- Initial Y-GH-01 PR observation: GitHub displayed the passing check as
+  `local fork safety / local fork safety` on PR #98. Treat this as one
+  observation, not enough stability evidence to configure required checks.
 - Current caller uses workflow-level concurrency:
   `group: ${{ github.workflow }}-${{ github.ref }}` and
   `cancel-in-progress: true`.
@@ -74,10 +77,12 @@ Assumptions:
 
 Needs verification before any future implementation:
 
-- Exact displayed check name for a normal docs-only PR after Y-CI-04.
+- Repeat observation of the exact displayed check name on at least one later
+  normal docs-only PR after Y-CI-04 / Y-GH-01.
 - Whether GitHub presents the required-check candidate as
   `local-fork-safety / local fork safety`, `reusable-local-safety / local fork
-  safety`, or another nested check name.
+  safety`, `local fork safety / local fork safety`, or another nested check
+  name.
 - Whether the displayed check name remains stable across docs-only PRs and
   workflow-file PRs.
 - Whether requiring the local safety check would block a later human-approved
@@ -166,11 +171,16 @@ Recommended first implementation, if approved later:
 
 Status for Y-GH-01: do not enable required status checks yet.
 
-Candidate check after observation:
+Initial observed check on PR #98:
 
 ```text
-local-fork-safety / local fork safety
+local fork safety / local fork safety
 ```
+
+Earlier design candidates expected a workflow/job-shaped display such as
+`local-fork-safety / local fork safety`. The PR #98 observation confirms that
+the reusable workflow split can produce a less obvious check name. Do not use
+this single observation as enough evidence to configure required checks.
 
 Known issue:
 
