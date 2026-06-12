@@ -52,6 +52,11 @@ Permissions remain `contents: read`; the split does not add dependency
 installation, Docker operations, package/artifact output, branch protection,
 required-check configuration, CODEOWNERS, secrets, artifact upload, or cache.
 
+Y-CI-04 concurrency note: the PR-facing caller now owns workflow-level
+concurrency with `group: ${{ github.workflow }}-${{ github.ref }}` and
+`cancel-in-progress: true`. The reusable workflow safety steps remain
+unchanged, and permissions remain `contents: read`.
+
 ## Explicit Non-Goals
 
 The initial workflow should not run:
@@ -125,18 +130,20 @@ optimization. Revisit path filters only after real PR noise is observed.
 
 ## Concurrency Design
 
-Do not add concurrency in Y-CI-02 unless there is an immediate need. Keep the
-first workflow minimal and easy to audit.
+Y-CI-02 intentionally deferred concurrency so the first workflow stayed minimal
+and easy to audit.
 
-Y-CI-04 can add:
+Y-CI-04 adds:
 
 ```yaml
 concurrency:
-  group: local-fork-safety-${{ github.ref }}
+  group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 ```
 
-This keeps cancellation behavior separate from the first safety signal.
+This cancels older in-progress `local-fork-safety` runs for the same workflow
+and PR ref while keeping cancellation behavior separate from the reusable safety
+steps.
 
 ## Failure And Warning Policy
 
@@ -176,6 +183,8 @@ Y-GH-02 required checks design
 Y-CI-03 kept reusable workflow work docs-only. Y-CI-03B implements the split
 while preserving `local-fork-safety` as the PR visibility layer and moving the
 current safety job into a `workflow_call` reusable workflow.
+Y-CI-04 adds caller-owned concurrency / cancel-in-progress without changing the
+reusable safety steps.
 
 Branch protection, required checks, and CODEOWNERS should remain separate design
 or implementation lanes.

@@ -273,6 +273,18 @@ candidate allowed to change `.github/workflows/`, and should still keep the
 workflow read-only, non-generating, non-deploying, and separate from branch
 protection, required-check, and CODEOWNERS work.
 
+Y-CI-04 is a narrow CI-scope implementation lane for caller-owned
+`local-fork-safety` concurrency. It may add only workflow-level concurrency to
+`.github/workflows/local-fork-safety.yml` with
+`group: ${{ github.workflow }}-${{ github.ref }}` and
+`cancel-in-progress: true`. It must leave
+`.github/workflows/reusable-local-safety.yml` safety steps unchanged, keep
+`permissions: contents: read`, and avoid dependency install/update, Docker,
+artifact upload/cache, package or generated output, branch protection,
+required-check configuration, CODEOWNERS, secrets, `pull_request_target`, and
+PR #1001 files. Existing repo safety may still report workflow-file changes as
+an expected CI-scope blocker requiring human review.
+
 ## Worktree Operation Candidate
 
 Later phase:

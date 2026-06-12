@@ -403,8 +403,10 @@
 ### Y-CI-03B reusable workflow implementation
 
 - Scope: CI workflow implementation plus minimal docs sync.
-- Status: active in the current branch.
+- Status: completed via fork PR #96.
 - Branch: `codex/y-ci-03b-reusable-workflow-implementation`.
+- fork `master` after merge:
+  `2d59c4e4034d772d029b776497136e9bf67b6cd5`.
 - Workflow changes:
   - `.github/workflows/local-fork-safety.yml` remains the `pull_request` to
     `master` PR visibility layer and now calls the reusable workflow;
@@ -420,6 +422,57 @@
   - `local fork safety` runs the same checkout, fork/master base-ref, repo
     safety, clean dry-run, JSON, safety wording, generated-folder absence, and
     PR #1001 absence checks.
+- Not included:
+  - dependency installation or update;
+  - container image retrieval/build operations;
+  - package, ZIP, installer, CLEAN folder, metadata, checksum, or artifact
+    output;
+  - branch protection, required-check configuration, or CODEOWNERS changes;
+  - `pull_request_target`, secrets, `secrets: inherit`, artifact upload, or
+    cache additions;
+  - backend/frontend/Docker/package/lockfile changes;
+  - cookie/token/secret handling;
+  - PR #1001 file changes.
+- Stop conditions:
+  - workflow syntax cannot be validated;
+  - `local-fork-safety` does not run or does not call the reusable workflow;
+  - checks are silently skipped;
+  - permissions expand beyond `contents: read`;
+  - generated package output, PR #1001 files, or
+    `動画保存ツール_ローカル専用/` appear.
+
+### Y-CI-04 concurrency / cancel-in-progress
+
+- Scope: CI workflow implementation plus minimal docs sync.
+- Status: active in the current branch.
+- Branch: `codex/y-ci-04-concurrency-cancel-in-progress`.
+- Workflow changes:
+  - `.github/workflows/local-fork-safety.yml` remains the `pull_request` to
+    `master` PR visibility layer and still calls
+    `.github/workflows/reusable-local-safety.yml`;
+  - the caller now has workflow-level concurrency:
+    `group: ${{ github.workflow }}-${{ github.ref }}`;
+  - `cancel-in-progress: true` cancels older local safety runs for the same PR
+    ref;
+  - `.github/workflows/reusable-local-safety.yml` safety steps are unchanged.
+- Permissions:
+  - caller keeps `permissions: contents: read`;
+  - reusable workflow keeps `permissions: contents: read`;
+  - permissions are not broadened.
+- Expected check behavior:
+  - `local-fork-safety` starts on PRs targeting `master`;
+  - the caller invokes `reusable-local-safety.yml`;
+  - `local fork safety` runs the same repository safety, clean dry-run, JSON,
+    safety wording, generated-folder absence, and PR #1001 absence checks;
+  - older runs in the same workflow/ref concurrency group are canceled when a
+    newer run starts.
+- Expected CI-scope blocker:
+  - local and PR safety checks may classify `.github/workflows/` changes as
+    human-review-required blockers;
+  - if that happens, the expected blocker should be limited to the workflow
+    file change and should not include dependency installation/update, Docker,
+    artifact generation, package output, PR #1001 files, or generated package
+    folders.
 - Not included:
   - dependency installation or update;
   - container image retrieval/build operations;
@@ -2350,12 +2403,18 @@ Y-CI-03 is complete via fork PR #95 with merge commit
 `c64b935fc02b7893e8be38d13a53e8b26adf91cf`. It designed the reusable workflow
 split for `local-fork-safety` without changing `.github/workflows/`.
 
-Y-CI-03B is the active CI-scope implementation lane: keep
-`.github/workflows/local-fork-safety.yml` as the PR caller, add
-`.github/workflows/reusable-local-safety.yml` as the `workflow_call` target,
-preserve `permissions: contents: read`, and keep the existing safety checks
-without dependency install/update, Docker, package output, artifact upload,
-branch protection, required-check, or CODEOWNERS changes.
+Y-CI-03B is complete via fork PR #96. fork `master` is now at
+`2d59c4e4034d772d029b776497136e9bf67b6cd5`, with
+`.github/workflows/local-fork-safety.yml` as the PR caller and
+`.github/workflows/reusable-local-safety.yml` as the `workflow_call` target.
+
+Y-CI-04 is the active CI-scope implementation lane: add workflow-level
+concurrency to the `local-fork-safety` caller with
+`group: ${{ github.workflow }}-${{ github.ref }}` and
+`cancel-in-progress: true`, keep `permissions: contents: read`, leave
+`reusable-local-safety.yml` safety steps unchanged, and avoid dependency
+install/update, Docker, package output, artifact upload/cache, branch
+protection, required-check, or CODEOWNERS changes.
 
 Y-08Z closes the Y-08 preview hardening lane as docs-only closeout.
 Y-UI-QUALITY-01 is complete via fork PR #73 with merge commit
@@ -2431,10 +2490,9 @@ The previous package-material lane is complete through Y-08Z closeout. Actual
 clean-package generation remains blocked. The generated package folder must
 remain absent.
 
-The next practical candidates after Y-CI-03B are:
+The next practical candidates after Y-CI-04 are:
 
 ```text
-Y-CI-04 concurrency / cancel-in-progress
 Y-GH-01 branch protection design
 Y-WIKI-CLEAN-01 current-state / handoff / archive整理
 ```

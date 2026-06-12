@@ -5,10 +5,14 @@
 Y-CI-03 was a docs-only design for a reusable GitHub Actions workflow that can
 host the existing local fork safety checks. It completed via fork PR #95.
 
-Y-CI-03B is the active implementation lane. It changes only
-`.github/workflows/` plus minimal docs sync by keeping
+Y-CI-03B completed the reusable workflow implementation via fork PR #96. It
+changed only `.github/workflows/` plus minimal docs sync by keeping
 `.github/workflows/local-fork-safety.yml` as the PR caller and adding
 `.github/workflows/reusable-local-safety.yml` as the `workflow_call` target.
+
+Y-CI-04 is the active concurrency implementation lane. It keeps the same caller
+and reusable workflow split while adding workflow-level concurrency only to the
+caller.
 
 ## Sources Checked
 
@@ -28,6 +32,8 @@ External references checked:
   `https://docs.github.com/en/actions/how-tos/reuse-automations/reuse-workflows`
 - GitHub Docs, workflow syntax permissions:
   `https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax#permissions`
+- GitHub Docs, workflow concurrency:
+  `https://docs.github.com/en/actions/how-tos/write-workflows/choose-when-workflows-run/control-workflow-concurrency`
 
 ## Facts / Assumptions / Needs Verification
 
@@ -46,6 +52,9 @@ Facts:
 - In Y-CI-03B, `.github/workflows/local-fork-safety.yml` is the caller.
 - In Y-CI-03B, `.github/workflows/reusable-local-safety.yml` is the reusable
   `workflow_call` target.
+- In Y-CI-04, the caller owns workflow-level concurrency with
+  `group: ${{ github.workflow }}-${{ github.ref }}` and
+  `cancel-in-progress: true`.
 - Both workflows keep `permissions: contents: read`.
 
 Assumptions carried into implementation:
@@ -187,6 +196,34 @@ jobs:
 Y-CI-03B validates this syntax locally where possible, then confirms the
 caller/reusable behavior with the GitHub Actions PR check.
 
+## Y-CI-04 Structure
+
+`local-fork-safety.yml`:
+
+- Keeps the `pull_request` trigger for PRs targeting `master`.
+- Keeps `permissions: contents: read`.
+- Keeps calling `./.github/workflows/reusable-local-safety.yml`.
+- Adds workflow-level concurrency:
+  `group: ${{ github.workflow }}-${{ github.ref }}` and
+  `cancel-in-progress: true`.
+- Remains the PR visibility layer and the user-facing workflow entry point.
+
+`reusable-local-safety.yml`:
+
+- Remains the `workflow_call` target.
+- Keeps `permissions: contents: read`.
+- Keeps the existing local safety steps unchanged.
+
+Expected behavior: a newer `local-fork-safety` run cancels older in-progress
+runs in the same workflow/ref concurrency group while the reusable safety job
+continues to run the same checks.
+
+Expected CI-scope blocker: repository safety checks may classify
+`.github/workflows/` changes as human-review-required. That blocker should be
+limited to the workflow-file scope and should not include dependency
+install/update, Docker, artifact generation, package output, PR #1001 files, or
+generated package folders.
+
 ## Why Reusable
 
 - Future manual smoke PRs can reuse the same safety job.
@@ -272,7 +309,6 @@ Stop Y-CI-03B and report facts if any of these occur:
 ## Next Candidates
 
 ```text
-Y-CI-04 concurrency / cancel-in-progress
 Y-GH-01 branch protection design
 Y-WIKI-CLEAN-01 current-state / handoff / archive整理
 ```
