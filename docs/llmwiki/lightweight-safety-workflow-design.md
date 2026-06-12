@@ -178,6 +178,7 @@ Y-CI-03B reusable workflow implementation
 Y-CI-04 concurrency / cancel-in-progress
 Y-GH-01 branch protection design
 Y-GH-02 required checks design
+Y-CI-05 post-workflow-change observation PR
 ```
 
 Y-CI-03 kept reusable workflow work docs-only. Y-CI-03B implements the split
@@ -187,4 +188,6 @@ Y-CI-04 adds caller-owned concurrency / cancel-in-progress without changing the
 reusable safety steps.
 
 Branch protection, required checks, and CODEOWNERS should remain separate design
-or implementation lanes.
+or implementation lanes. Y-GH-01 documents the branch protection / ruleset
+strategy at `docs/llmwiki/branch-protection-design.md` and keeps actual GitHub
+settings mutation out of scope.

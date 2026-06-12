@@ -9,10 +9,10 @@ canonical branch is fork `master`, and local `master` tracks `fork/master`.
 
 ## Current Closeout State
 
-- Current Y-CI-04 work branch:
-  `codex/y-ci-04-concurrency-cancel-in-progress`.
-- Current fork `master` after Y-CI-03B:
-  `2d59c4e4034d772d029b776497136e9bf67b6cd5` from fork PR #96.
+- Current Y-GH-01 work branch:
+  `codex/y-gh-01-branch-protection-design`.
+- Current fork `master` after Y-CI-04:
+  `becdf346956cb61b985df93637ab5c121884e49c` from fork PR #97.
 - Y-SEC-01 is complete via fork PR #82.
 - Y-SEC-01 state:
   - local-only runtime guardrails implemented in backend startup/request
@@ -298,8 +298,9 @@ canonical branch is fork `master`, and local `master` tracks `fork/master`.
     or `動画保存ツール_ローカル専用/` appears
 - Current Y-CI-04 state:
   - CI-scope concurrency implementation lane
-  - active branch:
-    `codex/y-ci-04-concurrency-cancel-in-progress`
+  - completed via fork PR #97
+  - fork `master` after merge:
+    `becdf346956cb61b985df93637ab5c121884e49c`
   - `.github/workflows/local-fork-safety.yml` remains the PR visibility layer
     and caller for `pull_request` to `master`
   - caller workflow now has concurrency:
@@ -322,8 +323,25 @@ canonical branch is fork `master`, and local `master` tracks `fork/master`.
     reusable workflow is not called, checks are skipped, permissions expand
     beyond `contents: read`, generated output appears, PR #1001 files appear,
     or `動画保存ツール_ローカル専用/` appears
+- Current Y-GH-01 state:
+  - docs-only branch protection / ruleset design lane
+  - active branch:
+    `codex/y-gh-01-branch-protection-design`
+  - design doc:
+    `docs/llmwiki/branch-protection-design.md`
+  - records candidate branch protection and ruleset policy for fork `master`
+  - records required-check naming ambiguity after the reusable workflow split
+  - recommends no required checks until the exact displayed check name is
+    stable
+  - recommends Y-CI-05 post-workflow-change observation or Y-GH-02 required
+    checks design after this lane
+  - must not mutate GitHub settings, create rulesets, configure required
+    checks, add CODEOWNERS, change `.github/workflows/`, install dependencies,
+    run Docker, run builds/tests, create generated output, handle credentials,
+    or touch PR #1001 files
 - Next candidates:
-  - `Y-GH-01 branch protection design`
+  - `Y-CI-05 post-workflow-change observation PR`
+  - `Y-GH-02 required checks design`
   - `Y-WIKI-CLEAN-01 current-state / handoff / archive整理`
 - Completed:
   - Y-08F generation readiness checklist preview via fork PR #70.
@@ -1156,18 +1174,18 @@ canonical branch is fork `master`, and local `master` tracks `fork/master`.
 Use `docs/llmwiki/current-state.md`, `docs/llmwiki/roadmap.md`, and this handoff
 as the next-chat source of truth.
 
-Recommended next candidates after Y-CI-03B:
+Recommended next candidates after Y-GH-01:
 
 ```text
-Y-CI-04 concurrency / cancel-in-progress
-Y-GH-01 branch protection design
+Y-CI-05 post-workflow-change observation PR
+Y-GH-02 required checks design
 Y-WIKI-CLEAN-01 current-state / handoff / archive整理
 ```
 
 Alternative:
 
 ```text
-pause for review of the Y-CI-03B reusable workflow implementation
+pause before any GitHub settings implementation
 ```
 
 Use the `Risk classification` section from `scripts/check_repo_safety.py`

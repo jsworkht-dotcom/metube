@@ -259,7 +259,9 @@ Y-CI-03 reusable workflow design
 Y-CI-03B reusable workflow implementation
 Y-CI-04 concurrency導入
 Y-GH-01 branch protection design
-Y-GH-02 CODEOWNERS design
+Y-CI-05 post-workflow-change observation PR
+Y-GH-02 required checks design
+Y-GH-03 branch protection implementation, only after explicit human approval
 ```
 
 Y-AUTO-06 does not implement CI, branch protection, or CODEOWNERS.
@@ -284,6 +286,12 @@ artifact upload/cache, package or generated output, branch protection,
 required-check configuration, CODEOWNERS, secrets, `pull_request_target`, and
 PR #1001 files. Existing repo safety may still report workflow-file changes as
 an expected CI-scope blocker requiring human review.
+
+Y-GH-01 is design-only and records future branch protection / ruleset
+candidates in `docs/llmwiki/branch-protection-design.md`. It does not mutate
+GitHub settings, create rulesets, configure required checks, add CODEOWNERS, or
+change workflow files. Required-check configuration remains deferred until the
+displayed `local-fork-safety` check name is observed and stable.
 
 ## Worktree Operation Candidate
 

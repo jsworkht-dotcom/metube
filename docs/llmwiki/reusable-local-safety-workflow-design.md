@@ -10,9 +10,13 @@ changed only `.github/workflows/` plus minimal docs sync by keeping
 `.github/workflows/local-fork-safety.yml` as the PR caller and adding
 `.github/workflows/reusable-local-safety.yml` as the `workflow_call` target.
 
-Y-CI-04 is the active concurrency implementation lane. It keeps the same caller
-and reusable workflow split while adding workflow-level concurrency only to the
-caller.
+Y-CI-04 completed the concurrency implementation via fork PR #97. It keeps the
+same caller and reusable workflow split while adding workflow-level concurrency
+only to the caller.
+
+Y-GH-01 records the separate branch protection / ruleset design in
+`docs/llmwiki/branch-protection-design.md` without mutating GitHub settings or
+configuring required checks.
 
 ## Sources Checked
 
@@ -309,7 +313,8 @@ Stop Y-CI-03B and report facts if any of these occur:
 ## Next Candidates
 
 ```text
-Y-GH-01 branch protection design
+Y-CI-05 post-workflow-change observation PR
+Y-GH-02 required checks design
 Y-WIKI-CLEAN-01 current-state / handoff / archive整理
 ```
 
