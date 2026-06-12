@@ -9,10 +9,10 @@ canonical branch is fork `master`, and local `master` tracks `fork/master`.
 
 ## Current Closeout State
 
-- Current Y-CI-02B work branch:
-  `codex/y-ci-02b-local-fork-safety-docs-self-check`.
-- Current fork `master` after Y-CI-02:
-  `66a4a638fef65988c10405398e6e591f0fccb923` from fork PR #89.
+- Current Y-DIST-03 work branch:
+  `codex/y-dist-03-recipient-safe-runbook`.
+- Current fork `master` after Y-CI-02B:
+  `f235416950868331f5a107e13631899aa7785c21` from fork PR #90.
 - Y-SEC-01 is complete via fork PR #82.
 - Y-SEC-01 state:
   - local-only runtime guardrails implemented in backend startup/request
@@ -179,14 +179,29 @@ canonical branch is fork `master`, and local `master` tracks `fork/master`.
     workflow-introducing PR because the check did not exist on the base branch
     before merge
 - Current Y-CI-02B state:
-  - docs-only observation PR
-  - purpose: confirm a normal docs-only PR passes `local-fork-safety`
+  - completed via fork PR #90
+  - merge commit: `f235416950868331f5a107e13631899aa7785c21`
+  - docs-only observation PR confirmed that a normal docs-only change can pass
+    `local-fork-safety`
   - not a workflow-fix PR
-  - do not change `.github/workflows/`
-  - if `local-fork-safety` fails unexpectedly, keep the PR unmerged and use
-    `Y-CI-02C workflow fix` as the next candidate
-  - if it passes cleanly, compare `Y-CI-03 reusable workflow` and
-    `Y-DIST-03 recipient-safe runbook and first-run local-only verification`
+  - `.github/workflows/` was not changed
+- Current Y-DIST-03 state:
+  - docs-only recipient-safe runbook and first-run local-only verification lane
+  - active branch: `codex/y-dist-03-recipient-safe-runbook`
+  - target docs:
+    - `docs/llmwiki/recipient-safe-runbook.md`
+    - `docs/llmwiki/first-run-local-only-verification.md`
+  - relation:
+    - Y-DIST-01 covers CLEAN candidate forbidden-file / secret-like content /
+      manifest baseline checking
+    - Y-DIST-02 covers version / manifest / checksum / license / notice
+      metadata checking
+    - Y-DIST-03 covers recipient procedure and first-run verification only
+  - no CLEAN folder, ZIP output, installer output, package output, metadata
+    generation, checksum generation, real download, dependency installation
+    operations, container image operations, backend/frontend runtime changes,
+    yt-dlp extractor changes, download queue changes, public hosting,
+    cookie/token/secret handling, or PR #1001 files
 - Next candidates:
   - `Y-CI-02C workflow fix` if this docs-only self-check fails unexpectedly
   - `Y-CI-03 reusable workflow`
@@ -1028,10 +1043,9 @@ as the next-chat source of truth.
 Recommended next candidates:
 
 ```text
-Y-CI-02C workflow fix if local-fork-safety fails unexpectedly
+Y-CI-02C workflow fix if local-fork-safety fails unexpectedly on a later PR
 Y-CI-03 reusable workflow if local-fork-safety passes cleanly
 Y-CI-04 concurrency / cancel-in-progress
-Y-DIST-03 recipient-safe runbook and first-run local-only verification
 Y-GH-01 branch protection design
 Y-WIKI-CLEAN-01 current-state / handoff / archive整理
 ```

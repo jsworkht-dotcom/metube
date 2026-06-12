@@ -101,6 +101,18 @@ The metadata checker does not create metadata, does not generate checksums, does
 not create package output, and does not decide legal sufficiency of `LICENSE` or
 `NOTICE`.
 
+## Recipient Runbook And First-Run Verification
+
+Y-DIST-03 adds recipient-safe documentation for future handoff and first-run
+review:
+
+- `docs/llmwiki/recipient-safe-runbook.md`
+- `docs/llmwiki/first-run-local-only-verification.md`
+
+These documents define local-only recipient instructions, first-run local-only
+verification items, and stop conditions. They do not create a CLEAN candidate
+and do not approve generated package output.
+
 ## Known Limits
 
 - The checker only reports on the candidate directory it is given.
@@ -122,7 +134,8 @@ This document does not approve installer output.
 
 This document does not approve external public hosting.
 
-Future Y-DIST generation work must pass both the Y-DIST-01 clean distribution
-checker and the Y-DIST-02 metadata checker before any share, upload, ZIP,
+Future Y-DIST generation work must pass the Y-DIST-01 clean distribution
+checker, pass the Y-DIST-02 metadata checker, and review the Y-DIST-03
+recipient runbook / first-run verification before any share, upload, ZIP,
 installer, or package output step. Any generation task remains blocked until it
 receives explicit package-generation approval and human review.
