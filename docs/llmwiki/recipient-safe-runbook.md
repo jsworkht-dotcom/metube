@@ -34,6 +34,8 @@ Needs verification before any future handoff:
 - The distributed material has passed the Y-DIST-01 and Y-DIST-02 checker
   gates on the exact candidate directory.
 - The Y-DIST-04 readiness matrix has no unresolved blocker for the candidate.
+- The Y-DIST-05 artifact generation approval checklist has been reviewed, and
+  any approved generation or handoff scope has been recorded explicitly.
 - The first-run local-only verification has been completed and recorded.
 - The recipient has been told where downloads are saved and how to stop the app.
 
@@ -162,6 +164,14 @@ Y-DIST-04:
 - Defines the advisory distribution readiness matrix at
   `docs/llmwiki/distribution-readiness-matrix.md`.
 - Does not approve artifact generation.
+
+Y-DIST-05:
+
+- Defines the human approval checklist at
+  `docs/llmwiki/artifact-generation-approval-checklist.md`.
+- Keeps all artifact categories blocked until separate explicit approval names
+  the exact source commit, output path, artifact scope, and remaining forbidden
+  operations.
 
 ## Explicit Non-Goals
 

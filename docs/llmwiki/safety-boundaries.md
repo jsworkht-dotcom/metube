@@ -263,6 +263,23 @@ package output appears without approval, metadata/checksum generation appears
 without approval, local-fork-safety fails unexpectedly, Y-DIST-01 fails,
 Y-DIST-02 fails, or recipient first-run verification fails.
 
+## Artifact Generation Approval Checklist Boundary
+
+Y-DIST-05 adds docs-only approval documentation at
+`docs/llmwiki/artifact-generation-approval-checklist.md`.
+
+The checklist must remain a gate definition only. It does not approve CLEAN
+folder generation, metadata file generation, checksum generation, ZIP output,
+installer output, first-run verification, real download verification, recipient
+handoff, sharing, dependency installation, Docker image operations, image pull
+or image build operations, backend/frontend runtime changes, public hosting,
+credential-bearing file handling, or PR #1001 file inclusion.
+
+Artifact generation remains blocked by default. Any future approval must name
+the exact source commit, exact candidate or output path, exact artifact scope,
+required checks, required manual reviews, stop conditions, and explicitly
+forbidden operations. Any category not named in the approval remains forbidden.
+
 ## Codex Automation Boundary
 
 The Codex automation policy is tracked in
