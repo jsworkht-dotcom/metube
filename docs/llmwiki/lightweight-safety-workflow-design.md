@@ -44,6 +44,14 @@ Implementation note: GitHub Actions may not naturally have a `fork/master`
 remote ref after checkout. Y-CI-02 creates `refs/remotes/fork/master` with a
 read-only fetch from the workflow repository before running base diff checks.
 
+Y-CI-03B reusable split note: the PR-facing workflow remains
+`.github/workflows/local-fork-safety.yml`, but it now acts as the caller for
+`.github/workflows/reusable-local-safety.yml`. The reusable workflow is the
+`workflow_call` target and owns the same safety steps listed above.
+Permissions remain `contents: read`; the split does not add dependency
+installation, Docker operations, package/artifact output, branch protection,
+required-check configuration, CODEOWNERS, secrets, artifact upload, or cache.
+
 ## Explicit Non-Goals
 
 The initial workflow should not run:
@@ -165,9 +173,9 @@ Y-GH-01 branch protection design
 Y-GH-02 required checks design
 ```
 
-Y-CI-03 keeps reusable workflow work docs-only. The future implementation lane
-is Y-CI-03B, and should preserve `local-fork-safety` as the PR visibility layer
-while moving the current safety job into a `workflow_call` reusable workflow.
+Y-CI-03 kept reusable workflow work docs-only. Y-CI-03B implements the split
+while preserving `local-fork-safety` as the PR visibility layer and moving the
+current safety job into a `workflow_call` reusable workflow.
 
 Branch protection, required checks, and CODEOWNERS should remain separate design
 or implementation lanes.
