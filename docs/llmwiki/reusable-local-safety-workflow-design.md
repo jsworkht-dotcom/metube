@@ -18,6 +18,10 @@ Y-GH-01 records the separate branch protection / ruleset design in
 `docs/llmwiki/branch-protection-design.md` without mutating GitHub settings or
 configuring required checks.
 
+Y-CI-05 records a normal docs-only post-workflow-change observation in
+`docs/llmwiki/post-workflow-change-observation.md` to confirm the displayed
+check name and result after the reusable split and concurrency change.
+
 ## Sources Checked
 
 Repository sources:
@@ -313,7 +317,6 @@ Stop Y-CI-03B and report facts if any of these occur:
 ## Next Candidates
 
 ```text
-Y-CI-05 post-workflow-change observation PR
 Y-GH-02 required checks design
 Y-WIKI-CLEAN-01 current-state / handoff / archive整理
 ```

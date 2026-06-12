@@ -9,10 +9,10 @@ canonical branch is fork `master`, and local `master` tracks `fork/master`.
 
 ## Current Closeout State
 
-- Current Y-GH-01 work branch:
-  `codex/y-gh-01-branch-protection-design`.
-- Current fork `master` after Y-CI-04:
-  `becdf346956cb61b985df93637ab5c121884e49c` from fork PR #97.
+- Current Y-CI-05 work branch:
+  `codex/y-ci-05-post-workflow-observation`.
+- Current fork `master` after Y-GH-01:
+  `1bb28de03e3257cedb097301672a30cdd1052f18` from fork PR #98.
 - Y-SEC-01 is complete via fork PR #82.
 - Y-SEC-01 state:
   - local-only runtime guardrails implemented in backend startup/request
@@ -325,8 +325,9 @@ canonical branch is fork `master`, and local `master` tracks `fork/master`.
     or `動画保存ツール_ローカル専用/` appears
 - Current Y-GH-01 state:
   - docs-only branch protection / ruleset design lane
-  - active branch:
-    `codex/y-gh-01-branch-protection-design`
+  - completed via fork PR #98
+  - fork `master` after merge:
+    `1bb28de03e3257cedb097301672a30cdd1052f18`
   - design doc:
     `docs/llmwiki/branch-protection-design.md`
   - records candidate branch protection and ruleset policy for fork `master`
@@ -339,8 +340,20 @@ canonical branch is fork `master`, and local `master` tracks `fork/master`.
     checks, add CODEOWNERS, change `.github/workflows/`, install dependencies,
     run Docker, run builds/tests, create generated output, handle credentials,
     or touch PR #1001 files
+- Current Y-CI-05 state:
+  - docs-only post-workflow-change observation lane
+  - active branch:
+    `codex/y-ci-05-post-workflow-observation`
+  - observation doc:
+    `docs/llmwiki/post-workflow-change-observation.md`
+  - observes normal docs-only PR behavior after the reusable workflow split and
+    caller concurrency change
+  - must record the displayed GitHub check name and result before Y-GH-02
+  - must not change `.github/workflows/`, mutate GitHub settings, configure
+    branch protection/rulesets/required checks/CODEOWNERS, install
+    dependencies, run Docker, run builds/tests, create generated output, handle
+    credentials, or touch PR #1001 files
 - Next candidates:
-  - `Y-CI-05 post-workflow-change observation PR`
   - `Y-GH-02 required checks design`
   - `Y-WIKI-CLEAN-01 current-state / handoff / archive整理`
 - Completed:
@@ -1174,10 +1187,9 @@ canonical branch is fork `master`, and local `master` tracks `fork/master`.
 Use `docs/llmwiki/current-state.md`, `docs/llmwiki/roadmap.md`, and this handoff
 as the next-chat source of truth.
 
-Recommended next candidates after Y-GH-01:
+Recommended next candidates after Y-CI-05:
 
 ```text
-Y-CI-05 post-workflow-change observation PR
 Y-GH-02 required checks design
 Y-WIKI-CLEAN-01 current-state / handoff / archive整理
 ```

@@ -47,6 +47,8 @@ Facts:
 - Initial Y-GH-01 PR observation: GitHub displayed the passing check as
   `local fork safety / local fork safety` on PR #98. Treat this as one
   observation, not enough stability evidence to configure required checks.
+- Y-CI-05 is the follow-up normal docs-only observation lane. It records one
+  more displayed check-name observation before Y-GH-02.
 - Current caller uses workflow-level concurrency:
   `group: ${{ github.workflow }}-${{ github.ref }}` and
   `cancel-in-progress: true`.
@@ -270,7 +272,7 @@ Stage 0: Y-GH-01 docs-only design.
 
 Stage 1: observe post-Y-CI-04 PR behavior.
 
-- Use a normal docs-only PR.
+- Use a normal docs-only PR. Y-CI-05 is the current candidate.
 - Confirm exact displayed check name.
 - Confirm `local-fork-safety` success for a non-workflow docs-only diff.
 
@@ -357,15 +359,15 @@ Stop and report facts if any of these occur:
 
 ## Next Candidates
 
-Recommended after Y-GH-01:
+Recommended after Y-CI-05 if the observation succeeds:
 
 ```text
-Y-CI-05 post-workflow-change observation PR
 Y-GH-02 required checks design
 ```
 
-Y-CI-05 is the safer first follow-up because required-check implementation is
-probably still early until the displayed check name is observed after Y-CI-04.
+Y-CI-05 is still only one additional observation. Required-check implementation
+remains too early until Y-GH-02 explicitly designs the exact required-check
+candidate and rollback path.
 
 Other candidates:
 

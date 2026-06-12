@@ -20,7 +20,7 @@
   separate upstream contribution.
 - Do not mix upstream PR #1001 files into fork-only work.
 - Latest fork `master` baseline:
-  `becdf346956cb61b985df93637ab5c121884e49c` from fork PR #97.
+  `1bb28de03e3257cedb097301672a30cdd1052f18` from fork PR #98.
 
 ## Current Runtime Security State
 
@@ -496,8 +496,9 @@
 ### Y-GH-01 branch protection / ruleset design
 
 - Scope: docs-only branch protection / ruleset strategy.
-- Status: active in the current branch.
-- Branch: `codex/y-gh-01-branch-protection-design`.
+- Status: completed via fork PR #98.
+- fork `master` after merge:
+  `1bb28de03e3257cedb097301672a30cdd1052f18`.
 - Design doc:
   `docs/llmwiki/branch-protection-design.md`.
 - Purpose:
@@ -519,6 +520,26 @@
     `.gitignore` changes;
   - dependency install/update, Docker operations, generated output, metadata,
     checksums, real downloads, credentials, or PR #1001 files.
+
+### Y-CI-05 post-workflow-change observation
+
+- Scope: docs-only observation PR.
+- Status: active in the current branch.
+- Branch: `codex/y-ci-05-post-workflow-observation`.
+- Observation doc:
+  `docs/llmwiki/post-workflow-change-observation.md`.
+- Purpose:
+  - observe normal docs-only PR behavior after Y-CI-03B / Y-CI-04;
+  - record the exact displayed GitHub check name;
+  - confirm `local-fork-safety` still passes without workflow changes;
+  - provide one more observation before Y-GH-02 required-check design.
+- Not included:
+  - `.github/workflows/` changes;
+  - GitHub settings, branch protection, ruleset, required-check, or CODEOWNERS
+    mutation;
+  - dependency install/update, Docker/container operations, build/test, pytest,
+    generated output, metadata, checksums, real downloads, credentials, or PR
+    #1001 files.
 
 ## Completed Work
 
@@ -2440,10 +2461,15 @@ Y-CI-04 is complete via fork PR #97. fork `master` is now at
 `becdf346956cb61b985df93637ab5c121884e49c`, with workflow-level concurrency on
 the `local-fork-safety` caller and unchanged reusable safety steps.
 
-Y-GH-01 is the active docs-only branch protection / ruleset design lane. Its
-source of truth is `docs/llmwiki/branch-protection-design.md`. It must not
-mutate GitHub settings, configure required checks, add CODEOWNERS, or change
-workflow files.
+Y-GH-01 is complete via fork PR #98. fork `master` is now at
+`1bb28de03e3257cedb097301672a30cdd1052f18`. It added the design source of
+truth at `docs/llmwiki/branch-protection-design.md` without mutating GitHub
+settings, configuring required checks, adding CODEOWNERS, or changing workflow
+files.
+
+Y-CI-05 is the active docs-only post-workflow-change observation lane. Its
+source of truth is `docs/llmwiki/post-workflow-change-observation.md`. It must
+not change workflows or GitHub settings.
 
 Y-08Z closes the Y-08 preview hardening lane as docs-only closeout.
 Y-UI-QUALITY-01 is complete via fork PR #73 with merge commit
@@ -2519,10 +2545,9 @@ The previous package-material lane is complete through Y-08Z closeout. Actual
 clean-package generation remains blocked. The generated package folder must
 remain absent.
 
-The next practical candidates after Y-GH-01 are:
+The next practical candidates after Y-CI-05 are:
 
 ```text
-Y-CI-05 post-workflow-change observation PR
 Y-GH-02 required checks design
 Y-WIKI-CLEAN-01 current-state / handoff / archive整理
 ```
