@@ -9,10 +9,10 @@ canonical branch is fork `master`, and local `master` tracks `fork/master`.
 
 ## Current Closeout State
 
-- Current Y-DIST-06 work branch:
-  `codex/y-dist-06-approved-clean-candidate-dry-run-plan`.
-- Current fork `master` after Y-DIST-05:
-  `26d1983105d61441d6abd19495a4a96508a986e4` from fork PR #93.
+- Current Y-CI-03 work branch:
+  `codex/y-ci-03-reusable-workflow-design`.
+- Current fork `master` after Y-DIST-06:
+  `72efd6c4e42e3c27ed020cee5b6e1f64ec7acffe` from fork PR #94.
 - Y-SEC-01 is complete via fork PR #82.
 - Y-SEC-01 state:
   - local-only runtime guardrails implemented in backend startup/request
@@ -237,8 +237,9 @@ canonical branch is fork `master`, and local `master` tracks `fork/master`.
     cookie/token/secret handling, or PR #1001 files
 - Current Y-DIST-06 state:
   - docs-only approved clean candidate dry-run plan lane
-  - active branch:
-    `codex/y-dist-06-approved-clean-candidate-dry-run-plan`
+  - completed via fork PR #94
+  - merge commit:
+    `72efd6c4e42e3c27ed020cee5b6e1f64ec7acffe`
   - target doc:
     - `docs/llmwiki/approved-clean-candidate-dry-run-plan.md`
   - defines the dry-run principle, required prerequisites, planned phases,
@@ -251,8 +252,25 @@ canonical branch is fork `master`, and local `master` tracks `fork/master`.
     operations, no Docker pull/build operations, backend/frontend runtime changes,
     yt-dlp extractor changes, download queue changes, public hosting,
     cookie/token/secret handling, or PR #1001 files
+- Current Y-CI-03 state:
+  - docs-only reusable local safety workflow design lane
+  - active branch:
+    `codex/y-ci-03-reusable-workflow-design`
+  - target doc:
+    - `docs/llmwiki/reusable-local-safety-workflow-design.md`
+  - future reusable workflow candidate:
+    `.github/workflows/reusable-local-safety.yml`
+  - future implementation candidate:
+    `Y-CI-03B reusable workflow implementation`
+  - design covers the current `local-fork-safety` baseline, target
+    `workflow_call` structure, benefits, risks, implementation constraints,
+    success criteria, and stop conditions
+  - this PR must not change `.github/workflows/`, install dependencies, run
+    Docker, run frontend build/test, run backend pytest, create package output,
+    create metadata/checksums, change branch protection, configure required
+    checks, add CODEOWNERS, or touch PR #1001 files
 - Next candidates:
-  - `Y-CI-03 reusable workflow`
+  - `Y-CI-03B reusable workflow implementation`
   - `Y-CI-04 concurrency / cancel-in-progress`
   - `Y-GH-01 branch protection design`
   - `Y-WIKI-CLEAN-01 current-state / handoff / archive整理`
@@ -1090,7 +1108,7 @@ as the next-chat source of truth.
 Recommended next candidates:
 
 ```text
-Y-CI-03 reusable workflow
+Y-CI-03B reusable workflow implementation
 Y-CI-04 concurrency / cancel-in-progress
 Y-GH-01 branch protection design
 Y-WIKI-CLEAN-01 current-state / handoff / archive整理
@@ -1099,7 +1117,7 @@ Y-WIKI-CLEAN-01 current-state / handoff / archive整理
 Alternative:
 
 ```text
-pause for review of the Y-DIST-06 dry-run plan
+pause for review of the Y-CI-03 reusable workflow design
 ```
 
 Use the `Risk classification` section from `scripts/check_repo_safety.py`

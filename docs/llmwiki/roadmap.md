@@ -234,8 +234,9 @@
 
 ### Y-DIST-06 approved clean candidate dry-run plan
 
-- Status: active.
-- Summary: add a docs-only approved clean candidate dry-run plan for future
+- Status: completed via fork PR #94.
+- Merge commit: `72efd6c4e42e3c27ed020cee5b6e1f64ec7acffe`.
+- Summary: added a docs-only approved clean candidate dry-run plan for future
   explicitly approved CLEAN candidate review.
 - New document:
   `docs/llmwiki/approved-clean-candidate-dry-run-plan.md`.
@@ -250,11 +251,30 @@
   yt-dlp extractor changes, download queue changes, public hosting,
   cookie/token/secret handling, or PR #1001 files.
 
+### Y-CI-03 reusable local safety workflow design
+
+- Status: active.
+- Summary: add a docs-only design for a future reusable workflow split of
+  `local-fork-safety`.
+- New document:
+  `docs/llmwiki/reusable-local-safety-workflow-design.md`.
+- Future reusable workflow candidate:
+  `.github/workflows/reusable-local-safety.yml`.
+- Future implementation candidate:
+  `Y-CI-03B reusable workflow implementation`.
+- This lane documents the current workflow baseline, target `workflow_call`
+  structure, benefits, risks, implementation constraints, success criteria, and
+  stop conditions.
+- This lane does not change `.github/workflows/`, install dependencies, run
+  Docker, run frontend build/test, run backend pytest, create package output,
+  create metadata/checksums, mutate branch protection, configure required
+  checks, add CODEOWNERS, or touch PR #1001 files.
+
 ### Security next candidates
 
 ```text
-Y-CI-03:
-  reusable workflow
+Y-CI-03B:
+  reusable workflow implementation
 
 Y-CI-04:
   concurrency / cancel-in-progress

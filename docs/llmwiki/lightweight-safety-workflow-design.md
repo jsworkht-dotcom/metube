@@ -158,11 +158,16 @@ automation-assisted merge decision.
 ## Future Phases
 
 ```text
-Y-CI-03 reusable workflow
+Y-CI-03 reusable workflow design
+Y-CI-03B reusable workflow implementation
 Y-CI-04 concurrency / cancel-in-progress
 Y-GH-01 branch protection design
 Y-GH-02 required checks design
 ```
+
+Y-CI-03 keeps reusable workflow work docs-only. The future implementation lane
+is Y-CI-03B, and should preserve `local-fork-safety` as the PR visibility layer
+while moving the current safety job into a `workflow_call` reusable workflow.
 
 Branch protection, required checks, and CODEOWNERS should remain separate design
 or implementation lanes.

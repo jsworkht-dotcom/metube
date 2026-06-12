@@ -20,7 +20,7 @@
   separate upstream contribution.
 - Do not mix upstream PR #1001 files into fork-only work.
 - Latest fork `master` baseline:
-  `cca229cc2b842cda3778546236358069e6938ab3` from fork PR #92.
+  `72efd6c4e42e3c27ed020cee5b6e1f64ec7acffe` from fork PR #94.
 
 ## Current Runtime Security State
 
@@ -349,7 +349,8 @@
 ### Y-DIST-06 approved clean candidate dry-run plan
 
 - Scope: docs-only approved clean candidate dry-run plan.
-- Status: active in the current branch.
+- Status: completed via fork PR #94.
+- Merge commit: `72efd6c4e42e3c27ed020cee5b6e1f64ec7acffe`.
 - Document:
   `docs/llmwiki/approved-clean-candidate-dry-run-plan.md`.
 - Purpose:
@@ -367,6 +368,34 @@
   - No Docker pull/build operations;
   - backend/frontend runtime changes;
   - public hosting;
+  - cookie/token/secret handling;
+  - PR #1001 file changes.
+
+### Y-CI-03 reusable local safety workflow design
+
+- Scope: docs-only reusable workflow design for the existing
+  `local-fork-safety` PR safety display layer.
+- Status: active in the current branch.
+- Document:
+  `docs/llmwiki/reusable-local-safety-workflow-design.md`.
+- Future workflow candidate:
+  `.github/workflows/reusable-local-safety.yml`.
+- Future implementation lane:
+  `Y-CI-03B reusable workflow implementation`.
+- Purpose:
+  - document the current `.github/workflows/local-fork-safety.yml` baseline;
+  - define a future `workflow_call` reusable workflow structure;
+  - keep `.github/workflows/` unchanged in this docs-only PR;
+  - preserve `permissions: contents: read`, no artifact upload, no dependency
+    installation operations, no Docker operations, and no package output.
+- Not included:
+  - `.github/workflows/` changes;
+  - dependency installation operations;
+  - container image retrieval/build operations;
+  - frontend build/test or backend pytest;
+  - package, ZIP, installer, CLEAN folder, metadata, checksum, or generated
+    artifact output;
+  - branch protection, required-check configuration, or CODEOWNERS changes;
   - cookie/token/secret handling;
   - PR #1001 file changes.
 
@@ -2277,14 +2306,12 @@
 
 ## Current Next Step
 
-Y-DIST-05 is complete via fork PR #93 with merge commit
-`26d1983105d61441d6abd19495a4a96508a986e4`. It added the human approval
-checklist before artifact generation and kept all artifact categories
-`not approved`.
+Y-DIST-06 is complete via fork PR #94 with merge commit
+`72efd6c4e42e3c27ed020cee5b6e1f64ec7acffe`. It added the approved clean
+candidate dry-run plan while keeping artifact generation blocked by default.
 
-Y-DIST-06 is the active docs-only follow-up: add an approved clean candidate
-dry-run plan that defines what would be checked after future explicit approval,
-where the work must stop, and how the dry-run result should be recorded.
+Y-CI-03 is the active docs-only follow-up: design a future reusable workflow
+split for `local-fork-safety` without changing `.github/workflows/` in this PR.
 
 Y-08Z closes the Y-08 preview hardening lane as docs-only closeout.
 Y-UI-QUALITY-01 is complete via fork PR #73 with merge commit
@@ -2363,7 +2390,7 @@ remain absent.
 The next practical candidates are:
 
 ```text
-Y-CI-03 reusable workflow
+Y-CI-03B reusable workflow implementation
 Y-CI-04 concurrency / cancel-in-progress
 Y-GH-01 branch protection design
 Y-WIKI-CLEAN-01 current-state / handoff / archive整理

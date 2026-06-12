@@ -380,6 +380,14 @@ Future `local-fork-safety` GitHub Actions work is a PR visibility layer only.
 It should not replace local gates, human review rules, High-mid / High-high
 merge restrictions, or generated package approval rules.
 
+Reusable workflow work follows the same boundary. Y-CI-03 is docs-only design;
+Y-CI-03B is the earliest candidate for `.github/workflows/` changes. Any
+workflow-file change is CI-scope and human-review-required, must keep
+`permissions: contents: read` unless explicitly approved, and must not add
+dependency installation operations, Docker operations, package output, generated
+artifacts, branch protection mutation, required-check configuration, CODEOWNERS,
+or credential handling.
+
 This policy does not weaken human approval gates for destructive actions,
 credentials, production deployment, infrastructure mutation, dependency changes,
 public hosting, releases, or customer-data work.
