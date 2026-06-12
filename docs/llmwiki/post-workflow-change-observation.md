@@ -85,25 +85,27 @@ Next recommendation:
 
 ## Y-CI-05 Observation Record
 
-This section should be completed after the PR's GitHub Actions run is observed.
+This section records the observed PR #99 check behavior. The exact latest head
+SHA is kept in the PR body and final report so this document does not require a
+self-referential commit update for every observation-record edit.
 
 ```text
 Observation ID: Y-CI-05
-PR number: pending
-Source commit: pending
-Changed files: pending
-Workflow name: pending
-Displayed check name: pending
-Check result: pending
-Reusable workflow called: pending
+PR number: #99
+Source commit: PR #99 head at observation time; exact latest SHA in PR body/final report
+Changed files: 7 docs/llmwiki files
+Workflow name: local-fork-safety
+Displayed check name: local fork safety / local fork safety
+Check result: success
+Reusable workflow called: yes; reusable safety job steps ran successfully
 Caller workflow path: .github/workflows/local-fork-safety.yml
 Reusable workflow path: .github/workflows/reusable-local-safety.yml
-Warning-only wording result: pending
-Generated folder absent: pending
-PR #1001 files absent: pending
+Warning-only wording result: non-blocking; safety wording step succeeded
+Generated folder absent: yes
+PR #1001 files absent: yes
 Workflow files changed: no
 GitHub settings changed: no
-Result: pending
+Result: normal docs-only PR passed local-fork-safety
 Next recommendation: Y-GH-02 required checks design if the observation succeeds
 ```
 

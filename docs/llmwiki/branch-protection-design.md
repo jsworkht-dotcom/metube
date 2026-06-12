@@ -49,6 +49,9 @@ Facts:
   observation, not enough stability evidence to configure required checks.
 - Y-CI-05 is the follow-up normal docs-only observation lane. It records one
   more displayed check-name observation before Y-GH-02.
+- Y-CI-05 PR #99 observed the same displayed passing check name:
+  `local fork safety / local fork safety`. This is useful input for Y-GH-02,
+  but it still does not enable required checks by itself.
 - Current caller uses workflow-level concurrency:
   `group: ${{ github.workflow }}-${{ github.ref }}` and
   `cancel-in-progress: true`.
