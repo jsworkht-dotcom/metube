@@ -190,4 +190,6 @@ reusable safety steps.
 Branch protection, required checks, and CODEOWNERS should remain separate design
 or implementation lanes. Y-GH-01 documents the branch protection / ruleset
 strategy at `docs/llmwiki/branch-protection-design.md` and keeps actual GitHub
-settings mutation out of scope.
+settings mutation out of scope. Y-CI-05 documents post-workflow-change
+observation at `docs/llmwiki/post-workflow-change-observation.md` without
+changing workflow files.

@@ -327,7 +327,9 @@
 
 ### Y-GH-01 branch protection / ruleset design
 
-- Status: active.
+- Status: completed via fork PR #98.
+- fork `master` after merge:
+  `1bb28de03e3257cedb097301672a30cdd1052f18`.
 - Scope: docs-only branch protection / ruleset strategy.
 - Design doc:
   `docs/llmwiki/branch-protection-design.md`.
@@ -344,12 +346,28 @@
   builds/tests, create package output, generate metadata/checksums, handle
   credentials, or touch PR #1001 files.
 
+### Y-CI-05 post-workflow-change observation
+
+- Status: active.
+- Scope: docs-only observation PR.
+- Observation doc:
+  `docs/llmwiki/post-workflow-change-observation.md`.
+- Summary: observes whether a normal docs-only PR still starts
+  `local-fork-safety`, calls the reusable workflow, displays a stable check
+  name, and passes after Y-CI-03B / Y-CI-04.
+- Expected observation:
+  - workflow starts on a docs-only PR;
+  - displayed check name is captured;
+  - check result is success;
+  - no workflow files or GitHub settings are changed.
+- This lane does not change `.github/workflows/`, mutate GitHub settings,
+  configure branch protection, rulesets, required checks, or CODEOWNERS,
+  install dependencies, run Docker, run builds/tests, create package output,
+  generate metadata/checksums, handle credentials, or touch PR #1001 files.
+
 ### Security next candidates
 
 ```text
-Y-CI-05:
-  post-workflow-change observation PR
-
 Y-GH-02:
   required checks design
 
