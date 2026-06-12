@@ -273,7 +273,9 @@
 
 ### Y-CI-03B reusable workflow implementation
 
-- Status: active.
+- Status: completed via fork PR #96.
+- fork `master` after merge:
+  `2d59c4e4034d772d029b776497136e9bf67b6cd5`.
 - Summary: split `local-fork-safety` into a thin PR caller and a reusable
   `workflow_call` target.
 - Workflow files:
@@ -292,12 +294,38 @@
   pass secrets, mutate branch protection, configure required checks, add
   CODEOWNERS, or touch backend/frontend/Docker/package/lockfile files.
 
+### Y-CI-04 concurrency / cancel-in-progress
+
+- Status: active.
+- Summary: add workflow-level concurrency to the `local-fork-safety` caller so
+  older local safety runs for the same PR ref are canceled.
+- Workflow files:
+  - `.github/workflows/local-fork-safety.yml` remains the PR visibility layer
+    and caller;
+  - `.github/workflows/reusable-local-safety.yml` remains the reusable
+    `workflow_call` target with unchanged safety steps.
+- Concurrency:
+  - group: `${{ github.workflow }}-${{ github.ref }}`;
+  - `cancel-in-progress: true`.
+- Permissions remain `contents: read` in both workflows.
+- Expected check behavior:
+  - `local-fork-safety` starts on PRs targeting `master`;
+  - the caller invokes the reusable workflow;
+  - `local fork safety` runs the same repository safety, clean dry-run, JSON,
+    wording, generated-folder absence, and PR #1001 absence checks.
+- Expected CI-scope blocker:
+  - workflow file changes may be classified as human-review-required blockers;
+  - any such blocker should be limited to CI-scope workflow changes, with no
+    dependency install/update, Docker, artifact generation, package output, PR
+    #1001 files, or generated package folder.
+- This lane does not install or update dependencies, run Docker, create package
+  output or artifacts, upload artifacts, add cache, use `pull_request_target`,
+  pass secrets, mutate branch protection, configure required checks, add
+  CODEOWNERS, or touch backend/frontend/Docker/package/lockfile files.
+
 ### Security next candidates
 
 ```text
-Y-CI-04:
-  concurrency / cancel-in-progress
-
 Y-GH-01:
   branch protection design
 

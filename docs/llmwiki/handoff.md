@@ -9,10 +9,10 @@ canonical branch is fork `master`, and local `master` tracks `fork/master`.
 
 ## Current Closeout State
 
-- Current Y-CI-03B work branch:
-  `codex/y-ci-03b-reusable-workflow-implementation`.
-- Current fork `master` after Y-CI-03:
-  `c64b935fc02b7893e8be38d13a53e8b26adf91cf` from fork PR #95.
+- Current Y-CI-04 work branch:
+  `codex/y-ci-04-concurrency-cancel-in-progress`.
+- Current fork `master` after Y-CI-03B:
+  `2d59c4e4034d772d029b776497136e9bf67b6cd5` from fork PR #96.
 - Y-SEC-01 is complete via fork PR #82.
 - Y-SEC-01 state:
   - local-only runtime guardrails implemented in backend startup/request
@@ -274,8 +274,11 @@ canonical branch is fork `master`, and local `master` tracks `fork/master`.
     checks, add CODEOWNERS, or touch PR #1001 files
 - Current Y-CI-03B state:
   - CI-scope reusable workflow implementation lane
-  - active branch:
+  - completed branch:
     `codex/y-ci-03b-reusable-workflow-implementation`
+  - completed via fork PR #96
+  - fork `master` after merge:
+    `2d59c4e4034d772d029b776497136e9bf67b6cd5`
   - `.github/workflows/local-fork-safety.yml` is now the thin caller for
     `pull_request` to `master`
   - `.github/workflows/reusable-local-safety.yml` is the `workflow_call` target
@@ -293,8 +296,33 @@ canonical branch is fork `master`, and local `master` tracks `fork/master`.
     reusable workflow is not called, checks are skipped, permissions expand
     beyond `contents: read`, generated output appears, PR #1001 files appear,
     or `動画保存ツール_ローカル専用/` appears
+- Current Y-CI-04 state:
+  - CI-scope concurrency implementation lane
+  - active branch:
+    `codex/y-ci-04-concurrency-cancel-in-progress`
+  - `.github/workflows/local-fork-safety.yml` remains the PR visibility layer
+    and caller for `pull_request` to `master`
+  - caller workflow now has concurrency:
+    `group: ${{ github.workflow }}-${{ github.ref }}` and
+    `cancel-in-progress: true`
+  - `.github/workflows/reusable-local-safety.yml` safety steps are unchanged
+  - both workflows keep `permissions: contents: read`
+  - expected PR check behavior: `local-fork-safety` starts, calls the reusable
+    workflow, runs `local fork safety` with the same safety checks, and cancels
+    older in-progress runs for the same workflow/ref group
+  - expected CI-scope blocker: workflow changes may be reported as
+    human-review-required; that should be limited to workflow-file scope and not
+    dependency install/update, Docker, artifact generation, package output, PR
+    #1001 files, or generated package folder
+  - this lane must not install/update dependencies, use Docker, create package
+    or artifact output, add cache, use `pull_request_target`, pass secrets,
+    mutate branch protection, configure required checks, add CODEOWNERS, handle
+    cookie/token/secret values, or touch PR #1001 files
+  - stop if workflow syntax cannot be validated, the caller does not run, the
+    reusable workflow is not called, checks are skipped, permissions expand
+    beyond `contents: read`, generated output appears, PR #1001 files appear,
+    or `動画保存ツール_ローカル専用/` appears
 - Next candidates:
-  - `Y-CI-04 concurrency / cancel-in-progress`
   - `Y-GH-01 branch protection design`
   - `Y-WIKI-CLEAN-01 current-state / handoff / archive整理`
 - Completed:
