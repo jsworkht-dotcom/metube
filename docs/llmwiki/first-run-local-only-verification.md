@@ -203,6 +203,13 @@ Y-DIST-05:
 - Does not approve first-run execution, real downloads, handoff, or candidate
   generation by itself.
 
+Y-DIST-06:
+
+- Provides the approved clean candidate dry-run plan at
+  `docs/llmwiki/approved-clean-candidate-dry-run-plan.md`.
+- Keeps candidate checker execution `not_applicable_yet` until a future
+  explicit approval creates an approved candidate.
+
 ## Explicit Non-Goals
 
 - No CLEAN folder generation.

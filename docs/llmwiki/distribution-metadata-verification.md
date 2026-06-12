@@ -127,6 +127,8 @@ Future CLEAN share, upload, or package generation must pass both:
 - Y-DIST-02: metadata / checksum / version / license-notice checker
 - Y-DIST-03: recipient-safe runbook and first-run local-only verification
 - Y-DIST-04: advisory distribution readiness matrix
+- Y-DIST-05: human approval checklist before artifact generation
+- Y-DIST-06: approved clean candidate dry-run plan
 
 Any actual metadata generation, checksum generation, package folder creation,
 ZIP output, installer output, or distribution upload remains blocked until a
@@ -141,3 +143,7 @@ Y-DIST-04 is advisory documentation only. It summarizes ready, blocked,
 human-review-required, not-started, not-applicable-yet, and warning-only items
 before any generation lane, but it does not approve metadata generation,
 checksum generation, package folder creation, or real download verification.
+
+Y-DIST-05 and Y-DIST-06 define the approval gate and the future approved
+dry-run plan. They do not create metadata, generate checksums, create a CLEAN
+folder, or run candidate-directory checkers before an approved candidate exists.
