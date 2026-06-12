@@ -216,7 +216,8 @@
 
 ### Y-DIST-05 human approval checklist before artifact generation
 
-- Status: active.
+- Status: completed via fork PR #93.
+- Merge commit: `26d1983105d61441d6abd19495a4a96508a986e4`.
 - Summary: add a docs-only human approval checklist before any future CLEAN
   portable distribution artifact generation.
 - New document:
@@ -231,12 +232,27 @@
   yt-dlp extractor changes, download queue changes, public hosting,
   cookie/token/secret handling, or PR #1001 files.
 
+### Y-DIST-06 approved clean candidate dry-run plan
+
+- Status: active.
+- Summary: add a docs-only approved clean candidate dry-run plan for future
+  explicitly approved CLEAN candidate review.
+- New document:
+  `docs/llmwiki/approved-clean-candidate-dry-run-plan.md`.
+- The plan defines the dry-run principle, required prerequisites, planned
+  phases, candidate path rules, checker usage, report template, stop
+  conditions, and relation to Y-DIST-01 through Y-DIST-05.
+- Candidate-directory checker execution remains `not_applicable_yet` because
+  no approved candidate exists.
+- This lane does not create a CLEAN folder, ZIP output, installer output,
+  package output, metadata, checksums, real downloads, dependency installation
+  operations, no Docker pull/build operations, backend/frontend runtime changes,
+  yt-dlp extractor changes, download queue changes, public hosting,
+  cookie/token/secret handling, or PR #1001 files.
+
 ### Security next candidates
 
 ```text
-Y-DIST-06:
-  approved clean candidate dry-run plan
-
 Y-CI-03:
   reusable workflow
 

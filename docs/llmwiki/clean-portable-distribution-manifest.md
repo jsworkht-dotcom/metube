@@ -123,6 +123,18 @@ not-applicable-yet, and warning-only items before any future CLEAN generation
 task. It does not approve creating a CLEAN candidate or generated package
 output.
 
+## Approval And Dry-Run Planning
+
+Y-DIST-05 adds the human approval checklist at
+`docs/llmwiki/artifact-generation-approval-checklist.md`.
+
+Y-DIST-06 adds the approved clean candidate dry-run plan at
+`docs/llmwiki/approved-clean-candidate-dry-run-plan.md`.
+
+Both documents keep artifact generation blocked unless a future separate
+approval names the exact source commit, candidate/output path, artifact scope,
+and forbidden operations.
+
 ## Known Limits
 
 - The checker only reports on the candidate directory it is given.
@@ -147,6 +159,7 @@ This document does not approve external public hosting.
 Future Y-DIST generation work must pass the Y-DIST-01 clean distribution
 checker, pass the Y-DIST-02 metadata checker, and review the Y-DIST-03
 recipient runbook / first-run verification. It must also review the Y-DIST-04
-readiness matrix before any share, upload, ZIP, installer, or package output
-step. Any generation task remains blocked until it receives explicit
-package-generation approval and human review.
+readiness matrix, Y-DIST-05 approval checklist, and Y-DIST-06 dry-run plan
+before any share, upload, ZIP, installer, or package output step. Any generation
+task remains blocked until it receives explicit package-generation approval and
+human review.

@@ -21,6 +21,8 @@ Facts:
 - Y-DIST-03 provides the recipient-safe runbook and first-run local-only
   verification procedure.
 - Y-DIST-04 provides the advisory distribution readiness matrix.
+- Y-DIST-06 provides the approved clean candidate dry-run plan for use after a
+  separate explicit approval exists.
 - All approval categories in this checklist are currently `not approved`.
 
 Assumptions:
@@ -198,6 +200,11 @@ Y-DIST-04:
 Y-DIST-05:
 
 - Human approval checklist before artifact generation.
+
+Y-DIST-06:
+
+- Approved clean candidate dry-run plan after explicit approval.
+- Does not approve artifact generation by itself.
 
 ## Explicit Non-Goals
 

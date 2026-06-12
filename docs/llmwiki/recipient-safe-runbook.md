@@ -173,6 +173,13 @@ Y-DIST-05:
   the exact source commit, output path, artifact scope, and remaining forbidden
   operations.
 
+Y-DIST-06:
+
+- Defines the approved clean candidate dry-run plan at
+  `docs/llmwiki/approved-clean-candidate-dry-run-plan.md`.
+- Keeps dry-run planning separate from CLEAN folder, metadata, checksum, ZIP,
+  installer, package, real download, or handoff execution.
+
 ## Explicit Non-Goals
 
 - No CLEAN folder generation.

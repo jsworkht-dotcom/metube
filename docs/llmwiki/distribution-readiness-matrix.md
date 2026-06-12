@@ -143,21 +143,22 @@ stop conditions. It does not approve artifact generation.
 | item | current_status | evidence_or_source | required_before_distribution | blocker_if_failed | next_action |
 | --- | --- | --- | --- | --- | --- |
 | Y-DIST-05 human approval checklist before artifact generation | `ready` | `docs/llmwiki/artifact-generation-approval-checklist.md` | yes | yes | Use it before any future generation task; it does not approve generation by itself. |
-| Y-DIST-06 approved clean candidate dry-run plan | `not_started` | Candidate after Y-DIST-05. | yes | yes | Keep dry-run plan separate from real output generation. |
+| Y-DIST-06 approved clean candidate dry-run plan | `ready` | `docs/llmwiki/approved-clean-candidate-dry-run-plan.md` | yes | yes | Use it only after explicit Y-DIST-05 approval; candidate checker execution is `not_applicable_yet` until an approved candidate exists. |
 | Y-CI-03 reusable workflow | `not_started` | CI follow-up candidate. | no for distribution docs | no | Consider after distribution approval checklist. |
 | Y-CI-04 concurrency / cancel-in-progress | `not_started` | CI follow-up candidate. | no for distribution docs | no | Consider after or alongside Y-CI-03. |
 | Y-GH-01 branch protection design | `not_started` | Governance follow-up candidate. | human decision | no for docs-only planning | Keep design-only unless explicitly approved. |
 | Y-WIKI-CLEAN-01 current-state / handoff / archive整理 | `not_started` | Documentation maintenance candidate. | no | no | Use after current distribution lane settles. |
 
-Recommended next step after Y-DIST-05:
+Recommended next step after Y-DIST-06:
 
 ```text
-Y-DIST-06 approved clean candidate dry-run plan
+Use the dry-run plan only after a separate explicit Y-DIST-05 approval exists,
+or continue with non-generation CI/governance docs candidates.
 ```
 
 Rationale: Y-DIST-01, Y-DIST-02, and Y-DIST-03 define the checker and recipient
 procedure baselines, Y-DIST-04 defines advisory readiness, and Y-DIST-05 fixes
-the human approval checklist. The next safest step is a dry-run plan that still
+the human approval checklist. Y-DIST-06 now defines the dry-run plan that still
 does not create real output.
 
 ## Stop Conditions

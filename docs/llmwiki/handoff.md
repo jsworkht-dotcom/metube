@@ -9,10 +9,10 @@ canonical branch is fork `master`, and local `master` tracks `fork/master`.
 
 ## Current Closeout State
 
-- Current Y-DIST-05 work branch:
-  `codex/y-dist-05-artifact-generation-approval-checklist`.
-- Current fork `master` after Y-DIST-04:
-  `cca229cc2b842cda3778546236358069e6938ab3` from fork PR #92.
+- Current Y-DIST-06 work branch:
+  `codex/y-dist-06-approved-clean-candidate-dry-run-plan`.
+- Current fork `master` after Y-DIST-05:
+  `26d1983105d61441d6abd19495a4a96508a986e4` from fork PR #93.
 - Y-SEC-01 is complete via fork PR #82.
 - Y-SEC-01 state:
   - local-only runtime guardrails implemented in backend startup/request
@@ -220,8 +220,9 @@ canonical branch is fork `master`, and local `master` tracks `fork/master`.
     cookie/token/secret handling, or PR #1001 files
 - Current Y-DIST-05 state:
   - docs-only human approval checklist lane
-  - active branch:
-    `codex/y-dist-05-artifact-generation-approval-checklist`
+  - completed via fork PR #93
+  - merge commit:
+    `26d1983105d61441d6abd19495a4a96508a986e4`
   - target doc:
     - `docs/llmwiki/artifact-generation-approval-checklist.md`
   - artifact generation remains blocked by default
@@ -234,8 +235,23 @@ canonical branch is fork `master`, and local `master` tracks `fork/master`.
     operations, container image operations, backend/frontend runtime changes,
     yt-dlp extractor changes, download queue changes, public hosting,
     cookie/token/secret handling, or PR #1001 files
+- Current Y-DIST-06 state:
+  - docs-only approved clean candidate dry-run plan lane
+  - active branch:
+    `codex/y-dist-06-approved-clean-candidate-dry-run-plan`
+  - target doc:
+    - `docs/llmwiki/approved-clean-candidate-dry-run-plan.md`
+  - defines the dry-run principle, required prerequisites, planned phases,
+    candidate path rules, planned checker usage, report template, and stop
+    conditions for future explicitly approved clean candidate review
+  - candidate-directory checker execution remains `not_applicable_yet` because
+    no approved candidate exists
+  - no CLEAN folder, ZIP output, installer output, package output, metadata
+    generation, checksum generation, real download, dependency installation
+    operations, no Docker pull/build operations, backend/frontend runtime changes,
+    yt-dlp extractor changes, download queue changes, public hosting,
+    cookie/token/secret handling, or PR #1001 files
 - Next candidates:
-  - `Y-DIST-06 approved clean candidate dry-run plan`
   - `Y-CI-03 reusable workflow`
   - `Y-CI-04 concurrency / cancel-in-progress`
   - `Y-GH-01 branch protection design`
@@ -1074,7 +1090,6 @@ as the next-chat source of truth.
 Recommended next candidates:
 
 ```text
-Y-DIST-06 approved clean candidate dry-run plan
 Y-CI-03 reusable workflow
 Y-CI-04 concurrency / cancel-in-progress
 Y-GH-01 branch protection design
@@ -1084,7 +1099,7 @@ Y-WIKI-CLEAN-01 current-state / handoff / archive整理
 Alternative:
 
 ```text
-pause for review of the GitHub fallback runbook closeout
+pause for review of the Y-DIST-06 dry-run plan
 ```
 
 Use the `Risk classification` section from `scripts/check_repo_safety.py`

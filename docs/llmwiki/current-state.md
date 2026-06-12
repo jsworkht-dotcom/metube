@@ -324,7 +324,8 @@
 ### Y-DIST-05 human approval checklist before artifact generation
 
 - Scope: docs-only human approval checklist.
-- Status: active in the current branch.
+- Status: completed via fork PR #93.
+- Merge commit: `26d1983105d61441d6abd19495a4a96508a986e4`.
 - Document:
   `docs/llmwiki/artifact-generation-approval-checklist.md`.
 - Purpose:
@@ -340,6 +341,30 @@
   - real download verification;
   - dependency installation operations;
   - container image operations;
+  - backend/frontend runtime changes;
+  - public hosting;
+  - cookie/token/secret handling;
+  - PR #1001 file changes.
+
+### Y-DIST-06 approved clean candidate dry-run plan
+
+- Scope: docs-only approved clean candidate dry-run plan.
+- Status: active in the current branch.
+- Document:
+  `docs/llmwiki/approved-clean-candidate-dry-run-plan.md`.
+- Purpose:
+  - define the future dry-run principle after explicit Y-DIST-05 approval;
+  - record required prerequisites, planned phases, candidate path rules,
+    checker usage, report template, and stop conditions;
+  - keep candidate-directory checker execution `not_applicable_yet` until an
+    approved candidate exists.
+- Not included:
+  - CLEAN folder generation;
+  - ZIP, installer, or package output;
+  - metadata or checksum generation;
+  - real downloads;
+  - dependency installation operations;
+  - No Docker pull/build operations;
   - backend/frontend runtime changes;
   - public hosting;
   - cookie/token/secret handling;
@@ -2252,14 +2277,14 @@
 
 ## Current Next Step
 
-Y-DIST-04 is complete via fork PR #92 with merge commit
-`cca229cc2b842cda3778546236358069e6938ab3`. It added the advisory distribution
-readiness matrix without approving or creating artifact output.
+Y-DIST-05 is complete via fork PR #93 with merge commit
+`26d1983105d61441d6abd19495a4a96508a986e4`. It added the human approval
+checklist before artifact generation and kept all artifact categories
+`not approved`.
 
-Y-DIST-05 is the active docs-only follow-up: add a human approval checklist that
-states artifact generation is blocked by default, fixes the approval fields,
-and records stop conditions before any future CLEAN portable distribution
-artifact generation.
+Y-DIST-06 is the active docs-only follow-up: add an approved clean candidate
+dry-run plan that defines what would be checked after future explicit approval,
+where the work must stop, and how the dry-run result should be recorded.
 
 Y-08Z closes the Y-08 preview hardening lane as docs-only closeout.
 Y-UI-QUALITY-01 is complete via fork PR #73 with merge commit
@@ -2338,7 +2363,6 @@ remain absent.
 The next practical candidates are:
 
 ```text
-Y-DIST-06 approved clean candidate dry-run plan
 Y-CI-03 reusable workflow
 Y-CI-04 concurrency / cancel-in-progress
 Y-GH-01 branch protection design

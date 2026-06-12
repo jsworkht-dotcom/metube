@@ -280,6 +280,21 @@ the exact source commit, exact candidate or output path, exact artifact scope,
 required checks, required manual reviews, stop conditions, and explicitly
 forbidden operations. Any category not named in the approval remains forbidden.
 
+## Approved Clean Candidate Dry-Run Plan Boundary
+
+Y-DIST-06 adds docs-only dry-run planning documentation at
+`docs/llmwiki/approved-clean-candidate-dry-run-plan.md`.
+
+The plan must remain a future execution plan only. It does not approve CLEAN
+folder generation, ZIP / installer / package output, metadata generation,
+checksum generation, real downloads, dependency installation, no Docker pull/build
+operations, backend/frontend runtime changes, public hosting,
+credential-bearing file handling, or PR #1001 file inclusion.
+
+Candidate-directory checker execution remains `not_applicable_yet` until a
+future explicit Y-DIST-05 approval names the exact source commit, candidate
+path, output path, artifact scope, and forbidden operations.
+
 ## Codex Automation Boundary
 
 The Codex automation policy is tracked in
