@@ -2,17 +2,17 @@
 
 ## Purpose
 
-Design a future minimal GitHub Actions safety workflow for this fork.
+Design and track the minimal GitHub Actions safety workflow for this fork.
 
-This is design-only. It does not add `.github/workflows/`, required checks,
-branch protection, CODEOWNERS, dependency installation operations, container
-image operations, generated package output, metadata/checksum generation, or
-runtime download behavior.
+Y-CI-01 was design-only. Y-CI-02 implements the initial workflow file while
+still avoiding required checks, branch protection, CODEOWNERS, dependency
+installation operations, container image operations, generated package output,
+metadata/checksum generation, or runtime download behavior.
 
 ## Candidate Workflow
 
 - Workflow name: `local-fork-safety`
-- Future file: `.github/workflows/local-fork-safety.yml`
+- Implemented file: `.github/workflows/local-fork-safety.yml`
 - Initial permissions:
 
 ```yaml
@@ -25,10 +25,10 @@ should not write comments, mutate branches, upload release artifacts, change
 protection rules, or access credentials beyond the default read-only checkout
 needs.
 
-## Initial Check Candidates
+## Initial Checks
 
-The first implementation candidate should use the repository's existing
-stdlib-friendly safety tools and avoid dependency setup:
+The initial implementation uses the repository's existing stdlib-friendly
+safety tools and avoids dependency setup:
 
 ```text
 python scripts/check_repo_safety.py
@@ -41,9 +41,8 @@ PR #1001 files absence check
 ```
 
 Implementation note: GitHub Actions may not naturally have a `fork/master`
-remote ref after checkout. Y-CI-02 should explicitly fetch or create the needed
-base ref, or use an equivalent base-ref strategy while preserving the same
-review meaning.
+remote ref after checkout. Y-CI-02 creates `refs/remotes/fork/master` with a
+read-only fetch from the workflow repository before running base diff checks.
 
 ## Explicit Non-Goals
 
@@ -159,7 +158,6 @@ automation-assisted merge decision.
 ## Future Phases
 
 ```text
-Y-CI-02 minimal workflow implementation
 Y-CI-03 reusable workflow
 Y-CI-04 concurrency / cancel-in-progress
 Y-GH-01 branch protection design

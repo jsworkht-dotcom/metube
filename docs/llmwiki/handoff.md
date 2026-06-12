@@ -9,10 +9,10 @@ canonical branch is fork `master`, and local `master` tracks `fork/master`.
 
 ## Current Closeout State
 
-- Current Y-CI-01 work branch:
-  `codex/y-ci-01-lightweight-safety-workflow-design`.
-- Current fork `master` after Y-GH-OPS-01:
-  `9a1a262e03da7976850b8dfddacb1576b0572c2c` from fork PR #87.
+- Current Y-CI-02 work branch:
+  `codex/y-ci-02-minimal-local-fork-safety-workflow`.
+- Current fork `master` after Y-CI-01:
+  `14508576e249ee65ff4d2d63060cb6b1d4e8e484` from fork PR #88.
 - Y-SEC-01 is complete via fork PR #82.
 - Y-SEC-01 state:
   - local-only runtime guardrails implemented in backend startup/request
@@ -141,9 +141,11 @@ canonical branch is fork `master`, and local `master` tracks `fork/master`.
     frontend, Docker, package, or lockfile files
 - Current Y-CI-01 state:
   - docs-only lightweight GitHub Actions safety workflow design
+  - completed via fork PR #88
+  - merge commit: `14508576e249ee65ff4d2d63060cb6b1d4e8e484`
   - design doc path:
     `docs/llmwiki/lightweight-safety-workflow-design.md`
-  - future workflow candidate:
+  - workflow candidate:
     `.github/workflows/local-fork-safety.yml`
   - workflow name candidate: `local-fork-safety`
   - initial recommended event: `pull_request` targeting `master` without path
@@ -157,8 +159,23 @@ canonical branch is fork `master`, and local `master` tracks `fork/master`.
     branch protection, CODEOWNERS, backend/frontend/Docker/package/lockfile
     changes, dependency installation operations, Docker operations, generated
     package output, or metadata/checksum generation
+- Current Y-CI-02 state:
+  - minimal GitHub Actions PR safety display workflow implemented in this PR
+  - workflow path:
+    `.github/workflows/local-fork-safety.yml`
+  - runs on `pull_request` targeting `master` without path filters
+  - uses `permissions: contents: read`
+  - creates `fork/master` with a read-only fetch for base diff checks
+  - runs repository safety, clean-package dry-run, JSON parse, safety wording,
+    generated package folder absence, and PR #1001 file absence checks
+  - does not install dependencies, run builds/tests, run Docker operations,
+    create package output, create metadata/checksums, change branch protection,
+    configure required checks, add CODEOWNERS, or touch PR #1001 files
+  - CI success remains a PR safety display only and does not approve package
+    generation or merge
 - Next candidates:
-  - `Y-CI-02 minimal workflow implementation`
+  - `Y-CI-03 reusable workflow`
+  - `Y-CI-04 concurrency / cancel-in-progress`
   - `Y-DIST-03 recipient-safe runbook and first-run local-only verification`
   - `Y-GH-01 branch protection design`
   - `Y-WIKI-CLEAN-01 current-state / handoff / archive整理`
