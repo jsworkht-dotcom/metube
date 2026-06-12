@@ -255,7 +255,8 @@ Later phases:
 ```text
 Y-CI-01 docs-only safety workflow design
 Y-CI-02 minimal safety workflow implementation
-Y-CI-03 reusable workflow化
+Y-CI-03 reusable workflow design
+Y-CI-03B reusable workflow implementation
 Y-CI-04 concurrency導入
 Y-GH-01 branch protection design
 Y-GH-02 CODEOWNERS design
@@ -266,6 +267,11 @@ Y-AUTO-06 does not implement CI, branch protection, or CODEOWNERS.
 Y-CI-01 designs `local-fork-safety` as a lightweight PR visibility layer. It
 does not replace local gates, implement `.github/workflows/`, add required
 checks, mutate branch protection, or add CODEOWNERS.
+
+Y-CI-03 documents reusable workflow structure only. Y-CI-03B is the first
+candidate allowed to change `.github/workflows/`, and should still keep the
+workflow read-only, non-generating, non-deploying, and separate from branch
+protection, required-check, and CODEOWNERS work.
 
 ## Worktree Operation Candidate
 
