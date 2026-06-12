@@ -61,6 +61,11 @@ Y-GH-02 should use this observation before proposing any required-check name.
 Required checks remain deferred. Branch protection and GitHub settings remain
 unmodified.
 
+Y-GH-02 records the follow-up required checks design in
+`docs/llmwiki/required-checks-design.md`. It keeps
+`local fork safety / local fork safety` as the current candidate, but does not
+enable required checks.
+
 ## Observation Record Template
 
 ```text
@@ -153,7 +158,8 @@ Stop Y-CI-05 and report facts if any of these occur:
 If Y-CI-05 succeeds:
 
 ```text
-Y-GH-02 required checks design
+Y-GH-02 required checks design:
+  docs/llmwiki/required-checks-design.md
 ```
 
 Alternative:

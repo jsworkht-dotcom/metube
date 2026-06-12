@@ -394,6 +394,14 @@ settings, required-check risks, staged adoption, approval requirements, and
 rollback plans, but it must not mutate branch protection, create rulesets,
 configure required checks, add CODEOWNERS, or call GitHub settings APIs.
 
+Y-GH-02 is a docs-only required checks design lane documented in
+`docs/llmwiki/required-checks-design.md`. It may record
+`local fork safety / local fork safety` as the current candidate and define
+approval fields, workflow-change PR risks, rollback plans, and stop
+conditions, but it must not mutate branch protection, create rulesets,
+configure required checks, add CODEOWNERS, change `.github/workflows/`, or call
+GitHub settings APIs.
+
 This policy does not weaken human approval gates for destructive actions,
 credentials, production deployment, infrastructure mutation, dependency changes,
 public hosting, releases, or customer-data work.

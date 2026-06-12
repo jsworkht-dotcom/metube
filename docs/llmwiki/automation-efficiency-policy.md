@@ -262,6 +262,7 @@ Y-GH-01 branch protection design
 Y-CI-05 post-workflow-change observation PR
 Y-GH-02 required checks design
 Y-GH-03 branch protection implementation, only after explicit human approval
+Y-GH-04 required checks implementation, only after explicit human approval and accepted rollback path
 ```
 
 Y-AUTO-06 does not implement CI, branch protection, or CODEOWNERS.
@@ -292,6 +293,15 @@ candidates in `docs/llmwiki/branch-protection-design.md`. It does not mutate
 GitHub settings, create rulesets, configure required checks, add CODEOWNERS, or
 change workflow files. Required-check configuration remains deferred until the
 displayed `local-fork-safety` check name is observed and stable.
+
+Y-GH-02 is design-only and records the required checks strategy in
+`docs/llmwiki/required-checks-design.md`. It may record
+`local fork safety / local fork safety` as the current candidate based on PR
+#98 and PR #99 observations, but it does not mutate GitHub settings, create
+rulesets, configure required checks, add CODEOWNERS, or change workflow files.
+Required-check implementation remains deferred until a later explicit
+human-approved lane accepts the exact check name, workflow-change exception
+policy, and rollback path.
 
 ## Worktree Operation Candidate
 

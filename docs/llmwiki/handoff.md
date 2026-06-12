@@ -9,10 +9,10 @@ canonical branch is fork `master`, and local `master` tracks `fork/master`.
 
 ## Current Closeout State
 
-- Current Y-CI-05 work branch:
-  `codex/y-ci-05-post-workflow-observation`.
-- Current fork `master` after Y-GH-01:
-  `1bb28de03e3257cedb097301672a30cdd1052f18` from fork PR #98.
+- Current Y-GH-02 work branch:
+  `codex/y-gh-02-required-checks-design`.
+- Current fork `master` after Y-CI-05:
+  `e77e68c56a369c3ae962cf0abcbe958ce36a2101` from fork PR #99.
 - Y-SEC-01 is complete via fork PR #82.
 - Y-SEC-01 state:
   - local-only runtime guardrails implemented in backend startup/request
@@ -334,28 +334,51 @@ canonical branch is fork `master`, and local `master` tracks `fork/master`.
   - records required-check naming ambiguity after the reusable workflow split
   - recommends no required checks until the exact displayed check name is
     stable
-  - recommends Y-CI-05 post-workflow-change observation or Y-GH-02 required
-    checks design after this lane
+  - Y-CI-05 observation and Y-GH-02 required checks design follow this lane
+    before any implementation
   - must not mutate GitHub settings, create rulesets, configure required
     checks, add CODEOWNERS, change `.github/workflows/`, install dependencies,
     run Docker, run builds/tests, create generated output, handle credentials,
     or touch PR #1001 files
 - Current Y-CI-05 state:
   - docs-only post-workflow-change observation lane
-  - active branch:
-    `codex/y-ci-05-post-workflow-observation`
+  - completed via fork PR #99
+  - fork `master` after merge:
+    `e77e68c56a369c3ae962cf0abcbe958ce36a2101`
   - observation doc:
     `docs/llmwiki/post-workflow-change-observation.md`
   - observes normal docs-only PR behavior after the reusable workflow split and
     caller concurrency change
-  - must record the displayed GitHub check name and result before Y-GH-02
+  - observed displayed GitHub check name:
+    `local fork safety / local fork safety`
+  - observed result: pass
+  - workflow files changed: no
+  - GitHub settings changed: no
   - must not change `.github/workflows/`, mutate GitHub settings, configure
     branch protection/rulesets/required checks/CODEOWNERS, install
     dependencies, run Docker, run builds/tests, create generated output, handle
     credentials, or touch PR #1001 files
+- Current Y-GH-02 state:
+  - docs-only required checks design lane
+  - active branch:
+    `codex/y-gh-02-required-checks-design`
+  - design doc:
+    `docs/llmwiki/required-checks-design.md`
+  - records `local fork safety / local fork safety` as the current candidate
+    required check based on PR #98 and PR #99
+  - recommends not implementing required checks yet because expected
+    human-approved workflow-change PRs may be blocked without an accepted
+    exception and rollback path
+  - must not mutate GitHub settings, create rulesets, configure required
+    checks, add CODEOWNERS, change `.github/workflows/`, install dependencies,
+    run Docker, run builds/tests, create generated output, handle credentials,
+    or touch PR #1001 files
 - Next candidates:
-  - `Y-GH-02 required checks design`
   - `Y-WIKI-CLEAN-01 current-state / handoff / archive整理`
+  - `Y-GH-03 minimal branch protection implementation without required checks,
+    only with explicit human approval`
+  - `Y-GH-04 required checks implementation, only with explicit human approval
+    after rollback path is accepted`
 - Completed:
   - Y-08F generation readiness checklist preview via fork PR #70.
   - Y-08G readiness summary polish / advisory score refinement via fork PR #71.
@@ -1187,11 +1210,14 @@ canonical branch is fork `master`, and local `master` tracks `fork/master`.
 Use `docs/llmwiki/current-state.md`, `docs/llmwiki/roadmap.md`, and this handoff
 as the next-chat source of truth.
 
-Recommended next candidates after Y-CI-05:
+Recommended next candidates after Y-GH-02:
 
 ```text
-Y-GH-02 required checks design
 Y-WIKI-CLEAN-01 current-state / handoff / archive整理
+Y-GH-03 minimal branch protection implementation without required checks,
+  only with explicit human approval
+Y-GH-04 required checks implementation, only with explicit human approval after
+  rollback path is accepted
 ```
 
 Alternative:
