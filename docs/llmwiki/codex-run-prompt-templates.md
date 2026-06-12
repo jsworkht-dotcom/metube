@@ -390,9 +390,20 @@ Required facts:
   approved changed files only
   local verification passed
   PR target is jsworkht-dotcom/metube:master
+  generated package folder absent
+  PR #1001 files absent
 
 Rules:
+  If the GitHub connector cannot mark the PR ready or returns
+  Resource not accessible by integration, use gh fallback only after human
+  approval and stable PR fact checks.
+  Do not read, print, or store token, cookie, secret, or credential values.
+  If sandboxed gh auth cannot access the Windows keyring, use escalated gh only
+  for the minimal PR view, ready, checks, and merge operations required.
+  Confirm the expected head commit before ready.
   Use a head-commit match guard such as --match-head-commit.
+  Reconfirm the expected head commit immediately before merge.
+  Stop if the head commit changed.
   Do not merge if conditions changed.
   Do not merge if changed files exceed approved scope.
   Do not merge if checks fail.

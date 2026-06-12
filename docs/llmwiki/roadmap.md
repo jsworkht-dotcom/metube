@@ -82,8 +82,8 @@
 
 ### Y-DIST-02 checksum / hash / version / license notice bundle verification
 
-- Status: implemented in branch
-  `codex/y-dist-02-metadata-checker`.
+- Status: completed via fork PR #86.
+- Merge commit: `00a90bfa1efd11935aa46b07848d05614d1c744e`.
 - Summary: adds a stdlib-only, report-only metadata checker for an explicitly
   provided CLEAN portable distribution candidate directory.
 - The checker requires candidate-root `VERSION.txt`, `MANIFEST.json`,
@@ -97,20 +97,39 @@
 - This lane does not create metadata, generate checksums, create a CLEAN folder,
   ZIP, installer, package output, or generated files outside the requested
   docs/test/tooling changes.
+- GitHub connector ready-for-review failed with
+  `Resource not accessible by integration`; human-approved `gh` fallback
+  marked the PR ready and squash-merged with an expected head SHA guard.
+- Remote branch `codex/y-dist-02-metadata-checker` was deleted.
 - Risk: High-low / tooling-only / report-only / draft PR preferred /
   human-review-required.
+
+### Y-GH-OPS-01 GitHub connector failure fallback runbook closeout
+
+- Status: completed by this docs-only closeout PR.
+- Summary: records the PR #86 connector ready-for-review failure and the safe
+  human-approved `gh` fallback path for ready / merge operations.
+- Documents `Resource not accessible by integration` as a connector permission
+  failure that can affect ready-for-review / GraphQL mutations.
+- Requires stable PR facts, expected head SHA confirmation, and an expected-head
+  guard for squash merge before `gh` fallback can be used.
+- This lane does not change GitHub branch protection, CODEOWNERS, CI,
+  backend/frontend code, package files, lockfiles, or safety gate behavior.
 
 ### Security next candidates
 
 ```text
+Y-CI-01:
+  lightweight safety workflow design
+
 Y-DIST-03:
   recipient-safe runbook and first-run local-only verification
 
-Y-SEC-04:
-  CSP and frontend security header audit
+Y-GH-01:
+  branch protection design
 
-Y-SEC-05:
-  dependency / ffmpeg / yt-dlp version inventory and update review gate
+Y-WIKI-CLEAN-01:
+  current-state / handoff / archive整理
 ```
 
 ### Y-UI-QUALITY-01 quality selector simple labels with numeric values
