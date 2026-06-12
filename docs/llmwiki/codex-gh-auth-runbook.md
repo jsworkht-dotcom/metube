@@ -34,8 +34,9 @@ This is not fixed by changing project files, retrying the GitHub connector, or
 re-authenticating repeatedly inside the same blocked sandbox path.
 
 The GitHub connector may also fail with `403 Resource not accessible by
-integration` for PR creation in this fork. Treat that as a connector permission
-limit and fall back to an escalated `gh` command after verifying CLI auth.
+integration` for PR creation, ready-for-review transitions, or GraphQL
+mutations in this fork. Treat that as a connector permission limit and fall
+back to an escalated `gh` command after verifying CLI auth and PR state.
 
 ## Safe Diagnosis
 
@@ -81,6 +82,49 @@ When a task needs fork PR creation, checks, merge, or branch cleanup:
    - changed files match the approved scope
    - no failing checks
    - no token/cookie/secret values
+
+## Connector Ready / Merge Fallback
+
+When the GitHub connector cannot mark a human-approved PR ready for review or
+cannot run the relevant GraphQL mutation, the fallback path is allowed only
+after the PR is already reviewed and the PR facts are stable.
+
+Required facts before fallback:
+
+- PR state is `OPEN`.
+- Draft state and the intended ready transition are understood.
+- Base branch is the expected fork branch, normally `master`.
+- Head branch is the expected fork branch.
+- Head SHA matches the human-approved expected head SHA.
+- Changed-file count and changed paths match the approved scope.
+- Merge state is clean / mergeable.
+- Failed checks are none.
+- Generated package folder is absent.
+- PR #1001 files are not present in the diff.
+
+Fallback principles:
+
+- Do not read, print, or store token, cookie, secret, or credential values.
+- If sandboxed `gh auth status` fails because it cannot access the Windows
+  keyring, use escalated `gh` only for the minimal PR operations needed.
+- Reconfirm the expected head SHA immediately before ready or merge.
+- Stop if the head SHA changes.
+- Use an expected-head guard for squash merge, such as `--match-head-commit`.
+- Use non-persistent safe Git recovery only when needed; never disable SSL
+  verification and never persist unsafe Git config.
+
+Confirmed PR #86 result:
+
+- GitHub connector ready-for-review transition failed with
+  `Resource not accessible by integration`.
+- Escalated `gh` fallback marked PR #86 ready for review.
+- Escalated `gh` fallback squash-merged PR #86 with an expected head SHA guard.
+- Merge commit:
+  `00a90bfa1efd11935aa46b07848d05614d1c744e`.
+- Remote branch `codex/y-dist-02-metadata-checker` was deleted.
+- `動画保存ツール_ローカル専用/` remained absent.
+- No dependency installation, Docker operation, metadata/checksum generation,
+  package output, token/secret/cookie handling, or credential storage occurred.
 
 ## Reporting Template
 

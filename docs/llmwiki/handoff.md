@@ -9,10 +9,10 @@ canonical branch is fork `master`, and local `master` tracks `fork/master`.
 
 ## Current Closeout State
 
-- Current Y-DIST-02 work branch:
-  `codex/y-dist-02-metadata-checker`.
-- Baseline before Y-DIST-02: fork `master`
-  `f2e2678e3dc986a34f2e5bb0bd65f56d54b2b415` from fork PR #85.
+- Current Y-GH-OPS-01 work branch:
+  `codex/y-gh-ops-01-gh-fallback-runbook`.
+- Current fork `master` after Y-DIST-02:
+  `00a90bfa1efd11935aa46b07848d05614d1c744e` from fork PR #86.
 - Y-SEC-01 is complete via fork PR #82.
 - Y-SEC-01 state:
   - local-only runtime guardrails implemented in backend startup/request
@@ -100,6 +100,8 @@ canonical branch is fork `master`, and local `master` tracks `fork/master`.
     Docker operation, real download, cookie/token/secret handling, frontend
     change, package/lockfile change, or existing safety gate behavior change
 - Current Y-DIST-02 state:
+  - completed via fork PR #86
+  - merge commit: `00a90bfa1efd11935aa46b07848d05614d1c744e`
   - report-only CLEAN portable distribution metadata checker added at
     `scripts/check_distribution_metadata.py`
   - metadata verification contract added at
@@ -117,10 +119,29 @@ canonical branch is fork `master`, and local `master` tracks `fork/master`.
     package output, dependency install/update, Docker operation, real download,
     cookie/token/secret handling, frontend change, package/lockfile change, or
     existing safety gate behavior change
+  - GitHub connector ready-for-review transition failed with
+    `Resource not accessible by integration`
+  - human-approved escalated `gh` fallback marked the PR ready and
+    squash-merged with an expected head SHA guard
+  - remote branch `codex/y-dist-02-metadata-checker` was deleted
+- Current Y-GH-OPS-01 state:
+  - docs-only runbook / prompt-template / LLMwiki sync for GitHub connector
+    failure fallback
+  - records that connector ready-for-review / GraphQL mutations may fail with
+    `Resource not accessible by integration`
+  - documents that `gh` fallback is allowed only after human approval, stable
+    PR facts, expected head SHA confirmation, clean merge state, approved file
+    scope, no failed checks, generated package folder absence, and no PR #1001
+    file leakage
+  - requires an expected-head guard for squash merge and stopping if head SHA
+    changes
+  - does not change branch protection, CODEOWNERS, CI, safety gates, backend,
+    frontend, Docker, package, or lockfile files
 - Next candidates:
+  - `Y-CI-01 lightweight safety workflow design`
   - `Y-DIST-03 recipient-safe runbook and first-run local-only verification`
-  - `Y-SEC-04 CSP and frontend security header audit`
-  - `Y-SEC-05 dependency / ffmpeg / yt-dlp version inventory and update review gate`
+  - `Y-GH-01 branch protection design`
+  - `Y-WIKI-CLEAN-01 current-state / handoff / archive整理`
 - Completed:
   - Y-08F generation readiness checklist preview via fork PR #70.
   - Y-08G readiness summary polish / advisory score refinement via fork PR #71.
@@ -937,12 +958,15 @@ canonical branch is fork `master`, and local `master` tracks `fork/master`.
 - Latest work: Y-LOCAL-01 local helper exclude, Y-AUTO-06 docs-only automation
   efficiency policy, and Y-AUTO-07 codex auto lanes docs.
 - Next recommended automation candidate: Y-AUTO-08 safety gate aggregator design.
-- GitHub CLI auth note: in this Windows Codex desktop environment, sandboxed
-  `gh auth status` may report an invalid `default` token while escalated
-  `gh auth status` succeeds through `keyring`. Root cause is sandbox access to
-  the Windows keyring, not project state. For PR create/view/checks/merge work,
-  verify escalated `gh auth status` and then use narrowly scoped escalated `gh`
-  commands. Do not read, paste, or store token values.
+- GitHub CLI / connector fallback note: in this Windows Codex desktop
+  environment, sandboxed `gh auth status` may report an invalid `default`
+  token while escalated `gh auth status` succeeds through `keyring`. The
+  GitHub connector may also fail ready-for-review / GraphQL mutations with
+  `Resource not accessible by integration`. For human-approved PR ready/merge
+  work, verify stable PR facts, confirm the expected head SHA, use narrowly
+  scoped escalated `gh` commands only when needed, use an expected-head merge
+  guard, and stop if the head SHA changes. Do not read, paste, or store token
+  values.
 
 ## Next Step
 
@@ -952,15 +976,16 @@ as the next-chat source of truth.
 Recommended next candidates:
 
 ```text
+Y-CI-01 lightweight safety workflow design
 Y-DIST-03 recipient-safe runbook and first-run local-only verification
-Y-SEC-04 CSP and frontend security header audit
-Y-SEC-05 dependency / ffmpeg / yt-dlp version inventory and update review gate
+Y-GH-01 branch protection design
+Y-WIKI-CLEAN-01 current-state / handoff / archive整理
 ```
 
 Alternative:
 
 ```text
-pause for human review of Y-DIST-02
+pause for review of the GitHub fallback runbook closeout
 ```
 
 Use the `Risk classification` section from `scripts/check_repo_safety.py`

@@ -77,3 +77,29 @@
   steps, and rollback/doc references.
 - Not included: update execution, backup creation, rollback creation, Docker
   pull, git pull / merge / rebase, restart, or pip install / package update.
+
+## Fork PR #86
+
+- Target repository: `jsworkht-dotcom/metube`
+- Purpose: add a report-only CLEAN portable distribution metadata checker.
+- Status: merged
+- PR URL: `https://github.com/jsworkht-dotcom/metube/pull/86`
+- Merge commit: `00a90bfa1efd11935aa46b07848d05614d1c744e`
+- Changed files:
+  - `scripts/check_distribution_metadata.py`
+  - `app/tests/test_distribution_metadata_checker_unittest.py`
+  - `docs/llmwiki/distribution-metadata-verification.md`
+  - `docs/llmwiki/clean-portable-distribution-manifest.md`
+  - `docs/llmwiki/current-state.md`
+  - `docs/llmwiki/handoff.md`
+  - `docs/llmwiki/roadmap.md`
+  - `docs/llmwiki/safety-boundaries.md`
+- GitHub operations note:
+  - connector ready-for-review failed with
+    `Resource not accessible by integration`;
+  - human-approved escalated `gh` fallback marked the PR ready;
+  - squash merge used an expected head SHA guard;
+  - remote branch `codex/y-dist-02-metadata-checker` was deleted.
+- Not included: metadata generation, checksum generation, CLEAN folder, ZIP,
+  installer, package output, dependency installation operations, Docker
+  operations, real download, or token/secret/cookie value handling.

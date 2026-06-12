@@ -19,8 +19,8 @@
 - Do not open PRs against upstream `alexta69/metube` unless explicitly requested for a
   separate upstream contribution.
 - Do not mix upstream PR #1001 files into fork-only work.
-- Latest Y-DIST-01 merge baseline: fork `master`
-  `f2e2678e3dc986a34f2e5bb0bd65f56d54b2b415` from fork PR #85.
+- Latest Y-DIST-02 merge baseline: fork `master`
+  `00a90bfa1efd11935aa46b07848d05614d1c744e` from fork PR #86.
 
 ## Current Runtime Security State
 
@@ -131,7 +131,8 @@
 
 ### Y-DIST-02 checksum / hash / version / license notice bundle verification
 
-- Implemented in branch `codex/y-dist-02-metadata-checker`.
+- Completed via fork PR #86.
+- Merge commit: `00a90bfa1efd11935aa46b07848d05614d1c744e`.
 - Adds `scripts/check_distribution_metadata.py` as a stdlib-only, report-only
   metadata checker for an explicitly provided CLEAN portable distribution
   candidate directory.
@@ -155,6 +156,31 @@
   package output, dependency install/update, Docker operation, real download,
   cookie/token/secret handling, frontend change, package/lockfile change, or
   existing safety gate behavior change is part of this lane.
+- GitHub connector ready-for-review transition failed with
+  `Resource not accessible by integration`; human-approved `gh` fallback
+  succeeded and squash-merged with an expected head SHA guard.
+- Remote branch `codex/y-dist-02-metadata-checker` was deleted after merge.
+
+### Y-GH-OPS-01 GitHub connector fallback runbook closeout
+
+- Scope: docs-only GitHub operations runbook / prompt-template / LLMwiki sync.
+- Status: completed by this closeout PR.
+- Purpose:
+  - record that GitHub connector ready-for-review / GraphQL mutations can fail
+    with `Resource not accessible by integration`;
+  - document when human-approved `gh` fallback is acceptable;
+  - require expected head SHA checks before ready / merge and an expected-head
+    guard for squash merge;
+  - record PR #86 as the confirmed operational example.
+- Not included:
+  - GitHub token, secret, cookie, or credential handling;
+  - branch protection changes;
+  - CODEOWNERS changes;
+  - backend/frontend/Docker/CI/package/lockfile changes;
+  - dependency installation operations;
+  - Docker operations;
+  - metadata/checksum/package generation;
+  - PR #1001 file changes.
 
 ## Completed Work
 
@@ -2063,12 +2089,15 @@
 
 ## Current Next Step
 
-Y-DIST-02 is implemented in branch `codex/y-dist-02-metadata-checker` as a
-report-only CLEAN portable distribution metadata, checksum, version, and
-license/notice checker. It does not generate metadata, generate checksums,
-create package output, or approve package creation. Human review is required
-before ready or merge. Next practical candidates are Y-DIST-03, Y-SEC-04, and
-Y-SEC-05.
+Y-DIST-02 is complete via fork PR #86 with merge commit
+`00a90bfa1efd11935aa46b07848d05614d1c744e`. It added a report-only CLEAN
+portable distribution metadata, checksum, version, and license/notice checker.
+It does not generate metadata, generate checksums, create package output, or
+approve package creation. GitHub connector ready-for-review failed with
+`Resource not accessible by integration`; human-approved `gh` fallback marked
+the PR ready and squash-merged it with an expected head SHA guard. The remote
+branch `codex/y-dist-02-metadata-checker` was deleted. No token/secret/cookie
+values were read, printed, or stored.
 
 Y-08Z closes the Y-08 preview hardening lane as docs-only closeout.
 Y-UI-QUALITY-01 is complete via fork PR #73 with merge commit
@@ -2147,9 +2176,10 @@ remain absent.
 The next practical candidates are:
 
 ```text
+Y-CI-01 lightweight safety workflow design
 Y-DIST-03 recipient-safe runbook and first-run local-only verification
-Y-SEC-04 CSP and frontend security header audit
-Y-SEC-05 dependency / ffmpeg / yt-dlp version inventory and update review gate
+Y-GH-01 branch protection design
+Y-WIKI-CLEAN-01 current-state / handoff / archive整理
 ```
 
 Pause can be chosen instead. Future `ui/**` work remains human-reviewed unless
