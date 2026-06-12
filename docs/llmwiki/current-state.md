@@ -186,10 +186,11 @@
 ### Y-CI-01 lightweight safety workflow design
 
 - Scope: docs-only GitHub Actions safety workflow design.
-- Status: designed in this docs-only PR.
+- Status: completed via fork PR #88.
+- Merge commit: `14508576e249ee65ff4d2d63060cb6b1d4e8e484`.
 - Design doc:
   `docs/llmwiki/lightweight-safety-workflow-design.md`.
-- Future workflow candidate:
+- Workflow candidate:
   `.github/workflows/local-fork-safety.yml`.
 - Candidate workflow name: `local-fork-safety`.
 - Initial design:
@@ -212,6 +213,34 @@
   - Docker operations;
   - generated package output;
   - metadata/checksum generation.
+
+### Y-CI-02 minimal workflow implementation
+
+- Scope: minimal GitHub Actions PR safety display workflow.
+- Status: implemented in this PR; pending review and merge.
+- Workflow:
+  `.github/workflows/local-fork-safety.yml`.
+- Behavior:
+  - runs on `pull_request` targeting `master` without path filters;
+  - uses `permissions: contents: read`;
+  - uses `actions/checkout@v6` with full history for base comparison;
+  - creates `fork/master` as a remote-tracking base ref with read-only fetch;
+  - runs existing stdlib-friendly repository safety and clean-package dry-run
+    checks;
+  - parses the clean-package dry-run JSON output;
+  - runs the safety wording checker with warning-only output left visible in
+    logs;
+  - explicitly fails if `動画保存ツール_ローカル専用/` exists;
+  - explicitly fails if PR #1001 files appear in the PR diff.
+- Not included:
+  - dependency installation operations;
+  - container image operations;
+  - frontend build/test or backend pytest;
+  - package, ZIP, installer, CLEAN folder, metadata, or checksum generation;
+  - branch protection, required-check configuration, or CODEOWNERS changes;
+  - backend/frontend/Docker/package/lockfile changes;
+  - cookie/token/secret handling;
+  - PR #1001 file changes.
 
 ## Completed Work
 
@@ -2207,7 +2236,8 @@ remain absent.
 The next practical candidates are:
 
 ```text
-Y-CI-02 minimal workflow implementation
+Y-CI-03 reusable workflow
+Y-CI-04 concurrency / cancel-in-progress
 Y-DIST-03 recipient-safe runbook and first-run local-only verification
 Y-GH-01 branch protection design
 Y-WIKI-CLEAN-01 current-state / handoff / archive整理

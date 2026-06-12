@@ -119,7 +119,8 @@
 
 ### Y-CI-01 lightweight safety workflow design
 
-- Status: designed in this docs-only PR.
+- Status: completed via fork PR #88.
+- Merge commit: `14508576e249ee65ff4d2d63060cb6b1d4e8e484`.
 - Design doc:
   `docs/llmwiki/lightweight-safety-workflow-design.md`.
 - Summary: defines a future minimal GitHub Actions workflow named
@@ -136,11 +137,31 @@
   protection, CODEOWNERS, dependency installation operations, Docker
   operations, generated package output, or metadata/checksum generation.
 
+### Y-CI-02 minimal workflow implementation
+
+- Status: implemented in this PR; pending review and merge.
+- Workflow:
+  `.github/workflows/local-fork-safety.yml`
+- Summary: adds the minimal `local-fork-safety` pull request workflow for fork
+  `master`.
+- The workflow has no path filter and no concurrency setting in this phase.
+- The workflow uses `permissions: contents: read`, `actions/checkout@v6`, and a
+  read-only fetch to create `fork/master` for base diff checks.
+- Checks include repository safety, base-aware repository safety, clean-package
+  dry-run report regression, clean-package dry-run JSON parse validation,
+  safety wording, generated package folder absence, and PR #1001 file absence.
+- This workflow is only a PR safety display layer. Success does not approve
+  package generation, ZIP/installer output, CLEAN folder creation,
+  metadata/checksum generation, branch protection, required checks, or merge.
+
 ### Security next candidates
 
 ```text
-Y-CI-02:
-  minimal workflow implementation
+Y-CI-03:
+  reusable workflow
+
+Y-CI-04:
+  concurrency / cancel-in-progress
 
 Y-DIST-03:
   recipient-safe runbook and first-run local-only verification

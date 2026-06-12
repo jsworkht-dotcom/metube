@@ -1,0 +1,78 @@
+name: local-fork-safety
+
+on:
+  pull_request:
+    branches:
+      - master
+
+permissions:
+  contents: read
+
+jobs:
+  safety:
+    name: local fork safety
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Create fork master base ref
+        run: |
+          set -euo pipefail
+          git fetch --no-tags origin "+refs/heads/master:refs/remotes/fork/master"
+          git rev-parse --verify fork/master
+
+      - name: Print safety boundary
+        run: |
+          echo "local-fork-safety is a PR safety display layer."
+          echo "Success does not approve package, ZIP, installer, metadata, checksum, or CLEAN folder generation."
+
+      - name: Run repository safety check
+        run: python scripts/check_repo_safety.py
+
+      - name: Run repository safety check against fork master
+        run: python scripts/check_repo_safety.py --base fork/master
+
+      - name: Run clean package dry-run report regression check
+        run: python scripts/check_clean_package_dry_run_reports.py
+
+      - name: Run clean package dry-run JSON check
+        run: |
+          set -euo pipefail
+          json_output="$(python scripts/clean_package_dry_run.py --format json)"
+          python -c 'import json, sys; json.loads(sys.stdin.read())' <<< "$json_output"
+          printf '%s\n' "$json_output"
+
+      - name: Run safety wording check
+        run: python scripts/check_safety_wording.py --base fork/master
+
+      - name: Confirm generated package folder is absent
+        run: |
+          set -euo pipefail
+          if [ -e "動画保存ツール_ローカル専用" ]; then
+            echo "::error::Generated package folder exists: 動画保存ツール_ローカル専用/"
+            exit 1
+          fi
+
+      - name: Confirm PR 1001 files are absent from diff
+        run: |
+          set -euo pipefail
+          changed_files="$(git diff --name-only fork/master...HEAD)"
+          printf 'Changed files against fork/master:\n%s\n' "$changed_files"
+
+          blocked=0
+          while IFS= read -r path; do
+            case "$path" in
+              docker-compose.local.yml|docs/local-only.md)
+                echo "::error file=${path}::PR #1001 file must not be included in this PR diff."
+                blocked=1
+                ;;
+            esac
+          done <<< "$changed_files"
+
+          if [ "$blocked" -ne 0 ]; then
+            exit 1
+          fi
