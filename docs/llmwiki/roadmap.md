@@ -106,7 +106,8 @@
 
 ### Y-GH-OPS-01 GitHub connector failure fallback runbook closeout
 
-- Status: completed by this docs-only closeout PR.
+- Status: completed via fork PR #87.
+- Merge commit: `9a1a262e03da7976850b8dfddacb1576b0572c2c`.
 - Summary: records the PR #86 connector ready-for-review failure and the safe
   human-approved `gh` fallback path for ready / merge operations.
 - Documents `Resource not accessible by integration` as a connector permission
@@ -116,11 +117,30 @@
 - This lane does not change GitHub branch protection, CODEOWNERS, CI,
   backend/frontend code, package files, lockfiles, or safety gate behavior.
 
+### Y-CI-01 lightweight safety workflow design
+
+- Status: designed in this docs-only PR.
+- Design doc:
+  `docs/llmwiki/lightweight-safety-workflow-design.md`.
+- Summary: defines a future minimal GitHub Actions workflow named
+  `local-fork-safety` at `.github/workflows/local-fork-safety.yml`.
+- Initial recommended event is `pull_request` targeting `master` without path
+  filters, so the first safety signal does not miss PR #1001 files, generated
+  package folder checks, or unexpected path changes.
+- Initial permissions should be read-only: `contents: read`.
+- Initial checks should call existing stdlib-friendly safety scripts and
+  explicit generated-package / PR #1001 absence checks.
+- Warning-only findings should log without failing CI; blockers should fail CI.
+- Concurrency is deferred to Y-CI-04 unless real PR noise requires it earlier.
+- This lane does not add `.github/workflows/`, required checks, branch
+  protection, CODEOWNERS, dependency installation operations, Docker
+  operations, generated package output, or metadata/checksum generation.
+
 ### Security next candidates
 
 ```text
-Y-CI-01:
-  lightweight safety workflow design
+Y-CI-02:
+  minimal workflow implementation
 
 Y-DIST-03:
   recipient-safe runbook and first-run local-only verification

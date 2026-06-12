@@ -9,10 +9,10 @@ canonical branch is fork `master`, and local `master` tracks `fork/master`.
 
 ## Current Closeout State
 
-- Current Y-GH-OPS-01 work branch:
-  `codex/y-gh-ops-01-gh-fallback-runbook`.
-- Current fork `master` after Y-DIST-02:
-  `00a90bfa1efd11935aa46b07848d05614d1c744e` from fork PR #86.
+- Current Y-CI-01 work branch:
+  `codex/y-ci-01-lightweight-safety-workflow-design`.
+- Current fork `master` after Y-GH-OPS-01:
+  `9a1a262e03da7976850b8dfddacb1576b0572c2c` from fork PR #87.
 - Y-SEC-01 is complete via fork PR #82.
 - Y-SEC-01 state:
   - local-only runtime guardrails implemented in backend startup/request
@@ -125,6 +125,8 @@ canonical branch is fork `master`, and local `master` tracks `fork/master`.
     squash-merged with an expected head SHA guard
   - remote branch `codex/y-dist-02-metadata-checker` was deleted
 - Current Y-GH-OPS-01 state:
+  - completed via fork PR #87
+  - merge commit: `9a1a262e03da7976850b8dfddacb1576b0572c2c`
   - docs-only runbook / prompt-template / LLMwiki sync for GitHub connector
     failure fallback
   - records that connector ready-for-review / GraphQL mutations may fail with
@@ -137,8 +139,26 @@ canonical branch is fork `master`, and local `master` tracks `fork/master`.
     changes
   - does not change branch protection, CODEOWNERS, CI, safety gates, backend,
     frontend, Docker, package, or lockfile files
+- Current Y-CI-01 state:
+  - docs-only lightweight GitHub Actions safety workflow design
+  - design doc path:
+    `docs/llmwiki/lightweight-safety-workflow-design.md`
+  - future workflow candidate:
+    `.github/workflows/local-fork-safety.yml`
+  - workflow name candidate: `local-fork-safety`
+  - initial recommended event: `pull_request` targeting `master` without path
+    filters
+  - initial permission candidate: `contents: read`
+  - initial check candidates: existing repo safety, clean-package report
+    regression, clean-package dry-run JSON, safety wording, generated package
+    folder absence, and PR #1001 file absence
+  - concurrency is deferred to Y-CI-04 unless real PR noise appears first
+  - this design does not implement `.github/workflows/`, required checks,
+    branch protection, CODEOWNERS, backend/frontend/Docker/package/lockfile
+    changes, dependency installation operations, Docker operations, generated
+    package output, or metadata/checksum generation
 - Next candidates:
-  - `Y-CI-01 lightweight safety workflow design`
+  - `Y-CI-02 minimal workflow implementation`
   - `Y-DIST-03 recipient-safe runbook and first-run local-only verification`
   - `Y-GH-01 branch protection design`
   - `Y-WIKI-CLEAN-01 current-state / handoff / archive整理`
@@ -976,7 +996,7 @@ as the next-chat source of truth.
 Recommended next candidates:
 
 ```text
-Y-CI-01 lightweight safety workflow design
+Y-CI-02 minimal workflow implementation
 Y-DIST-03 recipient-safe runbook and first-run local-only verification
 Y-GH-01 branch protection design
 Y-WIKI-CLEAN-01 current-state / handoff / archive整理
