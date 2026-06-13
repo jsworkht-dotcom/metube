@@ -373,6 +373,30 @@ Examples:
 - checker-only hardening;
 - same-purpose docs/report/checker sync that stays inside the approved lane.
 
+## Fast Safe Flow Default
+
+For allowed low-risk auto PR / auto merge work, use the fast safe flow template
+from `docs/llmwiki/codex-run-prompt-templates.md` by default. The default flow
+starts from latest `fork/master`, creates a draft PR, waits for
+`local fork safety / local fork safety`, marks ready only after head SHA /
+changed files / checks match, re-checks after ready, and squash-merges only
+with `--match-head-commit <EXPECTED_HEAD_SHA>`.
+
+Allowed default lanes:
+
+- docs-only;
+- report-only stdout-only;
+- checker-only read-only;
+- same-purpose docs/report/checker sync;
+- qualifying High-low lanes with no generation, build, runtime, dependency,
+  CI, GitHub settings, branch protection, required-check, CODEOWNERS, or
+  credential-handling scope.
+
+Stop if the changed files exceed approved scope, local-fork-safety fails
+unexpectedly, forbidden paths appear, generation appears, dependency / Docker /
+build / runtime work becomes necessary, or any credential / GitHub settings /
+workflow mutation becomes necessary.
+
 ## Human Review Required Scope
 
 Human review is required for:

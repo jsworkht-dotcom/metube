@@ -82,7 +82,7 @@
 
 ### Recent completed lane compression
 
-- PR #86-#102 are complete.
+- PR #86-#103 are complete.
 - Y-DIST completion is compressed as:
   Y-DIST-02 metadata checking, Y-DIST-03 recipient/first-run docs,
   Y-DIST-04 readiness matrix, Y-DIST-05 approval checklist, and Y-DIST-06
@@ -95,8 +95,8 @@
   `local fork safety / local fork safety`.
 - Y-GH completion is compressed as:
   GitHub connector fallback runbook, branch-protection/ruleset design, and
-  required-checks design via PR #100. No GitHub settings mutation has been
-  performed.
+  required-checks design via PR #100, followed by PR #103 ready/check/merge
+  fallback standardization. No GitHub settings mutation has been performed.
 
 ### Y-DIST-02 checksum / hash / version / license notice bundle verification
 
@@ -135,6 +135,10 @@
 - Follow-up standardization limits fallback to current-lane approved `pr view`,
   `pr checks`, `pr ready`, guarded `pr merge`, and after-merge branch cleanup;
   it also records token-safe command patterns and stop conditions.
+- Follow-up standardization completed via fork PR #103 with merge commit
+  `926c7e5fa02bfe433f842b164b30d405d446b53f`.
+- Current fast-flow baseline is available for normal low-risk
+  docs/report/checker work.
 - This lane does not change GitHub branch protection, CODEOWNERS, CI,
   backend/frontend code, package files, lockfiles, or safety gate behavior.
 
