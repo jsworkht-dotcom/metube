@@ -2996,6 +2996,13 @@ Y-FE-COPY-02 is complete via fork PR #114 with merge commit
 `540b7e57aac845dcb84ef3e1dda5d88055555978`.
 
 Y-FE-COPY-03 closes out the first frontend copy-only implementation docs-only.
+PR #115 completed Y-FE-COPY-03 with merge commit
+`cf0b750577c53063b13a388c515acb87d8a993a4`.
+
+Y-FE-REVIEW-01 refreshes the manual UI review checklist docs-only. It updates
+the review targets, beginner clarity / safety / layout questions, screenshot
+and manual evidence template, and the next decision point before any second
+frontend copy pass or behavior-level UI work.
 
 Artifact generation remains HOLD.
 
@@ -3073,11 +3080,11 @@ The previous package-material lane is complete through Y-08Z closeout. Actual
 clean-package generation remains blocked. The generated package folder must
 remain absent.
 
-The next practical candidates after Y-FE-COPY-03 are:
+The next practical candidates after Y-FE-REVIEW-01 are:
 
 ```text
-Y-FE-REVIEW-01 manual UI review checklist refresh docs-only
-Y-FE-COPY-04 second frontend copy-only pass packet docs-only
+perform manual UI review using the refreshed checklist
+Y-FE-COPY-04 second frontend copy-only pass packet docs-only, only if findings exist
 continue docs-only UX planning if more review is needed
 another docs/report/checker lane using fast safe flow
 ```

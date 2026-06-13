@@ -1288,11 +1288,11 @@ canonical branch is fork `master`, and local `master` tracks `fork/master`.
 Use `docs/llmwiki/current-state.md`, `docs/llmwiki/roadmap.md`, and this handoff
 as the next-chat source of truth.
 
-Recommended next candidates after Y-FE-COPY-03:
+Recommended next candidates after Y-FE-REVIEW-01:
 
 ```text
-Y-FE-REVIEW-01 manual UI review checklist refresh docs-only
-Y-FE-COPY-04 second frontend copy-only pass packet docs-only
+perform manual UI review using the refreshed checklist
+Y-FE-COPY-04 second frontend copy-only pass packet docs-only, only if findings exist
 continue docs-only UX planning if more review is needed
 another docs/report/checker lane using fast safe flow
 ```
@@ -1679,6 +1679,29 @@ Outcome:
 Next recommended lane after Y-FE-COPY-03:
 
 - `Y-FE-REVIEW-01 manual UI review checklist refresh` docs-only.
+
+## Y-FE-REVIEW-01 Handoff Update
+
+Latest work: Y-FE-REVIEW-01 manual UI review checklist refresh docs-only.
+
+Outcome:
+
+- Refreshes the manual UI review checklist after PR #114 / Y-FE-COPY-02 and
+  PR #115 / Y-FE-COPY-03.
+- Records the completed copy baseline: softened quality/audio helper text,
+  scoped `おまかせ` auto display, Japanese subtitle labels, localized
+  result-table auto codec display, no selector id/value changes, and no
+  behavior changes.
+- Adds manual review targets, beginner clarity / safety / layout questions,
+  and a manual evidence template.
+- Confirms artifact generation remains HOLD.
+- Keeps Y-FE-REVIEW-01 docs-only and does not touch `ui/**`, backend runtime,
+  workflow, package, dependency, lockfile, or generated-output files.
+
+Next recommended step after Y-FE-REVIEW-01:
+
+- Perform manual UI review outside this PR, then choose
+  `Y-FE-COPY-04 second frontend copy-only pass packet` only if findings exist.
 
 ## Y-AUTO-08 Handoff Update
 

@@ -1259,7 +1259,7 @@ Reason:
 
 ## Next UX Candidates
 
-- `Y-FE-REVIEW-01 manual UI review checklist refresh` docs-only
+- perform manual UI review using the refreshed Y-FE-REVIEW-01 checklist
 - `Y-FE-COPY-04 second frontend copy-only pass packet` docs-only if more
   visible UI text remains to polish
 - continue docs-only UX planning if more review is needed
@@ -1271,9 +1271,10 @@ lane name while keeping the candidate intent.
 
 ## Recommended First Next Lane
 
-Recommended next lane after Y-FE-COPY-03:
+Recommended next step after Y-FE-REVIEW-01:
 
-- `Y-FE-REVIEW-01 manual UI review checklist refresh` docs-only.
+- run manual UI review outside this PR, then choose
+  `Y-FE-COPY-04 second frontend copy-only pass packet` only if findings exist.
 
 Repo-history note: because historical `Y-UI-QUALITY-01` is already complete in
 this fork, prefer a fresh quality selector / label review follow-up lane name
@@ -1332,8 +1333,9 @@ Y-UX-PLAN-01. PR #107 completed Y-UX-COPY-01. PR #108 completed
 Y-UI-QUALITY-01. PR #109 completed Y-UX-HELP-01. PR #110 completed
 Y-UX-STATE-01. PR #111 completed Y-UX-STOP-01. PR #112 completed
 Y-UX-CLOSEOUT-01. PR #113 completed Y-FE-COPY-01. PR #114 completed
-Y-FE-COPY-02. Y-FE-COPY-03 closes out the first frontend copy-only
-implementation step:
+Y-FE-COPY-02. PR #115 completed Y-FE-COPY-03 and closed out the first
+frontend copy-only implementation step. Y-FE-REVIEW-01 refreshes the manual UI
+review checklist:
 
 - artifact generation remains blocked;
 - fast safe flow is the default for low-risk docs/report/checker lanes;
@@ -1341,7 +1343,7 @@ implementation step:
 - this lane keeps selector ids/values, API payloads, and runtime behavior
   unchanged;
 - artifact generation remains HOLD;
-- the recommended next lane is Y-FE-REVIEW-01 manual UI review checklist
-  refresh docs-only;
+- the recommended next step is manual UI review, then decide whether
+  Y-FE-COPY-04 is needed;
 - further UI work remains explicitly scoped to approved `ui/**` files unless
   later safety-gate policy explicitly changes.
