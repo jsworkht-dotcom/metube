@@ -8,6 +8,30 @@ UI after the quality selector and completed/result table label improvements.
 This is a docs-only review result. It does not change UI behavior, backend
 behavior, download behavior, packaging behavior, or local-only policy.
 
+## Y-FE-REVIEW-01 Manual Evidence Planning
+
+Y-FE-REVIEW-01 does not capture new screenshots. It refreshes the manual review
+and screenshot evidence expectations after PR #114 changed visible frontend copy
+and PR #115 closed out that implementation lane.
+
+Before any second frontend copy pass, capture or record manual evidence for:
+
+- URL input area
+- Save / subscription buttons
+- Advanced settings panel
+- Quality / format / codec controls
+- Captions controls
+- Queue / saving area
+- Completed / failed result table
+- Help / troubleshooting entry labels
+- Stop / quit related wording
+
+Evidence should include reviewer, date, browser / OS, viewport, commit,
+reviewed screens, findings, blockers, and the follow-up candidate. If the
+review finds more wording adjustments, prepare
+`Y-FE-COPY-04 second frontend copy-only pass packet` docs-only before any
+implementation PR.
+
 ## Review Status
 
 ```text

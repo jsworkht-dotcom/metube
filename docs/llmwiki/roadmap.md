@@ -603,6 +603,9 @@
 - Status: docs-only closeout / roadmap / handoff sync.
 - Summary: closes out the first frontend copy-only implementation lane after
   PR #114.
+- Completed via fork PR #115.
+- Merge commit / final `fork/master`:
+  `cf0b750577c53063b13a388c515acb87d8a993a4`.
 - Preserved boundaries:
   no selector id/value changes, API payload changes, mapping changes, event
   handler changes, state management changes, backend changes, workflow changes,
@@ -611,6 +614,25 @@
 - Artifact generation remains HOLD.
 - Next recommended lane after Y-FE-COPY-03:
   `Y-FE-REVIEW-01 manual UI review checklist refresh` docs-only.
+- Risk: Low / docs-only / fast safe flow.
+
+### Y-FE-REVIEW-01 manual UI review checklist refresh
+
+- Status: docs-only checklist refresh / screenshot evidence planning.
+- Summary: refreshes manual UI review targets after the first frontend
+  copy-only implementation.
+- Review baseline:
+  quality/audio helper text softened, scoped Auto / 自動 display changed to
+  `おまかせ`, subtitle mode labels changed to Japanese, result-table auto codec
+  display localized, no selector id/value changes, and no behavior changes.
+- Updated review targets:
+  URL input area, save/subscription buttons, advanced settings, quality /
+  format / codec controls, captions controls, queue/saving area, completed /
+  failed result table, help/troubleshooting entry labels, and stop/quit wording.
+- Artifact generation remains HOLD.
+- Next recommended step:
+  run manual UI review outside this PR, then choose
+  `Y-FE-COPY-04 second frontend copy-only pass packet` only if findings exist.
 - Risk: Low / docs-only / fast safe flow.
 
 ### Y-CI-03 reusable local safety workflow design
@@ -769,6 +791,9 @@ Y-FE-COPY-02:
 
 Y-FE-REVIEW-01:
   manual UI review checklist refresh docs-only
+
+Y-FE-COPY-04:
+  second frontend copy-only pass packet docs-only, only if manual review finds issues
 
 Docs/report/checker lane:
   another low-risk lane using fast safe flow

@@ -3,18 +3,33 @@
 ## Purpose
 
 This checklist prepares a manual UI review for the local-only MeTube UI after
-the quality selector and completed/result table label improvements.
+the first frontend copy-only implementation.
 
 The review focus is the add/download form, video and audio quality selectors,
-quality helper popovers, and completed/result table quality display. This is a
-review-preparation document only; it does not change UI behavior, backend
-behavior, download behavior, or local-only policy.
+quality helper popovers, captions controls, queue/result areas, help entry
+labels, and stop/quit-related wording. This is a review-preparation document
+only; it does not change UI behavior, backend behavior, download behavior, or
+local-only policy.
 
 ## Review Status
 
 ```text
-status: rerun-screenshot-reviewed-no-blocking-issues
+status: y-fe-review-01-checklist-refreshed-awaiting-manual-review
 ```
+
+Y-FE-REVIEW-01 refreshes this checklist after PR #114 / Y-FE-COPY-02 and PR
+#115 / Y-FE-COPY-03. It does not perform the manual review; it defines what a
+reviewer should inspect before any second frontend copy pass or behavior-level
+UI work.
+
+Y-FE-COPY-02 completed the current visible copy baseline:
+
+- quality / audio helper text softened;
+- scoped Auto / 自動 display changed to おまかせ;
+- subtitle mode labels changed to Japanese;
+- result-table auto codec display localized;
+- no selector id/value changes;
+- no behavior changes.
 
 Y-UI-REVIEW-02 attempted review and captured temporary static screenshots for
 the initial add form, the video quality helper popover, and a narrow-width
@@ -28,6 +43,89 @@ popovers, audio mode, completed/result rows for video/audio/captions/thumbnail,
 and a narrow-width loaded layout. Native OS select dropdown panels were not
 visible in screenshots after selector clicks, so those open-state screenshots
 remain unchecked; selector labels were verified through browser DOM evidence.
+
+## Y-FE-REVIEW-01 Manual Review Targets
+
+- URL input area
+- Save / subscription buttons
+- Advanced settings panel
+- Quality / format / codec controls
+- Captions controls
+- Queue / saving area
+- Completed / failed result table
+- Help / troubleshooting entry labels
+- Stop / quit related wording
+
+## Y-FE-REVIEW-01 Review Questions
+
+Beginner clarity:
+
+- Does the main save flow still read naturally?
+- Is `おまかせ` understandable in each context?
+- Are quality/audio labels short and clear?
+- Are captions labels understandable without technical knowledge?
+- Is completed/failed status wording clear?
+- Is the next safe action visible or inferable?
+
+Safety:
+
+- Does any wording imply guaranteed success?
+- Does any wording imply unrestricted saving?
+- Does any wording invite cookie/token/secret handling?
+- Does any wording imply public hosting or sharing?
+- Does any wording suggest DRM/auth/restriction bypass?
+- Does any wording encourage mass download optimization?
+
+Layout:
+
+- Do Japanese labels fit narrow screens?
+- Do buttons wrap awkwardly?
+- Do table columns remain readable?
+- Do helper popovers remain concise?
+- Are advanced labels too noisy for beginners?
+
+## Y-FE-REVIEW-01 Evidence Template
+
+```text
+Manual UI review evidence:
+  reviewer:
+  date:
+  browser / OS:
+  viewport:
+  commit:
+  reviewed screens:
+  findings:
+  blockers:
+  follow-up candidate:
+```
+
+## Y-FE-REVIEW-01 Next Decision Point
+
+Option A:
+
+```text
+Y-FE-COPY-04 second frontend copy-only pass packet docs-only
+Use if review finds more wording adjustments.
+```
+
+Option B:
+
+```text
+Y-FE-COPY-04 second frontend copy-only implementation
+Only after explicit scope approval.
+```
+
+Option C:
+
+```text
+Stop frontend copy work and return to docs/report/checker lane.
+```
+
+Recommended:
+
+```text
+Run manual UI review outside this PR, then choose Y-FE-COPY-04 packet only if findings exist.
+```
 
 ## Scope
 
