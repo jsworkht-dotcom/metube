@@ -507,6 +507,40 @@ follow-up candidate:
   lane because no visual wording/layout finding was confirmed.
 ```
 
+## Y-FE-LOCAL-REVIEW-05 Reliable Preview Packet
+
+Y-FE-LOCAL-REVIEW-05 records the docs-only packet for a reliable loopback-only
+preview/review path before any further rendered Cookie-area review. It does not
+capture screenshots or generate artifacts.
+
+Packet inputs from Y-FE-LOCAL-REVIEW-04:
+
+- result: `not_reviewed`;
+- `ui/node_modules` existed;
+- normal `ng serve` failed because `ui/proxy.conf.json` was missing;
+- production `ng serve` reached HTTP 200 on `127.0.0.1:4200`;
+- Browser / Playwright / Chrome did not produce stable rendered Cookie-area
+  review evidence;
+- no real URL submission, download, screenshot artifacts, source/runtime
+  changes, or cookie/token/secret handling occurred;
+- port 4200 listener was stopped after review.
+
+Current blocker:
+
+- Reliable rendered UI review path is not yet established.
+- Cookie wording visual resolution cannot be marked `resolved` until rendered
+  Cookie area is reviewed.
+
+Next execution lane:
+
+```text
+Y-FE-LOCAL-REVIEW-06 reliable loopback UI review execution
+```
+
+If reliable preview still cannot be established in that future lane,
+classification remains `not_reviewed` and the next recommended lane is a
+review path escalation packet docs-only.
+
 ## Review Status
 
 ```text

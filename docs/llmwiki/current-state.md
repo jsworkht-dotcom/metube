@@ -3144,6 +3144,18 @@ is recorded for PR #121 wording from this lane. The listener was stopped; the
 next recommended step is a separate scoped runtime review lane only after a
 reliable loopback preview command or already-running local UI is available.
 
+Y-FE-LOCAL-REVIEW-05 prepares the reliable loopback preview/review command
+packet as docs-only follow-up to PR #124. It records that
+Y-FE-LOCAL-REVIEW-04 ended `not_reviewed` because the rendered Advanced
+settings / Cookie area could not be reviewed through the approved local
+Browser/Playwright/Chrome paths, even though existing frontend dependencies
+were present and production Angular serve reached HTTP 200 on
+`127.0.0.1:4200`. It defines the current blocker, candidate future preview
+approaches, command constraints, readiness checks, evidence template, and
+decision rules for `Y-FE-LOCAL-REVIEW-06 reliable loopback UI review
+execution`. Artifact generation remains HOLD. Next recommended lane:
+Y-FE-LOCAL-REVIEW-06, only after explicit approval.
+
 Y-08Z closes the Y-08 preview hardening lane as docs-only closeout.
 Y-UI-QUALITY-01 is complete via fork PR #73 with merge commit
 `402996eba52f923be962e2fe69ebdaa6084363f2`. Y-UI-QUALITY-02 is complete via

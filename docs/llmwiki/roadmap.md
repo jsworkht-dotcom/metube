@@ -872,6 +872,40 @@
 - Artifact generation remains HOLD.
 - Risk: Low / docs-only evidence.
 
+### Y-FE-LOCAL-REVIEW-05 reliable loopback preview command packet
+
+- Status: prepared as docs-only packet.
+- Summary: records a reliable loopback-only local UI preview/review command
+  packet before another rendered Advanced settings / Cookie area review.
+- Follows: PR #124 / Y-FE-LOCAL-REVIEW-04, which completed with result
+  `not_reviewed`.
+- Carried-forward facts:
+  - `ui/node_modules` existed;
+  - normal `ng serve` failed because `ui/proxy.conf.json` was missing;
+  - production `ng serve` reached HTTP 200 on `127.0.0.1:4200`;
+  - Browser / Playwright / Chrome did not produce stable rendered Cookie-area
+    review evidence;
+  - no real URL submission, download, screenshot artifact, source/runtime
+    change, or cookie/token/secret handling occurred;
+  - port 4200 listener was stopped after review.
+- Current blocker: reliable rendered UI review path is not yet established, so
+  Cookie wording visual resolution cannot be marked `resolved` until rendered
+  Cookie area is reviewed.
+- Future lane:
+  `Y-FE-LOCAL-REVIEW-06 reliable loopback UI review execution`.
+- Future execution constraints: loopback-only, explicit approval required,
+  existing dependencies only, no install/update/build/package, no Docker
+  operations, no public/LAN exposure, no real URL submission/download, no
+  cookie/token/secret value handling, and no screenshots unless separately
+  approved.
+- Decision rules:
+  - `resolved`: frontend copy work hold / return to docs-report-checker lane;
+  - `follow_up`: Y-FE-COPY-07 packet docs-only;
+  - `blocker`: stop before implementation;
+  - `not_reviewed`: review path escalation packet docs-only.
+- Artifact generation remains HOLD.
+- Risk: Low / docs-only packet.
+
 ### Y-CI-03 reusable local safety workflow design
 
 - Status: completed via fork PR #95.

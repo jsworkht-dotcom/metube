@@ -2025,6 +2025,47 @@ Next recommended lane:
 
 Artifact generation remains HOLD.
 
+## Y-FE-LOCAL-REVIEW-05 Handoff Update
+
+Latest work: Y-FE-LOCAL-REVIEW-05 prepares a docs-only reliable loopback
+preview/review command packet after PR #124 completed Y-FE-LOCAL-REVIEW-04
+with result `not_reviewed`.
+
+Carried-forward facts:
+
+- `ui/node_modules` existed;
+- normal `ng serve` failed because `ui/proxy.conf.json` was missing;
+- production `ng serve` reached HTTP 200 on `127.0.0.1:4200`;
+- Browser / Playwright / Chrome did not produce stable rendered Cookie-area
+  review evidence;
+- no real URL submission, download, screenshot artifact, source/runtime change,
+  or cookie/token/secret handling occurred;
+- port 4200 listener was stopped after review.
+
+Current blocker:
+
+- Reliable rendered UI review path is not yet established.
+- Cookie wording visual resolution cannot be marked `resolved` until rendered
+  Cookie area is reviewed.
+
+Future lane:
+
+```text
+Y-FE-LOCAL-REVIEW-06 reliable loopback UI review execution
+```
+
+Y-FE-LOCAL-REVIEW-06 must remain loopback-only, use existing dependencies only,
+avoid install/update/build/Docker/backend setup unless already available
+without setup, stop its listener, record text evidence, and keep source files
+unchanged.
+
+Next recommended lane:
+
+- `Y-FE-LOCAL-REVIEW-06 reliable loopback UI review execution`, only after
+  explicit approval.
+
+Artifact generation remains HOLD.
+
 ## Y-AUTO-08 Handoff Update
 
 Latest completed work: Y-AUTO-08 added the docs-only local safety gate aggregator design at `docs/llmwiki/local-safety-gate-aggregator-design.md`.
