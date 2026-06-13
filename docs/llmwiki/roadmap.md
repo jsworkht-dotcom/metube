@@ -82,13 +82,14 @@
 
 ### Recent completed lane compression
 
-- PR #86-#104 are complete.
+- PR #86-#105 are complete.
 - Y-DIST completion is compressed as:
   Y-DIST-02 metadata checking, Y-DIST-03 recipient/first-run docs,
   Y-DIST-04 readiness matrix, Y-DIST-05 approval checklist, and Y-DIST-06
   approved candidate dry-run planning, followed by the PR #102 Y-DIST-07
-  artifact generation approval packet. Y-DIST-08 records no generation
-  approval granted after packet review. Artifact generation remains blocked.
+  artifact generation approval packet. PR #105 completed Y-DIST-08: no
+  generation approval was granted after packet review, all artifact categories
+  remain `not approved`, and artifact generation remains blocked.
 - Y-CI completion is compressed as:
   lightweight workflow design, minimal implementation, docs-only self-check,
   reusable workflow design/implementation, caller concurrency, and the PR #99
@@ -309,7 +310,8 @@
 
 ### Y-DIST-08 approval packet no-generation hold record
 
-- Status: docs-only no-generation hold record.
+- Status: completed via fork PR #105.
+- Merge commit: `a62e1c67261f7fbf31f970f2abf31c0a7c79c36d`.
 - Baseline: `fork/master` at
   `6973732e2483548201a81c1debd88cbea98f5b8f`, after fork PR #104 fast safe
   flow template adoption.
@@ -330,6 +332,37 @@
   lanes using fast safe flow.
 - Not recommended yet: artifact generation, ZIP/package/installer creation,
   GitHub required checks implementation, or branch protection mutation.
+- Risk: High-low / docs-only / draft PR preferred.
+
+### Y-UX-PLAN-01 beginner UX next-action planning
+
+- Status: docs-only beginner UX planning.
+- Planning doc:
+  `docs/llmwiki/beginner-ux-next-action-plan.md`.
+- Summary: establishes the next UX planning path after the Y-DIST-08
+  no-generation hold, focusing on beginner-facing UX, screen quality,
+  local-only user guidance, safe-use copy, help/troubleshooting flow, and
+  future UI quality work.
+- Current baseline: Japanese-localized UI exists, local-only safety posture
+  exists, beginner guide source docs exist, and package generation remains
+  blocked.
+- Next candidates:
+  `Y-UX-COPY-01 safe-use microcopy review`,
+  `Y-UX-HELP-01 help/troubleshooting entry review`,
+  `Y-UX-STATE-01 status / progress / completion clarity review`,
+  `Y-UX-STOP-01 stop/quit user-flow design`, and a quality selector / label
+  review follow-up.
+- Risk boundaries: docs-only UX planning is allowed via fast safe flow;
+  frontend copy-only implementation must be a later separate lane with UI files
+  explicitly scoped; runtime behavior changes are not part of Y-UX-PLAN-01.
+- This lane does not change frontend code, backend code, runtime behavior,
+  package output, generated folders, dependencies, Docker files, CI workflows,
+  GitHub settings, `.gitignore`, credentials handling, public hosting, or
+  bypass guidance.
+- Recommended first next lane:
+  `Y-UX-COPY-01` or a quality selector / label review follow-up. Historical
+  `Y-UI-QUALITY-01` through `Y-UI-QUALITY-03` are complete, so new
+  implementation should use a non-colliding lane name.
 - Risk: High-low / docs-only / draft PR preferred.
 
 ### Y-CI-03 reusable local safety workflow design
@@ -480,8 +513,22 @@
 ### Security next candidates
 
 ```text
-Y-UX-PLAN-01 or Y-UI-QUALITY:
-  next low-risk planning lane using fast safe flow
+Y-UX-COPY-01:
+  safe-use microcopy review using fast safe flow while docs-only
+
+Y-UX-HELP-01:
+  help/troubleshooting entry review using fast safe flow while docs-only
+
+Y-UX-STATE-01:
+  status / progress / completion clarity review using fast safe flow while
+  docs-only
+
+Y-UX-STOP-01:
+  stop/quit user-flow design using fast safe flow while docs-only
+
+Quality selector / label review follow-up:
+  next UI quality planning lane; use a non-colliding lane name because
+  historical Y-UI-QUALITY-01 through Y-UI-QUALITY-03 are complete
 
 Docs/report/checker lane:
   another low-risk lane using fast safe flow

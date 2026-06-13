@@ -11,14 +11,17 @@ canonical branch is fork `master`, and local `master` tracks `fork/master`.
 
 - Latest completed docs branch:
   `codex/y-dist-08-approval-packet-hold-record`.
+- Current docs planning branch:
+  `codex/y-ux-plan-01-beginner-ux-next-action`.
 - Current fork `master` baseline:
-  `6973732e2483548201a81c1debd88cbea98f5b8f` from fork PR #104.
+  `a62e1c67261f7fbf31f970f2abf31c0a7c79c36d` from fork PR #105.
 - Compact recent state:
-  - Y-DIST is complete through Y-DIST-07, and Y-DIST-08 records the first
-    approval-packet review status: no artifact generation approval was granted.
-    Artifact generation remains blocked until a later explicit human approval
-    names the exact source commit, candidate/output paths, allowed artifact
-    types, checks, reviews, and stop conditions.
+  - Y-DIST is complete through Y-DIST-08. PR #105 recorded the first
+    approval-packet review status: no artifact generation approval was granted,
+    all artifact categories remain `not approved`, and artifact generation
+    remains blocked until a later explicit human approval names the exact
+    source commit, candidate/output paths, allowed artifact types, checks,
+    reviews, and stop conditions.
   - Y-CI is complete through the reusable `local-fork-safety` workflow,
     concurrency, and PR #99 observation; current displayed check name is
     `local fork safety / local fork safety`.
@@ -29,8 +32,11 @@ canonical branch is fork `master`, and local `master` tracks `fork/master`.
     docs/report/checker work.
   - Y-AUTO-OPS-01 completed via PR #104 and adopted the fast safe flow default
     template.
-  - Next candidates are `Y-UX-PLAN-01`, `Y-UI-QUALITY`, or another
-    docs/report/checker planning lane using fast safe flow.
+  - Y-UX-PLAN-01 establishes the next docs-only beginner UX planning path after
+    the Y-DIST-08 hold. Next candidates are `Y-UX-COPY-01`, a quality selector
+    / label review follow-up, help/troubleshooting review, status/progress
+    clarity review, stop/quit flow design, or another docs/report/checker lane
+    using fast safe flow.
 - Y-SEC-01 is complete via fork PR #82.
 - Y-SEC-01 state:
   - local-only runtime guardrails implemented in backend startup/request
@@ -296,6 +302,8 @@ canonical branch is fork `master`, and local `master` tracks `fork/master`.
     PR #1001 files
 - Current Y-DIST-08 state:
   - docs-only approval packet review status / no-generation hold record
+  - completed via fork PR #105
+  - merge commit: `a62e1c67261f7fbf31f970f2abf31c0a7c79c36d`
   - baseline: `fork/master` at
     `6973732e2483548201a81c1debd88cbea98f5b8f`, after fork PR #104 fast safe
     flow template adoption
@@ -1280,6 +1288,17 @@ Y-UX-PLAN-01 or Y-UI-QUALITY next low-risk planning lane
 another docs/report/checker lane using fast safe flow
 ```
 
+Y-UX-PLAN-01 now establishes the next beginner UX planning path:
+
+```text
+Y-UX-COPY-01 safe-use microcopy review
+Y-UX-HELP-01 help/troubleshooting entry review
+Y-UX-STATE-01 status / progress / completion clarity review
+Y-UX-STOP-01 stop/quit user-flow design
+quality selector / label review follow-up
+another docs/report/checker lane using fast safe flow
+```
+
 Alternative:
 
 ```text
@@ -1323,6 +1342,34 @@ Actual package generation remains blocked.
 
 Safety-gate support for frontend copy-only or label-only lanes should remain a
 separate policy/checker task, not bundled into this closeout.
+
+## Y-UX-PLAN-01 Handoff Update
+
+Latest work: Y-UX-PLAN-01 beginner UX next-action planning.
+
+New planning doc:
+
+```text
+docs/llmwiki/beginner-ux-next-action-plan.md
+```
+
+Outcome:
+
+- Records that PR #105 completed Y-DIST-08 and artifact generation remains
+  HOLD.
+- Confirms all artifact categories remain `not approved`.
+- Establishes beginner UX next candidates for safe-use copy,
+  help/troubleshooting entry review, status/progress/completion clarity,
+  stop/quit flow design, and quality selector / label review follow-up.
+- Keeps docs-only UX planning within fast safe flow.
+- Keeps frontend copy-only implementation and runtime behavior changes as later
+  separate lanes.
+
+Recommended first next lane:
+
+- `Y-UX-COPY-01 safe-use microcopy review`; or
+- a quality selector / label review follow-up with a non-colliding lane name,
+  because historical `Y-UI-QUALITY-01` through `Y-UI-QUALITY-03` are complete.
 
 ## Y-AUTO-08 Handoff Update
 
