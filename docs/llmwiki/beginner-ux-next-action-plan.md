@@ -979,6 +979,149 @@ Y-UX-CLOSEOUT-01 does not perform:
 - public exposure operations;
 - DRM/auth/restriction bypass guidance.
 
+## Y-FE-COPY-01 Frontend Copy-Only Implementation Packet
+
+Y-FE-COPY-01 is a docs-only packet for a later frontend copy-only lane. It
+defines the allowed files, copy groups, verification approach, and stop
+conditions before any `ui/` file is changed.
+
+### Current Planning Baseline
+
+- Y-UX-PLAN-01 completed beginner UX next-action planning.
+- Y-UX-COPY-01 completed safe-use copy review.
+- Y-UI-QUALITY-01 completed quality / format / label review.
+- Y-UX-HELP-01 completed help / troubleshooting entry review.
+- Y-UX-STATE-01 completed status / progress / completion clarity review.
+- Y-UX-STOP-01 completed stop / quit user-flow design.
+- Y-UX-CLOSEOUT-01 closed the UX planning lane.
+- Artifact generation remains HOLD.
+
+### Future Lane
+
+Future lane:
+
+```text
+Y-FE-COPY-02 frontend copy-only implementation
+```
+
+Purpose:
+
+- Apply selected beginner-facing copy improvements from the UX planning lane to
+  existing UI copy only.
+
+Risk boundary:
+
+- frontend copy-only;
+- no behavior changes;
+- no selector logic changes;
+- no state management changes;
+- no API changes;
+- no dependency/package/lockfile changes;
+- no generated artifacts.
+
+### Candidate Future Files
+
+```text
+ui/src/app/app.html
+ui/src/app/app.ts
+ui/src/app/interfaces/formats.ts
+```
+
+`ui/src/app/app.html`:
+
+- labels, helper text, visible button text, safe-use hints, status/help wording
+  only.
+
+`ui/src/app/app.ts`:
+
+- display label arrays or static UI text only if existing labels live there;
+- no behavior / subscription / queue / request / socket / state logic changes.
+
+`ui/src/app/interfaces/formats.ts`:
+
+- label text / display name only if existing quality or format labels live
+  there;
+- no enum meaning, API payload, selector value, or format mapping changes.
+
+### Allowed Future Copy Groups
+
+- quality / format labels;
+- codec display labels;
+- captions labels;
+- help/troubleshooting entry labels;
+- status/progress/completion labels;
+- stop/quit guidance text;
+- local-only safe-use hint text.
+
+### Not Allowed In Copy-Only Implementation
+
+- URL validation behavior;
+- yt-dlp option behavior;
+- download queue behavior;
+- subscription behavior;
+- cookie/token/secret handling;
+- public-hosting related behavior;
+- hidden advanced override behavior;
+- service worker / build / package / dependency changes.
+
+### Copy Acceptance Rules
+
+- Japanese-first.
+- Short and beginner-friendly.
+- Must preserve local-only / personal-use boundary.
+- Must not invite cookie/token/secret entry.
+- Must not mention DRM/auth/restriction bypass instructions.
+- Must not imply guaranteed save success.
+- Must not imply public hosting or sharing.
+- Must not encourage mass download optimization.
+- Must keep advanced concepts behind advanced settings.
+
+### Required Future Verification
+
+For Y-FE-COPY-02:
+
+```powershell
+git diff --check
+python scripts/check_repo_safety.py
+python scripts/check_repo_safety.py --base fork/master
+python scripts/check_safety_wording.py --base fork/master
+python scripts/check_clean_package_dry_run_reports.py
+python scripts/clean_package_dry_run.py --format json
+```
+
+Also confirm:
+
+- changed files are exactly within the approved `ui/` files and LLMwiki sync
+  files;
+- no generated artifacts exist;
+- `動画保存ツール_ローカル専用/` is absent;
+- `docker-compose.local.yml` is absent;
+- `docs/local-only.md` is absent.
+
+Optional future verification only if scoped:
+
+- frontend lint/build/test may be requested separately if UI files are changed;
+- do not run dependency install/update.
+
+### Stop Conditions
+
+Stop if:
+
+- copy-only work requires behavior changes;
+- TypeScript logic change becomes necessary;
+- API payload/value mapping change becomes necessary;
+- dependency/package/lockfile change becomes necessary;
+- build tooling change becomes necessary;
+- generated artifact appears;
+- forbidden path appears;
+- credential/cookie/token handling appears.
+
+### Y-FE-COPY-01 Boundary
+
+Y-FE-COPY-01 is docs-only and does not change frontend runtime files. It does
+not authorize Y-FE-COPY-02 by itself; that future lane requires explicit scope
+approval before touching `ui/`.
+
 ## Next UX Candidates
 
 - `Y-FE-COPY-01 frontend copy-only implementation packet` docs-only
