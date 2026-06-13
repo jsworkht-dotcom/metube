@@ -621,6 +621,9 @@
 - Status: docs-only checklist refresh / screenshot evidence planning.
 - Summary: refreshes manual UI review targets after the first frontend
   copy-only implementation.
+- Completed via fork PR #116.
+- Merge commit / final `fork/master`:
+  `33673fa43066ec777c5574068a2fadee935ed04a`.
 - Review baseline:
   quality/audio helper text softened, scoped Auto / 自動 display changed to
   `おまかせ`, subtitle mode labels changed to Japanese, result-table auto codec
@@ -633,6 +636,26 @@
 - Next recommended step:
   run manual UI review outside this PR, then choose
   `Y-FE-COPY-04 second frontend copy-only pass packet` only if findings exist.
+- Risk: Low / docs-only / fast safe flow.
+
+### Y-FE-REVIEW-02 manual UI review evidence record
+
+- Status: docs-only evidence record / review not executed.
+- Summary: records the manual UI review evidence state after the checklist
+  refresh.
+- Evidence result:
+  manual UI review was not executed in this lane because UI runtime was not
+  already available without additional setup.
+- Target classification:
+  URL input area, save/subscription buttons, advanced settings, quality /
+  format / codec controls, captions controls, queue/saving area, completed /
+  failed result table, help/troubleshooting entry labels, and stop/quit wording
+  are `not_reviewed`.
+- Artifact generation remains HOLD.
+- Next recommended step:
+  request a separate scoped local UI review lane with no source changes, then
+  choose `Y-FE-COPY-04 second frontend copy-only pass packet` only if findings
+  exist.
 - Risk: Low / docs-only / fast safe flow.
 
 ### Y-CI-03 reusable local safety workflow design
@@ -794,6 +817,9 @@ Y-FE-REVIEW-01:
 
 Y-FE-COPY-04:
   second frontend copy-only pass packet docs-only, only if manual review finds issues
+
+Y-FE-REVIEW-02:
+  manual UI review evidence record docs-only
 
 Docs/report/checker lane:
   another low-risk lane using fast safe flow

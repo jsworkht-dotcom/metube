@@ -14,7 +14,7 @@ local-only policy.
 ## Review Status
 
 ```text
-status: y-fe-review-01-checklist-refreshed-awaiting-manual-review
+status: y-fe-review-02-evidence-recorded-review-not-executed
 ```
 
 Y-FE-REVIEW-01 refreshes this checklist after PR #114 / Y-FE-COPY-02 and PR
@@ -125,6 +125,66 @@ Recommended:
 
 ```text
 Run manual UI review outside this PR, then choose Y-FE-COPY-04 packet only if findings exist.
+```
+
+## Y-FE-REVIEW-02 Manual UI Review Evidence
+
+Review baseline:
+
+- PR #114 completed the first frontend copy-only implementation.
+- PR #115 closed out the implementation.
+- PR #116 refreshed the manual UI review checklist.
+- Artifact generation remains HOLD.
+
+Manual UI review evidence:
+
+```text
+reviewer: Codex
+date: 2026-06-13
+commit: 33673fa43066ec777c5574068a2fadee935ed04a
+browser / OS: not reviewed / Windows Codex desktop
+viewport: not reviewed
+UI available without build/install/runtime setup: no
+reviewed screens: none
+findings: all targets not_reviewed
+blockers: none in source; review was not executed in this lane
+follow-up candidate: separate scoped local UI review lane, no source changes
+```
+
+Manual UI review:
+
+```text
+not executed in this lane
+```
+
+Reason:
+
+```text
+UI runtime was not already available without additional setup
+```
+
+Next action:
+
+```text
+request separate scoped manual review / runtime review lane
+```
+
+Findings classification:
+
+- URL input area: `not_reviewed`
+- Save / subscription buttons: `not_reviewed`
+- Advanced settings panel: `not_reviewed`
+- Quality / format / codec controls: `not_reviewed`
+- Captions controls: `not_reviewed`
+- Queue / saving area: `not_reviewed`
+- Completed / failed result table: `not_reviewed`
+- Help / troubleshooting entry labels: `not_reviewed`
+- Stop / quit related wording: `not_reviewed`
+
+Decision:
+
+```text
+next recommended lane = separate scoped local UI review lane, no source changes
 ```
 
 ## Scope
