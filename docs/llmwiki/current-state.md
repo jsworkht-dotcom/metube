@@ -3054,6 +3054,24 @@ Y-FE-COPY-04 second frontend copy-only pass packet docs-only
 
 Artifact generation remains HOLD.
 
+Y-FE-COPY-04 prepares a docs-only cookie wording packet for the
+Y-FE-LOCAL-REVIEW-02 Advanced settings / Cookies finding. It records the future
+candidate `Y-FE-COPY-05 cookie-related frontend copy-only implementation`,
+limited to existing visible cookie labels/helper text only after explicit scope
+approval.
+
+Y-FE-COPY-05 allowed future copy-only direction:
+
+- replace promotional cookie upload wording with cautionary wording;
+- clarify that cookie upload is not part of the beginner flow;
+- avoid restricted/private download encouragement;
+- avoid asking for cookies, tokens, secrets, or account data;
+- keep advanced nature clear and behavior unchanged.
+
+Y-FE-COPY-05 cannot remove, disable, hide, or change cookie upload behavior,
+backend cookie handling, or local-only security enforcement. Those require a
+separate explicit behavior/visibility/security lane.
+
 Y-08Z closes the Y-08 preview hardening lane as docs-only closeout.
 Y-UI-QUALITY-01 is complete via fork PR #73 with merge commit
 `402996eba52f923be962e2fe69ebdaa6084363f2`. Y-UI-QUALITY-02 is complete via
@@ -3132,6 +3150,7 @@ The next practical candidates after Y-FE-LOCAL-REVIEW-02 are:
 
 ```text
 Y-FE-COPY-04 second frontend copy-only pass packet docs-only
+Y-FE-COPY-05 cookie-related frontend copy-only implementation, only after explicit scope approval
 continue docs-only UX planning if more review is needed
 another docs/report/checker lane using fast safe flow
 ```

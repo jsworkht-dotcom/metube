@@ -1799,6 +1799,43 @@ Next recommended lane after Y-FE-LOCAL-REVIEW-02:
 
 - `Y-FE-COPY-04 second frontend copy-only pass packet docs-only`.
 
+## Y-FE-COPY-04 Handoff Update
+
+Latest work: Y-FE-COPY-04 prepares the second frontend copy-only pass packet as
+docs-only planning for the Y-FE-LOCAL-REVIEW-02 cookie wording finding.
+
+Scope:
+
+- docs-only packet / UI review finding triage / current-state / handoff /
+  roadmap sync;
+- no frontend code changes, backend code changes, runtime behavior changes, or
+  cookie upload behavior changes;
+- no artifact generation, dependency install/update, Docker operation, real
+  download, or recipient handoff.
+
+Finding carried forward:
+
+- Area: Advanced settings / Cookies.
+- Current wording family: `COOKIES`, `Upload Cookies`, and helper text
+  promoting restricted/private downloads via cookie upload.
+- Classification for future copy lane: `follow_up`.
+- Reason: beginner-facing wording should not invite cookie/token/secret
+  handling, and local-only beginner UX should avoid restricted/private download
+  guidance.
+
+Next recommended lane:
+
+- `Y-FE-COPY-05 cookie-related frontend copy-only implementation`, only after
+  explicit scope approval.
+
+Y-FE-COPY-05 must remain copy-only against existing visible cookie
+labels/helper text. It may replace promotional cookie upload wording with
+cautionary wording, clarify that cookie upload is not part of the beginner
+flow, avoid asking for cookies/tokens/secrets/account data, and keep behavior
+unchanged. If hiding/removing controls, changing upload logic, changing backend
+cookie handling, or changing local-only security enforcement is desired, start a
+separate explicit behavior/visibility/security lane.
+
 ## Y-AUTO-08 Handoff Update
 
 Latest completed work: Y-AUTO-08 added the docs-only local safety gate aggregator design at `docs/llmwiki/local-safety-gate-aggregator-design.md`.
