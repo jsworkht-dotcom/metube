@@ -3130,6 +3130,20 @@ questions, evidence template, classifications (`resolved`, `follow_up`,
 `blocker`, `not_reviewed`), and decision rules. Artifact generation remains
 HOLD.
 
+Y-FE-LOCAL-REVIEW-04 executed the approved scoped local UI re-review attempt
+against `fork/master` commit `baa09845e65599476e648d920bdde97ee4af95e7` and
+records the result as `not_reviewed`. Existing frontend dependencies were
+present and no dependency install/update, build/package command, Docker
+operation, screenshot/artifact generation, real URL submission, real download,
+or cookie/token/secret handling was performed. The default Angular serve path
+failed because `ui/proxy.conf.json` is absent. The production Angular dev
+server could answer HTTP on `127.0.0.1:4200` in a controlled local job, but the
+approved Browser/Playwright/Chrome paths did not produce a stable
+browser-rendered Advanced settings / Cookie area for review. No source verdict
+is recorded for PR #121 wording from this lane. The listener was stopped; the
+next recommended step is a separate scoped runtime review lane only after a
+reliable loopback preview command or already-running local UI is available.
+
 Y-08Z closes the Y-08 preview hardening lane as docs-only closeout.
 Y-UI-QUALITY-01 is complete via fork PR #73 with merge commit
 `402996eba52f923be962e2fe69ebdaa6084363f2`. Y-UI-QUALITY-02 is complete via

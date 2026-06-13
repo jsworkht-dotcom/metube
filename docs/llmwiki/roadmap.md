@@ -843,6 +843,35 @@
 - Artifact generation remains HOLD.
 - Risk: Low / docs-only packet.
 
+### Y-FE-LOCAL-REVIEW-04 scoped local UI re-review execution
+
+- Status: attempted; outcome `not_reviewed`.
+- Baseline: `fork/master` commit
+  `baa09845e65599476e648d920bdde97ee4af95e7`.
+- Summary: executed the approved local-only, loopback-only re-review attempt for
+  the Advanced settings / Cookie area after PR #121. The approved local runtime
+  path did not yield a reviewable browser-rendered Cookie area, so no visual
+  source verdict is recorded for the wording change.
+- Runtime observations:
+  - existing `ui/node_modules` and `ui/node_modules/.bin/ng.cmd` were present;
+  - default Angular serve failed because `ui/proxy.conf.json` is absent;
+  - production Angular serve reached HTTP 200 on `127.0.0.1:4200` inside a
+    controlled local job, then was stopped;
+  - Browser plugin, bundled Playwright, and Chrome headless/CDP attempts did not
+    produce stable rendered Cookie-area evidence;
+  - no listener remained on port 4200 after the attempt.
+- Not performed: dependency install/update, build/package command, Docker
+  operation, public/LAN exposure, real URL submission, real download,
+  cookie/token/secret handling, screenshot capture, generated image artifacts,
+  app source changes, workflow changes, package/lockfile changes, or generated
+  package artifacts.
+- Next recommended lane: separate scoped runtime review lane after a reliable
+  loopback preview command or already-running local UI is available.
+- Do not start Y-FE-COPY-07 from this result because no visual wording/layout
+  issue was confirmed.
+- Artifact generation remains HOLD.
+- Risk: Low / docs-only evidence.
+
 ### Y-CI-03 reusable local safety workflow design
 
 - Status: completed via fork PR #95.

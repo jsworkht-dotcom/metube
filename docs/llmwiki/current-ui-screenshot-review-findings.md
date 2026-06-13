@@ -451,6 +451,62 @@ Decision rules:
 - `not_reviewed`: stop and record reason; request a separate scoped runtime
   review lane if needed.
 
+## Y-FE-LOCAL-REVIEW-04 Text Evidence Record
+
+Cookie wording re-review evidence:
+
+```text
+reviewer: Codex
+date: 2026-06-13
+commit: baa09845e65599476e648d920bdde97ee4af95e7
+commands run:
+  git fetch fork --prune
+  git switch -c codex/y-fe-local-review-04-cookie-rereview-evidence fork/master
+  git status -sb
+  git rev-parse fork/master
+  baseline ancestry check for baa09845e65599476e648d920bdde97ee4af95e7 against fork/master
+  Test-Path ui/node_modules
+  Test-Path ui/node_modules/.bin/ng.cmd
+  Get-NetTCPConnection -LocalPort 4200
+  ui/node_modules/.bin/ng.cmd serve --host 127.0.0.1 --port 4200
+  ui/node_modules/.bin/ng.cmd serve --configuration production --host 127.0.0.1 --port 4200
+  Browser plugin setup through node_repl
+  node child-process Angular serve attempt for Browser review
+  bundled Playwright availability check
+  Chrome headless / CDP / dump-DOM attempts against http://127.0.0.1:4200/
+dependencies installed: no
+runtime started:
+  partial only. The production Angular dev server reached HTTP 200 on
+  http://127.0.0.1:4200/ inside a controlled local job, then was stopped.
+  No stable browser-rendered Advanced settings view was obtained.
+bound address:
+  127.0.0.1:4200 during controlled attempts; no listener remained after stop.
+browser / OS:
+  Windows; Browser plugin setup attempted, bundled Playwright was unavailable
+  because playwright-core was absent, and Chrome headless/CDP did not produce
+  reviewable rendered Cookie-area evidence.
+viewport: not_reviewed
+reviewed screens: none; Advanced settings / Cookie area was not rendered for review
+Cookie area visible: not_reviewed
+Cookie wording result: not_reviewed
+layout result: not_reviewed
+safety result: not_reviewed
+findings:
+  not_reviewed. The approved local runtime path did not yield a reviewable
+  browser-rendered Cookie area. No source verdict is recorded for the PR #121
+  wording change in this lane.
+blockers:
+  default ng serve failed because ui/proxy.conf.json is absent; production
+  ng serve could answer HTTP in a controlled job, but Browser/Playwright/Chrome
+  automation did not produce a stable rendered review target without additional
+  setup. No dependency install, build/package command, screenshot, artifact,
+  real URL submission, download, or cookie/token/secret handling was performed.
+follow-up candidate:
+  separate scoped runtime review lane after a reliable loopback preview command
+  or already-running local UI is available. Do not open Y-FE-COPY-07 from this
+  lane because no visual wording/layout finding was confirmed.
+```
+
 ## Review Status
 
 ```text
