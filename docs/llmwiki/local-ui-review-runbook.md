@@ -362,3 +362,152 @@ Current-state sync:
 - Next recommended lane:
   `Y-FE-LOCAL-REVIEW-04 scoped local UI re-review execution`, only after
   explicit approval.
+
+## Y-FE-LOCAL-REVIEW-05 Reliable Loopback Preview Packet
+
+Y-FE-LOCAL-REVIEW-05 is a docs-only packet for establishing a reliable
+loopback-only local UI preview/review path before another rendered Cookie-area
+review is attempted.
+
+This packet does not start the app, run frontend/backend servers, install or
+update dependencies, build, test, run Docker operations, submit URLs, perform
+downloads, create screenshots or artifacts, inspect Cookie/token/secret values,
+or change source files.
+
+Y-FE-LOCAL-REVIEW-04 facts:
+
+```text
+result: not_reviewed
+ui/node_modules existed
+normal ng serve failed because ui/proxy.conf.json was missing
+production ng serve reached HTTP 200 on 127.0.0.1:4200
+Browser / Playwright / Chrome route did not produce stable rendered Cookie-area review evidence
+no real URL submission
+no download
+no screenshot artifacts
+no source/runtime changes
+port 4200 listener stopped after review
+```
+
+Current blocker:
+
+```text
+Reliable rendered UI review path is not yet established.
+Cookie wording visual resolution cannot be marked resolved until rendered Cookie area is reviewed.
+```
+
+Future lane:
+
+```text
+Y-FE-LOCAL-REVIEW-06 reliable loopback UI review execution
+```
+
+Purpose:
+
+```text
+Use the documented reliable loopback-only preview path to review the Advanced settings / Cookie area.
+Record resolved / follow_up / blocker / not_reviewed evidence.
+Do not change source files.
+```
+
+Candidate future preview approaches:
+
+- Candidate A: use an already-running UI if available on localhost /
+  `127.0.0.1`.
+- Candidate B: use existing `ui/node_modules` local Angular tooling only if no
+  dependency install/update/build is required.
+- Candidate C: use production configuration only if it can serve loopback UI
+  without source changes, dependency install/update, build/package, Docker
+  operations, or backend setup.
+- Candidate D: if Browser / Playwright / Chrome automation remains unstable,
+  perform human-visible browser review only and record text evidence. Do not
+  create screenshot artifacts unless separately approved.
+
+Allowed only in the future execution lane, after explicit approval:
+
+- local port inspection;
+- checking `ui/node_modules` exists;
+- checking the local Angular binary exists;
+- starting loopback-only frontend preview if no install/update/build is
+  required;
+- opening `http://127.0.0.1:<port>` or `http://localhost:<port>`;
+- reviewing Advanced settings / Cookie area manually;
+- stopping the listener;
+- recording text evidence.
+
+Not allowed:
+
+- `pnpm` install commands;
+- `npm` install commands;
+- `uv sync`;
+- `pip` install commands;
+- container image/runtime operations;
+- frontend build/package commands;
+- backend dependency setup;
+- public tunnel;
+- LAN bind;
+- real URL submission;
+- real download;
+- Cookie/token/secret value handling;
+- screenshot artifacts unless separately approved.
+
+Before review execution:
+
+- worktree clean;
+- `HEAD == fork/master` expected baseline;
+- `ui/node_modules` exists;
+- Angular local binary exists;
+- chosen command is loopback-only;
+- chosen command does not install/update/build;
+- chosen command does not bind LAN/public;
+- no backend start unless existing dependencies allow it without setup.
+
+Evidence template:
+
+```text
+Reliable local UI preview evidence:
+  reviewer:
+  date:
+  commit:
+  chosen preview approach:
+  commands run:
+  dependencies installed: no
+  build/package run: no
+  runtime started:
+  bound address:
+  browser / OS:
+  viewport:
+  Cookie area reached:
+  Cookie wording visible:
+  Cookie wording result:
+  layout result:
+  safety result:
+  findings:
+  blockers:
+  follow-up candidate:
+  listener stopped:
+```
+
+Decision rules:
+
+- If Cookie area is rendered and wording is safe:
+  classification = `resolved`; next recommended lane = frontend copy work hold
+  / return to docs-report-checker lane.
+- If minor wording/layout issue remains:
+  classification = `follow_up`; next recommended lane = Y-FE-COPY-07 packet
+  docs-only.
+- If wording still promotes unsafe cookie handling:
+  classification = `blocker`; stop before implementation.
+- If reliable preview still cannot be established:
+  classification = `not_reviewed`; next recommended lane = review path
+  escalation packet docs-only.
+
+Current-state sync:
+
+- PR #124 completed Y-FE-LOCAL-REVIEW-04 with result `not_reviewed`.
+- Y-FE-LOCAL-REVIEW-05 prepares a reliable loopback preview/review command
+  packet.
+- Artifact generation remains HOLD.
+- Next recommended lane:
+  `Y-FE-LOCAL-REVIEW-06 reliable loopback UI review execution`, only after
+  explicit approval.
