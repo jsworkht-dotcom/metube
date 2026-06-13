@@ -20,7 +20,7 @@
   separate upstream contribution.
 - Do not mix upstream PR #1001 files into fork-only work.
 - Latest fork `master` baseline:
-  `6973732e2483548201a81c1debd88cbea98f5b8f` from fork PR #104.
+  `a62e1c67261f7fbf31f970f2abf31c0a7c79c36d` from fork PR #105.
 
 ## Current Runtime Security State
 
@@ -129,18 +129,18 @@
   change, package/lockfile change, or existing safety gate behavior change is
   part of this lane.
 
-## Recent Completed Lane Summary (PR #86-#104)
+## Recent Completed Lane Summary (PR #86-#105)
 
 This is the compact planning surface for the recent distribution, CI, and
 GitHub-governance lanes. The older per-lane notes remain historical reference.
 
-- Y-DIST is complete through Y-DIST-07:
+- Y-DIST is complete through Y-DIST-08:
   PR #86 added report-only metadata verification; PR #91 added recipient-safe
   and first-run verification docs; PR #92 added the readiness matrix; PR #93
   added the human approval checklist; PR #94 added the approved clean candidate
   dry-run plan; PR #102 added the artifact generation approval packet.
-  Y-DIST-08 records the first approval-packet review status: no generation
-  approval was granted, and artifact generation remains blocked.
+  PR #105 completed Y-DIST-08: no generation approval was granted, all artifact
+  categories remain `not approved`, and artifact generation remains blocked.
 - Y-CI is complete through the reusable `local-fork-safety` display layer:
   PR #88 designed the workflow; PR #89 implemented it; PR #90 confirmed a
   docs-only self-check; PR #95 designed the reusable split; PR #96 implemented
@@ -156,8 +156,9 @@ GitHub-governance lanes. The older per-lane notes remain historical reference.
   fast safe flow default template adoption for normal low-risk
   docs/report/checker work.
 - Current next candidates:
-  continue low-risk docs/report/checker/UX planning lanes using fast safe flow,
-  such as `Y-UX-PLAN-01`, `Y-UI-QUALITY`, or another docs/report/checker lane.
+  Y-UX-PLAN-01 establishes the next low-risk beginner UX planning path after
+  the Y-DIST-08 hold, followed by `Y-UX-COPY-01`, a quality selector / label
+  review follow-up, or another docs/report/checker lane using fast safe flow.
   Artifact generation, ZIP/package/installer creation, GitHub required checks
   implementation, and branch protection mutation are not recommended yet.
 
@@ -443,6 +444,8 @@ GitHub-governance lanes. The older per-lane notes remain historical reference.
 ### Y-DIST-08 approval packet no-generation hold record
 
 - Scope: docs-only approval packet review status / no-generation hold record.
+- Status: completed via fork PR #105.
+- Merge commit: `a62e1c67261f7fbf31f970f2abf31c0a7c79c36d`.
 - Baseline: `fork/master` at
   `6973732e2483548201a81c1debd88cbea98f5b8f`, after fork PR #104 fast safe
   flow template adoption.
@@ -480,6 +483,32 @@ GitHub-governance lanes. The older per-lane notes remain historical reference.
   - `.gitignore` changes;
   - cookie/token/secret handling;
   - PR #1001 file changes.
+
+### Y-UX-PLAN-01 beginner UX next-action planning
+
+- Scope: docs-only beginner UX next-action planning / roadmap / handoff sync.
+- Document:
+  `docs/llmwiki/beginner-ux-next-action-plan.md`.
+- Purpose:
+  move attention away from blocked artifact generation and back to safe
+  beginner UX planning for screen quality, local-only guidance, safe-use copy,
+  help/troubleshooting flow, and future UI quality work.
+- Current UX baseline:
+  Japanese-localized UI exists, local-only safety posture exists, beginner
+  guide source docs exist, and package generation remains blocked.
+- Risk boundaries:
+  docs-only UX planning is allowed via fast safe flow; frontend copy-only
+  implementation must be a later separate lane with UI files explicitly scoped;
+  runtime behavior changes are not part of Y-UX-PLAN-01.
+- Recommended first next lane:
+  `Y-UX-COPY-01 safe-use microcopy review` or a quality selector / label review
+  follow-up. Historical `Y-UI-QUALITY-01` through `Y-UI-QUALITY-03` are already
+  complete, so new implementation work should use a non-colliding lane name.
+- Not included:
+  frontend code, backend code, runtime behavior, artifact generation, package
+  output, generated folders, dependency changes, Docker operations,
+  `.github/workflows/` changes, GitHub settings mutation, `.gitignore` changes,
+  cookie/token/secret handling, public hosting, or bypass guidance.
 
 ### Y-CI-03 reusable local safety workflow design
 
@@ -2643,9 +2672,15 @@ Y-AUTO-OPS-01 is complete via fork PR #104 with merge commit
 `6973732e2483548201a81c1debd88cbea98f5b8f`. It adopted the fast safe flow
 default template for normal low-risk docs/report/checker work.
 
-Y-DIST-08 records the no-generation hold after human review of the Y-DIST-07
-approval packet. No artifact generation approval is granted, all artifact
-categories remain `not approved`, and generation remains blocked.
+Y-DIST-08 is complete via fork PR #105 with merge commit
+`a62e1c67261f7fbf31f970f2abf31c0a7c79c36d`. It records the no-generation hold
+after human review of the Y-DIST-07 approval packet. No artifact generation
+approval is granted, all artifact categories remain `not approved`, and
+generation remains blocked.
+
+Y-UX-PLAN-01 establishes the docs-only beginner UX next-action path after the
+Y-DIST-08 hold:
+`docs/llmwiki/beginner-ux-next-action-plan.md`.
 
 Y-08Z closes the Y-08 preview hardening lane as docs-only closeout.
 Y-UI-QUALITY-01 is complete via fork PR #73 with merge commit
@@ -2721,10 +2756,14 @@ The previous package-material lane is complete through Y-08Z closeout. Actual
 clean-package generation remains blocked. The generated package folder must
 remain absent.
 
-The next practical candidates after Y-DIST-08 are:
+The next practical candidates after Y-UX-PLAN-01 are:
 
 ```text
-Y-UX-PLAN-01 or Y-UI-QUALITY next low-risk planning lane
+Y-UX-COPY-01 safe-use microcopy review
+Y-UX-HELP-01 help/troubleshooting entry review
+Y-UX-STATE-01 status / progress / completion clarity review
+Y-UX-STOP-01 stop/quit user-flow design
+quality selector / label review follow-up
 another docs/report/checker lane using fast safe flow
 ```
 
