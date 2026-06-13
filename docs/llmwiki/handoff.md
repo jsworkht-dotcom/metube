@@ -10,11 +10,11 @@ canonical branch is fork `master`, and local `master` tracks `fork/master`.
 ## Current Closeout State
 
 - Latest completed docs branch:
-  `codex/y-ux-help-01-help-troubleshooting-review`.
-- Current docs planning branch:
   `codex/y-ux-state-01-status-progress-clarity`.
+- Current docs planning branch:
+  `codex/y-ux-stop-01-stop-quit-flow`.
 - Current fork `master` baseline:
-  `306349407a58ba733a34662e2c02b15b93a215d6` from fork PR #109.
+  `bb04833bf330482778e7a04e741868e1446360a5` from fork PR #110.
 - Compact recent state:
   - Y-DIST is complete through Y-DIST-08. PR #105 recorded the first
     approval-packet review status: no artifact generation approval was granted,
@@ -36,9 +36,10 @@ canonical branch is fork `master`, and local `master` tracks `fork/master`.
     UX planning path after the Y-DIST-08 hold. PR #107 completed
     Y-UX-COPY-01 safe-use microcopy review. PR #108 completed
     Y-UI-QUALITY-01 quality selector / label review. PR #109 completed
-    Y-UX-HELP-01 help/troubleshooting entry review. Y-UX-STATE-01 now reviews
-    beginner status/progress/completion clarity docs-only. Next candidates
-    after that are stop/quit flow design, explicitly scoped frontend copy-only
+    Y-UX-HELP-01 help/troubleshooting entry review. PR #110 completed
+    Y-UX-STATE-01 status/progress/completion clarity review. Y-UX-STOP-01 now
+    designs beginner stop/quit user flow docs-only. Next candidates after that
+    are UX planning closeout, explicitly scoped frontend copy-only
     implementation, or another docs/report/checker lane using fast safe flow.
 - Y-SEC-01 is complete via fork PR #82.
 - Y-SEC-01 state:
@@ -1284,17 +1285,17 @@ canonical branch is fork `master`, and local `master` tracks `fork/master`.
 Use `docs/llmwiki/current-state.md`, `docs/llmwiki/roadmap.md`, and this handoff
 as the next-chat source of truth.
 
-Recommended next candidates after Y-UX-STATE-01:
+Recommended next candidates after Y-UX-STOP-01:
 
 ```text
-Y-UX-STOP-01 stop/quit user-flow design docs-only
+Y-UX-CLOSEOUT-01 UX planning closeout docs-only
 frontend copy-only implementation lane if explicitly scoped later
 another docs/report/checker lane using fast safe flow
 ```
 
 PR #106 completed Y-UX-PLAN-01. PR #107 completed Y-UX-COPY-01. PR #108
-completed Y-UI-QUALITY-01. PR #109 completed Y-UX-HELP-01. Y-UX-STATE-01 now
-reviews status/progress/completion clarity wording:
+completed Y-UI-QUALITY-01. PR #109 completed Y-UX-HELP-01. PR #110 completed
+Y-UX-STATE-01. Y-UX-STOP-01 now designs stop/quit user-flow wording:
 
 ```text
 docs/llmwiki/beginner-ux-next-action-plan.md
@@ -1303,7 +1304,7 @@ docs/llmwiki/beginner-ux-next-action-plan.md
 Other safe planning candidates remain:
 
 ```text
-Y-UX-STOP-01 stop/quit user-flow design docs-only
+Y-UX-CLOSEOUT-01 UX planning closeout docs-only
 another docs/report/checker lane using fast safe flow
 ```
 
@@ -1502,6 +1503,42 @@ Outcome:
 Next candidate after Y-UX-STATE-01:
 
 - `Y-UX-STOP-01 stop/quit user-flow design` docs-only; or
+- frontend copy-only implementation lane if explicitly scoped later.
+
+## Y-UX-STOP-01 Handoff Update
+
+Latest work: Y-UX-STOP-01 stop/quit user-flow design docs-only.
+
+Review section:
+
+```text
+docs/llmwiki/beginner-ux-next-action-plan.md
+```
+
+Outcome:
+
+- Designs beginner-facing stop/quit labels, closing while saving, closing after
+  completion, cancel vs stop vs delete wording, safe next action when unsure,
+  beginner-safe quit confirmation wording, and future implementation
+  boundaries.
+- Records the current stop/quit baseline: status/progress/completion wording
+  baseline exists, help/troubleshooting baseline exists, beginner-safe copy
+  baseline exists, artifact generation remains HOLD, and runtime behavior is
+  not changed in this lane.
+- Adds short Japanese candidate wording for normal quit, active saving, queued
+  items, completed items, failed items, unsure users, add cancellation, and
+  queue-item deletion.
+- Defines stop/quit priority: active-save detection, wait or explicit stop,
+  queue removal, save-folder confirmation, error/status preservation, and
+  "停止して終了" for unsure users.
+- Keeps frontend copy-only implementation as a later separate lane with
+  explicitly scoped `ui/**` files.
+- Keeps runtime stop behavior changes outside this lane.
+- Confirms artifact generation remains HOLD.
+
+Next candidate after Y-UX-STOP-01:
+
+- `Y-UX-CLOSEOUT-01 UX planning closeout` docs-only; or
 - frontend copy-only implementation lane if explicitly scoped later.
 
 ## Y-AUTO-08 Handoff Update
