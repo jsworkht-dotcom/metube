@@ -82,7 +82,7 @@
 
 ### Recent completed lane compression
 
-- PR #86-#110 are complete.
+- PR #86-#111 are complete.
 - Y-DIST completion is compressed as:
   Y-DIST-02 metadata checking, Y-DIST-03 recipient/first-run docs,
   Y-DIST-04 readiness matrix, Y-DIST-05 approval checklist, and Y-DIST-06
@@ -111,6 +111,8 @@
   review baseline.
 - Y-UX-STATE-01 completed via PR #110 and added the status/progress/completion
   clarity review baseline.
+- Y-UX-STOP-01 completed via PR #111 and added the stop/quit user-flow design
+  baseline.
 
 ### Y-DIST-02 checksum / hash / version / license notice bundle verification
 
@@ -479,6 +481,7 @@
 ### Y-UX-STOP-01 stop/quit user-flow design
 
 - Status: docs-only stop/quit user-flow design.
+- Completed via fork PR #111.
 - Review section:
   `docs/llmwiki/beginner-ux-next-action-plan.md`.
 - Summary: designs beginner-facing stop/quit labels, closing while saving,
@@ -497,9 +500,42 @@
   package output, generated folders, dependencies, Docker files, CI workflows,
   GitHub settings, `.gitignore`, credential-bearing file handling,
   secret-like value handling, public exposure operations, or bypass guidance.
-- Recommended next lane after Y-UX-STOP-01:
-  `Y-UX-CLOSEOUT-01 UX planning closeout` docs-only, or frontend copy-only
-  implementation if explicitly scoped later.
+- Follow-up selected after Y-UX-STOP-01:
+  Y-UX-CLOSEOUT-01 closes the beginner UX planning lane docs-only.
+- Risk: High-low / docs-only / draft PR preferred.
+
+### Y-UX-CLOSEOUT-01 UX planning lane closeout
+
+- Status: docs-only UX planning lane closeout.
+- Review section:
+  `docs/llmwiki/beginner-ux-next-action-plan.md`.
+- Summary: closes the beginner UX planning lane after Y-UX-PLAN-01 through
+  Y-UX-STOP-01, summarizes planned outputs, and defines the next safe decision
+  point before any frontend implementation.
+- Completed UX planning lanes summarized: Y-UX-PLAN-01 beginner UX next-action
+  planning; Y-UX-COPY-01 safe-use copy review; Y-UI-QUALITY-01 quality /
+  format / label review; Y-UX-HELP-01 help / troubleshooting entry review;
+  Y-UX-STATE-01 status / progress / completion clarity review; Y-UX-STOP-01
+  stop / quit user-flow design.
+- Planned UX foundations: beginner-first Japanese wording, local-only /
+  personal-use safety wording, allowed-use and not-allowed-use copy, quality /
+  format / codec / captions label candidates, help and troubleshooting entry
+  candidates, status/progress/completion wording candidates, stop/quit flow
+  wording candidates, and implementation boundaries for future frontend
+  copy-only work.
+- Not implemented: frontend copy changes, runtime behavior changes, stop/quit
+  logic changes, help modal or new UI entry implementation, package / CLEAN
+  folder / artifact generation, and real download verification.
+- Next recommended lane:
+  `Y-FE-COPY-01 frontend copy-only implementation packet` docs-only.
+- Risk boundaries: docs-only closeout is allowed via fast safe flow; frontend
+  copy-only implementation must be a later separate lane with `ui/**` files
+  explicitly scoped; runtime behavior changes are not part of
+  Y-UX-CLOSEOUT-01.
+- This lane does not change frontend code, backend code, runtime behavior,
+  package output, generated folders, dependencies, Docker files, CI workflows,
+  GitHub settings, `.gitignore`, credential-bearing file handling,
+  secret-like value handling, public exposure operations, or bypass guidance.
 - Risk: High-low / docs-only / draft PR preferred.
 
 ### Y-CI-03 reusable local safety workflow design
@@ -650,8 +686,8 @@
 ### Security next candidates
 
 ```text
-Y-UX-CLOSEOUT-01:
-  UX planning closeout using fast safe flow while docs-only
+Y-FE-COPY-01:
+  frontend copy-only implementation packet using fast safe flow while docs-only
 
 Frontend copy-only implementation:
   later separate lane only if explicitly scoped to ui files

@@ -851,10 +851,139 @@ Y-UX-STOP-01 does not perform:
 - public exposure operations;
 - DRM/auth/restriction bypass guidance.
 
+## Y-UX-CLOSEOUT-01 UX Planning Lane Closeout
+
+Y-UX-CLOSEOUT-01 closes out the beginner UX planning lane after Y-UX-PLAN-01
+through Y-UX-STOP-01. This section is docs-only and defines the next safe
+decision point before any frontend implementation.
+
+### Completed UX Planning Lanes
+
+Y-UX planning lane closeout:
+
+- Y-UX-PLAN-01: beginner UX next-action planning.
+- Y-UX-COPY-01: safe-use copy review.
+- Y-UI-QUALITY-01: quality / format / label review.
+- Y-UX-HELP-01: help / troubleshooting entry review.
+- Y-UX-STATE-01: status / progress / completion clarity review.
+- Y-UX-STOP-01: stop / quit user-flow design.
+
+### Planned UX Foundations
+
+- Beginner-first Japanese wording.
+- Local-only / personal-use safety wording.
+- Allowed-use and not-allowed-use copy.
+- Quality / format / codec / captions label candidates.
+- Help and troubleshooting entry candidates.
+- Status/progress/completion wording candidates.
+- Stop/quit flow wording candidates.
+- Implementation boundaries for future frontend copy-only work.
+
+### Not Implemented
+
+- No frontend copy changes yet.
+- No runtime behavior changes.
+- No stop/quit logic changes.
+- No help modal or new UI entry implementation.
+- No package / CLEAN folder / artifact generation.
+- No real download verification.
+
+### Next Safe Decision
+
+Option A:
+
+```text
+Y-FE-COPY-01 frontend copy-only implementation packet docs-only
+Purpose: define exact ui files, exact copy groups, tests/build scope, and stop conditions before implementation.
+```
+
+Option B:
+
+```text
+Y-FE-COPY-02 frontend copy-only implementation
+Only after explicit scope approval.
+Candidate scope may include selected labels/help/status/stop wording only.
+Must not include dependency/build/package/runtime behavior changes unless separately scoped.
+```
+
+Option C:
+
+```text
+Continue docs-only UX planning if more review is needed.
+```
+
+### Recommended Next Lane
+
+Recommended:
+
+```text
+Y-FE-COPY-01 frontend copy-only implementation packet docs-only
+```
+
+Reason:
+
+- It creates a narrow implementation packet before touching `ui/**` files.
+- It keeps artifact generation HOLD.
+- It avoids jumping directly from docs planning to runtime code changes.
+
+### Closeout Boundaries
+
+Docs-only UX planning closeout:
+
+- allowed now;
+- may update LLMwiki planning, roadmap, and handoff docs;
+- must not change runtime UI files.
+
+Frontend copy-only implementation packet:
+
+- later separate lane;
+- should define exact `ui/**` files, exact copy groups, verification scope, and
+  stop conditions before implementation.
+
+Frontend copy-only implementation:
+
+- later separate lane only after explicit scope approval;
+- candidate scope may include selected labels, help, status, and stop wording;
+- no dependency, build, package, generated output, or runtime behavior changes
+  unless separately scoped.
+
+Runtime behavior:
+
+- later separate lane;
+- not part of Y-UX-CLOSEOUT-01.
+
+### Explicitly Not Performed
+
+Y-UX-CLOSEOUT-01 does not perform:
+
+- frontend code changes;
+- backend code changes;
+- runtime behavior changes;
+- stop/quit logic changes;
+- help modal or new UI entry implementation;
+- artifact generation;
+- generated package output;
+- CLEAN folder creation;
+- `動画保存ツール_ローカル専用/` creation;
+- metadata or checksum generation;
+- real download verification;
+- recipient handoff or sharing;
+- dependency installation operations;
+- container image operations;
+- `.github/workflows/` changes;
+- GitHub settings, branch protection, ruleset, required-check, or CODEOWNERS
+  mutation;
+- `.gitignore` changes;
+- credential-bearing file handling;
+- secret-like value handling;
+- public exposure operations;
+- DRM/auth/restriction bypass guidance.
+
 ## Next UX Candidates
 
-- `Y-UX-CLOSEOUT-01 UX planning closeout`
+- `Y-FE-COPY-01 frontend copy-only implementation packet` docs-only
 - frontend copy-only implementation lane if explicitly scoped later
+- continue docs-only UX planning if more review is needed
 
 Repo-history note: earlier `Y-UI-QUALITY-01`, `Y-UI-QUALITY-02`, and
 `Y-UI-QUALITY-03` lanes are already complete. If a new implementation PR starts
@@ -863,10 +992,9 @@ lane name while keeping the candidate intent.
 
 ## Recommended First Next Lane
 
-Recommended next lane after Y-UX-STOP-01:
+Recommended next lane after Y-UX-CLOSEOUT-01:
 
-- `Y-UX-CLOSEOUT-01 UX planning closeout` docs-only; or
-- frontend copy-only implementation if explicitly scoped later.
+- `Y-FE-COPY-01 frontend copy-only implementation packet` docs-only.
 
 Repo-history note: because historical `Y-UI-QUALITY-01` is already complete in
 this fork, prefer a fresh quality selector / label review follow-up lane name
@@ -923,13 +1051,13 @@ Y-UX-PLAN-01 does not perform:
 PR #105 completed Y-DIST-08 no-generation hold. PR #106 completed
 Y-UX-PLAN-01. PR #107 completed Y-UX-COPY-01. PR #108 completed
 Y-UI-QUALITY-01. PR #109 completed Y-UX-HELP-01. PR #110 completed
-Y-UX-STATE-01. Y-UX-STOP-01 designs beginner stop/quit user flow as the
-current docs-only planning step:
+Y-UX-STATE-01. PR #111 completed Y-UX-STOP-01. Y-UX-CLOSEOUT-01 closes the
+beginner UX planning lane as the current docs-only planning step:
 
 - artifact generation remains blocked;
 - fast safe flow is the default for low-risk docs/report/checker lanes;
 - beginner UX work should start with safe planning before any UI implementation;
-- the next candidate after Y-UX-STOP-01 is Y-UX-CLOSEOUT-01 docs-only or a
-  frontend copy-only implementation lane if explicitly scoped later;
+- the recommended next lane after Y-UX-CLOSEOUT-01 is Y-FE-COPY-01 frontend
+  copy-only implementation packet docs-only;
 - future UI copy-only work remains a separate human-reviewed lane unless later
   safety-gate policy explicitly changes.
