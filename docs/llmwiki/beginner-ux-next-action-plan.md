@@ -380,9 +380,147 @@ Y-UI-QUALITY-01 does not perform:
 - public exposure operations;
 - DRM/auth/restriction bypass guidance.
 
+## Y-UX-HELP-01 Help / Troubleshooting Entry Review
+
+Y-UX-HELP-01 reviews beginner-facing help and troubleshooting entry points as a
+docs-only follow-up after Y-UI-QUALITY-01. This section does not change runtime
+UI files, backend behavior, package output, generated folders, or GitHub
+settings.
+
+### Current Help Baseline
+
+- Beginner guide source docs exist.
+- Troubleshooting source docs exist.
+- Y-UX-COPY-01 created the safe-use wording baseline.
+- Y-UI-QUALITY-01 created the quality and label review baseline.
+- Artifact generation remains HOLD.
+- Current guide source planning already includes first-open, usage,
+  troubleshooting, and safe-use surfaces.
+
+### Review Principles
+
+- Use beginner-first help entry labels.
+- Use short Japanese labels.
+- Give one safe next action per error.
+- Avoid advanced repair commands in the beginner flow.
+- Do not ask for cookies/tokens/secrets.
+- Do not suggest public hosting or LAN exposure.
+- Do not describe DRM/auth/restriction bypass.
+- Prefer "stop and preserve the message" over risky repair steps.
+- Help text should reduce confusion, not invite unsafe experimentation.
+
+### Help Entry Families To Review
+
+- `使い方`
+- `困ったとき`
+- `安全な使い方`
+- `保存先を開く`
+- `停止して終了`
+- `状態を確認`
+- `エラー文を残す`
+- `もう一度だけ試す`
+
+### Candidate Wording
+
+Help:
+
+```text
+使い方を見る
+困ったとき
+安全な使い方
+```
+
+Troubleshooting:
+
+```text
+うまくいかない場合は、表示されたエラー文を残してください。
+保存中の場合は、完了するまで待ってから操作してください。
+保存先が分からない場合は「保存先を開く」を使ってください。
+終了に迷った場合は「停止して終了」を使ってください。
+何度も失敗する場合は、無理に設定を変えず、エラー文を確認してください。
+```
+
+Local-only safety:
+
+```text
+このツールはローカル専用です。公開サービスとして使いません。
+Cookie、token、secretなどの情報を入力・共有しないでください。
+```
+
+### Troubleshooting Priority
+
+1. Preserve the visible error/status message.
+2. Check whether a save is currently running.
+3. Open the save folder if completion is unclear.
+4. Retry once only when safe.
+5. Stop and ask for help if the same problem repeats.
+
+### Review Notes By Surface
+
+Help entry labels should map to visible beginner actions. Prefer "使い方を見る",
+"困ったとき", and "安全な使い方" over broad technical labels.
+
+Error next-action wording should first preserve the visible message. It should
+then offer one safe action, such as waiting for an active save, opening the save
+folder, or retrying once only when the action is safe.
+
+Save-folder help should point to "保存先を開く" and avoid internal runtime paths.
+
+Stop/quit help should point to "停止して終了" when the user is unsure. It should
+not frame quitting as a risky technical operation.
+
+Local-only safety help should state the boundary plainly. It should not invite
+credential-bearing file handling, public exposure operations, or bypass
+guidance.
+
+Beginner-safe escalation should tell the user to stop, preserve the message,
+and ask for help when the same problem repeats.
+
+### Next Implementation Boundaries
+
+Docs-only help review:
+
+- allowed now;
+- may update LLMwiki planning, roadmap, and handoff docs;
+- may collect candidate help and troubleshooting copy;
+- must not change runtime UI files.
+
+Frontend copy-only implementation:
+
+- later separate lane;
+- `ui/**` files must be explicitly scoped;
+- no dependency, build, package, generated output, or runtime behavior changes.
+
+Runtime behavior:
+
+- later separate lane;
+- not part of Y-UX-HELP-01.
+
+### Explicitly Not Performed
+
+Y-UX-HELP-01 does not perform:
+
+- frontend code changes;
+- backend code changes;
+- runtime behavior changes;
+- artifact generation;
+- generated package output;
+- CLEAN folder creation;
+- metadata or checksum generation;
+- real download verification;
+- recipient handoff or sharing;
+- dependency installation operations;
+- container image operations;
+- `.github/workflows/` changes;
+- GitHub settings mutation;
+- `.gitignore` changes;
+- credential-bearing file handling;
+- secret-like value handling;
+- public exposure operations;
+- DRM/auth/restriction bypass guidance.
+
 ## Next UX Candidates
 
-- `Y-UX-HELP-01 help/troubleshooting entry review`
 - `Y-UX-STATE-01 status / progress / completion clarity review`
 - `Y-UX-STOP-01 stop/quit user-flow design`
 
@@ -395,7 +533,7 @@ lane name while keeping the candidate intent.
 
 Recommended first next lane:
 
-- `Y-UX-HELP-01 help/troubleshooting entry review` docs-only; or
+- `Y-UX-STATE-01 status / progress / completion clarity review` docs-only; or
 - frontend copy-only implementation if explicitly scoped later.
 
 Repo-history note: because historical `Y-UI-QUALITY-01` is already complete in
@@ -451,8 +589,9 @@ Y-UX-PLAN-01 does not perform:
 ## Handoff Sync
 
 PR #105 completed Y-DIST-08 no-generation hold. PR #106 completed
-Y-UX-PLAN-01. PR #107 completed Y-UX-COPY-01. Y-UI-QUALITY-01 reviews quality,
-format, and label wording as the next docs-only planning step:
+Y-UX-PLAN-01. PR #107 completed Y-UX-COPY-01. PR #108 completed
+Y-UI-QUALITY-01. Y-UX-HELP-01 reviews help and troubleshooting entry wording as
+the next docs-only planning step:
 
 - artifact generation remains blocked;
 - fast safe flow is the default for low-risk docs/report/checker lanes;
