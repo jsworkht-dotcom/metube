@@ -233,3 +233,132 @@ Next recommended lane:
 ```text
 Y-FE-LOCAL-REVIEW-02 scoped local UI review execution, only after explicit approval.
 ```
+
+## Y-FE-LOCAL-REVIEW-03 Cookie Wording Re-review Packet
+
+Y-FE-LOCAL-REVIEW-03 is a docs-only packet for a future scoped local UI
+re-review after PR #121 changed visible Cookie wording and PR #122 closed out
+that implementation.
+
+This packet does not approve runtime execution. It does not start the app,
+start a frontend dev server, run the backend, install dependencies, build,
+test, perform downloads, submit URLs, inspect Cookie/token/secret values, or
+change source files.
+
+Future lane:
+
+```text
+Y-FE-LOCAL-REVIEW-04 scoped local UI re-review execution
+```
+
+Purpose:
+
+```text
+Visually confirm the Cookie wording finding after PR #121.
+Record whether the finding is resolved, still follow_up, blocker, or not_reviewed.
+Do not change source files.
+```
+
+Primary re-review target:
+
+```text
+Advanced settings / Cookie area
+```
+
+Specific text to verify:
+
+- `Cookie設定（上級者向け）`;
+- `Cookieファイルを選択`;
+- `Cookieファイルを変更`;
+- `Cookie未設定`;
+- `Cookie設定あり`;
+- cautionary helper text that says beginners normally should not use Cookie
+  handling because Cookie data is personal information.
+
+Future review questions:
+
+- Does the Cookie area no longer promote restricted/private downloads?
+- Does the helper avoid asking users to provide Cookie/token/secret/account
+  data?
+- Is the advanced-only nature clear?
+- Is the wording calm and cautionary rather than promotional?
+- Does the text avoid public hosting, sharing, DRM/auth/restriction bypass
+  implications?
+- Does `Cookie設定（上級者向け）` fit in the advanced settings layout?
+- Do `Cookieファイルを選択` and `Cookieファイルを変更` fit on narrow layout?
+- Does the cautionary helper text remain readable and not too noisy?
+- Do `Cookie未設定` and `Cookie設定あり` read naturally?
+
+Allowed only in the future execution lane, after explicit approval:
+
+- inspect local ports;
+- use already-running local UI if available;
+- start local frontend/backend only if existing dependencies are already
+  present and no install/update/build is required;
+- open localhost / `127.0.0.1` only;
+- review visible UI text and layout;
+- record text evidence in a docs-only follow-up.
+
+Not allowed:
+
+- dependency installation or sync operations with pnpm, npm, uv, or pip;
+- Docker operations;
+- build/package commands;
+- public tunnel;
+- LAN bind;
+- real URL submission;
+- real download;
+- Cookie/token/secret value handling;
+- screenshots or generated artifacts unless separately approved.
+
+Evidence template:
+
+```text
+Cookie wording re-review evidence:
+  reviewer:
+  date:
+  commit:
+  commands run:
+  dependencies installed:
+  runtime started:
+  bound address:
+  browser / OS:
+  viewport:
+  reviewed screens:
+  Cookie area visible:
+  Cookie wording result:
+  layout result:
+  safety result:
+  findings:
+  blockers:
+  follow-up candidate:
+```
+
+Finding classification:
+
+- `resolved`: Cookie wording finding is addressed; no further frontend copy
+  work needed.
+- `follow_up`: minor wording/layout issue remains; create
+  Y-FE-COPY-07 packet docs-only.
+- `blocker`: wording still promotes unsafe cookie handling or causes serious
+  beginner confusion.
+- `not_reviewed`: could not review without additional setup.
+
+Decision rules:
+
+- If `resolved`, next recommended lane = frontend copy work hold / return to
+  docs-report-checker lane.
+- If `follow_up`, next recommended lane =
+  Y-FE-COPY-07 second cookie wording packet docs-only.
+- If `blocker`, stop and record blocker before implementation.
+- If `not_reviewed`, stop and record reason; request a separate scoped runtime
+  review lane if needed.
+
+Current-state sync:
+
+- PR #122 completed Y-FE-COPY-06.
+- Y-FE-LOCAL-REVIEW-03 prepares the scoped local UI re-review packet.
+- Artifact generation remains HOLD.
+- Next recommended lane:
+  `Y-FE-LOCAL-REVIEW-04 scoped local UI re-review execution`, only after
+  explicit approval.

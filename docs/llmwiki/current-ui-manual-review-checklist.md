@@ -349,6 +349,82 @@ Use that packet if visual confirmation of the post-PR #121 Cookie wording is
 desired. Runtime UI review execution remains a separate explicit lane with no
 source changes.
 
+## Y-FE-LOCAL-REVIEW-03 Cookie Wording Re-review Packet
+
+Y-FE-LOCAL-REVIEW-03 prepares the docs-only packet for a later scoped local UI
+re-review after the Cookie wording implementation.
+
+Reason:
+
+- Y-FE-COPY-05 / PR #121 completed the Cookie-related frontend copy-only
+  implementation.
+- The Cookie helper was changed from restricted/private download guidance to
+  cautionary advanced-only Japanese-first wording.
+- Y-FE-COPY-06 / PR #122 closed out the implementation.
+
+Future execution lane:
+
+```text
+Y-FE-LOCAL-REVIEW-04 scoped local UI re-review execution
+```
+
+Purpose:
+
+- visually confirm the Cookie wording finding after PR #121;
+- record whether the finding is `resolved`, still `follow_up`, `blocker`, or
+  `not_reviewed`;
+- do not change source files.
+
+Primary re-review target:
+
+```text
+Advanced settings / Cookie area
+```
+
+Specific text to verify:
+
+- `Cookie設定（上級者向け）`;
+- `Cookieファイルを選択`;
+- `Cookieファイルを変更`;
+- `Cookie未設定`;
+- `Cookie設定あり`;
+- cautionary helper text that says beginners normally should not use Cookie
+  handling because Cookie data is personal information.
+
+Future review questions:
+
+- Does the Cookie area no longer promote restricted/private downloads?
+- Does the helper avoid asking users to provide Cookie/token/secret/account
+  data?
+- Is the advanced-only nature clear?
+- Is the wording calm and cautionary rather than promotional?
+- Does the text avoid public hosting, sharing, DRM/auth/restriction bypass
+  implications?
+- Does `Cookie設定（上級者向け）` fit in the advanced settings layout?
+- Do `Cookieファイルを選択` and `Cookieファイルを変更` fit on narrow layout?
+- Does the cautionary helper text remain readable and not too noisy?
+- Do `Cookie未設定` and `Cookie設定あり` read naturally?
+
+Finding classification for Y-FE-LOCAL-REVIEW-04:
+
+- `resolved`: Cookie wording finding is addressed; no further frontend copy
+  work needed.
+- `follow_up`: minor wording/layout issue remains; create
+  Y-FE-COPY-07 packet docs-only.
+- `blocker`: wording still promotes unsafe cookie handling or causes serious
+  beginner confusion.
+- `not_reviewed`: could not review without additional setup.
+
+Decision rules:
+
+- If `resolved`, next recommended lane = frontend copy work hold / return to
+  docs-report-checker lane.
+- If `follow_up`, next recommended lane =
+  Y-FE-COPY-07 second cookie wording packet docs-only.
+- If `blocker`, stop and record blocker before implementation.
+- If `not_reviewed`, stop and record reason; request a separate scoped runtime
+  review lane if needed.
+
 ## Scope
 
 - Add/download form

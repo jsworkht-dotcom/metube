@@ -1419,6 +1419,89 @@ Y-FE-LOCAL-REVIEW-03 scoped local UI re-review packet docs-only
 Reason: PR #121 changed visible UI copy. A short re-review packet keeps
 runtime/start/review boundaries clear before opening the UI again.
 
+## Y-FE-LOCAL-REVIEW-03 Cookie Wording Re-review Packet
+
+Y-FE-LOCAL-REVIEW-03 prepares a docs-only scoped local UI re-review packet.
+
+Reason:
+
+- Y-FE-COPY-05 / PR #121 completed the Cookie-related frontend copy-only
+  implementation.
+- The Cookie helper was changed from restricted/private download guidance to
+  cautionary advanced-only Japanese-first wording.
+- Y-FE-COPY-06 / PR #122 closed out the implementation.
+
+Future lane:
+
+```text
+Y-FE-LOCAL-REVIEW-04 scoped local UI re-review execution
+```
+
+Purpose:
+
+- visually confirm the Cookie wording finding after PR #121;
+- record whether the finding is `resolved`, `follow_up`, `blocker`, or
+  `not_reviewed`;
+- do not change source files.
+
+Primary target:
+
+- Advanced settings / Cookie area.
+
+Specific text to verify:
+
+- `Cookie設定（上級者向け）`;
+- `Cookieファイルを選択`;
+- `Cookieファイルを変更`;
+- `Cookie未設定`;
+- `Cookie設定あり`;
+- cautionary helper text that says beginners normally should not use Cookie
+  handling because Cookie data is personal information.
+
+Future review questions:
+
+- Does the Cookie area no longer promote restricted/private downloads?
+- Does the helper avoid asking users to provide Cookie/token/secret/account
+  data?
+- Is the advanced-only nature clear?
+- Is the wording calm and cautionary rather than promotional?
+- Does the text avoid public hosting, sharing, DRM/auth/restriction bypass
+  implications?
+- Does `Cookie設定（上級者向け）` fit in the advanced settings layout?
+- Do `Cookieファイルを選択` and `Cookieファイルを変更` fit on narrow layout?
+- Does the cautionary helper text remain readable and not too noisy?
+- Do `Cookie未設定` and `Cookie設定あり` read naturally?
+
+Allowed only in Y-FE-LOCAL-REVIEW-04 after explicit approval:
+
+- inspect local ports;
+- use already-running local UI if available;
+- start local frontend/backend only if existing dependencies are already
+  present and no install/update/build is required;
+- open localhost / `127.0.0.1` only;
+- review visible UI text and layout;
+- record text evidence in docs-only follow-up.
+
+Not allowed:
+
+- dependency installation or sync operations with pnpm, npm, uv, or pip;
+- Docker operations;
+- build/package commands;
+- public tunnel;
+- LAN bind;
+- real URL submission;
+- real download;
+- Cookie/token/secret value handling;
+- screenshots or generated artifacts unless separately approved.
+
+Next recommended lane:
+
+```text
+Y-FE-LOCAL-REVIEW-04 scoped local UI re-review execution
+```
+
+Only proceed after explicit approval.
+
 ## Risk Boundaries
 
 Docs-only UX planning:

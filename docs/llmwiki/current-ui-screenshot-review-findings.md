@@ -369,6 +369,88 @@ Next safe decision:
 - Reason: PR #121 changed visible UI copy, and a short re-review packet keeps
   runtime/start/review boundaries clear before opening the UI again.
 
+## Y-FE-LOCAL-REVIEW-03 Re-review Packet
+
+This docs-only packet defines a later Cookie wording re-review lane after
+Y-FE-COPY-05 / PR #121 and Y-FE-COPY-06 / PR #122.
+
+Future lane:
+
+```text
+Y-FE-LOCAL-REVIEW-04 scoped local UI re-review execution
+```
+
+Purpose:
+
+- visually confirm the Cookie wording finding after PR #121;
+- record whether the finding is `resolved`, `follow_up`, `blocker`, or
+  `not_reviewed`;
+- avoid source changes.
+
+Approved future review target:
+
+```text
+Advanced settings / Cookie area
+```
+
+Text to verify:
+
+- `Cookie設定（上級者向け）`;
+- `Cookieファイルを選択`;
+- `Cookieファイルを変更`;
+- `Cookie未設定`;
+- `Cookie設定あり`;
+- cautionary helper text that says beginners normally should not use Cookie
+  handling because Cookie data is personal information.
+
+Beginner-safety questions:
+
+- Does the Cookie area no longer promote restricted/private downloads?
+- Does the helper avoid asking users to provide Cookie/token/secret/account
+  data?
+- Is the advanced-only nature clear?
+- Is the wording calm and cautionary rather than promotional?
+- Does the text avoid public hosting, sharing, DRM/auth/restriction bypass
+  implications?
+
+Layout questions:
+
+- Does `Cookie設定（上級者向け）` fit in the advanced settings layout?
+- Do `Cookieファイルを選択` and `Cookieファイルを変更` fit on narrow layout?
+- Does the cautionary helper text remain readable and not too noisy?
+- Do `Cookie未設定` and `Cookie設定あり` read naturally?
+
+Evidence template:
+
+```text
+Cookie wording re-review evidence:
+  reviewer:
+  date:
+  commit:
+  commands run:
+  dependencies installed:
+  runtime started:
+  bound address:
+  browser / OS:
+  viewport:
+  reviewed screens:
+  Cookie area visible:
+  Cookie wording result:
+  layout result:
+  safety result:
+  findings:
+  blockers:
+  follow-up candidate:
+```
+
+Decision rules:
+
+- `resolved`: frontend copy work hold / return to docs-report-checker lane.
+- `follow_up`: Y-FE-COPY-07 second cookie wording packet docs-only.
+- `blocker`: stop and record blocker before implementation.
+- `not_reviewed`: stop and record reason; request a separate scoped runtime
+  review lane if needed.
+
 ## Review Status
 
 ```text
