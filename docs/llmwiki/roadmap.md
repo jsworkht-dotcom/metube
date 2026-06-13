@@ -82,7 +82,7 @@
 
 ### Recent completed lane compression
 
-- PR #86-#111 are complete.
+- PR #86-#112 are complete.
 - Y-DIST completion is compressed as:
   Y-DIST-02 metadata checking, Y-DIST-03 recipient/first-run docs,
   Y-DIST-04 readiness matrix, Y-DIST-05 approval checklist, and Y-DIST-06
@@ -113,6 +113,8 @@
   clarity review baseline.
 - Y-UX-STOP-01 completed via PR #111 and added the stop/quit user-flow design
   baseline.
+- Y-UX-CLOSEOUT-01 completed via PR #112 and closed the beginner UX planning
+  lane.
 
 ### Y-DIST-02 checksum / hash / version / license notice bundle verification
 
@@ -506,7 +508,8 @@
 
 ### Y-UX-CLOSEOUT-01 UX planning lane closeout
 
-- Status: docs-only UX planning lane closeout.
+- Status: completed via fork PR #112.
+- Merge commit: `7b561a259efd9a92a61ab3765416286c7bc207ea`.
 - Review section:
   `docs/llmwiki/beginner-ux-next-action-plan.md`.
 - Summary: closes the beginner UX planning lane after Y-UX-PLAN-01 through
@@ -536,6 +539,32 @@
   package output, generated folders, dependencies, Docker files, CI workflows,
   GitHub settings, `.gitignore`, credential-bearing file handling,
   secret-like value handling, public exposure operations, or bypass guidance.
+- Risk: High-low / docs-only / draft PR preferred.
+
+### Y-FE-COPY-01 frontend copy-only implementation packet
+
+- Status: docs-only implementation packet / roadmap / handoff sync.
+- Packet section:
+  `docs/llmwiki/beginner-ux-next-action-plan.md`.
+- Summary: defines the future Y-FE-COPY-02 frontend copy-only implementation
+  boundary before any `ui/**` file is changed.
+- Future candidate UI files:
+  `ui/src/app/app.html`, `ui/src/app/app.ts`, and
+  `ui/src/app/interfaces/formats.ts`.
+- Allowed future copy groups:
+  quality / format labels, codec display labels, captions labels,
+  help/troubleshooting entry labels, status/progress/completion labels,
+  stop/quit guidance text, and local-only safe-use hint text.
+- Risk boundary: future implementation is frontend copy-only; no behavior,
+  selector logic, state management, API, dependency/package/lockfile, generated
+  artifact, or build tooling changes.
+- Next recommended lane after Y-FE-COPY-01:
+  `Y-FE-COPY-02 frontend copy-only implementation`, only after explicit scope
+  approval.
+- This lane does not change frontend code, backend code, runtime behavior,
+  package output, generated folders, dependencies, Docker files, CI workflows,
+  GitHub settings, `.gitignore`, cookie/token/secret handling, public exposure
+  operations, or bypass guidance.
 - Risk: High-low / docs-only / draft PR preferred.
 
 ### Y-CI-03 reusable local safety workflow design
@@ -689,7 +718,7 @@
 Y-FE-COPY-01:
   frontend copy-only implementation packet using fast safe flow while docs-only
 
-Frontend copy-only implementation:
+Y-FE-COPY-02:
   later separate lane only if explicitly scoped to ui files
 
 Docs/report/checker lane:
