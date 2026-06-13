@@ -10,11 +10,11 @@ canonical branch is fork `master`, and local `master` tracks `fork/master`.
 ## Current Closeout State
 
 - Latest completed docs branch:
-  `codex/y-ui-quality-01-quality-label-review`.
-- Current docs planning branch:
   `codex/y-ux-help-01-help-troubleshooting-review`.
+- Current docs planning branch:
+  `codex/y-ux-state-01-status-progress-clarity`.
 - Current fork `master` baseline:
-  `8e33c91d4231a62b12d1881d56b42625b2ec83e3` from fork PR #108.
+  `306349407a58ba733a34662e2c02b15b93a215d6` from fork PR #109.
 - Compact recent state:
   - Y-DIST is complete through Y-DIST-08. PR #105 recorded the first
     approval-packet review status: no artifact generation approval was granted,
@@ -35,11 +35,11 @@ canonical branch is fork `master`, and local `master` tracks `fork/master`.
   - PR #106 completed Y-UX-PLAN-01 and established the next docs-only beginner
     UX planning path after the Y-DIST-08 hold. PR #107 completed
     Y-UX-COPY-01 safe-use microcopy review. PR #108 completed
-    Y-UI-QUALITY-01 quality selector / label review. Y-UX-HELP-01 now reviews
-    beginner help/troubleshooting entries docs-only. Next candidates after that
-    are status/progress clarity review, stop/quit flow design, explicitly
-    scoped frontend copy-only implementation, or another docs/report/checker
-    lane using fast safe flow.
+    Y-UI-QUALITY-01 quality selector / label review. PR #109 completed
+    Y-UX-HELP-01 help/troubleshooting entry review. Y-UX-STATE-01 now reviews
+    beginner status/progress/completion clarity docs-only. Next candidates
+    after that are stop/quit flow design, explicitly scoped frontend copy-only
+    implementation, or another docs/report/checker lane using fast safe flow.
 - Y-SEC-01 is complete via fork PR #82.
 - Y-SEC-01 state:
   - local-only runtime guardrails implemented in backend startup/request
@@ -1284,18 +1284,17 @@ canonical branch is fork `master`, and local `master` tracks `fork/master`.
 Use `docs/llmwiki/current-state.md`, `docs/llmwiki/roadmap.md`, and this handoff
 as the next-chat source of truth.
 
-Recommended next candidates after Y-UX-HELP-01:
+Recommended next candidates after Y-UX-STATE-01:
 
 ```text
-Y-UX-STATE-01 status / progress / completion clarity review docs-only
 Y-UX-STOP-01 stop/quit user-flow design docs-only
 frontend copy-only implementation lane if explicitly scoped later
 another docs/report/checker lane using fast safe flow
 ```
 
 PR #106 completed Y-UX-PLAN-01. PR #107 completed Y-UX-COPY-01. PR #108
-completed Y-UI-QUALITY-01. Y-UX-HELP-01 now reviews help/troubleshooting entry
-wording:
+completed Y-UI-QUALITY-01. PR #109 completed Y-UX-HELP-01. Y-UX-STATE-01 now
+reviews status/progress/completion clarity wording:
 
 ```text
 docs/llmwiki/beginner-ux-next-action-plan.md
@@ -1304,7 +1303,6 @@ docs/llmwiki/beginner-ux-next-action-plan.md
 Other safe planning candidates remain:
 
 ```text
-Y-UX-STATE-01 status / progress / completion clarity review docs-only
 Y-UX-STOP-01 stop/quit user-flow design docs-only
 another docs/report/checker lane using fast safe flow
 ```
@@ -1469,6 +1467,41 @@ Outcome:
 Next candidate after Y-UX-HELP-01:
 
 - `Y-UX-STATE-01 status / progress / completion clarity review` docs-only; or
+- frontend copy-only implementation lane if explicitly scoped later.
+
+## Y-UX-STATE-01 Handoff Update
+
+Latest work: Y-UX-STATE-01 status/progress/completion clarity review docs-only.
+
+Review section:
+
+```text
+docs/llmwiki/beginner-ux-next-action-plan.md
+```
+
+Outcome:
+
+- Reviews connection/loading state, saving/progress state, queued/waiting
+  state, completed state, failed state, retry guidance, save-folder
+  confirmation, and stop/quit timing guidance.
+- Records the current status baseline: Japanese-localized status labels exist,
+  download metrics exist, queue/progress/completed/failed areas exist,
+  Y-UX-COPY-01 safe-use wording baseline exists, Y-UI-QUALITY-01 label review
+  baseline exists, Y-UX-HELP-01 help/troubleshooting baseline exists, and
+  artifact generation remains HOLD.
+- Adds short Japanese candidate wording for connection, saving, queued,
+  completed, failed, retry, and stop/quit states.
+- Defines status priority: connection, active save, waiting save, completion,
+  failure with one safe next action, save-folder confirmation, and safe
+  stop/quit guidance.
+- Keeps frontend copy-only implementation as a later separate lane with
+  explicitly scoped `ui/**` files.
+- Keeps runtime behavior changes outside this lane.
+- Confirms artifact generation remains HOLD.
+
+Next candidate after Y-UX-STATE-01:
+
+- `Y-UX-STOP-01 stop/quit user-flow design` docs-only; or
 - frontend copy-only implementation lane if explicitly scoped later.
 
 ## Y-AUTO-08 Handoff Update
