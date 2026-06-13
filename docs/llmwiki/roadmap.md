@@ -119,6 +119,15 @@
   implementation packet.
 - Y-FE-COPY-02 completed via PR #114 and applied the first frontend copy-only
   implementation pass.
+- Y-FE-COPY-03 completed via PR #115 and closed out that implementation
+  docs-only.
+- Y-FE-REVIEW-01 completed via PR #116 and refreshed the manual UI review
+  checklist.
+- Y-FE-REVIEW-02 completed via PR #117 and recorded that manual UI review was
+  not executed because no already-running UI was available and
+  build/install/runtime start was not approved in that lane.
+- Y-FE-LOCAL-REVIEW-01 prepares the scoped local UI review runbook / approval
+  packet docs-only.
 
 ### Y-DIST-02 checksum / hash / version / license notice bundle verification
 
@@ -658,6 +667,25 @@
   exist.
 - Risk: Low / docs-only / fast safe flow.
 
+### Y-FE-LOCAL-REVIEW-01 scoped local UI review runbook
+
+- Status: docs-only runbook / approval packet.
+- Summary: defines the future `Y-FE-LOCAL-REVIEW-02 scoped local UI review
+  execution` lane after Y-FE-REVIEW-02 recorded all targets as `not_reviewed`.
+- New document:
+  `docs/llmwiki/local-ui-review-runbook.md`.
+- Future review purpose: start or use the local-only UI only for visual/manual
+  review of PR #114 copy changes, record findings, and avoid source changes.
+- Future execution boundaries: only after explicit approval; loopback-only;
+  existing dependencies only; notes-only evidence; no install/update,
+  build/package, Docker, public/LAN exposure, real URL submission, real
+  download, source changes, or artifacts.
+- Artifact generation remains HOLD.
+- Next recommended lane:
+  `Y-FE-LOCAL-REVIEW-02 scoped local UI review execution`, only after explicit
+  approval.
+- Risk: Low / docs-only / fast safe flow.
+
 ### Y-CI-03 reusable local safety workflow design
 
 - Status: completed via fork PR #95.
@@ -820,6 +848,12 @@ Y-FE-COPY-04:
 
 Y-FE-REVIEW-02:
   manual UI review evidence record docs-only
+
+Y-FE-LOCAL-REVIEW-01:
+  scoped local UI review runbook / approval packet docs-only
+
+Y-FE-LOCAL-REVIEW-02:
+  scoped local UI review execution, only after explicit approval
 
 Docs/report/checker lane:
   another low-risk lane using fast safe flow

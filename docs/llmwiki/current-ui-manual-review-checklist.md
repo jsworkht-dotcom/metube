@@ -187,6 +187,30 @@ Decision:
 next recommended lane = separate scoped local UI review lane, no source changes
 ```
 
+## Y-FE-LOCAL-REVIEW-01 Scoped Local Review Packet
+
+Y-FE-LOCAL-REVIEW-01 adds the scoped local UI review runbook / approval packet:
+
+```text
+docs/llmwiki/local-ui-review-runbook.md
+```
+
+This packet is docs-only. It does not execute the manual UI review, start the
+app, build frontend assets, install dependencies, run the backend, perform a
+download, change source files, create artifacts, or expose anything beyond
+loopback.
+
+Future lane:
+
+```text
+Y-FE-LOCAL-REVIEW-02 scoped local UI review execution
+```
+
+Y-FE-LOCAL-REVIEW-02 may only run after explicit approval. It may start or use
+the local-only UI only if existing dependencies are already present, and it
+must stop and record `not executed` if review would require install, build,
+Docker, package generation, real URL submission, or real download work.
+
 ## Scope
 
 - Add/download form
