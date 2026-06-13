@@ -82,7 +82,7 @@
 
 ### Recent completed lane compression
 
-- PR #86-#113 are complete.
+- PR #86-#114 are complete.
 - Y-DIST completion is compressed as:
   Y-DIST-02 metadata checking, Y-DIST-03 recipient/first-run docs,
   Y-DIST-04 readiness matrix, Y-DIST-05 approval checklist, and Y-DIST-06
@@ -117,6 +117,8 @@
   lane.
 - Y-FE-COPY-01 completed via PR #113 and added the frontend copy-only
   implementation packet.
+- Y-FE-COPY-02 completed via PR #114 and applied the first frontend copy-only
+  implementation pass.
 
 ### Y-DIST-02 checksum / hash / version / license notice bundle verification
 
@@ -572,7 +574,9 @@
 
 ### Y-FE-COPY-02 frontend copy-only implementation
 
-- Status: frontend copy-only implementation / LLMwiki sync.
+- Status: completed via fork PR #114.
+- Merge commit / final `fork/master`:
+  `540b7e57aac845dcb84ef3e1dda5d88055555978`.
 - UI files:
   `ui/src/app/app.html`, `ui/src/app/app.ts`, and
   `ui/src/app/interfaces/formats.ts`.
@@ -585,12 +589,29 @@
 - Boundary: selector ids and values, quality numeric values, format/codec
   mappings, API payloads, state management, event handlers, Socket.IO behavior,
   queue behavior, download behavior, backend files, workflow files, package
-  files, lockfiles, dependencies, Docker files, and generated artifacts remain
+  files, lockfiles, dependencies, Docker files, and generated-output files remain
   unchanged.
-- Next recommended lane after Y-FE-COPY-02:
-  optional manual UI review / screenshot review of the copy-only changes, or
-  another docs/report/checker lane using fast safe flow.
+- Verification: local checks passed; `local fork safety / local fork safety`
+  passed; direct local Angular lint via `ui/node_modules/.bin/ng.cmd lint`
+  passed; `pnpm run lint` was not run because `pnpm` was unavailable;
+  dependency installation operations and update application operations were not
+  approved.
 - Risk: frontend copy-only / explicitly scoped / human-reviewed merge.
+
+### Y-FE-COPY-03 frontend copy-only implementation closeout
+
+- Status: docs-only closeout / roadmap / handoff sync.
+- Summary: closes out the first frontend copy-only implementation lane after
+  PR #114.
+- Preserved boundaries:
+  no selector id/value changes, API payload changes, mapping changes, event
+  handler changes, state management changes, backend changes, workflow changes,
+  package/dependency/lockfile changes, generated-output files, or distribution
+  artifact creation.
+- Artifact generation remains HOLD.
+- Next recommended lane after Y-FE-COPY-03:
+  `Y-FE-REVIEW-01 manual UI review checklist refresh` docs-only.
+- Risk: Low / docs-only / fast safe flow.
 
 ### Y-CI-03 reusable local safety workflow design
 
@@ -745,6 +766,9 @@ Y-FE-COPY-01:
 
 Y-FE-COPY-02:
   frontend copy-only implementation, scoped to approved ui files
+
+Y-FE-REVIEW-01:
+  manual UI review checklist refresh docs-only
 
 Docs/report/checker lane:
   another low-risk lane using fast safe flow

@@ -1171,9 +1171,97 @@ Y-FE-COPY-02 does not perform:
 - public exposure operations;
 - DRM/auth/restriction bypass guidance.
 
+## Y-FE-COPY-03 Frontend Copy-Only Implementation Closeout
+
+Y-FE-COPY-03 closes out the first frontend copy-only implementation lane after
+PR #114. This section is docs-only and records what changed, what stayed
+unchanged, what verification passed, and the next safe frontend decision point.
+
+### Completed Change Summary
+
+Y-FE-COPY-02 completed:
+
+- PR #114.
+- Merge commit / final `fork/master`:
+  `540b7e57aac845dcb84ef3e1dda5d88055555978`.
+
+Changed UI copy groups:
+
+- quality / audio helper text;
+- scoped auto display labels to `おまかせ`;
+- Japanese subtitle mode labels;
+- result-table auto codec display;
+- beginner-safe wording softened to avoid guaranteed-success language.
+
+### Preserved Boundaries
+
+- No selector id/value changes.
+- No API payload changes.
+- No mapping changes.
+- No event handler changes.
+- No state management changes.
+- No backend changes.
+- No workflow changes.
+- No package/dependency/lockfile changes.
+- No generated-output files.
+- No distribution artifact creation.
+
+### Verification
+
+- `git diff --check`: pass.
+- `git diff --cached --check`: pass.
+- repo safety checks: pass.
+- safety wording: pass with warning-only existing findings.
+- clean-package report regression: pass.
+- clean-package JSON dry-run: pass.
+- `local fork safety / local fork safety`: pass.
+- direct local Angular lint via `ui/node_modules/.bin/ng.cmd lint`: pass.
+- `pnpm run lint`: not run because `pnpm` was unavailable; dependency
+  installation operations and update application operations were not approved.
+
+### Next Safe Decision
+
+Option A:
+
+```text
+Y-FE-COPY-04 second frontend copy-only pass packet docs-only
+Use if more visible UI text remains to polish.
+```
+
+Option B:
+
+```text
+Y-FE-REVIEW-01 manual UI review checklist refresh docs-only
+Use if the next step should be visual/manual review before more ui changes.
+```
+
+Option C:
+
+```text
+Y-FE-COPY-04 frontend copy-only implementation
+Only after explicit scope approval.
+Must remain copy-only and limited to approved UI files.
+```
+
+### Recommended Next Lane
+
+Recommended:
+
+```text
+Y-FE-REVIEW-01 manual UI review checklist refresh docs-only
+```
+
+Reason:
+
+- PR #114 touched visible UI copy.
+- A docs-only manual review checklist before a second frontend pass reduces
+  risk.
+
 ## Next UX Candidates
 
-- manual UI review of the Y-FE-COPY-02 copy-only changes if desired
+- `Y-FE-REVIEW-01 manual UI review checklist refresh` docs-only
+- `Y-FE-COPY-04 second frontend copy-only pass packet` docs-only if more
+  visible UI text remains to polish
 - continue docs-only UX planning if more review is needed
 
 Repo-history note: earlier `Y-UI-QUALITY-01`, `Y-UI-QUALITY-02`, and
@@ -1183,10 +1271,9 @@ lane name while keeping the candidate intent.
 
 ## Recommended First Next Lane
 
-Recommended next lane after Y-FE-COPY-02:
+Recommended next lane after Y-FE-COPY-03:
 
-- optional manual UI review / screenshot review of the copy-only changes; or
-- another docs/report/checker lane using fast safe flow.
+- `Y-FE-REVIEW-01 manual UI review checklist refresh` docs-only.
 
 Repo-history note: because historical `Y-UI-QUALITY-01` is already complete in
 this fork, prefer a fresh quality selector / label review follow-up lane name
@@ -1244,13 +1331,17 @@ PR #105 completed Y-DIST-08 no-generation hold. PR #106 completed
 Y-UX-PLAN-01. PR #107 completed Y-UX-COPY-01. PR #108 completed
 Y-UI-QUALITY-01. PR #109 completed Y-UX-HELP-01. PR #110 completed
 Y-UX-STATE-01. PR #111 completed Y-UX-STOP-01. PR #112 completed
-Y-UX-CLOSEOUT-01. PR #113 completed Y-FE-COPY-01. Y-FE-COPY-02 applies the
-first frontend copy-only implementation step:
+Y-UX-CLOSEOUT-01. PR #113 completed Y-FE-COPY-01. PR #114 completed
+Y-FE-COPY-02. Y-FE-COPY-03 closes out the first frontend copy-only
+implementation step:
 
 - artifact generation remains blocked;
 - fast safe flow is the default for low-risk docs/report/checker lanes;
 - beginner UX work should start with safe planning before any UI implementation;
 - this lane keeps selector ids/values, API payloads, and runtime behavior
   unchanged;
+- artifact generation remains HOLD;
+- the recommended next lane is Y-FE-REVIEW-01 manual UI review checklist
+  refresh docs-only;
 - further UI work remains explicitly scoped to approved `ui/**` files unless
   later safety-gate policy explicitly changes.
