@@ -1992,6 +1992,39 @@ Next recommended lane:
 
 Artifact generation remains HOLD.
 
+## Y-FE-LOCAL-REVIEW-04 Handoff Update
+
+Latest work: Y-FE-LOCAL-REVIEW-04 executed the scoped local UI re-review
+attempt for the Advanced settings / Cookie area and recorded the outcome as
+`not_reviewed`.
+
+Observed facts:
+
+- baseline commit: `baa09845e65599476e648d920bdde97ee4af95e7`;
+- branch used for evidence:
+  `codex/y-fe-local-review-04-cookie-rereview-evidence`;
+- existing `ui/node_modules` and `ui/node_modules/.bin/ng.cmd` were present;
+- no dependency install/update, build/package command, Docker operation,
+  screenshot/artifact generation, real URL submission, real download, or
+  cookie/token/secret handling was performed;
+- default `ng serve --host 127.0.0.1 --port 4200` failed because
+  `ui/proxy.conf.json` is absent;
+- `ng serve --configuration production --host 127.0.0.1 --port 4200` could
+  answer HTTP 200 in a controlled local job, then was stopped;
+- Browser plugin, bundled Playwright, and Chrome headless/CDP attempts did not
+  produce a stable browser-rendered Advanced settings / Cookie area;
+- no source verdict is recorded for whether PR #121 visually resolved the
+  Cookie wording finding;
+- no listener remained on port 4200 after the review attempt.
+
+Next recommended lane:
+
+- Separate scoped runtime review lane after a reliable loopback preview command
+  or already-running local UI is available. Do not start Y-FE-COPY-07 from
+  Y-FE-LOCAL-REVIEW-04 because no visual wording/layout finding was confirmed.
+
+Artifact generation remains HOLD.
+
 ## Y-AUTO-08 Handoff Update
 
 Latest completed work: Y-AUTO-08 added the docs-only local safety gate aggregator design at `docs/llmwiki/local-safety-gate-aggregator-design.md`.
