@@ -507,7 +507,10 @@ Current-state sync:
 - PR #124 completed Y-FE-LOCAL-REVIEW-04 with result `not_reviewed`.
 - Y-FE-LOCAL-REVIEW-05 prepares a reliable loopback preview/review command
   packet.
+- Y-FE-LOCAL-REVIEW-06 attempted the approved reliable loopback UI review at
+  `fork/master` commit `20232bb3428725bf87e8bd179e41939cb1a2e9bb`, but the
+  production Angular launcher exited before `127.0.0.1:4200` listened, so the
+  Advanced settings / Cookie area was not rendered for review.
 - Artifact generation remains HOLD.
 - Next recommended lane:
-  `Y-FE-LOCAL-REVIEW-06 reliable loopback UI review execution`, only after
-  explicit approval.
+  review path escalation packet docs-only.

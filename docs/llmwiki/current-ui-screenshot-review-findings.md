@@ -541,6 +541,64 @@ If reliable preview still cannot be established in that future lane,
 classification remains `not_reviewed` and the next recommended lane is a
 review path escalation packet docs-only.
 
+## Y-FE-LOCAL-REVIEW-06 Text Evidence Record
+
+Reliable local UI preview evidence:
+
+```text
+reviewer: Codex
+date: 2026-06-13
+commit: 20232bb3428725bf87e8bd179e41939cb1a2e9bb
+chosen preview approach:
+  existing ui/node_modules local Angular CLI, production ng serve, loopback-only
+  target http://127.0.0.1:4200/
+commands run:
+  git status -sb
+  git rev-parse fork/master
+  git rev-parse HEAD
+  git fetch fork --prune
+  Test-Path ui/node_modules
+  Test-Path ui/node_modules/.bin/ng.cmd
+  Get-NetTCPConnection -LocalPort 4200
+  Start-Process ng.cmd serve --configuration production --host 127.0.0.1 --port 4200
+  Get-NetTCPConnection -LocalAddress 127.0.0.1 -LocalPort 4200
+  Get-Process for the launched cmd process ids
+dependencies installed: no
+build/package run: no
+runtime started:
+  no reviewable runtime. The local Angular launcher process exited before a
+  loopback listener appeared.
+bound address:
+  none observed; intended bound address was 127.0.0.1:4200.
+browser / OS:
+  Browser was not opened because no loopback listener was established; Windows.
+viewport: not_reviewed
+Cookie area reached: no
+Cookie wording visible: not_reviewed
+Cookie wording result: not_reviewed
+layout result: not_reviewed
+safety result: not_reviewed
+findings:
+  not_reviewed. Existing frontend dependencies and local Angular binary were
+  present, but the approved loopback preview could not be established without
+  further setup or additional runtime troubleshooting.
+blockers:
+  two allowed production ng serve launch attempts exited before
+  127.0.0.1:4200 began listening. No visual verdict is recorded for whether
+  PR #121 visually resolved the Cookie wording finding.
+follow-up candidate:
+  review path escalation packet docs-only.
+listener stopped:
+  yes. No listener was present on 127.0.0.1:4200 after the attempts.
+```
+
+Decision:
+
+```text
+review status: not_reviewed
+next recommended lane: review path escalation packet docs-only
+```
+
 ## Review Status
 
 ```text

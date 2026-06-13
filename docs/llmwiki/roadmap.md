@@ -906,6 +906,33 @@
 - Artifact generation remains HOLD.
 - Risk: Low / docs-only packet.
 
+### Y-FE-LOCAL-REVIEW-06 reliable loopback UI review execution
+
+- Status: attempted; outcome `not_reviewed`.
+- Baseline: `fork/master` commit
+  `20232bb3428725bf87e8bd179e41939cb1a2e9bb`.
+- Summary: executed the approved local-only, loopback-only review attempt for
+  the Advanced settings / Cookie area after Y-FE-LOCAL-REVIEW-05. Existing
+  frontend dependencies and the local Angular binary were present, but the
+  approved production `ng serve` launcher exited before `127.0.0.1:4200`
+  listened, so the Cookie area was not rendered for review.
+- Runtime observations:
+  - existing `ui/node_modules` and `ui/node_modules/.bin/ng.cmd` were present;
+  - two production Angular serve launcher attempts targeted
+    `127.0.0.1:4200` and exited before a listener appeared;
+  - Browser was not opened because no loopback listener was established;
+  - no listener remained on `127.0.0.1:4200` after the attempt.
+- Not performed: dependency install/update, build/package command, Docker
+  operation, backend setup, public/LAN exposure, real URL submission, real
+  download, cookie/token/secret handling, screenshot capture, generated image
+  artifacts, app source changes, workflow changes, package/lockfile changes, or
+  generated package output.
+- Decision: no visual verdict is recorded for whether PR #121 resolved the
+  Cookie wording finding.
+- Next recommended lane: review path escalation packet docs-only.
+- Artifact generation remains HOLD.
+- Risk: Low / docs-only evidence.
+
 ### Y-CI-03 reusable local safety workflow design
 
 - Status: completed via fork PR #95.

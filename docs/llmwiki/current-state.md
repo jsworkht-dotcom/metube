@@ -3156,6 +3156,18 @@ decision rules for `Y-FE-LOCAL-REVIEW-06 reliable loopback UI review
 execution`. Artifact generation remains HOLD. Next recommended lane:
 Y-FE-LOCAL-REVIEW-06, only after explicit approval.
 
+Y-FE-LOCAL-REVIEW-06 executed the approved reliable loopback UI review attempt
+at `fork/master` commit `20232bb3428725bf87e8bd179e41939cb1a2e9bb`. Existing
+`ui/node_modules` and `ui/node_modules/.bin/ng.cmd` were present, and no
+dependency install/update, build/package command, Docker operation, backend
+setup, screenshot/artifact generation, real URL submission, real download, or
+cookie/token/secret handling was performed. Two production Angular serve
+launcher attempts targeting `127.0.0.1:4200` exited before a listener appeared,
+so the Browser was not opened and the Advanced settings / Cookie area was not
+rendered for review. Result: `not_reviewed`; no visual verdict is recorded for
+PR #121's Cookie wording change. Listener stopped/absent after the attempt.
+Next recommended lane: review path escalation packet docs-only.
+
 Y-08Z closes the Y-08 preview hardening lane as docs-only closeout.
 Y-UI-QUALITY-01 is complete via fork PR #73 with merge commit
 `402996eba52f923be962e2fe69ebdaa6084363f2`. Y-UI-QUALITY-02 is complete via
