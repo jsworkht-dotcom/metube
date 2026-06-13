@@ -25,6 +25,9 @@ Facts:
   separate explicit approval exists.
 - Y-DIST-07 provides the artifact generation approval packet for the later
   human decision record; it does not approve generation.
+- Y-DIST-08 records the first human-review status after Y-DIST-07 packet
+  creation: no artifact generation approval was granted, and generation
+  remains on hold.
 - All approval categories in this checklist are currently `not approved`.
 
 Assumptions:
@@ -63,9 +66,10 @@ artifact operation.
 | C | checksum generation approval | `not approved` |
 | D | ZIP output approval | `not approved` |
 | E | installer output approval | `not approved` |
-| F | first-run verification approval | `not approved` |
-| G | real download verification approval | `not approved` |
-| H | recipient handoff / sharing approval | `not approved` |
+| F | package output approval | `not approved` |
+| G | first-run verification approval | `not approved` |
+| H | real download verification approval | `not approved` |
+| I | recipient handoff / sharing approval | `not approved` |
 
 Each category must be approved separately or explicitly included in a single
 record that names the exact allowed artifact scope. A broad statement such as
@@ -212,6 +216,12 @@ Y-DIST-07:
 
 - Artifact generation approval packet.
 - Does not approve artifact generation by itself.
+
+Y-DIST-08:
+
+- First human-review status after Y-DIST-07 approval packet creation.
+- No artifact generation approval granted.
+- Generation remains blocked and on hold.
 
 ## Explicit Non-Goals
 

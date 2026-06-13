@@ -114,7 +114,7 @@ stop conditions. It does not approve artifact generation.
 
 | item | current_status | evidence_or_source | required_before_distribution | blocker_if_failed | next_action |
 | --- | --- | --- | --- | --- | --- |
-| Explicit artifact-generation approval | `blocked` | Y-DIST-05 checklist and Y-DIST-07 packet exist, but all categories remain `not approved`. | yes | yes | Future approval must use `docs/llmwiki/artifact-generation-approval-checklist.md` and `docs/llmwiki/artifact-generation-approval-packet.md`. |
+| Explicit artifact-generation approval | `blocked` | Y-DIST-05 checklist and Y-DIST-07 packet exist; Y-DIST-08 records no-generation hold, and all categories remain `not approved`. | yes | yes | Future approval must use `docs/llmwiki/artifact-generation-approval-checklist.md` and `docs/llmwiki/artifact-generation-approval-packet.md`. |
 | CLEAN folder creation | `blocked` | Not generated; explicitly prohibited in this lane. | yes | yes | Separate explicit approval required. |
 | ZIP / installer / package output | `blocked` | Not generated; explicitly prohibited in this lane. | yes | yes | Separate explicit approval required. |
 | Metadata/checksum generation | `blocked` | Not generated; explicitly prohibited in this lane. | yes | yes | Separate explicit approval required. |
@@ -144,17 +144,18 @@ stop conditions. It does not approve artifact generation.
 | --- | --- | --- | --- | --- | --- |
 | Y-DIST-05 human approval checklist before artifact generation | `ready` | `docs/llmwiki/artifact-generation-approval-checklist.md` | yes | yes | Use it before any future generation task; it does not approve generation by itself. |
 | Y-DIST-06 approved clean candidate dry-run plan | `ready` | `docs/llmwiki/approved-clean-candidate-dry-run-plan.md` | yes | yes | Use it only after explicit Y-DIST-05 approval; candidate checker execution is `not_applicable_yet` until an approved candidate exists. |
+| Y-DIST-08 no-generation hold record | `ready` | `docs/llmwiki/artifact-generation-approval-packet.md` | yes | yes | Continue docs/report/checker/UX planning only until a later explicit generation approval exists. |
 | Y-CI-03 reusable workflow | `not_started` | CI follow-up candidate. | no for distribution docs | no | Consider after distribution approval checklist. |
 | Y-CI-04 concurrency / cancel-in-progress | `not_started` | CI follow-up candidate. | no for distribution docs | no | Consider after or alongside Y-CI-03. |
 | Y-GH-01 branch protection design | `not_started` | Governance follow-up candidate. | human decision | no for docs-only planning | Keep design-only unless explicitly approved. |
 | Y-WIKI-CLEAN-01 current-state / handoff / archive整理 | `not_started` | Documentation maintenance candidate. | no | no | Use after current distribution lane settles. |
 
-Recommended next step after Y-DIST-07:
+Recommended next step after Y-DIST-08:
 
 ```text
-Human review of the approval packet, then stop until explicit
-artifact-generation approval exists or continue in a separate approval-only
-docs refinement lane.
+Continue low-risk docs/report/checker/UX planning lanes using fast safe flow.
+Do not begin artifact generation, ZIP/package/installer creation, required
+checks implementation, or branch protection mutation yet.
 ```
 
 Rationale: Y-DIST-01, Y-DIST-02, and Y-DIST-03 define the checker and recipient
