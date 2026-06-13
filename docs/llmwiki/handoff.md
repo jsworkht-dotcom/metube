@@ -1864,6 +1864,67 @@ Next recommended candidate:
 - a separate copy-only lane for remaining advanced English-first tool labels,
   or the `取得数の上限` helper follow-up.
 
+## Y-FE-COPY-06 Handoff Update
+
+Latest work: Y-FE-COPY-06 closes out the cookie-related copy-only
+implementation as docs-only sync after PR #121.
+
+Completed implementation record:
+
+- Y-FE-COPY-05 completed via PR #121.
+- Head commit: `e960b11fe6f301a3d21e0bda2f310ea5fb71bdba`.
+- Squash merge commit / final `fork/master`:
+  `eb22d5746267f972c1f4e1f2397a7fba6e83a161`.
+
+Changed Cookie UI copy:
+
+- `Cookie設定（上級者向け）`;
+- `Cookieファイルを選択`;
+- `Cookieファイルを変更`;
+- `Cookie未設定`;
+- `Cookie設定あり`;
+- helper text now warns that beginners normally should not use Cookie
+  handling because Cookie data is personal information.
+
+Finding resolution:
+
+- manual UI review finding: advanced settings Cookie helper encouraged
+  restricted/private download cookie upload;
+- resolution: promotional restricted/private download wording was replaced
+  with cautionary advanced-only Japanese-first wording;
+- status: follow-up finding addressed by copy-only implementation.
+
+Preserved boundaries:
+
+- no cookie upload behavior changes;
+- no file input behavior changes;
+- no delete cookie behavior changes;
+- no `hasCookies` logic changes;
+- no `cookieUploadInProgress` logic changes;
+- no event handler changes;
+- no state management changes;
+- no API/backend changes;
+- no download, queue, subscription, routing, service worker, build tooling,
+  dependency, package/lockfile, or generated artifact changes.
+
+Verification recorded from PR #121:
+
+- `git diff --check`: pass;
+- repo safety checks: pass;
+- safety wording: pass with warning-only findings;
+- clean-package report regression: pass;
+- clean-package JSON dry-run: pass;
+- Angular lint via `ui/node_modules/.bin/ng.cmd lint`: pass;
+- `local fork safety / local fork safety`: pass;
+- forbidden paths absent.
+
+Next recommended lane:
+
+- `Y-FE-LOCAL-REVIEW-03 scoped local UI re-review packet docs-only`.
+
+Reason: PR #121 changed visible UI copy. A short re-review packet keeps
+runtime/start/review boundaries clear before opening the UI again.
+
 ## Y-AUTO-08 Handoff Update
 
 Latest completed work: Y-AUTO-08 added the docs-only local safety gate aggregator design at `docs/llmwiki/local-safety-gate-aggregator-design.md`.

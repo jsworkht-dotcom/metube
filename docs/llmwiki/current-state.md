@@ -3083,6 +3083,34 @@ Y-FE-COPY-05 addresses the Y-FE-LOCAL-REVIEW-02 cookie wording blocker without
 hiding, disabling, or removing the Cookie UI. Remaining advanced English-first
 tool labels and the `取得数の上限` helper remain separate follow-up copy lanes.
 
+Y-FE-COPY-06 closes out the cookie-related copy-only implementation as
+docs-only sync after PR #121. It records:
+
+- PR #121 completed Y-FE-COPY-05;
+- head commit `e960b11fe6f301a3d21e0bda2f310ea5fb71bdba`;
+- squash merge commit / final `fork/master`
+  `eb22d5746267f972c1f4e1f2397a7fba6e83a161`;
+- changed Cookie UI copy: `Cookie設定（上級者向け）`,
+  `Cookieファイルを選択`, `Cookieファイルを変更`, `Cookie未設定`,
+  `Cookie設定あり`, and helper text warning that beginners normally should
+  not use Cookie handling because Cookie data is personal information;
+- preserved boundaries: no cookie upload, file input, delete cookie,
+  `hasCookies`, `cookieUploadInProgress`, handler, state management,
+  API/backend, download, queue, subscription, routing, service worker, build
+  tooling, dependency, package/lockfile, or generated artifact changes;
+- verification from PR #121: `git diff --check`, repo safety checks, safety
+  wording with warning-only findings, clean-package report regression,
+  clean-package JSON dry-run, Angular lint, GitHub `local fork safety / local
+  fork safety`, and forbidden-path absence passed.
+
+Next recommended lane after Y-FE-COPY-06:
+
+```text
+Y-FE-LOCAL-REVIEW-03 scoped local UI re-review packet docs-only
+```
+
+Artifact generation remains HOLD.
+
 Y-08Z closes the Y-08 preview hardening lane as docs-only closeout.
 Y-UI-QUALITY-01 is complete via fork PR #73 with merge commit
 `402996eba52f923be962e2fe69ebdaa6084363f2`. Y-UI-QUALITY-02 is complete via
