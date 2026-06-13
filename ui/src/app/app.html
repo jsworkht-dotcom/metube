@@ -554,7 +554,7 @@
               <div class="settings-section-label">Tools</div>
               <div class="row g-3">
                 <div class="col-md-4">
-                  <div class="action-group-label help-title" ngbPopover="Upload a cookies.txt file from your browser to authenticate restricted or private downloads." triggers="click" autoClose="outside" container="body">Cookies</div>
+                  <div class="action-group-label help-title" ngbPopover="通常は使いません。Cookieなどの個人情報を扱うため、初心者向けの通常操作では使用しないでください。" triggers="click" autoClose="outside" container="body">Cookie設定（上級者向け）</div>
                   <input type="file" id="cookie-upload" class="d-none" accept=".txt"
                     (change)="onCookieFileSelect($event)"
                     [disabled]="cookieUploadInProgress || addInProgress">
@@ -568,13 +568,13 @@
                       } @else {
                         <fa-icon [icon]="faUpload" class="me-2" />
                       }
-                      {{ hasCookies ? 'Replace Cookies' : 'Upload Cookies' }}
+                      {{ hasCookies ? 'Cookieファイルを変更' : 'Cookieファイルを選択' }}
                     </label>
                     @if (hasCookies) {
                       <button type="button" class="btn btn-outline-danger"
                         (click)="deleteCookies()"
                         [disabled]="cookieUploadInProgress || addInProgress"
-                        ngbTooltip="Remove uploaded cookies">
+                        ngbTooltip="Cookie設定を削除">
                         <fa-icon [icon]="faTrashAlt" />
                       </button>
                     }
@@ -582,9 +582,9 @@
                   <div class="cookie-status" [class.active]="hasCookies">
                     @if (hasCookies) {
                       <fa-icon [icon]="faCheckCircle" class="me-1" />
-                      Cookies active
+                      Cookie設定あり
                     } @else {
-                      No cookies configured
+                      Cookie未設定
                     }
                   </div>
                 </div>

@@ -1836,6 +1836,34 @@ unchanged. If hiding/removing controls, changing upload logic, changing backend
 cookie handling, or changing local-only security enforcement is desired, start a
 separate explicit behavior/visibility/security lane.
 
+## Y-FE-COPY-05 Handoff Update
+
+Latest work: Y-FE-COPY-05 implements the cookie-related frontend copy-only
+lane.
+
+Changed:
+
+- advanced Cookie group label now says `Cookie設定（上級者向け）`;
+- helper popover now warns that normal beginner operation should not use it
+  because Cookie data is personal information;
+- upload/change button text now says `Cookieファイルを選択` /
+  `Cookieファイルを変更`;
+- cookie status text now says `Cookie未設定` / `Cookie設定あり`;
+- delete tooltip now says `Cookie設定を削除`.
+
+Kept unchanged:
+
+- file input behavior;
+- cookie upload/delete handlers;
+- `hasCookies` and `cookieUploadInProgress` logic;
+- API calls, backend cookie handling, routing, download behavior, queue
+  behavior, and subscription behavior.
+
+Next recommended candidate:
+
+- a separate copy-only lane for remaining advanced English-first tool labels,
+  or the `取得数の上限` helper follow-up.
+
 ## Y-AUTO-08 Handoff Update
 
 Latest completed work: Y-AUTO-08 added the docs-only local safety gate aggregator design at `docs/llmwiki/local-safety-gate-aggregator-design.md`.

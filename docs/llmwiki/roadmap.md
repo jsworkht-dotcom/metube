@@ -740,6 +740,26 @@
 - Artifact generation remains HOLD.
 - Risk: Low / docs-only packet / future copy-only scope.
 
+### Y-FE-COPY-05 cookie-related frontend copy-only implementation
+
+- Status: implemented.
+- Summary: replaces the advanced Cookie UI's promotional English-first upload
+  wording with Japanese-first advanced-only cautionary copy.
+- Changed visible copy:
+  - `Cookie設定（上級者向け）`;
+  - `Cookieファイルを選択` / `Cookieファイルを変更`;
+  - `Cookie未設定` / `Cookie設定あり`;
+  - cautionary helper text that normal beginner operation should not use this
+    area because Cookie data is personal information.
+- Behavior unchanged: file input behavior, cookie upload/delete handlers,
+  `hasCookies`, `cookieUploadInProgress`, API calls, backend cookie handling,
+  downloads, queue, subscriptions, routing, build tooling, and dependencies.
+- Addresses: Y-FE-LOCAL-REVIEW-02 Advanced settings / Cookies wording blocker.
+- Remaining follow-up: advanced English-first tool labels and the
+  `取得数の上限` helper remain separate copy lanes.
+- Artifact generation remains HOLD.
+- Risk: High-mid source copy-only / frontend-visible text only.
+
 ### Y-CI-03 reusable local safety workflow design
 
 - Status: completed via fork PR #95.
