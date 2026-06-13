@@ -686,6 +686,30 @@
   approval.
 - Risk: Low / docs-only / fast safe flow.
 
+### Y-FE-LOCAL-REVIEW-02 scoped local UI review execution
+
+- Status: executed with limitations / docs-only evidence record.
+- Summary: started the local frontend on `127.0.0.1:4200` using existing
+  `ui/node_modules` and reviewed visible UI labels/layout in desktop and
+  narrow viewports.
+- Backend dependencies were not already present, so backend runtime was not
+  started and backend-dependent rows / real runtime states remain partial or
+  `not_reviewed`.
+- Findings:
+  - blocker: advanced `COOKIES` / `Upload Cookies` helper text invites browser
+    cookie upload for restricted/private downloads;
+  - follow-up: advanced labels remain partly English-first;
+  - follow-up: `取得数の上限` helper says `0` means no limit;
+  - ok: no page-level horizontal overflow was observed in the reviewed narrow
+    layout.
+- Not performed: dependency installation, backend runtime, Docker operations,
+  real URL submission, real downloads, screenshots, generated artifacts, source
+  edits during review, or package output.
+- Artifact generation remains HOLD.
+- Next recommended lane:
+  `Y-FE-COPY-04 second frontend copy-only pass packet docs-only`.
+- Risk: Low / local review evidence / docs-only follow-up.
+
 ### Y-CI-03 reusable local safety workflow design
 
 - Status: completed via fork PR #95.
@@ -853,7 +877,7 @@ Y-FE-LOCAL-REVIEW-01:
   scoped local UI review runbook / approval packet docs-only
 
 Y-FE-LOCAL-REVIEW-02:
-  scoped local UI review execution, only after explicit approval
+  scoped local UI review execution completed with text evidence
 
 Docs/report/checker lane:
   another low-risk lane using fast safe flow

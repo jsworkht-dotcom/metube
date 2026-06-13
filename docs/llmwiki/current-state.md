@@ -3030,6 +3030,28 @@ Y-FE-LOCAL-REVIEW-01 does not execute review, start the app, build frontend
 assets, install dependencies, run the backend, perform downloads, change source
 files, create artifacts, or expose anything beyond loopback.
 
+Y-FE-LOCAL-REVIEW-02 executed the scoped local UI review with limitations. The
+frontend was started on `127.0.0.1:4200` using existing `ui/node_modules`, and
+the Codex in-app Browser reviewed the visible local UI in desktop and narrow
+viewports. Backend dependencies were not already present, so the backend was
+not started and backend-dependent rows / mode-switching states remain partial
+or `not_reviewed`.
+
+Y-FE-LOCAL-REVIEW-02 findings:
+
+- blocker: advanced `COOKIES` / `Upload Cookies` helper text invites browser
+  cookie upload for restricted/private downloads;
+- follow-up: advanced tool labels remain partly English-first;
+- follow-up: `取得数の上限` helper says `0` means no limit;
+- no page-level horizontal overflow was observed in the reviewed narrow
+  layout.
+
+Next recommended lane after Y-FE-LOCAL-REVIEW-02:
+
+```text
+Y-FE-COPY-04 second frontend copy-only pass packet docs-only
+```
+
 Artifact generation remains HOLD.
 
 Y-08Z closes the Y-08 preview hardening lane as docs-only closeout.
@@ -3106,11 +3128,10 @@ The previous package-material lane is complete through Y-08Z closeout. Actual
 clean-package generation remains blocked. The generated package folder must
 remain absent.
 
-The next practical candidates after Y-FE-LOCAL-REVIEW-01 are:
+The next practical candidates after Y-FE-LOCAL-REVIEW-02 are:
 
 ```text
-Y-FE-LOCAL-REVIEW-02 scoped local UI review execution, only after explicit approval
-Y-FE-COPY-04 second frontend copy-only pass packet docs-only, only if findings exist after review
+Y-FE-COPY-04 second frontend copy-only pass packet docs-only
 continue docs-only UX planning if more review is needed
 another docs/report/checker lane using fast safe flow
 ```
