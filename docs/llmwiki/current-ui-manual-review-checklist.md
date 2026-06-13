@@ -283,6 +283,39 @@ Decision:
 next recommended lane = Y-FE-COPY-04 second frontend copy-only pass packet docs-only
 ```
 
+## Y-FE-COPY-04 Manual Finding Triage
+
+Y-FE-COPY-04 is a docs-only packet for the observed Advanced settings /
+Cookies copy risk. It does not change frontend files, backend files, runtime
+behavior, cookie upload behavior, or visibility of existing controls.
+
+Finding carried forward:
+
+```text
+source: Y-FE-LOCAL-REVIEW-02
+area: Advanced settings / Cookies
+current wording family:
+  COOKIES
+  Upload Cookies
+  helper text promoting restricted/private downloads via cookie upload
+classification for future copy lane: follow_up
+reason:
+  beginner-facing wording should not invite cookie/token/secret handling.
+  local-only beginner UX should avoid restricted/private download guidance.
+```
+
+Future candidate after explicit approval:
+
+```text
+Y-FE-COPY-05 cookie-related frontend copy-only implementation
+```
+
+Y-FE-COPY-05 may adjust existing visible cookie-related labels/helper text only.
+It must keep upload logic, selector values, handlers, state management, API
+payloads, backend cookie handling, and local-only security enforcement
+unchanged. If disabling, hiding, removing, or changing cookie upload behavior is
+desired, use a separate explicit behavior/visibility/security lane.
+
 ## Scope
 
 - Add/download form

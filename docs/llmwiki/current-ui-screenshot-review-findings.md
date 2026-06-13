@@ -200,6 +200,120 @@ Decision:
 decision: Y-FE-COPY-04 second frontend copy-only pass packet docs-only
 ```
 
+## Y-FE-COPY-04 Cookie Copy Packet
+
+Purpose:
+
+```text
+Create a docs-only packet for a future cookie-related frontend copy-only
+implementation. This packet carries forward the Y-FE-LOCAL-REVIEW-02 manual
+UI finding without changing frontend files, runtime behavior, upload handling,
+or backend cookie handling.
+```
+
+Manual review finding carried forward:
+
+```text
+source: Y-FE-LOCAL-REVIEW-02
+area: Advanced settings / Cookies
+current wording family:
+  COOKIES
+  Upload Cookies
+  helper text promoting restricted/private downloads via cookie upload
+classification for future copy lane: follow_up
+reason:
+  beginner-facing wording should not invite cookie/token/secret handling.
+  local-only beginner UX should avoid restricted/private download guidance.
+```
+
+Future lane candidate:
+
+```text
+Y-FE-COPY-05 cookie-related frontend copy-only implementation
+```
+
+Purpose:
+
+```text
+Adjust existing visible cookie-related labels/helper text to reduce unsafe
+beginner-facing guidance.
+```
+
+Allowed future copy-only scope:
+
+- Change only existing visible cookie labels/helper text.
+- Replace promotional cookie upload wording with cautionary wording.
+- Clarify that cookie upload is not part of the beginner flow.
+- Avoid restricted/private download encouragement.
+- Avoid asking for cookies, tokens, secrets, or account data.
+- Keep the advanced nature clear.
+- Keep behavior unchanged.
+
+Candidate future files:
+
+```text
+ui/src/app/app.html
+docs/llmwiki/current-state.md
+docs/llmwiki/handoff.md
+docs/llmwiki/roadmap.md
+docs/llmwiki/current-ui-screenshot-review-findings.md
+```
+
+Candidate replacement wording, docs-only:
+
+```text
+Current concern:
+  Upload a cookies.txt file from your browser to authenticate restricted or private downloads.
+
+Candidate safer helper:
+  通常は使いません。Cookieなどの個人情報を扱うため、初心者向けの通常操作では使用しないでください。
+
+Candidate label:
+  Cookie設定（上級者向け）
+
+Candidate status:
+  Cookie未設定
+  Cookie設定あり
+
+Candidate caution:
+  Cookie、token、secretなどの個人情報を共有・入力しないでください。
+```
+
+Copy-only cannot solve:
+
+- Remove cookie upload functionality.
+- Disable cookie upload.
+- Hide advanced tools.
+- Change file upload behavior.
+- Change backend cookie handling.
+- Change local-only security enforcement.
+
+If any of those are desired, create a separate explicit
+behavior/visibility/security lane.
+
+Required future Y-FE-COPY-05 verification:
+
+- `git diff --check`
+- `python scripts/check_repo_safety.py`
+- `python scripts/check_repo_safety.py --base fork/master`
+- `python scripts/check_safety_wording.py --base fork/master`
+- `python scripts/check_clean_package_dry_run_reports.py`
+- `python scripts/clean_package_dry_run.py --format json`
+- GitHub check: `local fork safety / local fork safety`
+- confirm changed files are limited to approved `ui/**` and docs files
+- confirm no behavior changes
+- confirm forbidden paths remain absent
+
+Y-FE-COPY-05 stop conditions:
+
+- behavior change becomes necessary
+- hiding/removing cookie UI becomes necessary
+- file upload logic change becomes necessary
+- backend cookie handling change becomes necessary
+- dependency/build/package change becomes necessary
+- token/secret/cookie value handling appears
+- real URL submission or real download becomes necessary
+
 ## Review Status
 
 ```text

@@ -1288,6 +1288,70 @@ if implementation starts.
 Further frontend implementation should remain explicitly scoped to approved
 `ui/**` files and keep behavior changes separate.
 
+## Y-FE-COPY-04 Cookie Copy Packet
+
+Y-FE-COPY-04 prepares a docs-only packet for the cookie-related wording found
+during Y-FE-LOCAL-REVIEW-02. It does not change frontend files, backend files,
+runtime behavior, upload handling, selectors, handlers, state management, API
+payloads, or local-only safety enforcement.
+
+Manual review finding:
+
+```text
+Area: Advanced settings / Cookies
+Current wording family:
+  COOKIES
+  Upload Cookies
+  helper text promoting restricted/private downloads via cookie upload
+Classification for future copy lane:
+  follow_up
+Reason:
+  beginner-facing wording should not invite cookie/token/secret handling.
+  local-only beginner UX should avoid restricted/private download guidance.
+```
+
+Future lane:
+
+```text
+Y-FE-COPY-05 cookie-related frontend copy-only implementation
+```
+
+Allowed future copy-only changes:
+
+- Replace promotional cookie upload wording with cautionary wording.
+- Clarify that cookie upload is not part of the beginner flow.
+- Avoid restricted/private download encouragement.
+- Avoid asking for cookies, tokens, secrets, or account data.
+- Keep advanced nature clear.
+- Keep behavior unchanged.
+
+Candidate replacement wording, docs-only:
+
+```text
+Candidate safer helper:
+  通常は使いません。Cookieなどの個人情報を扱うため、初心者向けの通常操作では使用しないでください。
+
+Candidate label:
+  Cookie設定（上級者向け）
+
+Candidate status:
+  Cookie未設定
+  Cookie設定あり
+
+Candidate caution:
+  Cookie、token、secretなどの個人情報を共有・入力しないでください。
+```
+
+Copy-only cannot remove, disable, or hide cookie upload functionality; change
+file upload behavior; change backend cookie handling; or change local-only
+security enforcement. If any of those are desired, create a separate explicit
+behavior/visibility/security lane.
+
+Y-FE-COPY-05 must stop if behavior changes, hiding/removing cookie UI, upload
+logic changes, backend cookie handling changes, dependency/build/package
+changes, token/secret/cookie value handling, real URL submission, or real
+download work becomes necessary.
+
 ## Risk Boundaries
 
 Docs-only UX planning:

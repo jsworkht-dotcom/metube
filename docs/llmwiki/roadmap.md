@@ -710,6 +710,36 @@
   `Y-FE-COPY-04 second frontend copy-only pass packet docs-only`.
 - Risk: Low / local review evidence / docs-only follow-up.
 
+### Y-FE-COPY-04 second frontend copy-only pass packet
+
+- Status: prepared as docs-only packet.
+- Summary: records the Y-FE-LOCAL-REVIEW-02 Advanced settings / Cookies finding
+  and scopes the future cookie wording implementation before any `ui/**`
+  change.
+- Finding carried forward:
+  - area: Advanced settings / Cookies;
+  - current wording family: `COOKIES`, `Upload Cookies`, and helper text
+    promoting restricted/private downloads via cookie upload;
+  - classification for future copy lane: `follow_up`;
+  - reason: beginner-facing wording should not invite cookie/token/secret
+    handling, and local-only beginner UX should avoid restricted/private
+    download guidance.
+- Future lane candidate:
+  `Y-FE-COPY-05 cookie-related frontend copy-only implementation`, only after
+  explicit scope approval.
+- Allowed future copy-only direction:
+  - replace promotional cookie upload wording with cautionary wording;
+  - clarify that cookie upload is not part of the beginner flow;
+  - avoid restricted/private download encouragement;
+  - avoid asking for cookies, tokens, secrets, or account data;
+  - keep advanced nature clear;
+  - keep behavior unchanged.
+- Copy-only cannot remove, disable, hide, or change cookie upload behavior,
+  backend cookie handling, or local-only security enforcement. Those require a
+  separate explicit behavior/visibility/security lane.
+- Artifact generation remains HOLD.
+- Risk: Low / docs-only packet / future copy-only scope.
+
 ### Y-CI-03 reusable local safety workflow design
 
 - Status: completed via fork PR #95.
