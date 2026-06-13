@@ -233,6 +233,17 @@ Example PR body draft command:
 python scripts/generate_pr_body.py --title "docs: add ..." --risk high-low --scope docs-only --changed-files
 ```
 
+Low-risk GitHub fallback prompt snippet:
+
+```text
+For docs-only/report-only/checker-only PRs, after local gates pass:
+- create draft PR
+- wait for local fork safety
+- if connector ready/check/merge fails due to known permission limit, use gh fallback
+- ready only after head SHA, files, and checks match
+- merge only with --match-head-commit
+```
+
 ## Template 2: Report-Only Script PR
 
 ```text
@@ -397,12 +408,13 @@ Required facts:
 
 Rules:
   If the GitHub connector cannot mark the PR ready or returns
-  Resource not accessible by integration, use gh fallback only after human
-  approval and stable PR fact checks.
+  Resource not accessible by integration, use gh fallback only when the current
+  lane already approves that PR operation and stable PR facts are confirmed.
   Do not read, print, or store token, cookie, secret, or credential values.
   If sandboxed gh auth cannot access the Windows keyring, use escalated gh only
   for the minimal PR view, ready, checks, and merge operations required.
   Confirm the expected head commit before ready.
+  Reconfirm changed files and local fork safety after ready.
   Use a head-commit match guard such as --match-head-commit.
   Reconfirm the expected head commit immediately before merge.
   Stop if the head commit changed.
