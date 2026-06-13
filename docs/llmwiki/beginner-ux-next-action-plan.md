@@ -232,9 +232,156 @@ Y-UX-COPY-01 does not perform:
 - public exposure operations;
 - DRM/auth/restriction bypass guidance.
 
+## Y-UI-QUALITY-01 Quality / Label Review
+
+Y-UI-QUALITY-01 reviews beginner-facing quality, format, and label wording as a
+docs-only follow-up after Y-UX-COPY-01. This section does not change runtime UI
+files, selector behavior, backend behavior, package output, generated folders,
+or GitHub settings.
+
+Repo-history note: earlier implementation lanes named `Y-UI-QUALITY-01`,
+`Y-UI-QUALITY-02`, and `Y-UI-QUALITY-03` are complete. This review preserves
+their runtime behavior and only records the next docs-only label planning
+surface.
+
+### Current UI Label Baseline
+
+- Japanese-localized UI exists.
+- Video, audio, captions, and thumbnail types exist.
+- Quality, format, codec, and captions controls exist.
+- Y-UX-COPY-01 created the safe-use wording baseline.
+- Artifact generation remains HOLD.
+- Existing quality UI work kept option ids, payloads, backend validation, and
+  download behavior stable.
+
+### Review Principles
+
+- Use beginner-first labels.
+- Use short Japanese labels.
+- Keep numeric quality visible where useful.
+- Keep advanced codec and format details from dominating the beginner path.
+- Do not imply bypass, unrestricted saving, or guaranteed availability.
+- Explain that unavailable quality depends on the original source.
+- Avoid copy that encourages mass download or restriction bypass.
+
+### Label Families To Review
+
+- `種類`
+- `画質`
+- `音質`
+- `形式`
+- `コーデック`
+- `字幕の種類`
+- `言語`
+- `自動開始`
+- `取得数の上限`
+- `詳細設定`
+
+### Candidate Wording
+
+Video quality:
+
+```text
+自動
+標準
+高画質
+最高画質
+720p
+1080p
+```
+
+Audio quality:
+
+```text
+自動
+標準
+高音質
+軽量
+```
+
+Format:
+
+```text
+おまかせ
+MP4
+音声のみ
+字幕
+サムネイル
+```
+
+Codec:
+
+```text
+おまかせ
+互換性重視
+高効率
+上級者向け
+```
+
+Help text:
+
+```text
+元の動画にない画質は選べません。
+高画質ほどファイルサイズが大きくなることがあります。
+迷ったら「自動」または「標準」を選んでください。
+```
+
+### Advanced Label Boundary
+
+Beginner-visible labels should stay short and task-focused. Codec families,
+container details, extractor-specific labels, batch-count tuning, and advanced
+format constraints should stay behind advanced settings unless a later UI lane
+explicitly scopes them.
+
+Advanced copy should still avoid promising unavailable quality, unrestricted
+saving, or restriction bypass. If a label cannot be made beginner-safe, keep it
+outside the beginner path and pair it with a calm help note.
+
+### Next Implementation Boundaries
+
+Docs-only label review:
+
+- allowed now;
+- may update LLMwiki planning, roadmap, and handoff docs;
+- may collect candidate label copy;
+- must not change runtime UI files.
+
+Frontend copy-only implementation:
+
+- later separate lane;
+- `ui/**` files must be explicitly scoped;
+- no dependency, build, package, generated output, or runtime behavior changes.
+
+Selector behavior changes:
+
+- later separate lane;
+- not part of Y-UI-QUALITY-01.
+
+### Explicitly Not Performed
+
+Y-UI-QUALITY-01 does not perform:
+
+- frontend code changes;
+- backend code changes;
+- runtime behavior changes;
+- artifact generation;
+- generated package output;
+- CLEAN folder creation;
+- metadata or checksum generation;
+- real download verification;
+- recipient handoff or sharing;
+- dependency installation operations;
+- container image operations;
+- `.github/workflows/` changes;
+- GitHub settings mutation;
+- `.gitignore` changes;
+- credential-bearing file handling;
+- secret-like value handling;
+- public exposure operations;
+- DRM/auth/restriction bypass guidance.
+
 ## Next UX Candidates
 
-- `Y-UI-QUALITY-01 quality selector / label review`
 - `Y-UX-HELP-01 help/troubleshooting entry review`
 - `Y-UX-STATE-01 status / progress / completion clarity review`
 - `Y-UX-STOP-01 stop/quit user-flow design`
@@ -248,16 +395,15 @@ lane name while keeping the candidate intent.
 
 Recommended first next lane:
 
-- `Y-UI-QUALITY-01 quality selector / label review` docs-only follow-up using a
-  non-colliding lane name; or
+- `Y-UX-HELP-01 help/troubleshooting entry review` docs-only; or
 - frontend copy-only implementation if explicitly scoped later.
 
 Repo-history note: because historical `Y-UI-QUALITY-01` is already complete in
 this fork, prefer a fresh quality selector / label review follow-up lane name
 if implementation starts.
 
-Prefer the quality selector / label review path only if the next task explicitly
-scopes UI files and accepts the human-reviewed frontend lane.
+Prefer frontend copy-only implementation only if the next task explicitly scopes
+UI files and accepts the human-reviewed frontend lane.
 
 ## Risk Boundaries
 
@@ -304,8 +450,9 @@ Y-UX-PLAN-01 does not perform:
 
 ## Handoff Sync
 
-PR #105 completed Y-DIST-08 no-generation hold. Y-UX-PLAN-01 establishes the
-next UX planning path after that hold:
+PR #105 completed Y-DIST-08 no-generation hold. PR #106 completed
+Y-UX-PLAN-01. PR #107 completed Y-UX-COPY-01. Y-UI-QUALITY-01 reviews quality,
+format, and label wording as the next docs-only planning step:
 
 - artifact generation remains blocked;
 - fast safe flow is the default for low-risk docs/report/checker lanes;

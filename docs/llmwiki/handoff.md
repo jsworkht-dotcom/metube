@@ -10,11 +10,11 @@ canonical branch is fork `master`, and local `master` tracks `fork/master`.
 ## Current Closeout State
 
 - Latest completed docs branch:
-  `codex/y-ux-plan-01-beginner-ux-next-action`.
-- Current docs planning branch:
   `codex/y-ux-copy-01-safe-use-microcopy-review`.
+- Current docs planning branch:
+  `codex/y-ui-quality-01-quality-label-review`.
 - Current fork `master` baseline:
-  `1b4cae2df1294984bc63a107a5c42b039e4ab04b` from fork PR #106.
+  `52f3ee37a8448c4585366938ef5522c5433dadf3` from fork PR #107.
 - Compact recent state:
   - Y-DIST is complete through Y-DIST-08. PR #105 recorded the first
     approval-packet review status: no artifact generation approval was granted,
@@ -33,12 +33,12 @@ canonical branch is fork `master`, and local `master` tracks `fork/master`.
   - Y-AUTO-OPS-01 completed via PR #104 and adopted the fast safe flow default
     template.
   - PR #106 completed Y-UX-PLAN-01 and established the next docs-only beginner
-    UX planning path after the Y-DIST-08 hold. Y-UX-COPY-01 now reviews
-    safe-use microcopy. Next candidates after that are a quality selector /
-    label review docs-only follow-up, explicitly scoped frontend copy-only
-    implementation, help/troubleshooting review, status/progress clarity
-    review, stop/quit flow design, or another docs/report/checker lane using
-    fast safe flow.
+    UX planning path after the Y-DIST-08 hold. PR #107 completed
+    Y-UX-COPY-01 safe-use microcopy review. Y-UI-QUALITY-01 now reviews
+    quality/format/label wording docs-only. Next candidates after that are
+    help/troubleshooting review, status/progress clarity review, stop/quit
+    flow design, explicitly scoped frontend copy-only implementation, or
+    another docs/report/checker lane using fast safe flow.
 - Y-SEC-01 is complete via fork PR #82.
 - Y-SEC-01 state:
   - local-only runtime guardrails implemented in backend startup/request
@@ -1283,15 +1283,18 @@ canonical branch is fork `master`, and local `master` tracks `fork/master`.
 Use `docs/llmwiki/current-state.md`, `docs/llmwiki/roadmap.md`, and this handoff
 as the next-chat source of truth.
 
-Recommended next candidates after Y-UX-COPY-01:
+Recommended next candidates after Y-UI-QUALITY-01:
 
 ```text
-Y-UI-QUALITY-01 quality selector / label review docs-only follow-up
+Y-UX-HELP-01 help/troubleshooting entry review docs-only
+Y-UX-STATE-01 status / progress / completion clarity review docs-only
+Y-UX-STOP-01 stop/quit user-flow design docs-only
 frontend copy-only implementation lane if explicitly scoped later
 another docs/report/checker lane using fast safe flow
 ```
 
-PR #106 completed Y-UX-PLAN-01. Y-UX-COPY-01 now reviews safe-use microcopy:
+PR #106 completed Y-UX-PLAN-01. PR #107 completed Y-UX-COPY-01. Y-UI-QUALITY-01
+now reviews quality/format/label wording:
 
 ```text
 docs/llmwiki/beginner-ux-next-action-plan.md
@@ -1300,10 +1303,9 @@ docs/llmwiki/beginner-ux-next-action-plan.md
 Other safe planning candidates remain:
 
 ```text
-Y-UX-HELP-01 help/troubleshooting entry review
-Y-UX-STATE-01 status / progress / completion clarity review
-Y-UX-STOP-01 stop/quit user-flow design
-quality selector / label review docs-only follow-up
+Y-UX-HELP-01 help/troubleshooting entry review docs-only
+Y-UX-STATE-01 status / progress / completion clarity review docs-only
+Y-UX-STOP-01 stop/quit user-flow design docs-only
 another docs/report/checker lane using fast safe flow
 ```
 
@@ -1375,11 +1377,11 @@ Outcome:
 - Keeps frontend copy-only implementation and runtime behavior changes as later
   separate lanes.
 
-Recommended first next lane:
+Completed follow-ups:
 
-- `Y-UX-COPY-01 safe-use microcopy review`; or
-- a quality selector / label review follow-up with a non-colliding lane name,
-  because historical `Y-UI-QUALITY-01` through `Y-UI-QUALITY-03` are complete.
+- PR #107 completed `Y-UX-COPY-01 safe-use microcopy review`.
+- Current Y-UI-QUALITY-01 work reviews quality selector / label wording
+  docs-only.
 
 ## Y-UX-COPY-01 Handoff Update
 
@@ -1393,6 +1395,8 @@ docs/llmwiki/beginner-ux-next-action-plan.md
 
 Outcome:
 
+- Completed via fork PR #107 with merge commit
+  `52f3ee37a8448c4585366938ef5522c5433dadf3`.
 - Reviews local-only, personal-use, allowed-use, not-allowed-use, save-folder,
   stop/quit, error next-action, troubleshooting entry, and update-status
   wording families.
@@ -1403,10 +1407,37 @@ Outcome:
 - Keeps runtime behavior changes outside this lane.
 - Confirms artifact generation remains HOLD.
 
-Next candidate after Y-UX-COPY-01:
+Follow-up selected after Y-UX-COPY-01:
 
-- `Y-UI-QUALITY-01 quality selector / label review` docs-only follow-up using a
-  non-colliding lane name; or
+- Y-UI-QUALITY-01 reviews quality selector / label wording docs-only.
+
+## Y-UI-QUALITY-01 Handoff Update
+
+Latest work: Y-UI-QUALITY-01 quality selector / label review docs-only.
+
+Review section:
+
+```text
+docs/llmwiki/beginner-ux-next-action-plan.md
+```
+
+Outcome:
+
+- Reviews video quality, audio quality, format, codec, captions, beginner-safe
+  explanations, and advanced-label boundaries.
+- Adds short Japanese candidate labels for video quality, audio quality,
+  format, codec, and help text.
+- Keeps numeric quality visible where useful.
+- Keeps advanced codec/format details out of the beginner path unless later
+  explicitly scoped.
+- Keeps frontend copy-only implementation as a later separate lane with
+  explicitly scoped `ui/**` files.
+- Keeps selector behavior changes outside this lane.
+- Confirms artifact generation remains HOLD.
+
+Next candidate after Y-UI-QUALITY-01:
+
+- `Y-UX-HELP-01 help/troubleshooting entry review` docs-only; or
 - frontend copy-only implementation lane if explicitly scoped later.
 
 ## Y-AUTO-08 Handoff Update

@@ -82,7 +82,7 @@
 
 ### Recent completed lane compression
 
-- PR #86-#106 are complete.
+- PR #86-#107 are complete.
 - Y-DIST completion is compressed as:
   Y-DIST-02 metadata checking, Y-DIST-03 recipient/first-run docs,
   Y-DIST-04 readiness matrix, Y-DIST-05 approval checklist, and Y-DIST-06
@@ -103,6 +103,8 @@
   template for normal low-risk docs/report/checker work.
 - Y-UX-PLAN-01 completed via PR #106 and established the beginner UX
   next-action planning baseline after the artifact generation hold.
+- Y-UX-COPY-01 completed via PR #107 and added the safe-use microcopy review
+  baseline.
 
 ### Y-DIST-02 checksum / hash / version / license notice bundle verification
 
@@ -362,15 +364,15 @@
   package output, generated folders, dependencies, Docker files, CI workflows,
   GitHub settings, `.gitignore`, credentials handling, public hosting, or
   bypass guidance.
-- Recommended first next lane:
-  `Y-UX-COPY-01` or a quality selector / label review follow-up. Historical
-  `Y-UI-QUALITY-01` through `Y-UI-QUALITY-03` are complete, so new
-  implementation should use a non-colliding lane name.
+- Completed first follow-up:
+  PR #107 completed `Y-UX-COPY-01 safe-use microcopy review`. Current
+  follow-up work reviews quality selector / label wording docs-only.
 - Risk: High-low / docs-only / draft PR preferred.
 
 ### Y-UX-COPY-01 safe-use microcopy review
 
-- Status: docs-only safe-use microcopy review.
+- Status: completed via fork PR #107.
+- Merge commit: `52f3ee37a8448c4585366938ef5522c5433dadf3`.
 - Review section:
   `docs/llmwiki/beginner-ux-next-action-plan.md`.
 - Summary: reviews beginner-facing wording families for local-only safety,
@@ -387,10 +389,33 @@
   package output, generated folders, dependencies, Docker files, CI workflows,
   GitHub settings, `.gitignore`, credential-bearing file handling,
   secret-like value handling, public exposure operations, or bypass guidance.
-- Recommended next lane after Y-UX-COPY-01:
-  `Y-UI-QUALITY-01 quality selector / label review` docs-only follow-up using a
-  non-colliding lane name, or frontend copy-only implementation if explicitly
-  scoped later.
+- Follow-up selected after Y-UX-COPY-01:
+  Y-UI-QUALITY-01 reviews quality selector / label wording docs-only.
+- Risk: High-low / docs-only / draft PR preferred.
+
+### Y-UI-QUALITY-01 quality selector / label review
+
+- Status: docs-only quality, format, and label review.
+- Review section:
+  `docs/llmwiki/beginner-ux-next-action-plan.md`.
+- Summary: reviews beginner-facing label families for video quality, audio
+  quality, format, codec, captions, beginner-safe explanations, and labels that
+  should stay behind advanced settings.
+- Current baseline: Japanese-localized UI exists; video, audio, captions, and
+  thumbnail types exist; quality, format, codec, and captions controls exist;
+  Y-UX-COPY-01 created the safe-use wording baseline; artifact generation
+  remains HOLD.
+- Risk boundaries: docs-only label review is allowed via fast safe flow;
+  frontend copy-only implementation must be a later separate lane with `ui/**`
+  files explicitly scoped; selector behavior changes are not part of
+  Y-UI-QUALITY-01.
+- This lane does not change frontend code, backend code, runtime behavior,
+  package output, generated folders, dependencies, Docker files, CI workflows,
+  GitHub settings, `.gitignore`, credential-bearing file handling,
+  secret-like value handling, public exposure operations, or bypass guidance.
+- Recommended next lane after Y-UI-QUALITY-01:
+  `Y-UX-HELP-01 help/troubleshooting entry review` docs-only, or frontend
+  copy-only implementation if explicitly scoped later.
 - Risk: High-low / docs-only / draft PR preferred.
 
 ### Y-CI-03 reusable local safety workflow design
@@ -541,13 +566,6 @@
 ### Security next candidates
 
 ```text
-Y-UI-QUALITY-01 quality selector / label review docs-only follow-up:
-  use a non-colliding lane name because historical Y-UI-QUALITY-01 through
-  Y-UI-QUALITY-03 are complete
-
-Frontend copy-only implementation:
-  later separate lane only if explicitly scoped to ui files
-
 Y-UX-HELP-01:
   help/troubleshooting entry review using fast safe flow while docs-only
 
@@ -557,6 +575,9 @@ Y-UX-STATE-01:
 
 Y-UX-STOP-01:
   stop/quit user-flow design using fast safe flow while docs-only
+
+Frontend copy-only implementation:
+  later separate lane only if explicitly scoped to ui files
 
 Docs/report/checker lane:
   another low-risk lane using fast safe flow
