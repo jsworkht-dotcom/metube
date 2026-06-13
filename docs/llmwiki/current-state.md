@@ -20,7 +20,7 @@
   separate upstream contribution.
 - Do not mix upstream PR #1001 files into fork-only work.
 - Latest fork `master` baseline:
-  `52f3ee37a8448c4585366938ef5522c5433dadf3` from fork PR #107.
+  `8e33c91d4231a62b12d1881d56b42625b2ec83e3` from fork PR #108.
 
 ## Current Runtime Security State
 
@@ -129,7 +129,7 @@
   change, package/lockfile change, or existing safety gate behavior change is
   part of this lane.
 
-## Recent Completed Lane Summary (PR #86-#107)
+## Recent Completed Lane Summary (PR #86-#108)
 
 This is the compact planning surface for the recent distribution, CI, and
 GitHub-governance lanes. The older per-lane notes remain historical reference.
@@ -158,9 +158,10 @@ GitHub-governance lanes. The older per-lane notes remain historical reference.
 - Current next candidates:
   PR #106 completed Y-UX-PLAN-01, establishing the next low-risk beginner UX
   planning path after the Y-DIST-08 hold. PR #107 completed Y-UX-COPY-01.
-  Y-UI-QUALITY-01 reviews quality/format/label wording, followed by
-  help/troubleshooting entry review, explicitly scoped frontend copy-only
-  implementation, or another docs/report/checker lane using fast safe flow.
+  PR #108 completed Y-UI-QUALITY-01. Y-UX-HELP-01 reviews beginner
+  help/troubleshooting entries, followed by status/progress/completion clarity
+  review, explicitly scoped frontend copy-only implementation, or another
+  docs/report/checker lane using fast safe flow.
   Artifact generation, ZIP/package/installer creation, GitHub required checks
   implementation, and branch protection mutation are not recommended yet.
 
@@ -545,6 +546,8 @@ GitHub-governance lanes. The older per-lane notes remain historical reference.
 ### Y-UI-QUALITY-01 quality selector / label review
 
 - Scope: docs-only quality, format, and label review / roadmap / handoff sync.
+- Status: completed via fork PR #108.
+- Merge commit: `8e33c91d4231a62b12d1881d56b42625b2ec83e3`.
 - Review section:
   `docs/llmwiki/beginner-ux-next-action-plan.md`.
 - Purpose:
@@ -559,9 +562,36 @@ GitHub-governance lanes. The older per-lane notes remain historical reference.
   docs-only label review is allowed now; frontend copy-only implementation must
   be a later separate lane with `ui/**` files explicitly scoped; selector
   behavior changes are not part of Y-UI-QUALITY-01.
-- Next candidate after Y-UI-QUALITY-01:
-  `Y-UX-HELP-01 help/troubleshooting entry review` docs-only, or frontend
-  copy-only implementation if explicitly scoped later.
+- Follow-up selected after Y-UI-QUALITY-01:
+  Y-UX-HELP-01 reviews beginner help/troubleshooting entries docs-only.
+- Not included:
+  frontend code, backend code, runtime behavior, artifact generation, package
+  output, generated folders, dependency changes, Docker operations,
+  `.github/workflows/` changes, GitHub settings mutation, `.gitignore` changes,
+  credential-bearing file handling, secret-like value handling, public exposure
+  operations, or bypass guidance.
+
+### Y-UX-HELP-01 help/troubleshooting entry review
+
+- Scope: docs-only help and troubleshooting entry review / roadmap / handoff
+  sync.
+- Review section:
+  `docs/llmwiki/beginner-ux-next-action-plan.md`.
+- Purpose:
+  review beginner-facing help entry labels, troubleshooting entry labels, error
+  next-action wording, save-folder help wording, stop/quit help wording,
+  local-only safety help wording, and beginner-safe escalation paths.
+- Current help baseline:
+  beginner guide source docs exist; troubleshooting source docs exist;
+  Y-UX-COPY-01 created the safe-use wording baseline; Y-UI-QUALITY-01 created
+  the label review baseline; artifact generation remains HOLD.
+- Risk boundaries:
+  docs-only help review is allowed now; frontend copy-only implementation must
+  be a later separate lane with `ui/**` files explicitly scoped; runtime
+  behavior changes are not part of Y-UX-HELP-01.
+- Next candidate after Y-UX-HELP-01:
+  `Y-UX-STATE-01 status / progress / completion clarity review` docs-only, or
+  frontend copy-only implementation if explicitly scoped later.
 - Not included:
   frontend code, backend code, runtime behavior, artifact generation, package
   output, generated folders, dependency changes, Docker operations,
@@ -2751,6 +2781,12 @@ Y-UX-COPY-01 is complete via fork PR #107 with merge commit
 Y-UI-QUALITY-01 reviews quality/format/label wording docs-only in:
 `docs/llmwiki/beginner-ux-next-action-plan.md`.
 
+Y-UI-QUALITY-01 is complete via fork PR #108 with merge commit
+`8e33c91d4231a62b12d1881d56b42625b2ec83e3`.
+
+Y-UX-HELP-01 reviews beginner help/troubleshooting entries docs-only in:
+`docs/llmwiki/beginner-ux-next-action-plan.md`.
+
 Artifact generation remains HOLD.
 
 Y-08Z closes the Y-08 preview hardening lane as docs-only closeout.
@@ -2827,10 +2863,9 @@ The previous package-material lane is complete through Y-08Z closeout. Actual
 clean-package generation remains blocked. The generated package folder must
 remain absent.
 
-The next practical candidates after Y-UI-QUALITY-01 are:
+The next practical candidates after Y-UX-HELP-01 are:
 
 ```text
-Y-UX-HELP-01 help/troubleshooting entry review
 Y-UX-STATE-01 status / progress / completion clarity review
 Y-UX-STOP-01 stop/quit user-flow design
 frontend copy-only implementation lane if explicitly scoped later

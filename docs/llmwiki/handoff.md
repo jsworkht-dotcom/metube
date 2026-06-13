@@ -10,11 +10,11 @@ canonical branch is fork `master`, and local `master` tracks `fork/master`.
 ## Current Closeout State
 
 - Latest completed docs branch:
-  `codex/y-ux-copy-01-safe-use-microcopy-review`.
-- Current docs planning branch:
   `codex/y-ui-quality-01-quality-label-review`.
+- Current docs planning branch:
+  `codex/y-ux-help-01-help-troubleshooting-review`.
 - Current fork `master` baseline:
-  `52f3ee37a8448c4585366938ef5522c5433dadf3` from fork PR #107.
+  `8e33c91d4231a62b12d1881d56b42625b2ec83e3` from fork PR #108.
 - Compact recent state:
   - Y-DIST is complete through Y-DIST-08. PR #105 recorded the first
     approval-packet review status: no artifact generation approval was granted,
@@ -34,11 +34,12 @@ canonical branch is fork `master`, and local `master` tracks `fork/master`.
     template.
   - PR #106 completed Y-UX-PLAN-01 and established the next docs-only beginner
     UX planning path after the Y-DIST-08 hold. PR #107 completed
-    Y-UX-COPY-01 safe-use microcopy review. Y-UI-QUALITY-01 now reviews
-    quality/format/label wording docs-only. Next candidates after that are
-    help/troubleshooting review, status/progress clarity review, stop/quit
-    flow design, explicitly scoped frontend copy-only implementation, or
-    another docs/report/checker lane using fast safe flow.
+    Y-UX-COPY-01 safe-use microcopy review. PR #108 completed
+    Y-UI-QUALITY-01 quality selector / label review. Y-UX-HELP-01 now reviews
+    beginner help/troubleshooting entries docs-only. Next candidates after that
+    are status/progress clarity review, stop/quit flow design, explicitly
+    scoped frontend copy-only implementation, or another docs/report/checker
+    lane using fast safe flow.
 - Y-SEC-01 is complete via fork PR #82.
 - Y-SEC-01 state:
   - local-only runtime guardrails implemented in backend startup/request
@@ -1283,18 +1284,18 @@ canonical branch is fork `master`, and local `master` tracks `fork/master`.
 Use `docs/llmwiki/current-state.md`, `docs/llmwiki/roadmap.md`, and this handoff
 as the next-chat source of truth.
 
-Recommended next candidates after Y-UI-QUALITY-01:
+Recommended next candidates after Y-UX-HELP-01:
 
 ```text
-Y-UX-HELP-01 help/troubleshooting entry review docs-only
 Y-UX-STATE-01 status / progress / completion clarity review docs-only
 Y-UX-STOP-01 stop/quit user-flow design docs-only
 frontend copy-only implementation lane if explicitly scoped later
 another docs/report/checker lane using fast safe flow
 ```
 
-PR #106 completed Y-UX-PLAN-01. PR #107 completed Y-UX-COPY-01. Y-UI-QUALITY-01
-now reviews quality/format/label wording:
+PR #106 completed Y-UX-PLAN-01. PR #107 completed Y-UX-COPY-01. PR #108
+completed Y-UI-QUALITY-01. Y-UX-HELP-01 now reviews help/troubleshooting entry
+wording:
 
 ```text
 docs/llmwiki/beginner-ux-next-action-plan.md
@@ -1303,7 +1304,6 @@ docs/llmwiki/beginner-ux-next-action-plan.md
 Other safe planning candidates remain:
 
 ```text
-Y-UX-HELP-01 help/troubleshooting entry review docs-only
 Y-UX-STATE-01 status / progress / completion clarity review docs-only
 Y-UX-STOP-01 stop/quit user-flow design docs-only
 another docs/report/checker lane using fast safe flow
@@ -1423,6 +1423,8 @@ docs/llmwiki/beginner-ux-next-action-plan.md
 
 Outcome:
 
+- Completed via fork PR #108 with merge commit
+  `8e33c91d4231a62b12d1881d56b42625b2ec83e3`.
 - Reviews video quality, audio quality, format, codec, captions, beginner-safe
   explanations, and advanced-label boundaries.
 - Adds short Japanese candidate labels for video quality, audio quality,
@@ -1435,9 +1437,38 @@ Outcome:
 - Keeps selector behavior changes outside this lane.
 - Confirms artifact generation remains HOLD.
 
-Next candidate after Y-UI-QUALITY-01:
+Follow-up selected after Y-UI-QUALITY-01:
 
-- `Y-UX-HELP-01 help/troubleshooting entry review` docs-only; or
+- Y-UX-HELP-01 reviews beginner help/troubleshooting entries docs-only.
+
+## Y-UX-HELP-01 Handoff Update
+
+Latest work: Y-UX-HELP-01 help/troubleshooting entry review docs-only.
+
+Review section:
+
+```text
+docs/llmwiki/beginner-ux-next-action-plan.md
+```
+
+Outcome:
+
+- Reviews help entry labels, troubleshooting entry labels, error next-action
+  wording, save-folder help wording, stop/quit help wording, local-only safety
+  help wording, and beginner-safe escalation paths.
+- Adds short Japanese candidate wording for help entries, troubleshooting
+  entries, and local-only safety help.
+- Defines troubleshooting priority: preserve the visible message, check active
+  saves, open the save folder if unclear, retry once only when safe, then stop
+  and ask for help if the same problem repeats.
+- Keeps frontend copy-only implementation as a later separate lane with
+  explicitly scoped `ui/**` files.
+- Keeps runtime behavior changes outside this lane.
+- Confirms artifact generation remains HOLD.
+
+Next candidate after Y-UX-HELP-01:
+
+- `Y-UX-STATE-01 status / progress / completion clarity review` docs-only; or
 - frontend copy-only implementation lane if explicitly scoped later.
 
 ## Y-AUTO-08 Handoff Update

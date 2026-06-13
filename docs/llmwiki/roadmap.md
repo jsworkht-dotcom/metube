@@ -82,7 +82,7 @@
 
 ### Recent completed lane compression
 
-- PR #86-#107 are complete.
+- PR #86-#108 are complete.
 - Y-DIST completion is compressed as:
   Y-DIST-02 metadata checking, Y-DIST-03 recipient/first-run docs,
   Y-DIST-04 readiness matrix, Y-DIST-05 approval checklist, and Y-DIST-06
@@ -105,6 +105,8 @@
   next-action planning baseline after the artifact generation hold.
 - Y-UX-COPY-01 completed via PR #107 and added the safe-use microcopy review
   baseline.
+- Y-UI-QUALITY-01 completed via PR #108 and added the quality/format/label
+  review baseline.
 
 ### Y-DIST-02 checksum / hash / version / license notice bundle verification
 
@@ -395,7 +397,8 @@
 
 ### Y-UI-QUALITY-01 quality selector / label review
 
-- Status: docs-only quality, format, and label review.
+- Status: completed via fork PR #108.
+- Merge commit: `8e33c91d4231a62b12d1881d56b42625b2ec83e3`.
 - Review section:
   `docs/llmwiki/beginner-ux-next-action-plan.md`.
 - Summary: reviews beginner-facing label families for video quality, audio
@@ -413,9 +416,33 @@
   package output, generated folders, dependencies, Docker files, CI workflows,
   GitHub settings, `.gitignore`, credential-bearing file handling,
   secret-like value handling, public exposure operations, or bypass guidance.
-- Recommended next lane after Y-UI-QUALITY-01:
-  `Y-UX-HELP-01 help/troubleshooting entry review` docs-only, or frontend
-  copy-only implementation if explicitly scoped later.
+- Follow-up selected after Y-UI-QUALITY-01:
+  Y-UX-HELP-01 reviews beginner help/troubleshooting entries docs-only.
+- Risk: High-low / docs-only / draft PR preferred.
+
+### Y-UX-HELP-01 help/troubleshooting entry review
+
+- Status: docs-only help and troubleshooting entry review.
+- Review section:
+  `docs/llmwiki/beginner-ux-next-action-plan.md`.
+- Summary: reviews beginner-facing help entry labels, troubleshooting entry
+  labels, error next-action wording, save-folder help wording, stop/quit help
+  wording, local-only safety help wording, and beginner-safe escalation paths.
+- Current baseline: beginner guide source docs exist; troubleshooting source
+  docs exist; Y-UX-COPY-01 created the safe-use wording baseline;
+  Y-UI-QUALITY-01 created the label review baseline; artifact generation
+  remains HOLD.
+- Risk boundaries: docs-only help review is allowed via fast safe flow;
+  frontend copy-only implementation must be a later separate lane with `ui/**`
+  files explicitly scoped; runtime behavior changes are not part of
+  Y-UX-HELP-01.
+- This lane does not change frontend code, backend code, runtime behavior,
+  package output, generated folders, dependencies, Docker files, CI workflows,
+  GitHub settings, `.gitignore`, credential-bearing file handling,
+  secret-like value handling, public exposure operations, or bypass guidance.
+- Recommended next lane after Y-UX-HELP-01:
+  `Y-UX-STATE-01 status / progress / completion clarity review` docs-only, or
+  frontend copy-only implementation if explicitly scoped later.
 - Risk: High-low / docs-only / draft PR preferred.
 
 ### Y-CI-03 reusable local safety workflow design
@@ -566,9 +593,6 @@
 ### Security next candidates
 
 ```text
-Y-UX-HELP-01:
-  help/troubleshooting entry review using fast safe flow while docs-only
-
 Y-UX-STATE-01:
   status / progress / completion clarity review using fast safe flow while
   docs-only
