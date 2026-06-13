@@ -2517,6 +2517,39 @@ Next candidates:
 
 Actual package generation remains blocked.
 
+## Y-FE-LOCAL-REVIEW-07 Outcome: Review Path Escalation Packet
+
+Y-FE-LOCAL-REVIEW-07 records the docs-only escalation path after two local
+Advanced settings / Cookie area review attempts did not produce a visual
+verdict.
+
+Facts carried forward:
+
+- PR #126 completed Y-FE-LOCAL-REVIEW-06 with result `not_reviewed`.
+- Y-FE-LOCAL-REVIEW-04 also ended `not_reviewed`.
+- `ui/node_modules` and `ui/node_modules/.bin/ng.cmd` existed during
+  Y-FE-LOCAL-REVIEW-06.
+- Production `ng serve` was attempted twice, but no `127.0.0.1:4200` listener
+  appeared before process exit.
+- Browser was not opened, and the Advanced settings / Cookie area was not
+  visually reviewed.
+- No source changes, dependency install/update, build/package, Docker, real URL
+  submission, or Cookie/token/secret handling occurred.
+
+Recommended next candidate:
+
+```text
+Y-FE-LOCAL-REVIEW-08 frontend preview command investigation read-only
+```
+
+Y-FE-LOCAL-REVIEW-08 should be a read-only investigation of existing package
+scripts, Angular config, proxy references, local tooling, and local ports. It
+should stop if a dependency install/update, build/package, source change,
+Docker operation, backend dependency setup, public/LAN exposure, or
+Cookie/token/secret handling appears necessary.
+
+Artifact generation remains HOLD.
+
 ## Y-AUTO-15 Outcome: Preflight Environment Checker Implementation
 
 Y-AUTO-15 adds `scripts/check_local_dev_environment.py` as a stdlib-only,

@@ -2349,3 +2349,46 @@ Carry forward:
 - `export_context_updated.py` remains locally excluded and uncommitted.
 - Actual generation remains blocked.
 - APP-BOOT-01 does not create a new app or authorize implementation.
+
+## Y-FE-LOCAL-REVIEW-07 Handoff Update
+
+Latest work: Y-FE-LOCAL-REVIEW-07 defines a docs-only review path escalation
+after PR #126 completed Y-FE-LOCAL-REVIEW-06 with result `not_reviewed`.
+
+Blocker:
+
+- Y-FE-LOCAL-REVIEW-04 ended `not_reviewed`.
+- Y-FE-LOCAL-REVIEW-06 ended `not_reviewed`.
+- The Advanced settings / Cookie area visual verdict is still not recorded.
+- The current local preview path is not reliable enough to render the Cookie
+  area.
+
+Y-FE-LOCAL-REVIEW-06 facts:
+
+- `ui/node_modules` existed.
+- `ui/node_modules/.bin/ng.cmd` existed.
+- Production `ng serve` was attempted twice.
+- `127.0.0.1:4200` listener was not created before process exit.
+- Browser was not opened.
+- Advanced settings / Cookie area was not visually reviewed.
+- Port 4200 listener was absent after review.
+- No source changes, dependency install/update, build/package, Docker, real URL
+  submission, or Cookie/token/secret handling occurred.
+
+Recommended next lane:
+
+```text
+Y-FE-LOCAL-REVIEW-08 frontend preview command investigation read-only
+```
+
+Y-FE-LOCAL-REVIEW-08 should inspect existing package scripts, Angular config,
+proxy references, local tooling, and local ports to determine whether a stable
+loopback preview command already exists. It should remain read-only, with no
+source edits, no install/update, no build, and no runtime start unless
+separately approved.
+
+Stop the future investigation if dependency install/update, build/package,
+source change, Docker, backend dependency setup, public/LAN exposure, or
+Cookie/token/secret handling becomes necessary.
+
+Artifact generation remains HOLD.

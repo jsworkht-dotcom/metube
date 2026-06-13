@@ -514,3 +514,137 @@ Current-state sync:
 - Artifact generation remains HOLD.
 - Next recommended lane:
   review path escalation packet docs-only.
+
+## Y-FE-LOCAL-REVIEW-07 Review Path Escalation Packet
+
+Y-FE-LOCAL-REVIEW-07 is a docs-only review path escalation packet after two
+local Advanced settings / Cookie area review attempts ended as
+`not_reviewed`.
+
+This packet does not run the app, start frontend/backend services, build,
+install dependencies, use Docker, submit URLs, create screenshots, generate
+artifacts, change source/runtime files, inspect Cookie/token/secret values, or
+mutate GitHub settings.
+
+Baseline:
+
+```text
+fork/master = 17d3cf8d7017a344c0216befb008839931dc0858
+PR #126 merged
+Y-FE-LOCAL-REVIEW-06 reliable loopback UI re-review evidence completed
+result: not_reviewed
+```
+
+Review blocker:
+
+```text
+Y-FE-LOCAL-REVIEW-04 result: not_reviewed.
+Y-FE-LOCAL-REVIEW-06 result: not_reviewed.
+Cookie area visual verdict is still not recorded.
+Current local preview path is not reliable enough to render the Cookie area.
+```
+
+Y-FE-LOCAL-REVIEW-06 facts:
+
+```text
+ui/node_modules existed.
+ui/node_modules/.bin/ng.cmd existed.
+production ng serve attempted twice.
+127.0.0.1:4200 listener was not created before process exit.
+Browser was not opened.
+Advanced settings / Cookie area was not visually reviewed.
+port 4200 listener absent after review.
+no source changes.
+no dependency install/update.
+no build/package.
+no Docker.
+no real URL submission.
+no Cookie/token/secret handling.
+```
+
+Escalation options:
+
+```text
+Option A: Human-operated already-running UI review
+  Use if the user can manually start/open the app outside Codex.
+  Codex records text evidence only after user reports findings.
+  No runtime commands by Codex.
+
+Option B: Scoped runtime preview remediation packet
+  Docs-only packet to define why ng serve exits before listener.
+  No source changes yet.
+  Future implementation only if explicitly approved.
+
+Option C: Frontend preview command investigation lane
+  Read-only investigation of available local scripts/configs.
+  No install/update/build.
+  No source edits.
+  Purpose: identify a stable existing command if one exists.
+
+Option D: Defer visual verdict
+  Keep Cookie visual review unresolved.
+  Continue other docs/report/checker work.
+```
+
+Recommended:
+
+```text
+Option C first: Frontend preview command investigation lane, read-only.
+
+Reason:
+We need to know whether a stable existing command already exists before approving runtime/source changes.
+This avoids unnecessary source changes and keeps dependency/build/Docker boundaries intact.
+```
+
+Future lane:
+
+```text
+Y-FE-LOCAL-REVIEW-08 frontend preview command investigation read-only
+```
+
+Purpose:
+
+```text
+Inspect existing package scripts, Angular config, proxy references, and local tooling to determine a stable loopback preview command.
+```
+
+Allowed:
+
+```text
+read files
+inspect config
+inspect scripts
+inspect local ports
+no source edits
+no install/update
+no build
+no runtime start unless separately approved
+```
+
+Output:
+
+```text
+docs-only investigation result and recommended next action
+```
+
+Stop if:
+
+```text
+dependency install/update appears necessary
+build/package appears necessary
+source change appears necessary
+Docker appears necessary
+backend dependency setup appears necessary
+public/LAN exposure appears necessary
+Cookie/token/secret handling appears
+```
+
+Current-state sync:
+
+```text
+PR #126 completed Y-FE-LOCAL-REVIEW-06 with result not_reviewed.
+Y-FE-LOCAL-REVIEW-07 defines review path escalation.
+Artifact generation remains HOLD.
+Next recommended lane:
+  Y-FE-LOCAL-REVIEW-08 frontend preview command investigation read-only.
+```

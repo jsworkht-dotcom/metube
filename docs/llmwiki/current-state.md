@@ -3536,3 +3536,41 @@ Next candidates:
 - APP-00A actual new app purpose / user / MVP definition once the app idea is
   provided.
 - Y-CI-01 lightweight CI design.
+
+## Y-FE-LOCAL-REVIEW-07 Review Path Escalation State
+
+Y-FE-LOCAL-REVIEW-07 defines the docs-only review path escalation after PR
+#126 completed Y-FE-LOCAL-REVIEW-06 with result `not_reviewed`.
+
+Current blocker:
+
+- Y-FE-LOCAL-REVIEW-04 result: `not_reviewed`.
+- Y-FE-LOCAL-REVIEW-06 result: `not_reviewed`.
+- The Advanced settings / Cookie area visual verdict is still not recorded.
+- The current local preview path is not reliable enough to render the Cookie
+  area.
+
+Y-FE-LOCAL-REVIEW-06 facts carried forward:
+
+- `ui/node_modules` and `ui/node_modules/.bin/ng.cmd` existed.
+- Production `ng serve` was attempted twice.
+- `127.0.0.1:4200` listener was not created before process exit.
+- Browser was not opened.
+- Advanced settings / Cookie area was not visually reviewed.
+- Port 4200 listener was absent after review.
+- No source changes, dependency install/update, build/package, Docker, real URL
+  submission, or Cookie/token/secret handling occurred.
+
+Escalation decision:
+
+- Recommended first: Y-FE-LOCAL-REVIEW-08 frontend preview command
+  investigation read-only.
+- Reason: determine whether a stable existing command already exists before
+  approving runtime/source changes.
+- Artifact generation remains HOLD.
+
+Next recommended lane:
+
+```text
+Y-FE-LOCAL-REVIEW-08 frontend preview command investigation read-only
+```
