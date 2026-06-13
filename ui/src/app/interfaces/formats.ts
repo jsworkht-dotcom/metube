@@ -17,7 +17,7 @@ export const DOWNLOAD_TYPES: Option[] = [
 ];
 
 export const VIDEO_CODECS: Option[] = [
-  { id: "auto", text: "自動" },
+  { id: "auto", text: "おまかせ" },
   { id: "h264", text: "H.264" },
   { id: "h265", text: "H.265 (HEVC)" },
   { id: "av1", text: "AV1" },
@@ -25,7 +25,7 @@ export const VIDEO_CODECS: Option[] = [
 ];
 
 export const VIDEO_FORMATS: Option[] = [
-  { id: "any", text: "自動" },
+  { id: "any", text: "おまかせ" },
   { id: "mp4", text: "MP4" },
   { id: "ios", text: "iOS向け" },
 ];

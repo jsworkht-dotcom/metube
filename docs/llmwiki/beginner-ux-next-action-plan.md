@@ -1122,10 +1122,58 @@ Y-FE-COPY-01 is docs-only and does not change frontend runtime files. It does
 not authorize Y-FE-COPY-02 by itself; that future lane requires explicit scope
 approval before touching `ui/`.
 
+## Y-FE-COPY-02 Frontend Copy-Only Implementation
+
+Y-FE-COPY-02 applies selected beginner-facing copy improvements from the
+completed UX planning lane to existing frontend UI copy only.
+
+### Implemented Copy Groups
+
+- Quality helper text.
+- Audio quality helper text.
+- Codec / format auto display labels.
+- Captions mode display labels and helper text.
+- Completed/result table codec display text for the auto codec case.
+
+### Files In Scope
+
+- `ui/src/app/app.html`
+- `ui/src/app/app.ts`
+- `ui/src/app/interfaces/formats.ts`
+
+### Copy Boundary
+
+- Selector ids and values remain unchanged.
+- API payloads remain unchanged.
+- Quality numeric values remain unchanged.
+- Format and codec mappings remain unchanged.
+- State management, event handlers, Socket.IO behavior, queue behavior, and
+  download behavior remain unchanged.
+
+### Explicitly Not Performed
+
+Y-FE-COPY-02 does not perform:
+
+- backend changes;
+- workflow changes;
+- package or lockfile changes;
+- dependency installation operations;
+- Docker operations;
+- generated artifact creation;
+- CLEAN folder creation;
+- metadata or checksum generation;
+- real download verification;
+- recipient handoff or sharing;
+- GitHub settings, branch protection, ruleset, required-check, or CODEOWNERS
+  mutation;
+- `.gitignore` changes;
+- cookie/token/secret/credential handling;
+- public exposure operations;
+- DRM/auth/restriction bypass guidance.
+
 ## Next UX Candidates
 
-- `Y-FE-COPY-01 frontend copy-only implementation packet` docs-only
-- frontend copy-only implementation lane if explicitly scoped later
+- manual UI review of the Y-FE-COPY-02 copy-only changes if desired
 - continue docs-only UX planning if more review is needed
 
 Repo-history note: earlier `Y-UI-QUALITY-01`, `Y-UI-QUALITY-02`, and
@@ -1135,16 +1183,17 @@ lane name while keeping the candidate intent.
 
 ## Recommended First Next Lane
 
-Recommended next lane after Y-UX-CLOSEOUT-01:
+Recommended next lane after Y-FE-COPY-02:
 
-- `Y-FE-COPY-01 frontend copy-only implementation packet` docs-only.
+- optional manual UI review / screenshot review of the copy-only changes; or
+- another docs/report/checker lane using fast safe flow.
 
 Repo-history note: because historical `Y-UI-QUALITY-01` is already complete in
 this fork, prefer a fresh quality selector / label review follow-up lane name
 if implementation starts.
 
-Prefer frontend copy-only implementation only if the next task explicitly scopes
-UI files and accepts the human-reviewed frontend lane.
+Further frontend implementation should remain explicitly scoped to approved
+`ui/**` files and keep behavior changes separate.
 
 ## Risk Boundaries
 
@@ -1194,13 +1243,14 @@ Y-UX-PLAN-01 does not perform:
 PR #105 completed Y-DIST-08 no-generation hold. PR #106 completed
 Y-UX-PLAN-01. PR #107 completed Y-UX-COPY-01. PR #108 completed
 Y-UI-QUALITY-01. PR #109 completed Y-UX-HELP-01. PR #110 completed
-Y-UX-STATE-01. PR #111 completed Y-UX-STOP-01. Y-UX-CLOSEOUT-01 closes the
-beginner UX planning lane as the current docs-only planning step:
+Y-UX-STATE-01. PR #111 completed Y-UX-STOP-01. PR #112 completed
+Y-UX-CLOSEOUT-01. PR #113 completed Y-FE-COPY-01. Y-FE-COPY-02 applies the
+first frontend copy-only implementation step:
 
 - artifact generation remains blocked;
 - fast safe flow is the default for low-risk docs/report/checker lanes;
 - beginner UX work should start with safe planning before any UI implementation;
-- the recommended next lane after Y-UX-CLOSEOUT-01 is Y-FE-COPY-01 frontend
-  copy-only implementation packet docs-only;
-- future UI copy-only work remains a separate human-reviewed lane unless later
-  safety-gate policy explicitly changes.
+- this lane keeps selector ids/values, API payloads, and runtime behavior
+  unchanged;
+- further UI work remains explicitly scoped to approved `ui/**` files unless
+  later safety-gate policy explicitly changes.
