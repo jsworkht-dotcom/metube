@@ -9,10 +9,10 @@ canonical branch is fork `master`, and local `master` tracks `fork/master`.
 
 ## Current Closeout State
 
-- Current Y-DIST-07 work branch:
+- Latest completed Y-DIST-07 branch:
   `codex/y-dist-07-artifact-generation-approval-packet`.
 - Current fork `master` baseline:
-  `df99701477d05d4f4b6e5127ee8588e3da5252d5` from fork PR #101.
+  `f4a644fd97c869f305465b8e51d837bdd310b2e5` from fork PR #102.
 - Compact recent state:
   - Y-DIST is complete through Y-DIST-07; artifact generation remains blocked
     until a later explicit human approval names the exact source commit,
@@ -267,6 +267,8 @@ canonical branch is fork `master`, and local `master` tracks `fork/master`.
     cookie/token/secret handling, or PR #1001 files
 - Current Y-DIST-07 state:
   - docs-only artifact generation approval packet lane
+  - completed via fork PR #102
+  - merge commit: `f4a644fd97c869f305465b8e51d837bdd310b2e5`
   - target doc:
     - `docs/llmwiki/artifact-generation-approval-packet.md`
   - records the current baseline as `fork/master` at
@@ -1235,11 +1237,13 @@ canonical branch is fork `master`, and local `master` tracks `fork/master`.
   environment, sandboxed `gh auth status` may report an invalid `default`
   token while escalated `gh auth status` succeeds through `keyring`. The
   GitHub connector may also fail ready-for-review / GraphQL mutations with
-  `Resource not accessible by integration`. For human-approved PR ready/merge
-  work, verify stable PR facts, confirm the expected head SHA, use narrowly
-  scoped escalated `gh` commands only when needed, use an expected-head merge
-  guard, and stop if the head SHA changes. Do not read, paste, or store token
-  values.
+  `Resource not accessible by integration`. Fallback is limited to current-lane
+  approved `pr view`, `pr checks`, `pr ready`, guarded `pr merge`, and
+  after-merge branch cleanup. Verify stable PR facts, confirm the expected head
+  SHA, use narrowly scoped escalated `gh` commands only when needed, use an
+  expected-head merge guard, and stop if the head SHA changes. Do not read,
+  paste, print, store, or transform token values. Do not mutate GitHub settings,
+  branch protection, rulesets, required checks, or CODEOWNERS through fallback.
 
 ## Next Step
 

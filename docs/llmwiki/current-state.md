@@ -20,7 +20,7 @@
   separate upstream contribution.
 - Do not mix upstream PR #1001 files into fork-only work.
 - Latest fork `master` baseline:
-  `df99701477d05d4f4b6e5127ee8588e3da5252d5` from fork PR #101.
+  `f4a644fd97c869f305465b8e51d837bdd310b2e5` from fork PR #102.
 
 ## Current Runtime Security State
 
@@ -129,7 +129,7 @@
   change, package/lockfile change, or existing safety gate behavior change is
   part of this lane.
 
-## Recent Completed Lane Summary (PR #86-#101)
+## Recent Completed Lane Summary (PR #86-#102)
 
 This is the compact planning surface for the recent distribution, CI, and
 GitHub-governance lanes. The older per-lane notes remain historical reference.
@@ -138,7 +138,7 @@ GitHub-governance lanes. The older per-lane notes remain historical reference.
   PR #86 added report-only metadata verification; PR #91 added recipient-safe
   and first-run verification docs; PR #92 added the readiness matrix; PR #93
   added the human approval checklist; PR #94 added the approved clean candidate
-  dry-run plan; Y-DIST-07 adds the artifact generation approval packet.
+  dry-run plan; PR #102 added the artifact generation approval packet.
   Artifact generation remains blocked.
 - Y-CI is complete through the reusable `local-fork-safety` display layer:
   PR #88 designed the workflow; PR #89 implemented it; PR #90 confirmed a
@@ -201,6 +201,9 @@ GitHub-governance lanes. The older per-lane notes remain historical reference.
   - require expected head SHA checks before ready / merge and an expected-head
     guard for squash merge;
   - record PR #86 as the confirmed operational example.
+- Follow-up standardization limits fallback to current-lane approved `pr view`,
+  `pr checks`, `pr ready`, guarded `pr merge`, and after-merge branch cleanup;
+  it also records token-safe command patterns and stop conditions.
 - Not included:
   - GitHub token, secret, cookie, or credential handling;
   - branch protection changes;
@@ -402,6 +405,8 @@ GitHub-governance lanes. The older per-lane notes remain historical reference.
 ### Y-DIST-07 artifact generation approval packet
 
 - Scope: docs-only approval packet for future artifact generation review.
+- Status: completed via fork PR #102.
+- Merge commit: `f4a644fd97c869f305465b8e51d837bdd310b2e5`.
 - Document:
   `docs/llmwiki/artifact-generation-approval-packet.md`.
 - Purpose:
@@ -2574,9 +2579,11 @@ candidate, but did not change workflows or GitHub settings.
 
 PR #101 is complete with merge commit
 `df99701477d05d4f4b6e5127ee8588e3da5252d5`. It was docs-only cleanup and is
-the current baseline for Y-DIST-07.
+the baseline recorded inside the Y-DIST-07 packet.
 
-Y-DIST-07 adds the docs-only artifact generation approval packet at
+Y-DIST-07 is complete via fork PR #102 with merge commit
+`f4a644fd97c869f305465b8e51d837bdd310b2e5`. It added the docs-only artifact
+generation approval packet at
 `docs/llmwiki/artifact-generation-approval-packet.md`. It prepares future human
 review but does not approve generation.
 

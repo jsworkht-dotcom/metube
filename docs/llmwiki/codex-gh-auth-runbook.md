@@ -38,6 +38,21 @@ integration` for PR creation, ready-for-review transitions, or GraphQL
 mutations in this fork. Treat that as a connector permission limit and fall
 back to an escalated `gh` command after verifying CLI auth and PR state.
 
+## Allowed GitHub Connector Fallback Surface
+
+GitHub connector fallback is allowed only for PR operations already approved by
+the current lane:
+
+- `pr view`
+- `pr checks`
+- `pr ready`
+- `pr merge` with an expected head SHA guard
+- branch cleanup after merge
+
+Fallback must not read, paste, print, store, or transform token values.
+Fallback must not mutate GitHub repository settings. Fallback must not
+configure branch protection, rulesets, required checks, or CODEOWNERS.
+
 ## Safe Diagnosis
 
 Do:
@@ -83,7 +98,7 @@ When a task needs fork PR creation, checks, merge, or branch cleanup:
    - no failing checks
    - no token/cookie/secret values
 
-## Connector Ready / Merge Fallback
+## Connector Ready / Check / Merge Fallback
 
 When the GitHub connector cannot mark a human-approved PR ready for review or
 cannot run the relevant GraphQL mutation, the fallback path is allowed only
@@ -97,10 +112,47 @@ Required facts before fallback:
 - Head branch is the expected fork branch.
 - Head SHA matches the human-approved expected head SHA.
 - Changed-file count and changed paths match the approved scope.
+- Forbidden paths are absent.
+- `.github/workflows/` is unchanged unless the lane explicitly allows CI scope.
 - Merge state is clean / mergeable.
 - Failed checks are none.
+- `local fork safety / local fork safety` succeeded when present.
 - Generated package folder is absent.
 - PR #1001 files are not present in the diff.
+
+Expected merge preflight:
+
+1. Confirm PR state is `OPEN`.
+2. Confirm draft status.
+3. Confirm `mergeable` / `mergeStateStatus` is acceptable.
+4. Confirm head SHA.
+5. Confirm changed files are exactly within the approved scope.
+6. Confirm forbidden paths are absent.
+7. Confirm `.github/workflows/` is unchanged unless the lane explicitly allows
+   CI scope.
+8. Confirm `local fork safety / local fork safety` success.
+9. Mark ready only after head SHA and scope match.
+10. Re-check head SHA, changed files, and checks after ready.
+11. Squash merge only with an expected head SHA guard.
+12. Fetch `fork/master`.
+13. Confirm final `fork/master` contains the merge commit.
+14. Clean up the branch only after the merge is confirmed.
+
+Token-safe command pattern:
+
+```powershell
+gh auth status
+gh pr view <PR_NUMBER> --json state,isDraft,mergeable,mergeStateStatus,headRefOid,files,statusCheckRollup
+gh pr ready <PR_NUMBER>
+gh pr checks <PR_NUMBER>
+gh pr merge <PR_NUMBER> --squash --delete-branch --match-head-commit <EXPECTED_HEAD_SHA>
+git fetch fork --prune
+git rev-parse fork/master
+```
+
+For cleanup, prefer `gh pr merge --delete-branch` for the remote PR branch.
+Delete any remaining local branch only after `fork/master` contains the merge
+commit and the local branch is fully merged.
 
 Fallback principles:
 

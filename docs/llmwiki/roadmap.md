@@ -82,12 +82,12 @@
 
 ### Recent completed lane compression
 
-- PR #86-#101 are complete.
+- PR #86-#102 are complete.
 - Y-DIST completion is compressed as:
   Y-DIST-02 metadata checking, Y-DIST-03 recipient/first-run docs,
   Y-DIST-04 readiness matrix, Y-DIST-05 approval checklist, and Y-DIST-06
-  approved candidate dry-run planning, followed by Y-DIST-07 artifact
-  generation approval packet. Artifact generation remains blocked.
+  approved candidate dry-run planning, followed by the PR #102 Y-DIST-07
+  artifact generation approval packet. Artifact generation remains blocked.
 - Y-CI completion is compressed as:
   lightweight workflow design, minimal implementation, docs-only self-check,
   reusable workflow design/implementation, caller concurrency, and the PR #99
@@ -132,6 +132,9 @@
   failure that can affect ready-for-review / GraphQL mutations.
 - Requires stable PR facts, expected head SHA confirmation, and an expected-head
   guard for squash merge before `gh` fallback can be used.
+- Follow-up standardization limits fallback to current-lane approved `pr view`,
+  `pr checks`, `pr ready`, guarded `pr merge`, and after-merge branch cleanup;
+  it also records token-safe command patterns and stop conditions.
 - This lane does not change GitHub branch protection, CODEOWNERS, CI,
   backend/frontend code, package files, lockfiles, or safety gate behavior.
 
@@ -271,8 +274,9 @@
 
 ### Y-DIST-07 artifact generation approval packet
 
-- Status: docs-only approval packet.
-- Summary: adds a docs-only artifact generation approval packet for a future
+- Status: completed via fork PR #102.
+- Merge commit: `f4a644fd97c869f305465b8e51d837bdd310b2e5`.
+- Summary: added a docs-only artifact generation approval packet for a future
   explicit human decision.
 - New document:
   `docs/llmwiki/artifact-generation-approval-packet.md`.
