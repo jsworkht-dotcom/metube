@@ -1925,6 +1925,73 @@ Next recommended lane:
 Reason: PR #121 changed visible UI copy. A short re-review packet keeps
 runtime/start/review boundaries clear before opening the UI again.
 
+## Y-FE-LOCAL-REVIEW-03 Handoff Update
+
+Latest work: Y-FE-LOCAL-REVIEW-03 prepares a docs-only scoped local UI
+re-review packet after PR #122 completed Y-FE-COPY-06.
+
+Reason:
+
+- Y-FE-COPY-05 / PR #121 completed Cookie-related frontend copy-only
+  implementation.
+- The Cookie helper changed from restricted/private download guidance to
+  cautionary advanced-only Japanese-first wording.
+- Y-FE-COPY-06 / PR #122 closed out the implementation.
+
+Future lane:
+
+```text
+Y-FE-LOCAL-REVIEW-04 scoped local UI re-review execution
+```
+
+Future purpose:
+
+- visually confirm the Cookie wording finding after PR #121;
+- record whether the finding is `resolved`, `follow_up`, `blocker`, or
+  `not_reviewed`;
+- keep source files unchanged.
+
+Primary target:
+
+- Advanced settings / Cookie area.
+
+Specific text to verify:
+
+- `Cookie設定（上級者向け）`;
+- `Cookieファイルを選択`;
+- `Cookieファイルを変更`;
+- `Cookie未設定`;
+- `Cookie設定あり`;
+- cautionary helper text that says beginners normally should not use Cookie
+  handling because Cookie data is personal information.
+
+Allowed only after explicit approval in Y-FE-LOCAL-REVIEW-04:
+
+- inspect local ports;
+- use already-running local UI if available;
+- start local frontend/backend only if existing dependencies are already
+  present and no install/update/build is required;
+- open localhost / `127.0.0.1` only;
+- review visible UI text and layout;
+- record text evidence in docs-only follow-up.
+
+Still forbidden:
+
+- dependency installation operations;
+- Docker operations;
+- build/package commands;
+- public tunnel or LAN bind;
+- real URL submission or real download;
+- Cookie/token/secret value handling;
+- screenshots or generated artifacts unless separately approved.
+
+Next recommended lane:
+
+- `Y-FE-LOCAL-REVIEW-04 scoped local UI re-review execution`, only after
+  explicit approval.
+
+Artifact generation remains HOLD.
+
 ## Y-AUTO-08 Handoff Update
 
 Latest completed work: Y-AUTO-08 added the docs-only local safety gate aggregator design at `docs/llmwiki/local-safety-gate-aggregator-design.md`.

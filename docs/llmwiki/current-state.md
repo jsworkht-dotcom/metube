@@ -3111,6 +3111,25 @@ Y-FE-LOCAL-REVIEW-03 scoped local UI re-review packet docs-only
 
 Artifact generation remains HOLD.
 
+Y-FE-LOCAL-REVIEW-03 prepares the scoped local UI re-review packet as
+docs-only planning after PR #122 completed Y-FE-COPY-06. It defines the future
+`Y-FE-LOCAL-REVIEW-04 scoped local UI re-review execution` lane for visually
+confirming the Cookie wording after PR #121, without source changes.
+
+Future Y-FE-LOCAL-REVIEW-04 may only proceed after explicit approval. It may
+inspect local ports, use an already-running local UI, or start local
+frontend/backend only if existing dependencies are already present and no
+install/update/build is required. It may open loopback URLs only and record
+text evidence in docs. It must not install dependencies, build/package, run
+Docker operations, use public/LAN exposure, submit real URLs, perform real
+downloads, handle Cookie/token/secret values, or create screenshots/artifacts
+unless separately approved.
+
+Y-FE-LOCAL-REVIEW-03 defines the Cookie wording review target, safety/layout
+questions, evidence template, classifications (`resolved`, `follow_up`,
+`blocker`, `not_reviewed`), and decision rules. Artifact generation remains
+HOLD.
+
 Y-08Z closes the Y-08 preview hardening lane as docs-only closeout.
 Y-UI-QUALITY-01 is complete via fork PR #73 with merge commit
 `402996eba52f923be962e2fe69ebdaa6084363f2`. Y-UI-QUALITY-02 is complete via
