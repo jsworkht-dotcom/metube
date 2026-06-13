@@ -242,8 +242,11 @@ Current recommendation:
 
 ```text
 Y-GH-01: design-only
-Y-GH-02: required checks design, if needed
-Y-GH-03: actual branch protection / ruleset implementation only after explicit human approval
+Y-GH-02: required checks design, completed via PR #100
+Y-GH-03: minimal branch protection implementation without required checks,
+  only after explicit human approval
+Y-GH-04: required checks implementation only after explicit human approval
+  and accepted rollback path
 ```
 
 If branch protection is enough for fork `master`, prefer branch protection for
@@ -371,7 +374,8 @@ Y-GH-02 records required checks design here:
 docs/llmwiki/required-checks-design.md
 ```
 
-Y-CI-05 is still only one additional observation. Y-GH-02 records
+Y-CI-05 is still only one additional observation. Y-GH-02 completed the
+required checks design in PR #100 and records
 `local fork safety / local fork safety` as the current candidate, but
 required-check implementation remains too early until a later human-approved
 lane accepts the workflow-change exception policy and rollback path.
@@ -379,9 +383,11 @@ lane accepts the workflow-change exception policy and rollback path.
 Other candidates:
 
 ```text
-Y-GH-03 branch protection implementation, only with explicit human approval
-Y-GH-04 required checks implementation, only with explicit human approval after rollback path is accepted
-Y-WIKI-CLEAN-01 current-state / handoff / archive整理
+Y-DIST-07 artifact generation approval packet
+Y-GH-03 minimal branch protection implementation without required checks,
+  only with explicit human approval
+Y-GH-04 required checks implementation, only with explicit human approval after
+  rollback path is accepted
 ```
 
 ## Not Included In Y-GH-01

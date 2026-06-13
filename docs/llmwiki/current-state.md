@@ -20,7 +20,7 @@
   separate upstream contribution.
 - Do not mix upstream PR #1001 files into fork-only work.
 - Latest fork `master` baseline:
-  `e77e68c56a369c3ae962cf0abcbe958ce36a2101` from fork PR #99.
+  `34497e8918bbc12b7ea457eb6cc48c7c9d8c963b` from fork PR #100.
 
 ## Current Runtime Security State
 
@@ -128,6 +128,33 @@
   Docker operation, real download, cookie/token/secret handling, frontend
   change, package/lockfile change, or existing safety gate behavior change is
   part of this lane.
+
+## Recent Completed Lane Summary (PR #86-#100)
+
+This is the compact planning surface for the recent distribution, CI, and
+GitHub-governance lanes. The older per-lane notes remain historical reference.
+
+- Y-DIST is complete through Y-DIST-06:
+  PR #86 added report-only metadata verification; PR #91 added recipient-safe
+  and first-run verification docs; PR #92 added the readiness matrix; PR #93
+  added the human approval checklist; PR #94 added the approved clean candidate
+  dry-run plan. Artifact generation remains blocked.
+- Y-CI is complete through the reusable `local-fork-safety` display layer:
+  PR #88 designed the workflow; PR #89 implemented it; PR #90 confirmed a
+  docs-only self-check; PR #95 designed the reusable split; PR #96 implemented
+  the split; PR #97 added caller concurrency; PR #99 observed the stable
+  displayed check name `local fork safety / local fork safety`.
+- Y-GH is complete through required-checks design:
+  PR #87 recorded the GitHub connector fallback runbook; PR #98 designed
+  branch protection/ruleset strategy; PR #100 designed required-check handling.
+  No branch protection, ruleset, required-check, CODEOWNERS, workflow, or
+  GitHub settings mutation has been performed.
+- Current next candidates:
+  `Y-DIST-07 artifact generation approval packet`,
+  `Y-GH-03 minimal branch protection implementation without required checks`
+  only with explicit human approval, and
+  `Y-GH-04 required checks implementation` only with explicit human approval
+  after the rollback path is accepted.
 
 ### Y-DIST-02 checksum / hash / version / license notice bundle verification
 
@@ -550,7 +577,8 @@
 ### Y-GH-02 required checks design
 
 - Scope: docs-only required checks design.
-- Status: active in the current branch.
+- Status: completed via fork PR #100.
+- Merge commit: `34497e8918bbc12b7ea457eb6cc48c7c9d8c963b`.
 - Design doc:
   `docs/llmwiki/required-checks-design.md`.
 - Current required-check candidate:
@@ -562,7 +590,8 @@
   - do not implement required checks yet;
   - verify the exact GitHub UI/API check name immediately before any future
     implementation;
-  - prefer a future explicit human-approved implementation lane.
+  - prefer a future explicit human-approved implementation lane after a
+    rollback path is accepted.
 - Main risk:
   - workflow-file PRs intentionally hit CI-scope local safety blockers, so a
     required local safety check can block expected human-approved workflow
@@ -2506,9 +2535,11 @@ Y-CI-05 is complete via fork PR #99 with merge commit
 check name `local fork safety / local fork safety` on a normal docs-only PR
 without workflow or GitHub settings changes.
 
-Y-GH-02 is the active docs-only required checks design lane. Its source of
-truth is `docs/llmwiki/required-checks-design.md`. It must not change workflows
-or GitHub settings.
+Y-GH-02 is complete via fork PR #100 with merge commit
+`34497e8918bbc12b7ea457eb6cc48c7c9d8c963b`. Its source of truth is
+`docs/llmwiki/required-checks-design.md`. It recorded
+`local fork safety / local fork safety` as the current required-check
+candidate, but did not change workflows or GitHub settings.
 
 Y-08Z closes the Y-08 preview hardening lane as docs-only closeout.
 Y-UI-QUALITY-01 is complete via fork PR #73 with merge commit
@@ -2584,12 +2615,14 @@ The previous package-material lane is complete through Y-08Z closeout. Actual
 clean-package generation remains blocked. The generated package folder must
 remain absent.
 
-The next practical candidates after Y-GH-02 are:
+The next practical candidates after Y-WIKI-CLEAN-01 are:
 
 ```text
-Y-WIKI-CLEAN-01 current-state / handoff / archive整理
+Y-DIST-07 artifact generation approval packet
 Y-GH-03 minimal branch protection implementation without required checks,
   only with explicit human approval
+Y-GH-04 required checks implementation, only with explicit human approval after
+  rollback path is accepted
 ```
 
 Pause can be chosen instead. Future `ui/**` work remains human-reviewed unless
