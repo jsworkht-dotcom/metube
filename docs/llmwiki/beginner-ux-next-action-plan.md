@@ -519,10 +519,176 @@ Y-UX-HELP-01 does not perform:
 - public exposure operations;
 - DRM/auth/restriction bypass guidance.
 
+## Y-UX-STATE-01 Status / Progress / Completion Clarity Review
+
+Y-UX-STATE-01 reviews beginner-facing status, progress, and completion wording
+as a docs-only follow-up after Y-UX-HELP-01. This section does not change
+runtime UI files, backend behavior, package output, generated folders, or
+GitHub settings.
+
+### Current Status Baseline
+
+- Japanese-localized status labels exist.
+- Download metrics exist.
+- Queue / progress / completed / failed areas exist.
+- Y-UX-COPY-01 safe-use wording baseline exists.
+- Y-UI-QUALITY-01 label review baseline exists.
+- Y-UX-HELP-01 help/troubleshooting baseline exists.
+- Artifact generation remains HOLD.
+
+### Review Principles
+
+- Use beginner-first status labels.
+- Use short Japanese labels.
+- Show the visible next action.
+- Avoid technical error-first wording.
+- Distinguish waiting, saving, completed, and failed states clearly.
+- Tell users when it is safe to close.
+- Tell users when to wait.
+- Tell users when to open the save folder.
+- Avoid suggesting unsafe repair commands.
+- Do not ask for cookies/tokens/secrets.
+- Do not imply guaranteed success or unrestricted saving.
+
+### State Families To Review
+
+- `接続中`
+- `追加中`
+- `キャンセル中`
+- `保存中`
+- `待機中`
+- `完了`
+- `失敗`
+- `再試行`
+- `保存先を開く`
+- `停止して終了`
+
+### Candidate Wording
+
+Connection:
+
+```text
+サーバーに接続中...
+起動直後は少し待ってください。
+```
+
+Saving:
+
+```text
+保存中です。完了するまで待ってください。
+進行状況が動いている間は、閉じずに待つのがおすすめです。
+```
+
+Queued:
+
+```text
+待機中です。順番に保存を開始します。
+```
+
+Completed:
+
+```text
+保存が完了しました。
+「保存先を開く」からファイルを確認できます。
+```
+
+Failed:
+
+```text
+保存に失敗しました。
+もう一度だけ試すか、エラー文を残してください。
+```
+
+Retry:
+
+```text
+同じ失敗が続く場合は、無理に設定を変えず、エラー文を確認してください。
+```
+
+Stop/quit:
+
+```text
+保存中は完了を待ってから終了してください。
+終了に迷った場合は「停止して終了」を使ってください。
+```
+
+### Status Priority
+
+1. Show whether the app is connected.
+2. Show whether a save is running.
+3. Show whether a save is waiting.
+4. Show completion clearly.
+5. Show failure with one safe next action.
+6. Point to save folder after completion.
+7. Point to stop/quit only when safe.
+
+### Review Notes By State
+
+Connection wording should make the first startup wait understandable without
+asking users to change settings.
+
+Saving and queued wording should clearly distinguish "wait because saving is in
+progress" from "wait because this item has not started yet".
+
+Completed wording should point to "保存先を開く" only after completion is clear.
+
+Failed and retry wording should offer one safe next action and preserve the
+visible error text. It should not invite risky settings changes, credential
+handling, public exposure, or bypass guidance.
+
+Stop/quit wording should tell users to wait while saving and use "停止して終了"
+when they are unsure whether quitting is safe.
+
+### Next Implementation Boundaries
+
+Docs-only status review:
+
+- allowed now;
+- may update LLMwiki planning, roadmap, and handoff docs;
+- may collect candidate status, progress, completion, failure, retry,
+  save-folder, and stop/quit copy;
+- must not change runtime UI files.
+
+Frontend copy-only implementation:
+
+- later separate lane;
+- `ui/**` files must be explicitly scoped;
+- no dependency, build, package, generated output, or runtime behavior changes.
+
+Runtime behavior:
+
+- later separate lane;
+- not part of Y-UX-STATE-01.
+
+### Explicitly Not Performed
+
+Y-UX-STATE-01 does not perform:
+
+- frontend code changes;
+- backend code changes;
+- runtime behavior changes;
+- artifact generation;
+- generated package output;
+- CLEAN folder creation;
+- `動画保存ツール_ローカル専用/` creation;
+- metadata or checksum generation;
+- real download verification;
+- recipient handoff or sharing;
+- dependency installation operations;
+- container image operations;
+- `.github/workflows/` changes;
+- GitHub settings, branch protection, ruleset, required-check, or CODEOWNERS
+  mutation;
+- `.gitignore` changes;
+- credential-bearing file handling;
+- secret-like value handling;
+- public exposure operations;
+- DRM/auth/restriction bypass guidance.
+
 ## Next UX Candidates
 
-- `Y-UX-STATE-01 status / progress / completion clarity review`
 - `Y-UX-STOP-01 stop/quit user-flow design`
+- frontend copy-only implementation lane if explicitly scoped later
 
 Repo-history note: earlier `Y-UI-QUALITY-01`, `Y-UI-QUALITY-02`, and
 `Y-UI-QUALITY-03` lanes are already complete. If a new implementation PR starts
@@ -531,9 +697,9 @@ lane name while keeping the candidate intent.
 
 ## Recommended First Next Lane
 
-Recommended first next lane:
+Recommended next lane after Y-UX-STATE-01:
 
-- `Y-UX-STATE-01 status / progress / completion clarity review` docs-only; or
+- `Y-UX-STOP-01 stop/quit user-flow design` docs-only; or
 - frontend copy-only implementation if explicitly scoped later.
 
 Repo-history note: because historical `Y-UI-QUALITY-01` is already complete in
@@ -590,11 +756,14 @@ Y-UX-PLAN-01 does not perform:
 
 PR #105 completed Y-DIST-08 no-generation hold. PR #106 completed
 Y-UX-PLAN-01. PR #107 completed Y-UX-COPY-01. PR #108 completed
-Y-UI-QUALITY-01. Y-UX-HELP-01 reviews help and troubleshooting entry wording as
-the next docs-only planning step:
+Y-UI-QUALITY-01. PR #109 completed Y-UX-HELP-01. Y-UX-STATE-01 reviews
+beginner status, progress, and completion clarity as the current docs-only
+planning step:
 
 - artifact generation remains blocked;
 - fast safe flow is the default for low-risk docs/report/checker lanes;
 - beginner UX work should start with safe planning before any UI implementation;
+- the next candidate after Y-UX-STATE-01 is Y-UX-STOP-01 docs-only or a
+  frontend copy-only implementation lane if explicitly scoped later;
 - future UI copy-only work remains a separate human-reviewed lane unless later
   safety-gate policy explicitly changes.

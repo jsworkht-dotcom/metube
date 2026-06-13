@@ -82,7 +82,7 @@
 
 ### Recent completed lane compression
 
-- PR #86-#108 are complete.
+- PR #86-#109 are complete.
 - Y-DIST completion is compressed as:
   Y-DIST-02 metadata checking, Y-DIST-03 recipient/first-run docs,
   Y-DIST-04 readiness matrix, Y-DIST-05 approval checklist, and Y-DIST-06
@@ -106,6 +106,8 @@
 - Y-UX-COPY-01 completed via PR #107 and added the safe-use microcopy review
   baseline.
 - Y-UI-QUALITY-01 completed via PR #108 and added the quality/format/label
+  review baseline.
+- Y-UX-HELP-01 completed via PR #109 and added the help/troubleshooting entry
   review baseline.
 
 ### Y-DIST-02 checksum / hash / version / license notice bundle verification
@@ -366,9 +368,10 @@
   package output, generated folders, dependencies, Docker files, CI workflows,
   GitHub settings, `.gitignore`, credentials handling, public hosting, or
   bypass guidance.
-- Completed first follow-up:
-  PR #107 completed `Y-UX-COPY-01 safe-use microcopy review`. Current
-  follow-up work reviews quality selector / label wording docs-only.
+- Completed follow-ups through PR #109:
+  PR #107 completed `Y-UX-COPY-01 safe-use microcopy review`; PR #108
+  completed `Y-UI-QUALITY-01 quality selector / label review`; PR #109
+  completed `Y-UX-HELP-01 help/troubleshooting entry review`.
 - Risk: High-low / docs-only / draft PR preferred.
 
 ### Y-UX-COPY-01 safe-use microcopy review
@@ -423,6 +426,7 @@
 ### Y-UX-HELP-01 help/troubleshooting entry review
 
 - Status: docs-only help and troubleshooting entry review.
+- Completed via fork PR #109.
 - Review section:
   `docs/llmwiki/beginner-ux-next-action-plan.md`.
 - Summary: reviews beginner-facing help entry labels, troubleshooting entry
@@ -440,9 +444,34 @@
   package output, generated folders, dependencies, Docker files, CI workflows,
   GitHub settings, `.gitignore`, credential-bearing file handling,
   secret-like value handling, public exposure operations, or bypass guidance.
-- Recommended next lane after Y-UX-HELP-01:
-  `Y-UX-STATE-01 status / progress / completion clarity review` docs-only, or
-  frontend copy-only implementation if explicitly scoped later.
+- Follow-up selected after Y-UX-HELP-01:
+  Y-UX-STATE-01 reviews beginner status/progress/completion clarity docs-only.
+- Risk: High-low / docs-only / draft PR preferred.
+
+### Y-UX-STATE-01 status / progress / completion clarity review
+
+- Status: docs-only status/progress/completion clarity review.
+- Review section:
+  `docs/llmwiki/beginner-ux-next-action-plan.md`.
+- Summary: reviews beginner-facing connection/loading state, saving/progress
+  state, queued/waiting state, completed state, failed state, retry guidance,
+  save-folder confirmation, and stop/quit timing guidance.
+- Current baseline: Japanese-localized status labels exist; download metrics
+  exist; queue/progress/completed/failed areas exist; Y-UX-COPY-01 created the
+  safe-use wording baseline; Y-UI-QUALITY-01 created the label review baseline;
+  Y-UX-HELP-01 created the help/troubleshooting baseline; artifact generation
+  remains HOLD.
+- Risk boundaries: docs-only status review is allowed via fast safe flow;
+  frontend copy-only implementation must be a later separate lane with `ui/**`
+  files explicitly scoped; runtime behavior changes are not part of
+  Y-UX-STATE-01.
+- This lane does not change frontend code, backend code, runtime behavior,
+  package output, generated folders, dependencies, Docker files, CI workflows,
+  GitHub settings, `.gitignore`, credential-bearing file handling,
+  secret-like value handling, public exposure operations, or bypass guidance.
+- Recommended next lane after Y-UX-STATE-01:
+  `Y-UX-STOP-01 stop/quit user-flow design` docs-only, or frontend copy-only
+  implementation if explicitly scoped later.
 - Risk: High-low / docs-only / draft PR preferred.
 
 ### Y-CI-03 reusable local safety workflow design
@@ -593,10 +622,6 @@
 ### Security next candidates
 
 ```text
-Y-UX-STATE-01:
-  status / progress / completion clarity review using fast safe flow while
-  docs-only
-
 Y-UX-STOP-01:
   stop/quit user-flow design using fast safe flow while docs-only
 
