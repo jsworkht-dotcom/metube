@@ -10,11 +10,11 @@ canonical branch is fork `master`, and local `master` tracks `fork/master`.
 ## Current Closeout State
 
 - Latest completed docs branch:
-  `codex/y-fe-copy-01-implementation-packet`.
+  `codex/y-fe-review-02-manual-ui-evidence`.
 - Current docs planning branch:
-  `codex/y-fe-copy-03-implementation-closeout`.
+  `codex/y-fe-local-review-01-runbook`.
 - Current fork `master` baseline:
-  `540b7e57aac845dcb84ef3e1dda5d88055555978` from fork PR #114.
+  `97d031199f2d907f8b4dca7323e011ada60557af` from fork PR #117.
 - Compact recent state:
   - Y-DIST is complete through Y-DIST-08. PR #105 recorded the first
     approval-packet review status: no artifact generation approval was granted,
@@ -42,8 +42,12 @@ canonical branch is fork `master`, and local `master` tracks `fork/master`.
     Y-UX-CLOSEOUT-01 and closed the beginner UX planning lane docs-only.
     PR #113 completed Y-FE-COPY-01 and prepared the frontend copy-only
     implementation packet. PR #114 completed Y-FE-COPY-02, the first approved
-    frontend copy-only implementation step. Y-FE-COPY-03 now closes out that
-    implementation docs-only.
+    frontend copy-only implementation step. PR #115 completed Y-FE-COPY-03.
+    PR #116 completed Y-FE-REVIEW-01. PR #117 completed Y-FE-REVIEW-02 and
+    recorded that manual UI review was not executed because no already-running
+    UI was available and build/install/runtime start was not approved in that
+    lane. Y-FE-LOCAL-REVIEW-01 now prepares the scoped local UI review runbook
+    / approval packet docs-only.
 - Y-SEC-01 is complete via fork PR #82.
 - Y-SEC-01 state:
   - local-only runtime guardrails implemented in backend startup/request
@@ -1725,6 +1729,39 @@ Next recommended step after Y-FE-REVIEW-02:
 - Request a separate scoped local UI review lane with no source changes, then
   decide whether `Y-FE-COPY-04 second frontend copy-only pass packet` is
   needed.
+
+## Y-FE-LOCAL-REVIEW-01 Handoff Update
+
+Latest work: Y-FE-LOCAL-REVIEW-01 scoped local UI review runbook / approval
+packet docs-only.
+
+Runbook:
+
+```text
+docs/llmwiki/local-ui-review-runbook.md
+```
+
+Outcome:
+
+- Records PR #117 / Y-FE-REVIEW-02 as the baseline:
+  `97d031199f2d907f8b4dca7323e011ada60557af`.
+- Defines the future `Y-FE-LOCAL-REVIEW-02 scoped local UI review execution`
+  lane.
+- Limits the future lane to local-only, loopback-only visual/manual review of
+  PR #114 copy changes.
+- Defines allowed future actions only after explicit approval: local port
+  inspection, local frontend/backend start only when existing dependencies are
+  already present, loopback browser review, notes-only findings, and docs-only
+  follow-up.
+- Keeps install/update, build/package, Docker, real URL submission, real
+  download, public/LAN exposure, artifact generation, and source changes
+  forbidden.
+- Confirms artifact generation remains HOLD.
+
+Next recommended lane after Y-FE-LOCAL-REVIEW-01:
+
+- `Y-FE-LOCAL-REVIEW-02 scoped local UI review execution`, only after explicit
+  approval.
 
 ## Y-AUTO-08 Handoff Update
 

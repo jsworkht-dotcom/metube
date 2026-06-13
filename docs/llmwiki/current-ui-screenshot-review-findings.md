@@ -74,6 +74,29 @@ Decision:
 review not executed: separate scoped local UI review lane, no source changes
 ```
 
+## Y-FE-LOCAL-REVIEW-01 Scoped Local Review Packet
+
+Y-FE-LOCAL-REVIEW-01 prepares a docs-only runbook / approval packet for the
+next local review attempt:
+
+```text
+docs/llmwiki/local-ui-review-runbook.md
+```
+
+It carries forward the Y-FE-REVIEW-02 result: no already-running UI was
+available on common local dev ports, build/install/runtime start was not
+approved in that lane, and all UI targets remained `not_reviewed`.
+
+The future execution lane is:
+
+```text
+Y-FE-LOCAL-REVIEW-02 scoped local UI review execution
+```
+
+That future lane must remain local-only, loopback-only, notes-only, and
+source-change-free. It must stop if install, build, Docker, public exposure,
+real URL submission, or real download work becomes necessary.
+
 ## Review Status
 
 ```text

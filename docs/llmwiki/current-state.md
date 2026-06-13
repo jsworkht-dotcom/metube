@@ -20,7 +20,7 @@
   separate upstream contribution.
 - Do not mix upstream PR #1001 files into fork-only work.
 - Latest fork `master` baseline:
-  `540b7e57aac845dcb84ef3e1dda5d88055555978` from fork PR #114.
+  `97d031199f2d907f8b4dca7323e011ada60557af` from fork PR #117.
 
 ## Current Runtime Security State
 
@@ -129,7 +129,7 @@
   change, package/lockfile change, or existing safety gate behavior change is
   part of this lane.
 
-## Recent Completed Lane Summary (PR #86-#114)
+## Recent Completed Lane Summary (PR #86-#117)
 
 This is the compact planning surface for the recent distribution, CI, and
 GitHub-governance lanes. The older per-lane notes remain historical reference.
@@ -164,7 +164,12 @@ GitHub-governance lanes. The older per-lane notes remain historical reference.
   frontend copy-only implementation packet docs-only. PR #114 completed
   Y-FE-COPY-02, the first approved frontend copy-only implementation step,
   with selector ids, values, API payloads, and runtime behavior unchanged.
-  Y-FE-COPY-03 closes out that implementation docs-only.
+  PR #115 completed Y-FE-COPY-03 closeout docs-only. PR #116 refreshed the
+  manual UI review checklist docs-only. PR #117 completed Y-FE-REVIEW-02 and
+  recorded that the manual UI review was not executed because no already-running
+  UI was available and build/install/runtime start was not approved in that
+  lane. Y-FE-LOCAL-REVIEW-01 prepares the scoped local UI review runbook /
+  approval packet docs-only.
   Artifact generation, ZIP/package/installer creation, GitHub required checks
   implementation, and branch protection mutation are not recommended yet.
 
@@ -3011,6 +3016,20 @@ review was not executed in this lane because UI runtime was not already
 available without additional setup. All review targets are recorded as
 `not_reviewed`.
 
+PR #117 completed Y-FE-REVIEW-02 with merge commit
+`97d031199f2d907f8b4dca7323e011ada60557af`.
+
+Y-FE-LOCAL-REVIEW-01 prepares the scoped local UI review runbook / approval
+packet docs-only in:
+
+```text
+docs/llmwiki/local-ui-review-runbook.md
+```
+
+Y-FE-LOCAL-REVIEW-01 does not execute review, start the app, build frontend
+assets, install dependencies, run the backend, perform downloads, change source
+files, create artifacts, or expose anything beyond loopback.
+
 Artifact generation remains HOLD.
 
 Y-08Z closes the Y-08 preview hardening lane as docs-only closeout.
@@ -3087,10 +3106,10 @@ The previous package-material lane is complete through Y-08Z closeout. Actual
 clean-package generation remains blocked. The generated package folder must
 remain absent.
 
-The next practical candidates after Y-FE-REVIEW-02 are:
+The next practical candidates after Y-FE-LOCAL-REVIEW-01 are:
 
 ```text
-separate scoped local UI review lane, no source changes
+Y-FE-LOCAL-REVIEW-02 scoped local UI review execution, only after explicit approval
 Y-FE-COPY-04 second frontend copy-only pass packet docs-only, only if findings exist after review
 continue docs-only UX planning if more review is needed
 another docs/report/checker lane using fast safe flow

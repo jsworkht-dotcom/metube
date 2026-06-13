@@ -1259,7 +1259,8 @@ Reason:
 
 ## Next UX Candidates
 
-- separate scoped local UI review lane, no source changes
+- `Y-FE-LOCAL-REVIEW-02 scoped local UI review execution`, only after explicit
+  approval
 - `Y-FE-COPY-04 second frontend copy-only pass packet` docs-only if more
   visible UI text remains to polish
 - continue docs-only UX planning if more review is needed
@@ -1273,9 +1274,12 @@ lane name while keeping the candidate intent.
 
 Recommended next step after Y-FE-REVIEW-02:
 
-- request a separate scoped local UI review lane with no source changes, then
-  choose `Y-FE-COPY-04 second frontend copy-only pass packet` only if findings
-  exist.
+- Y-FE-LOCAL-REVIEW-01 prepares the scoped local UI review runbook / approval
+  packet docs-only.
+- Next recommended lane: `Y-FE-LOCAL-REVIEW-02 scoped local UI review
+  execution`, only after explicit approval.
+- Choose `Y-FE-COPY-04 second frontend copy-only pass packet` only if the
+  future local UI review finds copy/layout issues.
 
 Repo-history note: because historical `Y-UI-QUALITY-01` is already complete in
 this fork, prefer a fresh quality selector / label review follow-up lane name
@@ -1336,9 +1340,10 @@ Y-UX-STATE-01. PR #111 completed Y-UX-STOP-01. PR #112 completed
 Y-UX-CLOSEOUT-01. PR #113 completed Y-FE-COPY-01. PR #114 completed
 Y-FE-COPY-02. PR #115 completed Y-FE-COPY-03 and closed out the first
 frontend copy-only implementation step. PR #116 completed Y-FE-REVIEW-01 and
-refreshed the manual UI review checklist. Y-FE-REVIEW-02 records that manual UI
-review was not executed in this lane because UI runtime was not already
-available without additional setup:
+refreshed the manual UI review checklist. PR #117 completed Y-FE-REVIEW-02 and
+recorded that manual UI review was not executed in that lane because UI runtime
+was not already available without additional setup. Y-FE-LOCAL-REVIEW-01
+prepares the scoped local UI review runbook / approval packet:
 
 - artifact generation remains blocked;
 - fast safe flow is the default for low-risk docs/report/checker lanes;
@@ -1346,7 +1351,9 @@ available without additional setup:
 - this lane keeps selector ids/values, API payloads, and runtime behavior
   unchanged;
 - artifact generation remains HOLD;
-- the recommended next step is a separate scoped local UI review lane, then
-  decide whether Y-FE-COPY-04 is needed;
+- the recommended next step is Y-FE-LOCAL-REVIEW-02 scoped local UI review
+  execution, only after explicit approval;
+- decide whether Y-FE-COPY-04 is needed only after future local UI review
+  findings exist;
 - further UI work remains explicitly scoped to approved `ui/**` files unless
   later safety-gate policy explicitly changes.
