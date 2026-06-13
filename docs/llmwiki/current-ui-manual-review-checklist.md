@@ -211,6 +211,78 @@ the local-only UI only if existing dependencies are already present, and it
 must stop and record `not executed` if review would require install, build,
 Docker, package generation, real URL submission, or real download work.
 
+## Y-FE-LOCAL-REVIEW-02 Local UI Review Evidence
+
+Local UI review evidence:
+
+```text
+reviewer: Codex
+date: 2026-06-13
+commit: 6ca2e87d5f124b64742d407f016717ec39a90538
+commands run:
+  git status / git rev-parse baseline checks
+  local loopback port inspection
+  existing frontend/backend dependency presence checks
+  local Angular dev server on 127.0.0.1:4200 using existing ui/node_modules
+  browser open to http://127.0.0.1:4200 only
+  DOM/layout inspection in desktop and narrow viewports
+  local dev server stop and port cleanup check
+dependencies installed: no
+runtime started: yes, frontend dev server only; backend not started
+bound address: 127.0.0.1:4200
+browser / OS: Codex in-app Browser / Windows
+viewport: 1280x720 desktop and 375x800 narrow
+reviewed screens:
+  URL input area
+  save / subscription buttons
+  audio quality / format controls visible from saved UI preference state
+  advanced settings panel
+  queue / saving area headers
+  completed / failed result table headers
+  subscription table headers
+  narrow layout after opening advanced settings
+findings:
+  blocker: advanced COOKIES helper invites uploading browser cookies for restricted/private downloads
+  follow_up: advanced tool labels remain partly English and noisy for beginner Japanese UX
+  follow_up: 取得数の上限 helper says 0 means no limit, which can read as unrestricted saving
+  ok: main URL placeholder, 保存, 自動取得登録, 音質, 品質, and table headers fit without page-level horizontal overflow
+  not_reviewed: backend-loaded result rows, video/captions/thumbnail mode visuals, real completed/failed rows, and real stop/quit runtime wording
+blockers:
+  backend dependencies were not already present, so backend runtime was not started
+follow-up candidate:
+  Y-FE-COPY-04 second frontend copy-only pass packet docs-only
+```
+
+Review notes:
+
+- No dependency installation, backend runtime, Docker operation, real URL
+  submission, real download, screenshot artifact, or source change was
+  performed.
+- The UI stayed in `サーバーに接続中...` because only the frontend could be
+  started inside this lane. The review therefore covers frontend-visible static
+  labels/layout and marks backend-dependent states as `not_reviewed`.
+- The advanced settings panel is visible without source changes. Its cookie
+  helper text conflicts with the current safety question about avoiding
+  cookie/token/secret handling invitations.
+
+Target classifications:
+
+- URL input area: `ok`
+- Save / subscription buttons: `ok`
+- Advanced settings panel: `follow_up`
+- Quality / format / codec controls: `partial`
+- Captions controls: `not_reviewed`
+- Queue / saving area: `partial`
+- Completed / failed result table: `partial`
+- Help / troubleshooting entry labels: `partial`
+- Stop / quit related wording: `not_reviewed`
+
+Decision:
+
+```text
+next recommended lane = Y-FE-COPY-04 second frontend copy-only pass packet docs-only
+```
+
 ## Scope
 
 - Add/download form

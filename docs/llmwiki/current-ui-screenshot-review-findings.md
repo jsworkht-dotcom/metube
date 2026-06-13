@@ -97,6 +97,109 @@ That future lane must remain local-only, loopback-only, notes-only, and
 source-change-free. It must stop if install, build, Docker, public exposure,
 real URL submission, or real download work becomes necessary.
 
+## Y-FE-LOCAL-REVIEW-02 Text Evidence Record
+
+Review status:
+
+```text
+status: local-ui-review-executed-with-limitations
+```
+
+Environment:
+
+- local HEAD before evidence branch work:
+  `6ca2e87d5f124b64742d407f016717ec39a90538`
+- expected `fork/master`:
+  `6ca2e87d5f124b64742d407f016717ec39a90538`
+- PR #118 / Y-FE-LOCAL-REVIEW-01 was confirmed merged on GitHub.
+- existing frontend dependencies: present under `ui/node_modules`.
+- existing backend dependencies: not present for the bundled Python runtime;
+  backend was not started.
+- frontend runtime started: yes, local Angular dev server only.
+- bound address: `127.0.0.1:4200`.
+- browser automation: Codex in-app Browser against loopback only.
+- screenshots captured or committed: no.
+- real downloads submitted: no.
+- real URLs submitted: no.
+- generated package folder exists: no.
+
+Observed UI coverage:
+
+- URL input area: observed with placeholder
+  `動画・チャンネル・プレイリストのURLを入力`.
+- Save / subscription buttons: observed as `保存` and `自動取得登録`.
+- Quality / format controls: observed in the visible saved preference state as
+  audio controls with `音声`, `MP3`, `音質`, and `最高音質（自動）`.
+- Advanced settings panel: observed after opening `詳細設定`.
+- Queue / saving area: observed headers and disabled actions in backend-loading
+  state.
+- Completed / failed result table: observed headers including `種類`, `品質`,
+  and `コーデック / 形式`; no rows were present.
+- Subscription table: observed headers and disabled actions in backend-loading
+  state.
+- Narrow layout: observed at 375x800 with no page-level horizontal overflow;
+  wide tables remained contained in their scrolling table areas.
+
+Findings:
+
+### Finding 1
+
+- classification: `blocker`
+- screen: advanced settings panel
+- issue: the visible advanced cookie helper invites uploading browser cookies
+  to authenticate restricted or private downloads.
+- evidence: the advanced section showed `COOKIES` / `Upload Cookies`, and the
+  helper text described uploading a browser cookie file for restricted/private
+  downloads.
+- risk: This conflicts with the review question that asks whether wording
+  invites cookie/token/secret handling.
+- suggested next task:
+  `Y-FE-COPY-04 second frontend copy-only pass packet docs-only`
+
+### Finding 2
+
+- classification: `follow_up`
+- screen: advanced settings panel
+- issue: several advanced labels remain English-first: `Option Presets`,
+  `TOOLS`, `COOKIES`, `Upload Cookies`, `Import URLs`, `Export URLs`, and
+  `Copy URLs`.
+- evidence: these labels were visible after opening `詳細設定`.
+- risk: Beginner Japanese UX remains noisy in advanced settings.
+- suggested next task:
+  `Y-FE-COPY-04 second frontend copy-only pass packet docs-only`
+
+### Finding 3
+
+- classification: `follow_up`
+- screen: advanced settings panel
+- issue: the `取得数の上限` helper says `0` means no limit, which can read as
+  unrestricted saving.
+- evidence: helper text was available from the rendered advanced settings UI.
+- risk: The wording may conflict with the review question about unrestricted
+  saving or mass download optimization.
+- suggested next task:
+  `Y-FE-COPY-04 second frontend copy-only pass packet docs-only`
+
+### Finding 4
+
+- classification: `not_reviewed`
+- screen: backend-dependent runtime states
+- issue: real completed/failed rows, backend-loaded queue state, visual
+  video/captions/thumbnail mode switching, and real stop/quit runtime wording
+  could not be reviewed without backend dependencies.
+- evidence: backend dependencies were not already present, backend runtime was
+  not started, and the frontend remained in `サーバーに接続中...`.
+- risk: Remaining visual coverage is partial.
+- suggested next task:
+  continue with a copy-only packet for observed copy findings; use a separate
+  runtime review lane only if real backend state must be inspected later.
+
+Decision:
+
+```text
+decision: Y-FE-COPY-04 second frontend copy-only pass packet docs-only
+```
+
 ## Review Status
 
 ```text

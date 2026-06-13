@@ -1292,11 +1292,10 @@ canonical branch is fork `master`, and local `master` tracks `fork/master`.
 Use `docs/llmwiki/current-state.md`, `docs/llmwiki/roadmap.md`, and this handoff
 as the next-chat source of truth.
 
-Recommended next candidates after Y-FE-REVIEW-02:
+Recommended next candidates after Y-FE-LOCAL-REVIEW-02:
 
 ```text
-separate scoped local UI review lane, no source changes
-Y-FE-COPY-04 second frontend copy-only pass packet docs-only, only if findings exist after review
+Y-FE-COPY-04 second frontend copy-only pass packet docs-only
 continue docs-only UX planning if more review is needed
 another docs/report/checker lane using fast safe flow
 ```
@@ -1762,6 +1761,43 @@ Next recommended lane after Y-FE-LOCAL-REVIEW-01:
 
 - `Y-FE-LOCAL-REVIEW-02 scoped local UI review execution`, only after explicit
   approval.
+
+## Y-FE-LOCAL-REVIEW-02 Handoff Update
+
+Latest work: Y-FE-LOCAL-REVIEW-02 scoped local UI review execution.
+
+Outcome:
+
+- Executed a frontend-only local UI review on `127.0.0.1:4200` using existing
+  `ui/node_modules`.
+- Did not install dependencies, start backend runtime, run Docker, submit real
+  URLs, perform downloads, capture screenshots, create artifacts, or change
+  source files during review.
+- Backend dependencies were not already present, so backend runtime was not
+  started.
+- Reviewed visible desktop and narrow-layout UI using the Codex in-app Browser.
+- Recorded partial coverage for URL input, save/subscription buttons, visible
+  audio controls, advanced settings, queue headers, completed/result table
+  headers, subscription table headers, and narrow layout.
+- Marked backend-loaded rows, visual video/captions/thumbnail mode switching,
+  real completed/failed rows, and real stop/quit runtime wording as partial or
+  `not_reviewed`.
+
+Findings:
+
+- blocker: advanced `COOKIES` / `Upload Cookies` helper text invites browser
+  cookie upload for restricted/private downloads.
+- follow-up: advanced labels such as `Option Presets`, `TOOLS`, `COOKIES`,
+  `Upload Cookies`, `Import URLs`, `Export URLs`, and `Copy URLs` remain
+  English-first.
+- follow-up: `取得数の上限` helper says `0` means no limit, which can read as
+  unrestricted saving.
+- ok: reviewed desktop and narrow layouts showed no page-level horizontal
+  overflow.
+
+Next recommended lane after Y-FE-LOCAL-REVIEW-02:
+
+- `Y-FE-COPY-04 second frontend copy-only pass packet docs-only`.
 
 ## Y-AUTO-08 Handoff Update
 
