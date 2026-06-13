@@ -20,7 +20,7 @@
   separate upstream contribution.
 - Do not mix upstream PR #1001 files into fork-only work.
 - Latest fork `master` baseline:
-  `34497e8918bbc12b7ea457eb6cc48c7c9d8c963b` from fork PR #100.
+  `df99701477d05d4f4b6e5127ee8588e3da5252d5` from fork PR #101.
 
 ## Current Runtime Security State
 
@@ -129,16 +129,17 @@
   change, package/lockfile change, or existing safety gate behavior change is
   part of this lane.
 
-## Recent Completed Lane Summary (PR #86-#100)
+## Recent Completed Lane Summary (PR #86-#101)
 
 This is the compact planning surface for the recent distribution, CI, and
 GitHub-governance lanes. The older per-lane notes remain historical reference.
 
-- Y-DIST is complete through Y-DIST-06:
+- Y-DIST is complete through Y-DIST-07:
   PR #86 added report-only metadata verification; PR #91 added recipient-safe
   and first-run verification docs; PR #92 added the readiness matrix; PR #93
   added the human approval checklist; PR #94 added the approved clean candidate
-  dry-run plan. Artifact generation remains blocked.
+  dry-run plan; Y-DIST-07 adds the artifact generation approval packet.
+  Artifact generation remains blocked.
 - Y-CI is complete through the reusable `local-fork-safety` display layer:
   PR #88 designed the workflow; PR #89 implemented it; PR #90 confirmed a
   docs-only self-check; PR #95 designed the reusable split; PR #96 implemented
@@ -150,9 +151,9 @@ GitHub-governance lanes. The older per-lane notes remain historical reference.
   No branch protection, ruleset, required-check, CODEOWNERS, workflow, or
   GitHub settings mutation has been performed.
 - Current next candidates:
-  `Y-DIST-07 artifact generation approval packet`,
+  human review of the Y-DIST-07 approval packet, or
   `Y-GH-03 minimal branch protection implementation without required checks`
-  only with explicit human approval, and
+  only with explicit human approval, or
   `Y-GH-04 required checks implementation` only with explicit human approval
   after the rollback path is accepted.
 
@@ -395,6 +396,36 @@ GitHub-governance lanes. The older per-lane notes remain historical reference.
   - No Docker pull/build operations;
   - backend/frontend runtime changes;
   - public hosting;
+  - cookie/token/secret handling;
+  - PR #1001 file changes.
+
+### Y-DIST-07 artifact generation approval packet
+
+- Scope: docs-only approval packet for future artifact generation review.
+- Document:
+  `docs/llmwiki/artifact-generation-approval-packet.md`.
+- Purpose:
+  - state that Y-DIST-07 does not approve generation;
+  - record the current baseline as `fork/master` at
+    `df99701477d05d4f4b6e5127ee8588e3da5252d5`;
+  - keep all artifact categories `not approved`;
+  - define future approval fields, pre-generation checks, post-generation
+    checks, stop conditions, and how Y-DIST-01 through Y-DIST-06 feed into the
+    approval decision.
+- Not included:
+  - CLEAN folder generation;
+  - `動画保存ツール_ローカル専用/` creation;
+  - ZIP output, installer output, or package output;
+  - metadata or checksum generation;
+  - real download verification;
+  - recipient handoff or sharing;
+  - dependency installation operations;
+  - Docker operations;
+  - backend/frontend/Docker/CI/package/lockfile changes;
+  - `.github/workflows/` changes;
+  - GitHub settings, branch protection, ruleset, required-check, or CODEOWNERS
+    mutation;
+  - `.gitignore` changes;
   - cookie/token/secret handling;
   - PR #1001 file changes.
 
@@ -2541,6 +2572,14 @@ Y-GH-02 is complete via fork PR #100 with merge commit
 `local fork safety / local fork safety` as the current required-check
 candidate, but did not change workflows or GitHub settings.
 
+PR #101 is complete with merge commit
+`df99701477d05d4f4b6e5127ee8588e3da5252d5`. It was docs-only cleanup and is
+the current baseline for Y-DIST-07.
+
+Y-DIST-07 adds the docs-only artifact generation approval packet at
+`docs/llmwiki/artifact-generation-approval-packet.md`. It prepares future human
+review but does not approve generation.
+
 Y-08Z closes the Y-08 preview hardening lane as docs-only closeout.
 Y-UI-QUALITY-01 is complete via fork PR #73 with merge commit
 `402996eba52f923be962e2fe69ebdaa6084363f2`. Y-UI-QUALITY-02 is complete via
@@ -2615,10 +2654,11 @@ The previous package-material lane is complete through Y-08Z closeout. Actual
 clean-package generation remains blocked. The generated package folder must
 remain absent.
 
-The next practical candidates after Y-WIKI-CLEAN-01 are:
+The next practical candidates after Y-DIST-07 are:
 
 ```text
-Y-DIST-07 artifact generation approval packet
+human review of the Y-DIST-07 approval packet, then stop until explicit
+  artifact-generation approval exists or use a separate approval-only docs lane
 Y-GH-03 minimal branch protection implementation without required checks,
   only with explicit human approval
 Y-GH-04 required checks implementation, only with explicit human approval after

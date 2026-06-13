@@ -114,7 +114,7 @@ stop conditions. It does not approve artifact generation.
 
 | item | current_status | evidence_or_source | required_before_distribution | blocker_if_failed | next_action |
 | --- | --- | --- | --- | --- | --- |
-| Explicit artifact-generation approval | `blocked` | Y-DIST-05 checklist exists, but all categories remain `not approved`. | yes | yes | Future approval must use `docs/llmwiki/artifact-generation-approval-checklist.md`. |
+| Explicit artifact-generation approval | `blocked` | Y-DIST-05 checklist and Y-DIST-07 packet exist, but all categories remain `not approved`. | yes | yes | Future approval must use `docs/llmwiki/artifact-generation-approval-checklist.md` and `docs/llmwiki/artifact-generation-approval-packet.md`. |
 | CLEAN folder creation | `blocked` | Not generated; explicitly prohibited in this lane. | yes | yes | Separate explicit approval required. |
 | ZIP / installer / package output | `blocked` | Not generated; explicitly prohibited in this lane. | yes | yes | Separate explicit approval required. |
 | Metadata/checksum generation | `blocked` | Not generated; explicitly prohibited in this lane. | yes | yes | Separate explicit approval required. |
@@ -149,17 +149,19 @@ stop conditions. It does not approve artifact generation.
 | Y-GH-01 branch protection design | `not_started` | Governance follow-up candidate. | human decision | no for docs-only planning | Keep design-only unless explicitly approved. |
 | Y-WIKI-CLEAN-01 current-state / handoff / archive整理 | `not_started` | Documentation maintenance candidate. | no | no | Use after current distribution lane settles. |
 
-Recommended next step after Y-DIST-06:
+Recommended next step after Y-DIST-07:
 
 ```text
-Use the dry-run plan only after a separate explicit Y-DIST-05 approval exists,
-or continue with non-generation CI/governance docs candidates.
+Human review of the approval packet, then stop until explicit
+artifact-generation approval exists or continue in a separate approval-only
+docs refinement lane.
 ```
 
 Rationale: Y-DIST-01, Y-DIST-02, and Y-DIST-03 define the checker and recipient
 procedure baselines, Y-DIST-04 defines advisory readiness, and Y-DIST-05 fixes
-the human approval checklist. Y-DIST-06 now defines the dry-run plan that still
-does not create real output.
+the human approval checklist. Y-DIST-06 defines the dry-run plan, and Y-DIST-07
+consolidates the later approval packet. None of these docs create real output
+or approve generation.
 
 ## Stop Conditions
 

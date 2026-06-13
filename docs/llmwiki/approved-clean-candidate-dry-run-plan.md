@@ -22,6 +22,7 @@ Facts:
   verification procedure.
 - Y-DIST-04 provides the advisory distribution readiness matrix.
 - Y-DIST-05 provides the human approval checklist before artifact generation.
+- Y-DIST-07 provides the approval packet for the future human decision record.
 - No approval record is included in this document.
 
 Assumptions:
@@ -57,6 +58,7 @@ Before any actual future dry-run execution begins, confirm and record:
 - Approval names exact candidate/output path.
 - Approval names allowed artifact scope.
 - Approval names explicitly forbidden operations.
+- Y-DIST-07 approval packet reviewed.
 - `fork/master` matches approved `source_commit`.
 - Working tree / worktree isolation confirmed.
 - `local-fork-safety` clean on preceding PR.
@@ -242,6 +244,10 @@ Y-DIST-05:
 Y-DIST-06:
 
 - Approved clean candidate dry-run plan.
+
+Y-DIST-07:
+
+- Artifact generation approval packet for the future human decision.
 
 ## Explicit Non-Goals
 
