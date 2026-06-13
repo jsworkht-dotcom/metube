@@ -82,11 +82,12 @@
 
 ### Recent completed lane compression
 
-- PR #86-#100 are complete.
+- PR #86-#101 are complete.
 - Y-DIST completion is compressed as:
   Y-DIST-02 metadata checking, Y-DIST-03 recipient/first-run docs,
   Y-DIST-04 readiness matrix, Y-DIST-05 approval checklist, and Y-DIST-06
-  approved candidate dry-run planning. Artifact generation remains blocked.
+  approved candidate dry-run planning, followed by Y-DIST-07 artifact
+  generation approval packet. Artifact generation remains blocked.
 - Y-CI completion is compressed as:
   lightweight workflow design, minimal implementation, docs-only self-check,
   reusable workflow design/implementation, caller concurrency, and the PR #99
@@ -268,6 +269,33 @@
   yt-dlp extractor changes, download queue changes, public hosting,
   cookie/token/secret handling, or PR #1001 files.
 
+### Y-DIST-07 artifact generation approval packet
+
+- Status: docs-only approval packet.
+- Summary: adds a docs-only artifact generation approval packet for a future
+  explicit human decision.
+- New document:
+  `docs/llmwiki/artifact-generation-approval-packet.md`.
+- Current baseline recorded in the packet:
+  `fork/master` at `df99701477d05d4f4b6e5127ee8588e3da5252d5`, after fork PR
+  #101 docs-only cleanup.
+- Current approval status: CLEAN folder generation, metadata generation,
+  checksum generation, ZIP output, installer output, package output, real
+  download verification, and recipient handoff / sharing remain `not approved`.
+- The packet defines future approval fields, required pre-generation checks,
+  required post-generation checks, stop conditions, and how Y-DIST-01 through
+  Y-DIST-06 feed the approval decision.
+- This lane does not create a CLEAN folder, `動画保存ツール_ローカル専用/`, ZIP,
+  installer, package output, metadata, checksums, real downloads, dependency
+  installation operations, Docker operations, backend/frontend/Docker/CI/
+  package/lockfile changes, workflow changes, GitHub settings mutations,
+  branch protection / ruleset / required-check / CODEOWNERS mutations,
+  `.gitignore` changes, cookie/token/secret handling, or PR #1001 files.
+- Next recommended step: human review of the approval packet, then stop until
+  explicit artifact-generation approval exists or continue in a separate
+  approval-only docs refinement lane.
+- Risk: High-low / docs-only / draft PR preferred.
+
 ### Y-CI-03 reusable local safety workflow design
 
 - Status: completed via fork PR #95.
@@ -417,7 +445,8 @@
 
 ```text
 Y-DIST-07:
-  artifact generation approval packet
+  human review of the artifact generation approval packet; generation remains
+  blocked until separate explicit approval
 
 Y-GH-03:
   minimal branch protection implementation without required checks,

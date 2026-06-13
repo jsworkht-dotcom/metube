@@ -23,6 +23,8 @@ Facts:
 - Y-DIST-04 provides the advisory distribution readiness matrix.
 - Y-DIST-06 provides the approved clean candidate dry-run plan for use after a
   separate explicit approval exists.
+- Y-DIST-07 provides the artifact generation approval packet for the later
+  human decision record; it does not approve generation.
 - All approval categories in this checklist are currently `not approved`.
 
 Assumptions:
@@ -204,6 +206,11 @@ Y-DIST-05:
 Y-DIST-06:
 
 - Approved clean candidate dry-run plan after explicit approval.
+- Does not approve artifact generation by itself.
+
+Y-DIST-07:
+
+- Artifact generation approval packet.
 - Does not approve artifact generation by itself.
 
 ## Explicit Non-Goals

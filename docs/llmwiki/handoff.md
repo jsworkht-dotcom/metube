@@ -9,21 +9,23 @@ canonical branch is fork `master`, and local `master` tracks `fork/master`.
 
 ## Current Closeout State
 
-- Current Y-WIKI-CLEAN-01 work branch:
-  `codex/y-wiki-clean-01-state-handoff-archive`.
-- Current fork `master` after Y-GH-02:
-  `34497e8918bbc12b7ea457eb6cc48c7c9d8c963b` from fork PR #100.
+- Current Y-DIST-07 work branch:
+  `codex/y-dist-07-artifact-generation-approval-packet`.
+- Current fork `master` baseline:
+  `df99701477d05d4f4b6e5127ee8588e3da5252d5` from fork PR #101.
 - Compact recent state:
-  - Y-DIST is complete through Y-DIST-06 / PR #94; artifact generation remains
-    blocked until a later explicit approval packet.
+  - Y-DIST is complete through Y-DIST-07; artifact generation remains blocked
+    until a later explicit human approval names the exact source commit,
+    candidate/output paths, allowed artifact types, checks, reviews, and stop
+    conditions.
   - Y-CI is complete through the reusable `local-fork-safety` workflow,
     concurrency, and PR #99 observation; current displayed check name is
     `local fork safety / local fork safety`.
   - Y-GH is complete through PR #100 required-checks design; no GitHub
     settings, branch protection, ruleset, required-check, CODEOWNERS, or
     workflow mutation has been performed after the design work.
-  - Next candidates are Y-DIST-07, Y-GH-03, and Y-GH-04 under the approval
-    limits listed below.
+  - Next candidates are human review of the Y-DIST-07 packet, Y-GH-03, and
+    Y-GH-04 under the approval limits listed below.
 - Y-SEC-01 is complete via fork PR #82.
 - Y-SEC-01 state:
   - local-only runtime guardrails implemented in backend startup/request
@@ -263,6 +265,24 @@ canonical branch is fork `master`, and local `master` tracks `fork/master`.
     operations, no Docker pull/build operations, backend/frontend runtime changes,
     yt-dlp extractor changes, download queue changes, public hosting,
     cookie/token/secret handling, or PR #1001 files
+- Current Y-DIST-07 state:
+  - docs-only artifact generation approval packet lane
+  - target doc:
+    - `docs/llmwiki/artifact-generation-approval-packet.md`
+  - records the current baseline as `fork/master` at
+    `df99701477d05d4f4b6e5127ee8588e3da5252d5`
+  - keeps CLEAN folder generation, metadata generation, checksum generation,
+    ZIP output, installer output, package output, real download verification,
+    and recipient handoff / sharing as `not approved`
+  - defines future approval fields, required pre-generation checks,
+    post-generation checks, stop conditions, and how Y-DIST-01 through
+    Y-DIST-06 feed the approval decision
+  - no CLEAN folder, `動画保存ツール_ローカル専用/`, ZIP output, installer output,
+    package output, metadata generation, checksum generation, real download,
+    dependency installation operations, Docker operations, backend/frontend/
+    Docker/CI/package/lockfile changes, `.github/workflows/` changes, GitHub
+    settings mutation, `.gitignore` changes, cookie/token/secret handling, or
+    PR #1001 files
 - Current Y-CI-03 state:
   - docs-only reusable local safety workflow design lane
   - completed via fork PR #95
@@ -388,7 +408,9 @@ canonical branch is fork `master`, and local `master` tracks `fork/master`.
     run Docker, run builds/tests, create generated output, handle credentials,
     or touch PR #1001 files
 - Next candidates:
-  - `Y-DIST-07 artifact generation approval packet`
+  - human review of the Y-DIST-07 approval packet, then stop until explicit
+    artifact-generation approval exists or use a separate approval-only docs
+    lane
   - `Y-GH-03 minimal branch protection implementation without required checks,
     only with explicit human approval`
   - `Y-GH-04 required checks implementation, only with explicit human approval
@@ -1224,10 +1246,11 @@ canonical branch is fork `master`, and local `master` tracks `fork/master`.
 Use `docs/llmwiki/current-state.md`, `docs/llmwiki/roadmap.md`, and this handoff
 as the next-chat source of truth.
 
-Recommended next candidates after Y-WIKI-CLEAN-01:
+Recommended next candidates after Y-DIST-07:
 
 ```text
-Y-DIST-07 artifact generation approval packet
+human review of the Y-DIST-07 approval packet, then stop until explicit
+  artifact-generation approval exists or use a separate approval-only docs lane
 Y-GH-03 minimal branch protection implementation without required checks,
   only with explicit human approval
 Y-GH-04 required checks implementation, only with explicit human approval after
