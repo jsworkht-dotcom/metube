@@ -233,13 +233,63 @@ Example PR body draft command:
 python scripts/generate_pr_body.py --title "docs: add ..." --risk high-low --scope docs-only --changed-files
 ```
 
-Low-risk GitHub fallback prompt snippet:
+## Default Fast Safe Low-Risk Flow
+
+```text
+Use this as the default Codex PR flow for low-risk work:
+
+1. fetch fork --prune
+2. confirm latest fork/master baseline
+3. create branch from fork/master
+4. implement approved low-risk scope only
+5. run local verification
+6. create draft PR
+7. wait for local fork safety / local fork safety
+8. if GitHub connector ready/check/merge fails due to a known permission limit, use token-safe gh fallback
+9. Ready only after head SHA / changed files / checks match
+10. re-check after Ready
+11. squash merge only with --match-head-commit <EXPECTED_HEAD_SHA>
+12. fetch fork/master
+13. confirm local master == fork/master
+14. cleanup branch
+15. report final result
+```
+
+Allowed:
+
+```text
+- docs-only
+- report-only stdout-only
+- checker-only read-only
+- same-purpose docs/report/checker sync
+- qualifying High-low lanes where no generation/build/runtime/dependency/CI/settings mutation appears
+```
+
+Not allowed:
+
+```text
+- artifact generation
+- GitHub settings mutation
+- branch protection / required checks / CODEOWNERS
+- workflow changes unless explicitly CI-scope
+- dependency/Docker/build/runtime changes
+- backend/frontend behavior changes unless separately scoped
+- real download
+- credential handling
+```
+
+Stop if changed files exceed approved scope, local-fork-safety fails
+unexpectedly, forbidden paths appear, generation appears, dependency / Docker /
+build / runtime work becomes necessary, or any credential / GitHub settings /
+workflow mutation becomes necessary.
+
+Fast safe prompt snippet:
 
 ```text
 For docs-only/report-only/checker-only PRs, after local gates pass:
 - create draft PR
-- wait for local fork safety
-- if connector ready/check/merge fails due to known permission limit, use gh fallback
+- wait for local fork safety / local fork safety
+- if connector ready/check/merge fails due to a known permission limit, use token-safe gh fallback
 - ready only after head SHA, files, and checks match
 - merge only with --match-head-commit
 ```

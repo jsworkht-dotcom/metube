@@ -322,6 +322,32 @@ Before auto merge:
 - For high-mid work, do not auto merge. Stop after PR-ready handoff and wait for
   human review.
 
+## Fast Safe Flow Default
+
+Use the fast safe flow template in
+`docs/llmwiki/codex-run-prompt-templates.md` as the default execution path for
+low-risk PR work when the task approves PR creation and merge.
+
+Allowed default scope:
+
+- docs-only work;
+- report-only stdout-only work;
+- checker-only read-only work;
+- same-purpose docs/report/checker sync;
+- qualifying High-low lanes where no generation, build, runtime, dependency,
+  CI, or GitHub settings mutation appears.
+
+Do not use the default fast safe flow for artifact generation, GitHub settings
+mutation, branch protection / required-check / CODEOWNERS work, workflow
+changes unless explicitly CI-scope, dependency / Docker / build / runtime work,
+backend/frontend behavior changes unless separately scoped, real downloads, or
+credential-bearing file handling.
+
+Stop if changed files exceed the approved scope, local-fork-safety fails
+unexpectedly, forbidden paths appear, generation appears, dependency / Docker /
+build / runtime work becomes necessary, or any credential / GitHub settings /
+workflow mutation becomes necessary.
+
 ## Stop Conditions
 
 Stop and report facts if any of these occur:
