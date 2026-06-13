@@ -82,7 +82,7 @@
 
 ### Recent completed lane compression
 
-- PR #86-#112 are complete.
+- PR #86-#113 are complete.
 - Y-DIST completion is compressed as:
   Y-DIST-02 metadata checking, Y-DIST-03 recipient/first-run docs,
   Y-DIST-04 readiness matrix, Y-DIST-05 approval checklist, and Y-DIST-06
@@ -115,6 +115,8 @@
   baseline.
 - Y-UX-CLOSEOUT-01 completed via PR #112 and closed the beginner UX planning
   lane.
+- Y-FE-COPY-01 completed via PR #113 and added the frontend copy-only
+  implementation packet.
 
 ### Y-DIST-02 checksum / hash / version / license notice bundle verification
 
@@ -543,7 +545,8 @@
 
 ### Y-FE-COPY-01 frontend copy-only implementation packet
 
-- Status: docs-only implementation packet / roadmap / handoff sync.
+- Status: completed via fork PR #113.
+- Merge commit: `54c0a476d3117ed989e89ece4d2ae01b40ce9995`.
 - Packet section:
   `docs/llmwiki/beginner-ux-next-action-plan.md`.
 - Summary: defines the future Y-FE-COPY-02 frontend copy-only implementation
@@ -566,6 +569,28 @@
   GitHub settings, `.gitignore`, cookie/token/secret handling, public exposure
   operations, or bypass guidance.
 - Risk: High-low / docs-only / draft PR preferred.
+
+### Y-FE-COPY-02 frontend copy-only implementation
+
+- Status: frontend copy-only implementation / LLMwiki sync.
+- UI files:
+  `ui/src/app/app.html`, `ui/src/app/app.ts`, and
+  `ui/src/app/interfaces/formats.ts`.
+- Summary: applies selected beginner-facing copy polish from the UX planning
+  lane to existing UI copy only.
+- Changed UI copy groups:
+  quality helper text, audio quality helper text, codec / format auto display
+  labels, captions mode display labels and helper text, and completed/result
+  table auto codec display text.
+- Boundary: selector ids and values, quality numeric values, format/codec
+  mappings, API payloads, state management, event handlers, Socket.IO behavior,
+  queue behavior, download behavior, backend files, workflow files, package
+  files, lockfiles, dependencies, Docker files, and generated artifacts remain
+  unchanged.
+- Next recommended lane after Y-FE-COPY-02:
+  optional manual UI review / screenshot review of the copy-only changes, or
+  another docs/report/checker lane using fast safe flow.
+- Risk: frontend copy-only / explicitly scoped / human-reviewed merge.
 
 ### Y-CI-03 reusable local safety workflow design
 
@@ -719,7 +744,7 @@ Y-FE-COPY-01:
   frontend copy-only implementation packet using fast safe flow while docs-only
 
 Y-FE-COPY-02:
-  later separate lane only if explicitly scoped to ui files
+  frontend copy-only implementation, scoped to approved ui files
 
 Docs/report/checker lane:
   another low-risk lane using fast safe flow

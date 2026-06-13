@@ -243,10 +243,10 @@ export class App implements AfterViewInit, OnInit, OnDestroy {
     { id: 'zh-Hant', text: 'Chinese (Traditional)' },
   ];
   subtitleModes = [
-    { id: 'prefer_manual', text: 'Prefer Manual' },
-    { id: 'prefer_auto', text: 'Prefer Auto' },
-    { id: 'manual_only', text: 'Manual Only' },
-    { id: 'auto_only', text: 'Auto Only' },
+    { id: 'prefer_manual', text: '手動字幕を優先' },
+    { id: 'prefer_auto', text: '自動字幕を優先' },
+    { id: 'manual_only', text: '手動字幕のみ' },
+    { id: 'auto_only', text: '自動字幕のみ' },
   ];
   constructor() {
     this.downloadType = this.cookieService.get('metube_download_type') || 'video';
@@ -905,7 +905,7 @@ export class App implements AfterViewInit, OnInit, OnDestroy {
       return format || '-';
     }
     const codec = download.codec;
-    if (!codec || codec === 'auto') return 'Auto';
+    if (!codec || codec === 'auto') return 'おまかせ';
     return this.videoCodecs.find(c => c.id === codec)?.text ?? codec;
   }
 

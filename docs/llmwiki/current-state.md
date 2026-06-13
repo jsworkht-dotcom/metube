@@ -20,7 +20,7 @@
   separate upstream contribution.
 - Do not mix upstream PR #1001 files into fork-only work.
 - Latest fork `master` baseline:
-  `7b561a259efd9a92a61ab3765416286c7bc207ea` from fork PR #112.
+  `54c0a476d3117ed989e89ece4d2ae01b40ce9995` from fork PR #113.
 
 ## Current Runtime Security State
 
@@ -129,7 +129,7 @@
   change, package/lockfile change, or existing safety gate behavior change is
   part of this lane.
 
-## Recent Completed Lane Summary (PR #86-#112)
+## Recent Completed Lane Summary (PR #86-#113)
 
 This is the compact planning surface for the recent distribution, CI, and
 GitHub-governance lanes. The older per-lane notes remain historical reference.
@@ -160,10 +160,10 @@ GitHub-governance lanes. The older per-lane notes remain historical reference.
   planning path after the Y-DIST-08 hold. PR #107 completed Y-UX-COPY-01.
   PR #108 completed Y-UI-QUALITY-01. PR #109 completed Y-UX-HELP-01.
   PR #110 completed Y-UX-STATE-01. PR #111 completed Y-UX-STOP-01.
-  PR #112 completed Y-UX-CLOSEOUT-01. Y-FE-COPY-01 prepares the frontend
-  copy-only implementation packet docs-only. Next recommended lane after
-  Y-FE-COPY-01: Y-FE-COPY-02 frontend copy-only implementation, only after
-  explicit scope approval.
+  PR #112 completed Y-UX-CLOSEOUT-01. PR #113 completed Y-FE-COPY-01
+  frontend copy-only implementation packet docs-only. Y-FE-COPY-02 applies the
+  first approved frontend copy-only implementation step with selector ids,
+  values, API payloads, and runtime behavior unchanged.
   Artifact generation, ZIP/package/installer creation, GitHub required checks
   implementation, and branch protection mutation are not recommended yet.
 
@@ -702,6 +702,8 @@ GitHub-governance lanes. The older per-lane notes remain historical reference.
 
 - Scope: docs-only frontend copy-only implementation packet / roadmap /
   handoff sync.
+- Status: completed via fork PR #113.
+- Merge commit: `54c0a476d3117ed989e89ece4d2ae01b40ce9995`.
 - Packet section:
   `docs/llmwiki/beginner-ux-next-action-plan.md`.
 - Purpose:
@@ -725,6 +727,27 @@ GitHub-governance lanes. The older per-lane notes remain historical reference.
   output, generated folders, dependency changes, Docker operations,
   `.github/workflows/` changes, GitHub settings mutation, `.gitignore` changes,
   cookie/token/secret handling, public exposure operations, or bypass guidance.
+
+### Y-FE-COPY-02 frontend copy-only implementation
+
+- Scope: frontend copy-only implementation / LLMwiki sync.
+- UI files:
+  `ui/src/app/app.html`, `ui/src/app/app.ts`, and
+  `ui/src/app/interfaces/formats.ts`.
+- Copy groups changed:
+  quality helper text, audio quality helper text, codec / format auto display
+  labels, captions mode display labels and helper text, and completed/result
+  table auto codec display text.
+- Boundary:
+  selector ids and values, quality numeric values, format/codec mappings, API
+  payloads, state management, event handlers, Socket.IO behavior, queue
+  behavior, download behavior, backend files, workflow files, package files,
+  lockfiles, dependencies, Docker files, and generated artifacts remain
+  unchanged.
+- Artifact generation remains HOLD.
+- Next recommended step:
+  optional manual UI review / screenshot review of the copy-only changes, or
+  another docs/report/checker lane using fast safe flow.
 
 ### Y-CI-03 reusable local safety workflow design
 
@@ -2938,6 +2961,13 @@ Y-UX-CLOSEOUT-01 is complete via fork PR #112 with merge commit
 Y-FE-COPY-01 prepares the frontend copy-only implementation packet docs-only in:
 `docs/llmwiki/beginner-ux-next-action-plan.md`.
 
+Y-FE-COPY-01 is complete via fork PR #113 with merge commit
+`54c0a476d3117ed989e89ece4d2ae01b40ce9995`.
+
+Y-FE-COPY-02 applies selected frontend copy-only polish in:
+`ui/src/app/app.html`, `ui/src/app/app.ts`, and
+`ui/src/app/interfaces/formats.ts`.
+
 Artifact generation remains HOLD.
 
 Y-08Z closes the Y-08 preview hardening lane as docs-only closeout.
@@ -3014,10 +3044,10 @@ The previous package-material lane is complete through Y-08Z closeout. Actual
 clean-package generation remains blocked. The generated package folder must
 remain absent.
 
-The next practical candidates after Y-FE-COPY-01 are:
+The next practical candidates after Y-FE-COPY-02 are:
 
 ```text
-Y-FE-COPY-02 frontend copy-only implementation only after explicit scope approval
+manual UI review / screenshot review of the copy-only changes if desired
 continue docs-only UX planning if more review is needed
 another docs/report/checker lane using fast safe flow
 ```

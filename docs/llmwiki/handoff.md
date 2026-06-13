@@ -10,11 +10,11 @@ canonical branch is fork `master`, and local `master` tracks `fork/master`.
 ## Current Closeout State
 
 - Latest completed docs branch:
-  `codex/y-ux-closeout-01-planning-lane-closeout`.
-- Current docs planning branch:
   `codex/y-fe-copy-01-implementation-packet`.
+- Current docs planning branch:
+  `codex/y-fe-copy-02-frontend-copy-only`.
 - Current fork `master` baseline:
-  `7b561a259efd9a92a61ab3765416286c7bc207ea` from fork PR #112.
+  `54c0a476d3117ed989e89ece4d2ae01b40ce9995` from fork PR #113.
 - Compact recent state:
   - Y-DIST is complete through Y-DIST-08. PR #105 recorded the first
     approval-packet review status: no artifact generation approval was granted,
@@ -40,9 +40,9 @@ canonical branch is fork `master`, and local `master` tracks `fork/master`.
     Y-UX-STATE-01 status/progress/completion clarity review. PR #111 completed
     Y-UX-STOP-01 stop/quit user-flow design. PR #112 completed
     Y-UX-CLOSEOUT-01 and closed the beginner UX planning lane docs-only.
-    Y-FE-COPY-01 now prepares the frontend copy-only implementation packet.
-    Next recommended lane after Y-FE-COPY-01 is Y-FE-COPY-02 frontend
-    copy-only implementation, only after explicit scope approval.
+    PR #113 completed Y-FE-COPY-01 and prepared the frontend copy-only
+    implementation packet. Y-FE-COPY-02 now applies the first approved
+    frontend copy-only implementation step.
 - Y-SEC-01 is complete via fork PR #82.
 - Y-SEC-01 state:
   - local-only runtime guardrails implemented in backend startup/request
@@ -1287,10 +1287,10 @@ canonical branch is fork `master`, and local `master` tracks `fork/master`.
 Use `docs/llmwiki/current-state.md`, `docs/llmwiki/roadmap.md`, and this handoff
 as the next-chat source of truth.
 
-Recommended next candidates after Y-FE-COPY-01:
+Recommended next candidates after Y-FE-COPY-02:
 
 ```text
-Y-FE-COPY-02 frontend copy-only implementation only after explicit scope approval
+manual UI review / screenshot review of the copy-only changes if desired
 continue docs-only UX planning if more review is needed
 another docs/report/checker lane using fast safe flow
 ```
@@ -1308,6 +1308,14 @@ Y-FE-COPY-01 prepares the frontend copy-only implementation packet:
 
 ```text
 docs/llmwiki/beginner-ux-next-action-plan.md
+```
+
+Y-FE-COPY-02 applies selected frontend copy-only polish:
+
+```text
+ui/src/app/app.html
+ui/src/app/app.ts
+ui/src/app/interfaces/formats.ts
 ```
 
 Other safe planning candidates remain:
@@ -1615,6 +1623,32 @@ Next recommended lane after Y-FE-COPY-01:
 
 - `Y-FE-COPY-02 frontend copy-only implementation`, only after explicit scope
   approval.
+
+## Y-FE-COPY-02 Handoff Update
+
+Latest work: Y-FE-COPY-02 frontend copy-only implementation.
+
+Changed UI copy groups:
+
+- Quality and audio quality helper text.
+- Codec / format auto display labels.
+- Captions mode display labels and helper text.
+- Completed/result table auto codec display text.
+
+Boundary:
+
+- Selector ids and values remain unchanged.
+- API payloads remain unchanged.
+- Format and codec mappings remain unchanged.
+- Runtime behavior, state management, request shape, Socket.IO behavior, queue
+  behavior, download behavior, backend files, workflow files, package files,
+  lockfiles, dependencies, Docker files, and generated artifacts remain
+  unchanged.
+
+Next recommended lane after Y-FE-COPY-02:
+
+- optional manual UI review / screenshot review of the copy-only changes; or
+- another docs/report/checker lane using fast safe flow.
 
 ## Y-AUTO-08 Handoff Update
 

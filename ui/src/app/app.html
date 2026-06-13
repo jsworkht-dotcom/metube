@@ -206,7 +206,7 @@
           </div>
           <div class="col-md-3">
             <div class="input-group">
-              <span class="input-group-text help-title" ngbPopover="画質の目安です。1080pならフルHDまでで保存できる最良の画質を選びます。元動画にない場合は近い画質になります。自動は保存できる範囲で最高品質を選びます。高画質ほどファイルは大きめです。" triggers="click" autoClose="outside" container="body">画質</span>
+              <span class="input-group-text help-title" ngbPopover="画質の目安です。元の動画にない画質は選べません。1080pはフルHDまでの目安です。おまかせは保存できる範囲で高い画質を選びます。高画質ほどファイルは大きめです。" triggers="click" autoClose="outside" container="body">画質</span>
               <select class="form-select"
                 name="quality"
                 [(ngModel)]="quality"
@@ -249,7 +249,7 @@
           </div>
           <div class="col-md-4">
             <div class="input-group">
-              <span class="input-group-text help-title" ngbPopover="音質の目安です。数値が大きいほど高音質・大きめのファイルになりやすく、128kbpsは軽量向けです。自動は保存できる範囲で最高音質を選びます。" triggers="click" autoClose="outside" container="body">音質</span>
+              <span class="input-group-text help-title" ngbPopover="音質の目安です。数値が大きいほど高音質・大きめのファイルになりやすく、128kbpsは軽量向けです。おまかせは保存できる範囲で高い音質を選びます。" triggers="click" autoClose="outside" container="body">音質</span>
               <select class="form-select"
                 name="quality"
                 [(ngModel)]="quality"
@@ -311,7 +311,7 @@
           </div>
           <div class="col-12 col-md-6 col-lg-3">
             <div class="input-group">
-              <span class="input-group-text help-title" ngbPopover="手動字幕、自動字幕、または優先順を選びます。" triggers="click" autoClose="outside" container="body">字幕の種類</span>
+              <span class="input-group-text help-title" ngbPopover="手動字幕を優先、自動字幕を優先、手動のみ、自動のみから選びます。" triggers="click" autoClose="outside" container="body">字幕の種類</span>
               <select class="form-select"
                 name="subtitleMode"
                 [(ngModel)]="subtitleMode"
