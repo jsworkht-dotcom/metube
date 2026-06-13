@@ -685,9 +685,175 @@ Y-UX-STATE-01 does not perform:
 - public exposure operations;
 - DRM/auth/restriction bypass guidance.
 
+## Y-UX-STOP-01 Stop / Quit User-Flow Design
+
+Y-UX-STOP-01 designs beginner-facing stop and quit flow wording as a docs-only
+follow-up after Y-UX-STATE-01. This section does not change runtime UI files,
+backend behavior, package output, generated folders, or GitHub settings.
+
+### Current Stop / Quit Baseline
+
+- Status/progress/completion wording baseline exists.
+- Help/troubleshooting baseline exists.
+- Beginner-safe copy baseline exists.
+- Artifact generation remains HOLD.
+- Runtime behavior is not changed in this lane.
+
+### Design Principles
+
+- Use beginner-first stop/quit labels.
+- Distinguish canceling an add action from stopping the app.
+- Distinguish removing an item from stopping a save.
+- Make it clear when closing is safe.
+- Advise waiting while saving is active.
+- Prefer "停止して終了" for uncertain users.
+- Avoid hidden background behavior assumptions.
+- Avoid risky repair or force-close instructions.
+
+### Flow Families To Review
+
+- `保存前に閉じる`
+- `保存中に閉じる`
+- `待機中に閉じる`
+- `保存完了後に閉じる`
+- `失敗後に閉じる`
+- `追加中のキャンセル`
+- `キューから削除`
+- `停止して終了`
+- `画面だけ閉じる`
+
+### Candidate Wording
+
+Normal quit:
+
+```text
+保存中の項目がなければ、そのまま終了できます。
+```
+
+Saving active:
+
+```text
+保存中です。完了するまで待ってから終了するのがおすすめです。
+```
+
+Queued:
+
+```text
+待機中の項目があります。保存しない場合は、先にキューから削除してください。
+```
+
+Completed:
+
+```text
+保存が完了しています。「保存先を開く」から確認してから終了できます。
+```
+
+Failed:
+
+```text
+失敗した項目があります。エラー文を残してから終了してください。
+```
+
+Unsure:
+
+```text
+終了に迷った場合は「停止して終了」を使ってください。
+```
+
+Cancel add:
+
+```text
+追加中のURLだけをキャンセルします。保存済みのファイルは削除しません。
+```
+
+Delete queue item:
+
+```text
+キューから削除します。まだ保存が始まっていない項目を取り消します。
+```
+
+### Stop / Quit Priority
+
+1. Detect whether a save is active.
+2. If active, tell the user to wait or explicitly stop.
+3. If queued only, explain queue removal.
+4. If completed, point to save folder.
+5. If failed, preserve the error/status message.
+6. If unsure, recommend "停止して終了".
+
+### Review Notes By Flow
+
+Normal quit wording should be available only when no save is active. It should
+not imply that closing a browser window always stops background work.
+
+Saving-active wording should first recommend waiting for completion. If a
+future implementation offers an explicit stop action, it should label that
+action plainly and avoid force-close instructions.
+
+Queued wording should explain that queue removal applies to items that have not
+started saving yet.
+
+Completed wording should point to "保存先を開く" before quitting when the user
+wants to confirm the saved file.
+
+Failed wording should tell users to preserve the visible error/status message
+before quitting.
+
+Cancel-add wording should stay narrow: cancel the URL being added, not saved
+files or completed downloads.
+
+Delete-queue wording should distinguish removing a waiting item from stopping
+an active save.
+
+### Next Implementation Boundaries
+
+Docs-only stop/quit design:
+
+- allowed now;
+- may update LLMwiki planning, roadmap, and handoff docs;
+- may collect candidate stop, quit, cancel, queue removal, confirmation, and
+  unsure-user copy;
+- must not change runtime UI files.
+
+Frontend copy-only implementation:
+
+- later separate lane;
+- `ui/**` files must be explicitly scoped;
+- no dependency, build, package, generated output, or runtime behavior changes.
+
+Runtime stop behavior:
+
+- later separate lane;
+- not part of Y-UX-STOP-01.
+
+### Explicitly Not Performed
+
+Y-UX-STOP-01 does not perform:
+
+- frontend code changes;
+- backend code changes;
+- runtime behavior changes;
+- artifact generation;
+- generated package output;
+- CLEAN folder creation;
+- `動画保存ツール_ローカル専用/` creation;
+- metadata or checksum generation;
+- real download verification;
+- recipient handoff or sharing;
+- dependency installation operations;
+- container image operations;
+- `.github/workflows/` changes;
+- GitHub settings, branch protection, ruleset, required-check, or CODEOWNERS
+  mutation;
+- `.gitignore` changes;
+- credential-bearing file handling;
+- secret-like value handling;
+- public exposure operations;
+- DRM/auth/restriction bypass guidance.
+
 ## Next UX Candidates
 
-- `Y-UX-STOP-01 stop/quit user-flow design`
+- `Y-UX-CLOSEOUT-01 UX planning closeout`
 - frontend copy-only implementation lane if explicitly scoped later
 
 Repo-history note: earlier `Y-UI-QUALITY-01`, `Y-UI-QUALITY-02`, and
@@ -697,9 +863,9 @@ lane name while keeping the candidate intent.
 
 ## Recommended First Next Lane
 
-Recommended next lane after Y-UX-STATE-01:
+Recommended next lane after Y-UX-STOP-01:
 
-- `Y-UX-STOP-01 stop/quit user-flow design` docs-only; or
+- `Y-UX-CLOSEOUT-01 UX planning closeout` docs-only; or
 - frontend copy-only implementation if explicitly scoped later.
 
 Repo-history note: because historical `Y-UI-QUALITY-01` is already complete in
@@ -756,14 +922,14 @@ Y-UX-PLAN-01 does not perform:
 
 PR #105 completed Y-DIST-08 no-generation hold. PR #106 completed
 Y-UX-PLAN-01. PR #107 completed Y-UX-COPY-01. PR #108 completed
-Y-UI-QUALITY-01. PR #109 completed Y-UX-HELP-01. Y-UX-STATE-01 reviews
-beginner status, progress, and completion clarity as the current docs-only
-planning step:
+Y-UI-QUALITY-01. PR #109 completed Y-UX-HELP-01. PR #110 completed
+Y-UX-STATE-01. Y-UX-STOP-01 designs beginner stop/quit user flow as the
+current docs-only planning step:
 
 - artifact generation remains blocked;
 - fast safe flow is the default for low-risk docs/report/checker lanes;
 - beginner UX work should start with safe planning before any UI implementation;
-- the next candidate after Y-UX-STATE-01 is Y-UX-STOP-01 docs-only or a
+- the next candidate after Y-UX-STOP-01 is Y-UX-CLOSEOUT-01 docs-only or a
   frontend copy-only implementation lane if explicitly scoped later;
 - future UI copy-only work remains a separate human-reviewed lane unless later
   safety-gate policy explicitly changes.

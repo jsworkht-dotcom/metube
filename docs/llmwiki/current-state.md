@@ -20,7 +20,7 @@
   separate upstream contribution.
 - Do not mix upstream PR #1001 files into fork-only work.
 - Latest fork `master` baseline:
-  `306349407a58ba733a34662e2c02b15b93a215d6` from fork PR #109.
+  `bb04833bf330482778e7a04e741868e1446360a5` from fork PR #110.
 
 ## Current Runtime Security State
 
@@ -129,7 +129,7 @@
   change, package/lockfile change, or existing safety gate behavior change is
   part of this lane.
 
-## Recent Completed Lane Summary (PR #86-#109)
+## Recent Completed Lane Summary (PR #86-#110)
 
 This is the compact planning surface for the recent distribution, CI, and
 GitHub-governance lanes. The older per-lane notes remain historical reference.
@@ -159,9 +159,10 @@ GitHub-governance lanes. The older per-lane notes remain historical reference.
   PR #106 completed Y-UX-PLAN-01, establishing the next low-risk beginner UX
   planning path after the Y-DIST-08 hold. PR #107 completed Y-UX-COPY-01.
   PR #108 completed Y-UI-QUALITY-01. PR #109 completed Y-UX-HELP-01.
-  Y-UX-STATE-01 reviews beginner status/progress/completion clarity, followed
-  by Y-UX-STOP-01 stop/quit flow design, explicitly scoped frontend copy-only
-  implementation, or another docs/report/checker lane using fast safe flow.
+  PR #110 completed Y-UX-STATE-01. Y-UX-STOP-01 designs beginner stop/quit
+  user flow, followed by Y-UX-CLOSEOUT-01 UX planning closeout, explicitly
+  scoped frontend copy-only implementation, or another docs/report/checker
+  lane using fast safe flow.
   Artifact generation, ZIP/package/installer creation, GitHub required checks
   implementation, and branch protection mutation are not recommended yet.
 
@@ -603,6 +604,7 @@ GitHub-governance lanes. The older per-lane notes remain historical reference.
 
 - Scope: docs-only status, progress, completion, failure, retry, save-folder,
   and stop/quit wording review / roadmap / handoff sync.
+- Status: completed via fork PR #110.
 - Review section:
   `docs/llmwiki/beginner-ux-next-action-plan.md`.
 - Purpose:
@@ -619,8 +621,35 @@ GitHub-governance lanes. The older per-lane notes remain historical reference.
   docs-only status review is allowed now; frontend copy-only implementation
   must be a later separate lane with `ui/**` files explicitly scoped; runtime
   behavior changes are not part of Y-UX-STATE-01.
-- Next candidate after Y-UX-STATE-01:
-  `Y-UX-STOP-01 stop/quit user-flow design` docs-only, or frontend copy-only
+- Follow-up selected after Y-UX-STATE-01:
+  Y-UX-STOP-01 designs beginner stop/quit user flow docs-only.
+- Not included:
+  frontend code, backend code, runtime behavior, artifact generation, package
+  output, generated folders, dependency changes, Docker operations,
+  `.github/workflows/` changes, GitHub settings mutation, `.gitignore` changes,
+  credential-bearing file handling, secret-like value handling, public exposure
+  operations, or bypass guidance.
+
+### Y-UX-STOP-01 stop/quit user-flow design
+
+- Scope: docs-only stop/quit user-flow design / roadmap / handoff sync.
+- Review section:
+  `docs/llmwiki/beginner-ux-next-action-plan.md`.
+- Purpose:
+  review beginner-facing stop/quit labels, closing while saving, closing after
+  completion, cancel vs stop vs delete wording, safe next action when unsure,
+  beginner-safe quit confirmation wording, and future implementation
+  boundaries.
+- Current stop/quit baseline:
+  status/progress/completion wording baseline exists; help/troubleshooting
+  baseline exists; beginner-safe copy baseline exists; artifact generation
+  remains HOLD; runtime behavior is not changed in this lane.
+- Risk boundaries:
+  docs-only stop/quit design is allowed now; frontend copy-only implementation
+  must be a later separate lane with `ui/**` files explicitly scoped; runtime
+  stop behavior changes are not part of Y-UX-STOP-01.
+- Next candidate after Y-UX-STOP-01:
+  `Y-UX-CLOSEOUT-01 UX planning closeout` docs-only, or frontend copy-only
   implementation if explicitly scoped later.
 - Not included:
   frontend code, backend code, runtime behavior, artifact generation, package
@@ -2823,6 +2852,12 @@ Y-UX-HELP-01 is complete via fork PR #109 with merge commit
 Y-UX-STATE-01 reviews beginner status/progress/completion clarity docs-only in:
 `docs/llmwiki/beginner-ux-next-action-plan.md`.
 
+Y-UX-STATE-01 is complete via fork PR #110 with merge commit
+`bb04833bf330482778e7a04e741868e1446360a5`.
+
+Y-UX-STOP-01 designs beginner stop/quit user flow docs-only in:
+`docs/llmwiki/beginner-ux-next-action-plan.md`.
+
 Artifact generation remains HOLD.
 
 Y-08Z closes the Y-08 preview hardening lane as docs-only closeout.
@@ -2899,10 +2934,10 @@ The previous package-material lane is complete through Y-08Z closeout. Actual
 clean-package generation remains blocked. The generated package folder must
 remain absent.
 
-The next practical candidates after Y-UX-STATE-01 are:
+The next practical candidates after Y-UX-STOP-01 are:
 
 ```text
-Y-UX-STOP-01 stop/quit user-flow design
+Y-UX-CLOSEOUT-01 UX planning closeout
 frontend copy-only implementation lane if explicitly scoped later
 another docs/report/checker lane using fast safe flow
 ```

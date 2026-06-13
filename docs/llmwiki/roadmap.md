@@ -82,7 +82,7 @@
 
 ### Recent completed lane compression
 
-- PR #86-#109 are complete.
+- PR #86-#110 are complete.
 - Y-DIST completion is compressed as:
   Y-DIST-02 metadata checking, Y-DIST-03 recipient/first-run docs,
   Y-DIST-04 readiness matrix, Y-DIST-05 approval checklist, and Y-DIST-06
@@ -109,6 +109,8 @@
   review baseline.
 - Y-UX-HELP-01 completed via PR #109 and added the help/troubleshooting entry
   review baseline.
+- Y-UX-STATE-01 completed via PR #110 and added the status/progress/completion
+  clarity review baseline.
 
 ### Y-DIST-02 checksum / hash / version / license notice bundle verification
 
@@ -451,6 +453,7 @@
 ### Y-UX-STATE-01 status / progress / completion clarity review
 
 - Status: docs-only status/progress/completion clarity review.
+- Completed via fork PR #110.
 - Review section:
   `docs/llmwiki/beginner-ux-next-action-plan.md`.
 - Summary: reviews beginner-facing connection/loading state, saving/progress
@@ -469,8 +472,33 @@
   package output, generated folders, dependencies, Docker files, CI workflows,
   GitHub settings, `.gitignore`, credential-bearing file handling,
   secret-like value handling, public exposure operations, or bypass guidance.
-- Recommended next lane after Y-UX-STATE-01:
-  `Y-UX-STOP-01 stop/quit user-flow design` docs-only, or frontend copy-only
+- Follow-up selected after Y-UX-STATE-01:
+  Y-UX-STOP-01 designs beginner stop/quit user flow docs-only.
+- Risk: High-low / docs-only / draft PR preferred.
+
+### Y-UX-STOP-01 stop/quit user-flow design
+
+- Status: docs-only stop/quit user-flow design.
+- Review section:
+  `docs/llmwiki/beginner-ux-next-action-plan.md`.
+- Summary: designs beginner-facing stop/quit labels, closing while saving,
+  closing after completion, cancel vs stop vs delete wording, safe next action
+  when unsure, beginner-safe quit confirmation wording, and future
+  implementation boundaries.
+- Current baseline: status/progress/completion wording baseline exists;
+  help/troubleshooting baseline exists; beginner-safe copy baseline exists;
+  artifact generation remains HOLD; runtime behavior is not changed in this
+  lane.
+- Risk boundaries: docs-only stop/quit design is allowed via fast safe flow;
+  frontend copy-only implementation must be a later separate lane with `ui/**`
+  files explicitly scoped; runtime stop behavior changes are not part of
+  Y-UX-STOP-01.
+- This lane does not change frontend code, backend code, runtime behavior,
+  package output, generated folders, dependencies, Docker files, CI workflows,
+  GitHub settings, `.gitignore`, credential-bearing file handling,
+  secret-like value handling, public exposure operations, or bypass guidance.
+- Recommended next lane after Y-UX-STOP-01:
+  `Y-UX-CLOSEOUT-01 UX planning closeout` docs-only, or frontend copy-only
   implementation if explicitly scoped later.
 - Risk: High-low / docs-only / draft PR preferred.
 
@@ -622,8 +650,8 @@
 ### Security next candidates
 
 ```text
-Y-UX-STOP-01:
-  stop/quit user-flow design using fast safe flow while docs-only
+Y-UX-CLOSEOUT-01:
+  UX planning closeout using fast safe flow while docs-only
 
 Frontend copy-only implementation:
   later separate lane only if explicitly scoped to ui files
