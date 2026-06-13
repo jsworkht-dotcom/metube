@@ -280,9 +280,9 @@ Recommended decision for Y-GH-02:
 Do not implement required checks yet.
 Record local fork safety / local fork safety as the current candidate.
 Proceed next to either:
-  Y-WIKI-CLEAN-01 current-state / handoff / archive整理
-  or Y-GH-03 minimal branch protection implementation without required checks,
-     only if explicitly approved.
+  Y-DIST-07 artifact generation approval packet
+  Y-GH-03 minimal branch protection implementation without required checks,
+    only if explicitly approved.
 ```
 
 Reason:
@@ -326,12 +326,11 @@ Stop and report facts if any of these occur:
 ## Next Candidates
 
 ```text
-Y-WIKI-CLEAN-01 current-state / handoff / archive整理
+Y-DIST-07 artifact generation approval packet
 Y-GH-03 minimal branch protection implementation without required checks,
   only with explicit human approval
 Y-GH-04 required checks implementation, only with explicit human approval after
   rollback path is accepted
-Y-DIST-07 artifact generation approval packet
 ```
 
 ## Not Included In Y-GH-02

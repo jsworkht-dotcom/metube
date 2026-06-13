@@ -80,6 +80,23 @@
   generated files outside the requested docs/test/tooling changes.
 - Risk: High-low / tooling-only / report-only / draft PR preferred.
 
+### Recent completed lane compression
+
+- PR #86-#100 are complete.
+- Y-DIST completion is compressed as:
+  Y-DIST-02 metadata checking, Y-DIST-03 recipient/first-run docs,
+  Y-DIST-04 readiness matrix, Y-DIST-05 approval checklist, and Y-DIST-06
+  approved candidate dry-run planning. Artifact generation remains blocked.
+- Y-CI completion is compressed as:
+  lightweight workflow design, minimal implementation, docs-only self-check,
+  reusable workflow design/implementation, caller concurrency, and the PR #99
+  check-name observation. Current displayed check name:
+  `local fork safety / local fork safety`.
+- Y-GH completion is compressed as:
+  GitHub connector fallback runbook, branch-protection/ruleset design, and
+  required-checks design via PR #100. No GitHub settings mutation has been
+  performed.
+
 ### Y-DIST-02 checksum / hash / version / license notice bundle verification
 
 - Status: completed via fork PR #86.
@@ -374,7 +391,8 @@
 
 ### Y-GH-02 required checks design
 
-- Status: active.
+- Status: completed via fork PR #100.
+- Merge commit: `34497e8918bbc12b7ea457eb6cc48c7c9d8c963b`.
 - Scope: docs-only required checks design.
 - Design doc:
   `docs/llmwiki/required-checks-design.md`.
@@ -398,8 +416,8 @@
 ### Security next candidates
 
 ```text
-Y-WIKI-CLEAN-01:
-  current-state / handoff / archive整理
+Y-DIST-07:
+  artifact generation approval packet
 
 Y-GH-03:
   minimal branch protection implementation without required checks,

@@ -57,9 +57,9 @@ or another workflow/job name combination.
 Y-CI-05 success does not enable required checks. Y-CI-05 success is only one
 more observation.
 
-Y-GH-02 should use this observation before proposing any required-check name.
-Required checks remain deferred. Branch protection and GitHub settings remain
-unmodified.
+Y-GH-02 used this observation before proposing any required-check name and is
+complete via fork PR #100. Required checks remain deferred. Branch protection
+and GitHub settings remain unmodified.
 
 Y-GH-02 records the follow-up required checks design in
 `docs/llmwiki/required-checks-design.md`. It keeps
@@ -111,7 +111,7 @@ PR #1001 files absent: yes
 Workflow files changed: no
 GitHub settings changed: no
 Result: normal docs-only PR passed local-fork-safety
-Next recommendation: Y-GH-02 required checks design if the observation succeeds
+Next recommendation: Y-GH-02 required checks design, completed by fork PR #100
 ```
 
 ## Stop Conditions
@@ -155,15 +155,19 @@ Stop Y-CI-05 and report facts if any of these occur:
 
 ## Next Candidates
 
-If Y-CI-05 succeeds:
+Y-CI-05 succeeded and Y-GH-02 completed in fork PR #100:
 
 ```text
 Y-GH-02 required checks design:
   docs/llmwiki/required-checks-design.md
 ```
 
-Alternative:
+Next candidates:
 
 ```text
-Y-WIKI-CLEAN-01 current-state / handoff / archive整理
+Y-DIST-07 artifact generation approval packet
+Y-GH-03 minimal branch protection implementation without required checks,
+  only with explicit human approval
+Y-GH-04 required checks implementation, only with explicit human approval after
+  rollback path is accepted
 ```

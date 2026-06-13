@@ -9,10 +9,21 @@ canonical branch is fork `master`, and local `master` tracks `fork/master`.
 
 ## Current Closeout State
 
-- Current Y-GH-02 work branch:
-  `codex/y-gh-02-required-checks-design`.
-- Current fork `master` after Y-CI-05:
-  `e77e68c56a369c3ae962cf0abcbe958ce36a2101` from fork PR #99.
+- Current Y-WIKI-CLEAN-01 work branch:
+  `codex/y-wiki-clean-01-state-handoff-archive`.
+- Current fork `master` after Y-GH-02:
+  `34497e8918bbc12b7ea457eb6cc48c7c9d8c963b` from fork PR #100.
+- Compact recent state:
+  - Y-DIST is complete through Y-DIST-06 / PR #94; artifact generation remains
+    blocked until a later explicit approval packet.
+  - Y-CI is complete through the reusable `local-fork-safety` workflow,
+    concurrency, and PR #99 observation; current displayed check name is
+    `local fork safety / local fork safety`.
+  - Y-GH is complete through PR #100 required-checks design; no GitHub
+    settings, branch protection, ruleset, required-check, CODEOWNERS, or
+    workflow mutation has been performed after the design work.
+  - Next candidates are Y-DIST-07, Y-GH-03, and Y-GH-04 under the approval
+    limits listed below.
 - Y-SEC-01 is complete via fork PR #82.
 - Y-SEC-01 state:
   - local-only runtime guardrails implemented in backend startup/request
@@ -360,8 +371,11 @@ canonical branch is fork `master`, and local `master` tracks `fork/master`.
     credentials, or touch PR #1001 files
 - Current Y-GH-02 state:
   - docs-only required checks design lane
-  - active branch:
+  - completed branch:
     `codex/y-gh-02-required-checks-design`
+  - completed via fork PR #100
+  - merge commit:
+    `34497e8918bbc12b7ea457eb6cc48c7c9d8c963b`
   - design doc:
     `docs/llmwiki/required-checks-design.md`
   - records `local fork safety / local fork safety` as the current candidate
@@ -374,7 +388,7 @@ canonical branch is fork `master`, and local `master` tracks `fork/master`.
     run Docker, run builds/tests, create generated output, handle credentials,
     or touch PR #1001 files
 - Next candidates:
-  - `Y-WIKI-CLEAN-01 current-state / handoff / archive整理`
+  - `Y-DIST-07 artifact generation approval packet`
   - `Y-GH-03 minimal branch protection implementation without required checks,
     only with explicit human approval`
   - `Y-GH-04 required checks implementation, only with explicit human approval
@@ -1210,10 +1224,10 @@ canonical branch is fork `master`, and local `master` tracks `fork/master`.
 Use `docs/llmwiki/current-state.md`, `docs/llmwiki/roadmap.md`, and this handoff
 as the next-chat source of truth.
 
-Recommended next candidates after Y-GH-02:
+Recommended next candidates after Y-WIKI-CLEAN-01:
 
 ```text
-Y-WIKI-CLEAN-01 current-state / handoff / archive整理
+Y-DIST-07 artifact generation approval packet
 Y-GH-03 minimal branch protection implementation without required checks,
   only with explicit human approval
 Y-GH-04 required checks implementation, only with explicit human approval after
