@@ -3072,6 +3072,17 @@ Y-FE-COPY-05 cannot remove, disable, hide, or change cookie upload behavior,
 backend cookie handling, or local-only security enforcement. Those require a
 separate explicit behavior/visibility/security lane.
 
+Y-FE-COPY-05 implements the approved cookie-related frontend copy-only lane.
+The advanced Cookie UI now uses Japanese-first advanced-only cautionary
+wording for the group label, upload/change button text, status text, delete
+tooltip, and helper popover. The change keeps file input behavior, cookie
+upload/delete handlers, state management, API calls, backend cookie handling,
+and local-only security enforcement unchanged.
+
+Y-FE-COPY-05 addresses the Y-FE-LOCAL-REVIEW-02 cookie wording blocker without
+hiding, disabling, or removing the Cookie UI. Remaining advanced English-first
+tool labels and the `取得数の上限` helper remain separate follow-up copy lanes.
+
 Y-08Z closes the Y-08 preview hardening lane as docs-only closeout.
 Y-UI-QUALITY-01 is complete via fork PR #73 with merge commit
 `402996eba52f923be962e2fe69ebdaa6084363f2`. Y-UI-QUALITY-02 is complete via
