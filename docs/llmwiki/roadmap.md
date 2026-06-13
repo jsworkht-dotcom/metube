@@ -760,6 +760,45 @@
 - Artifact generation remains HOLD.
 - Risk: High-mid source copy-only / frontend-visible text only.
 
+### Y-FE-COPY-06 cookie wording implementation closeout
+
+- Status: completed.
+- Scope: docs-only LLMwiki closeout after PR #121.
+- Completed implementation record:
+  - Y-FE-COPY-05 completed via PR #121;
+  - head commit `e960b11fe6f301a3d21e0bda2f310ea5fb71bdba`;
+  - squash merge commit / final `fork/master`
+    `eb22d5746267f972c1f4e1f2397a7fba6e83a161`.
+- Changed Cookie UI copy recorded:
+  - `Cookie設定（上級者向け）`;
+  - `Cookieファイルを選択`;
+  - `Cookieファイルを変更`;
+  - `Cookie未設定`;
+  - `Cookie設定あり`;
+  - helper text now warns that beginners normally should not use Cookie
+    handling because Cookie data is personal information.
+- Finding resolution: the advanced settings Cookie helper no longer promotes
+  restricted/private download cookie upload and now uses cautionary
+  advanced-only Japanese-first wording.
+- Preserved boundaries: no cookie upload, file input, delete cookie,
+  `hasCookies`, `cookieUploadInProgress`, handler, state management,
+  API/backend, download, queue, subscription, routing, service worker, build
+  tooling, dependency, package/lockfile, or generated artifact changes.
+- Verification recorded: `git diff --check`, repo safety checks, safety
+  wording with warning-only findings, clean-package report regression,
+  clean-package JSON dry-run, Angular lint, GitHub `local fork safety / local
+  fork safety`, and forbidden-path absence passed.
+- Next safe decision:
+  - Option A: `Y-FE-LOCAL-REVIEW-03 scoped local UI re-review packet
+    docs-only`;
+  - Option B: `Y-FE-LOCAL-REVIEW-03 scoped local UI re-review execution`, only
+    after explicit approval and no source changes;
+  - Option C: hold frontend copy work and return to docs/report/checker lane.
+- Recommended next lane:
+  `Y-FE-LOCAL-REVIEW-03 scoped local UI re-review packet docs-only`.
+- Artifact generation remains HOLD.
+- Risk: Low / docs-only closeout.
+
 ### Y-CI-03 reusable local safety workflow design
 
 - Status: completed via fork PR #95.

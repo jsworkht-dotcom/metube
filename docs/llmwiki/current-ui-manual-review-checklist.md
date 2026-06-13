@@ -316,6 +316,39 @@ payloads, backend cookie handling, and local-only security enforcement
 unchanged. If disabling, hiding, removing, or changing cookie upload behavior is
 desired, use a separate explicit behavior/visibility/security lane.
 
+## Y-FE-COPY-06 Manual Review Closeout
+
+Y-FE-COPY-05 is complete via PR #121.
+
+- Head commit: `e960b11fe6f301a3d21e0bda2f310ea5fb71bdba`.
+- Squash merge commit / final `fork/master`:
+  `eb22d5746267f972c1f4e1f2397a7fba6e83a161`.
+- Changed copy: `Cookie設定（上級者向け）`,
+  `Cookieファイルを選択`, `Cookieファイルを変更`, `Cookie未設定`,
+  `Cookie設定あり`, and helper text warning that beginners normally should
+  not use Cookie handling because Cookie data is personal information.
+- Finding resolution: the advanced settings Cookie helper no longer promotes
+  restricted/private download cookie upload and now uses cautionary
+  advanced-only Japanese-first wording.
+- Preserved boundaries: no cookie upload, file input, delete cookie,
+  `hasCookies`, `cookieUploadInProgress`, handler, state management,
+  API/backend, download, queue, subscription, routing, service worker, build
+  tooling, dependency, package/lockfile, or generated artifact changes.
+- Verification recorded from PR #121: `git diff --check`, repo safety checks,
+  safety wording with warning-only findings, clean-package report regression,
+  clean-package JSON dry-run, Angular lint, GitHub `local fork safety / local
+  fork safety`, and forbidden-path absence all passed.
+
+Next recommended lane:
+
+```text
+Y-FE-LOCAL-REVIEW-03 scoped local UI re-review packet docs-only
+```
+
+Use that packet if visual confirmation of the post-PR #121 Cookie wording is
+desired. Runtime UI review execution remains a separate explicit lane with no
+source changes.
+
 ## Scope
 
 - Add/download form
