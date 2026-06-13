@@ -55,10 +55,186 @@ Beginner-facing work should keep Japanese wording short, concrete, and
 action-oriented. It should favor "what to do next" over technical explanation
 and should preserve the existing local-only safety posture.
 
+## Y-UX-COPY-01 Safe-Use Microcopy Review
+
+Y-UX-COPY-01 reviews safe-use microcopy for beginner-facing UX. This section is
+docs-only planning. It does not change frontend copy, backend behavior, runtime
+behavior, package output, generated folders, or GitHub settings.
+
+The review covers wording for:
+
+- local-only safety;
+- personal-use scope;
+- allowed-use and not-allowed-use boundaries;
+- stop/quit guidance;
+- save-folder guidance;
+- error next actions;
+- help and troubleshooting entry points;
+- update-status safety wording.
+
+### Current Copy Baseline
+
+- Japanese-localized UI exists.
+- Beginner guide source docs exist.
+- Y-UX-PLAN-01 created this beginner UX planning baseline.
+- Artifact generation remains HOLD.
+- Beginner guide source planning already keeps local-only, personal-use,
+  save-folder, stop/quit, troubleshooting, and safe-use boundaries visible.
+
+### Microcopy Principles
+
+- Put local-only scope first.
+- Say personal-use only.
+- Tell users to use only content they are allowed to save.
+- Do not mention or invite cookie/token/secret use.
+- Do not describe DRM/auth/restriction bypass.
+- Do not normalize public hosting or external-user service use.
+- Use short, calm, beginner-friendly Japanese.
+- Give the next safe action.
+- Avoid blame, pressure, or fear-based copy.
+
+### Recommended Wording Families
+
+Local-only notice:
+
+```text
+このツールは、このパソコンの中だけで使うローカル専用ツールです。
+```
+
+Allowed-use notice:
+
+```text
+自分の動画、許可を得た動画、保存してよい動画だけに使ってください。
+```
+
+Not-allowed-use notice:
+
+```text
+公開サービス化、広告収益化、制限回避、認証回避のためには使いません。
+```
+
+Save-folder guidance:
+
+```text
+保存が終わったら「保存先を開く」から確認できます。
+```
+
+Stop/quit guidance:
+
+```text
+保存中は完了を待ってから終了してください。迷ったら「停止して終了」を使います。
+```
+
+Error next-action guidance:
+
+```text
+うまくいかない場合は、エラー文を残して、もう一度だけ試してください。
+```
+
+Troubleshooting entry guidance:
+
+```text
+困ったときは「困ったとき」を開き、今見えているエラー文を残してください。
+```
+
+Update-status safety wording:
+
+```text
+更新情報は確認用です。更新が必要そうな場合は、案内が出るまで待ってください。
+```
+
+### Avoid Wording Families
+
+Avoid these wording families in beginner-facing copy:
+
+- bypass
+- unlock
+- unrestricted
+- hidden
+- cookie upload guidance for beginner flow
+- token/secret handling
+- public access
+- share with others
+- auto-update now
+- force update
+- mass download optimization
+
+The intent is not to hide safety limits. The copy should name the safe boundary
+plainly, then give one safe next action.
+
+### Review Notes By Surface
+
+First-open and local-only notices should answer "where does this run?" before
+any feature detail. Keep the first sentence local and concrete.
+
+Allowed-use copy should be positive and short. Prefer "save only content you
+are allowed to save" over legalistic or fearful wording.
+
+Not-allowed-use copy should stay calm and categorical. It should not explain
+methods or offer alternate paths.
+
+Save-folder copy should point to the visible "保存先を開く" action and avoid
+internal runtime paths.
+
+Stop/quit copy should tell the user what to do while saving is active. The
+preferred beginner phrase is "停止して終了" when the app provides that action.
+
+Error copy should preserve the error text and allow one retry. After that, it
+should move the user to help/troubleshooting rather than advanced repair steps.
+
+Troubleshooting entry copy should make "困ったとき" the safe next place, not a
+developer workflow.
+
+Update-status copy should be readonly. It may say that information is available
+for checking, but it should not suggest immediate update execution in the
+beginner flow.
+
+### Next Implementation Boundaries
+
+Docs-only review:
+
+- allowed now;
+- may update LLMwiki planning, roadmap, and handoff docs;
+- may collect candidate copy;
+- must not change runtime UI files.
+
+Frontend copy-only implementation:
+
+- later separate lane;
+- `ui/**` files must be explicitly scoped;
+- no dependency, build, package, generated output, or runtime behavior changes.
+
+Runtime behavior:
+
+- later separate lane;
+- not part of Y-UX-COPY-01.
+
+### Explicitly Not Performed
+
+Y-UX-COPY-01 does not perform:
+
+- frontend code changes;
+- backend code changes;
+- runtime behavior changes;
+- artifact generation;
+- generated package output;
+- CLEAN folder creation;
+- metadata or checksum generation;
+- real download verification;
+- recipient handoff or sharing;
+- dependency installation operations;
+- container image operations;
+- `.github/workflows/` changes;
+- GitHub settings mutation;
+- `.gitignore` changes;
+- credential-bearing file handling;
+- secret-like value handling;
+- public exposure operations;
+- DRM/auth/restriction bypass guidance.
+
 ## Next UX Candidates
 
 - `Y-UI-QUALITY-01 quality selector / label review`
-- `Y-UX-COPY-01 safe-use microcopy review`
 - `Y-UX-HELP-01 help/troubleshooting entry review`
 - `Y-UX-STATE-01 status / progress / completion clarity review`
 - `Y-UX-STOP-01 stop/quit user-flow design`
@@ -72,12 +248,13 @@ lane name while keeping the candidate intent.
 
 Recommended first next lane:
 
-- `Y-UI-QUALITY-01` or `Y-UX-COPY-01`.
+- `Y-UI-QUALITY-01 quality selector / label review` docs-only follow-up using a
+  non-colliding lane name; or
+- frontend copy-only implementation if explicitly scoped later.
 
 Repo-history note: because historical `Y-UI-QUALITY-01` is already complete in
 this fork, prefer a fresh quality selector / label review follow-up lane name
-if implementation starts. Use `Y-UX-COPY-01 safe-use microcopy review` when the
-next PR should remain docs-only or copy-planning only.
+if implementation starts.
 
 Prefer the quality selector / label review path only if the next task explicitly
 scopes UI files and accepts the human-reviewed frontend lane.
